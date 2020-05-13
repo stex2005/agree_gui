@@ -13,6 +13,8 @@
 #include <QMessageBox>
 #include <iostream>
 #include "../include/agree_gui/main_window.hpp"
+#include "../include/agree_gui/login.h"
+#include "../include/agree_gui/paginaprincipale.h"
 
 /*****************************************************************************
 ** Namespaces
@@ -169,3 +171,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 }  // namespace agree_gui
 
+
+void agree_gui::MainWindow::on_button_connect_clicked()
+{
+    Login = new login(this);
+    Login ->show();
+}

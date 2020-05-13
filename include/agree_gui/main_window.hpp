@@ -15,6 +15,14 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_main_window.h"
 #include "qnode.hpp"
+#include "login.h"
+#include "paginaprincipale.h"
+
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSql>
+#include <QtSql/QtSql>
+#include <QtDebug>
+#include <QFileInfo>
 
 /*****************************************************************************
 ** Namespace
@@ -54,9 +62,14 @@ public Q_SLOTS:
     *******************************************/
     void updateLoggingView(); // no idea why this can't connect automatically
 
+private slots:
+    void on_button_connect_clicked();
+
 private:
 	Ui::MainWindowDesign ui;
 	QNode qnode;
+  paginaprincipale *Paginaprincipale;
+  login *Login;
 };
 
 }  // namespace agree_gui

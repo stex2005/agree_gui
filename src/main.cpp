@@ -12,6 +12,8 @@
 #include <QtGui>
 #include <QApplication>
 #include "../include/agree_gui/main_window.hpp"
+#include "../include/agree_gui/login.h"
+#include "../include/agree_gui/paginaprincipale.h"
 
 /*****************************************************************************
 ** Main
