@@ -33,6 +33,7 @@ QString dati::rip1_prec, dati::rip2_prec, dati::rip3_prec, dati::rip4_prec, dati
 QString dati::mood;
 QString dati::mood_prec;
 QString dati::ex1, dati::ex2, dati::ex3, dati::ex4, dati::ex5, dati::ex6, dati::ex7;
+QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex5, dati::num_ex6, dati::num_ex7;
 
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
 paginaprincipale::paginaprincipale(QWidget *parent) :
@@ -755,117 +756,244 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
  if(ui->checkBox_ex1->isChecked())
  {
-   dati::ex1 = "target senza ogg";
+   dati::ex1 = ui->comboBox_ex1->currentText();
+
    dati::rip1= ui->lineEdit_ex1->text();
-   QSqlQuery es1;
-   es1.prepare("update Parametri_Paziente set ex1 = '"+dati::ex1+"' , rip1 = '"+dati::rip1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-   es1.exec();
-   if(es1.exec())
-   {
-     QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+   QSqlQuery selezione1;
+   selezione1.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex1+"'");
+   selezione1.exec();
+   if (selezione1.exec()) {
+     while(selezione1.next())
+     {
+     dati::num_ex1 = selezione1.value(0).toString();
+
+       }
+     if(dati::rip1.toInt()< 30) {
+     QSqlQuery es1;
+     es1.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"' , rip1 = '"+dati::rip1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+     es1.exec();
+     if(es1.exec())
+     {
+       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+     }
+     else {
+       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+     }
+     }
+     else if(dati::rip1.toInt()>30)
+     {
+       QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni del primo esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+
+
+          }
    }
-   else {
-     QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-   }
+
+
 
 
  }
  if(ui->checkBox_ex2->isChecked())
  {
-   dati::ex2 = "target con ogg";
+   dati::ex2 = ui->comboBox_ex2->currentText();
+
    dati::rip2= ui->lineEdit_ex2->text();
-   QSqlQuery es2;
-   es2.prepare("update Parametri_Paziente set ex2 = '"+dati::ex2+"' , rip2 = '"+dati::rip2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-   es2.exec();
-   if(es2.exec())
-   {
-     QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-   }
-   else {
-     QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+   QSqlQuery selezione2;
+   selezione2.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex2+"'");
+   selezione2.exec();
+   if (selezione2.exec()) {
+     while(selezione2.next())
+     {
+     dati::num_ex2 = selezione2.value(0).toString();
+
+
+       }
+     if(dati::rip2.toInt()<30) {
+     QSqlQuery es2;
+     es2.prepare("update Parametri_Paziente set ex2 = '"+dati::num_ex2+"' , rip2 = '"+dati::rip2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+     es2.exec();
+     if(es2.exec())
+     {
+       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+     }
+     else {
+       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+     }
+     }
+     else if (dati::rip2.toInt()>30)
+     {
+       QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+     }
    }
 
  }
  if(ui->checkBox_ex3->isChecked())
  {
-   dati::ex3= "target spazio";
+   dati::ex3 = ui->comboBox_ex3->currentText();
+
    dati::rip3= ui->lineEdit_ex3->text();
-   QSqlQuery es3;
-   es3.prepare("update Parametri_Paziente set ex3 = '"+dati::ex3+"' , rip3 = '"+dati::rip3+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-   es3.exec();
-   if(es3.exec())
-   {
-     QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-   }
-   else {
-     QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+   QSqlQuery selezione3;
+   selezione3.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex3+"'");
+   selezione3.exec();
+   if (selezione3.exec()) {
+     while(selezione3.next())
+     {
+     dati::num_ex3 = selezione3.value(0).toString();
+
+
+       }
+     if(dati::rip3.toInt()<30) {
+     QSqlQuery es3;
+     es3.prepare("update Parametri_Paziente set ex3 = '"+dati::num_ex3+"' , rip3 = '"+dati::rip3+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+     es3.exec();
+     if(es3.exec())
+     {
+       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+     }
+     else {
+       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+     }
+     }
+     else if (dati::rip3.toInt()>30) {
+       QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+     }
    }
 
  }
 if(ui->checkBox_ex4->isChecked())
 {
-  dati::ex4 = "target spazio ogg";
+  dati::ex4 = ui->comboBox_ex4->currentText();
+
   dati::rip4= ui->lineEdit_ex4->text();
-  QSqlQuery es4;
-  es4.prepare("update Parametri_Paziente set ex4 = '"+dati::ex4+"' , rip4 = '"+dati::rip4+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-  es4.exec();
-  if(es4.exec())
-  {
-    QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-  }
-  else {
-    QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+  QSqlQuery selezione4;
+  selezione4.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex4+"'");
+  selezione4.exec();
+  if (selezione4.exec()) {
+    while(selezione4.next())
+    {
+    dati::num_ex4 = selezione4.value(0).toString();
+
+
+      }
+    if (dati::rip4.toInt()<30) {
+    QSqlQuery es4;
+    es4.prepare("update Parametri_Paziente set ex4 = '"+dati::num_ex4+"' , rip4 = '"+dati::rip4+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    es4.exec();
+    if(es4.exec())
+    {
+      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+    }
+    else {
+      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+    }
+    }
+    else if (dati::rip4.toInt()>30)
+    {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
   }
 
 }
 if(ui->checkBox_ex5->isChecked())
 {
-  dati::ex5 = "mano bocca";
+  dati::ex5 = ui->comboBox_ex5->currentText();
+
   dati::rip5= ui->lineEdit_ex5->text();
-  QSqlQuery es5;
-  es5.prepare("update Parametri_Paziente set ex5 = '"+dati::ex5+"' , rip5 = '"+dati::rip5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-  es5.exec();
-  if(es5.exec())
-  {
-    QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-  }
-  else {
-    QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+  QSqlQuery selezione5;
+  selezione5.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex5+"'");
+  selezione5.exec();
+  if (selezione5.exec()) {
+    while(selezione5.next())
+    {
+    dati::num_ex5 = selezione5.value(0).toString();
+
+
+      }
+    if(dati::rip5.toInt()<30) {
+    QSqlQuery es5;
+    es5.prepare("update Parametri_Paziente set ex5 = '"+dati::num_ex5+"' , rip5 = '"+dati::rip5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    es5.exec();
+    if(es5.exec())
+    {
+      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+    }
+    else {
+      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+    }
+    }
+    else if(dati::rip5.toInt()>30) {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
+
   }
 
 }
 if(ui->checkBox_ex6->isChecked())
 {
-  dati::ex6 = "mano bocca oggetto";
+  dati::ex6 = ui->comboBox_ex6->currentText();
+
   dati::rip6= ui->lineEdit_ex6->text();
-  QSqlQuery es6;
-  es6.prepare("update Parametri_Paziente set ex6 = '"+dati::ex6+"' , rip6 = '"+dati::rip6+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-  es6.exec();
-  if(es6.exec())
-  {
-    QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-  }
-  else {
-    QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+  QSqlQuery selezione6;
+  selezione6.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex6+"'");
+  selezione6.exec();
+  if (selezione6.exec()) {
+    while(selezione6.next())
+    {
+    dati::num_ex6 = selezione6.value(0).toString();
+
+
+      }
+    if(dati::rip6.toInt()<30) {
+    QSqlQuery es6;
+    es6.prepare("update Parametri_Paziente set ex6 = '"+dati::num_ex6+"' , rip6 = '"+dati::rip6+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    es6.exec();
+    if(es6.exec())
+    {
+      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+    }
+    else {
+      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+    }
+    }
+    else if(dati::rip6.toInt()>30)
+    {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
   }
 
 
 }
 if(ui->checkBox_7->isChecked())
 {
-  dati::ex7 = "elevazione laterale";
-  dati::rip7= ui->lineEdit_ex7->text();
-  QSqlQuery es7;
-  es7.prepare("update Parametri_Paziente set ex7 = '"+dati::ex7+"' , rip7 = '"+dati::rip7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-  es7.exec();
-  if(es7.exec())
-  {
-    QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-  }
-  else {
-    QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-  }
+  dati::ex7 = ui->comboBox_ex7->currentText();
 
+  dati::rip7= ui->lineEdit_ex7->text();
+  QSqlQuery selezione7;
+  selezione7.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex7+"'");
+  selezione7.exec();
+  if (selezione7.exec()) {
+    while(selezione7.next())
+    {
+    dati::num_ex7 = selezione7.value(0).toString();
+
+
+      }
+    if(dati::rip7.toInt()<30) {
+    QSqlQuery es7;
+    es7.prepare("update Parametri_Paziente set ex7 = '"+dati::num_ex7+"' , rip7 = '"+dati::rip7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    es7.exec();
+    if(es7.exec())
+    {
+      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+    }
+    else {
+      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+    }
+    }
+    else if(dati::rip7.toInt()>30)
+    {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
+  }
 
 }
 
@@ -988,65 +1116,96 @@ void paginaprincipale::on_pushButton_controllo_clicked()
          r5 = ui->lineEdit_ex5->placeholderText();
          r6 = ui->lineEdit_ex6->placeholderText();
          r7= ui->lineEdit_ex7->placeholderText();
-         ui->lineEdit_ex1->setText(r1);
-         ui->lineEdit_ex2->setText(r2);
-         ui->lineEdit_ex3->setText(r3);
-         ui->lineEdit_ex4->setText(r4);
-         ui->lineEdit_ex5->setText(r5);
-         ui->lineEdit_ex6->setText(r6);
-         ui->lineEdit_ex7->setText(r7);
+//         ui->lineEdit_ex1->setText(r1);
+//         ui->lineEdit_ex2->setText(r2);
+//         ui->lineEdit_ex3->setText(r3);
+//         ui->lineEdit_ex4->setText(r4);
+//         ui->lineEdit_ex5->setText(r5);
+//         ui->lineEdit_ex6->setText(r6);
+//         ui->lineEdit_ex7->setText(r7);
 
 
 
                      if (flag==4) {
                         ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
 
-//                        r1 = ui->lineEdit_ex1->placeholderText();
-//                        r2 = ui->lineEdit_ex2->placeholderText();
-//                        r3 = ui->lineEdit_ex3->placeholderText();
-//                        r4 = ui->lineEdit_ex4->placeholderText();
-//                        r5 = ui->lineEdit_ex5->placeholderText();
-//                        r6 = ui->lineEdit_ex6->placeholderText();
-//                        r7= ui->lineEdit_ex7->placeholderText();
-//                        ui->lineEdit_ex1->setText(r1);
-//                        ui->lineEdit_ex2->setText(r2);
-//                        ui->lineEdit_ex3->setText(r3);
-//                        ui->lineEdit_ex4->setText(r4);
-//                        ui->lineEdit_ex5->setText(r5);
-//                        ui->lineEdit_ex6->setText(r6);
-//                        ui->lineEdit_ex7->setText(r7);
                        qDebug()<< "qui";
                       if(!(dati::lex1==0))
                       {
                         ui->checkBox_ex1->setChecked(true);
-                        QString r1;
+                        QSqlQuery selezione1;
+                        selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
+                        selezione1.exec();
+                        if (selezione1.exec()) {
+
+                          while(selezione1.next())
+                        { ui->comboBox_ex1->setCurrentText(selezione1.value(0).toString());
+                            QString ex1;
+                            ex1 = selezione1.value(0).toString();
+                            qDebug()<< ex1;
+
+                            }
+
+
+
                         r1 = dati::rip1_prec;
                         ui->lineEdit_ex1->setText(r1);
-
                         qDebug()<< r1;
-                      }
+
+
+                        }
+
+                          }
                       else {
                         ui->checkBox_ex1->setChecked(false);
                       }
                       if(!(dati::lex2==0))
                       {
                         ui->checkBox_ex2->setChecked(true);
-                        QString r2;
+                        QSqlQuery selezione2;
+                        selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
+                        selezione2.exec();
+                        if (selezione2.exec()) {
+
+                          while(selezione2.next())
+                        { ui->comboBox_ex2->setCurrentText(selezione2.value(0).toString());
+                            QString ex2;
+                            ex2 = selezione2.value(0).toString();
+                            qDebug()<< ex2;
+                            }
+
+
                         r2 = dati::rip2_prec;
-                        ui->lineEdit_ex1->setText(r2);
+                        ui->lineEdit_ex2->setText(r2);
+                        qDebug()<<r2;
+                      }
                       }
                       else {
                         ui->checkBox_ex2->setChecked(false);
                       }
 
                       if(!(dati::lex3==0))
-                      { qDebug()<< "ex3";
+                      {
                         ui->checkBox_ex3->setChecked(true);
-                        QString r3;
+                        QSqlQuery selezione3;
+                        selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
+                        selezione3.exec();
+                        if (selezione3.exec()) {
+
+                          while(selezione3.next())
+                        { ui->comboBox_ex3->setCurrentText(selezione3.value(0).toString());
+                            QString ex3;
+                            ex3 = selezione3.value(0).toString();
+                            qDebug()<< ex3;
+                            }
+
+
                         r3 = dati::rip3_prec;
+                        qDebug()<<r3;
 
-                        ui->lineEdit_ex1->setText(r3);
+                       ui->lineEdit_ex3->setText(r3);
 
+                      }
                       }
                       else {
                         ui->checkBox_ex3->setChecked(false);
@@ -1054,10 +1213,24 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex4==0))
                       {
                         ui->checkBox_ex4->setChecked(true);
-                        QString r4;
-                        r4 = dati::rip4_prec;
-                        ui->lineEdit_ex1->setText(r4);
+                        QSqlQuery selezione4;
+                        selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
+                        selezione4.exec();
+                        if (selezione4.exec()){
 
+                          while(selezione4.next())
+                        { ui->comboBox_ex4->setCurrentText(selezione4.value(0).toString());
+                            QString ex4;
+                            ex4 = selezione4.value(0).toString();
+                            qDebug()<< ex4;
+                            }
+
+
+                        r4 = dati::rip4_prec;
+                        ui->lineEdit_ex4->setText(r4);
+                        qDebug()<< r4;
+
+                      }
                       }
                       else {
                         ui->checkBox_ex4->setChecked(false);
@@ -1065,10 +1238,24 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex5==0))
                       {
                         ui->checkBox_ex5->setChecked(true);
-                        QString r5;
-                        r5 = dati::rip5_prec;
-                        ui->lineEdit_ex1->setText(r5);
+                        QSqlQuery selezione5;
+                        selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
+                        selezione5.exec();
+                        if (selezione5.exec()) {
 
+                          while(selezione5.next())
+                        { ui->comboBox_ex5->setCurrentText(selezione5.value(0).toString());
+                            QString ex5;
+                            ex5 = selezione5.value(0).toString();
+                            qDebug()<< ex5;
+                            }
+
+
+                        r5 = dati::rip5_prec;
+                        ui->lineEdit_ex5->setText(r5);
+                        qDebug()<< r5;
+
+                      }
                       }
                       else {
                         ui->checkBox_ex5->setChecked(false);
@@ -1076,10 +1263,24 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex6==0))
                       {
                         ui->checkBox_ex6->setChecked(true);
-                        QString r6;
-                        r6 = dati::rip6_prec;
-                        ui->lineEdit_ex1->setText(r6);
+                        QSqlQuery selezione6;
+                        selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
+                        selezione6.exec();
+                        if (selezione6.exec()){
 
+                          while(selezione6.next())
+                        { ui->comboBox_ex6->setCurrentText(selezione6.value(0).toString());
+                            QString ex6;
+                            ex6 = selezione6.value(0).toString();
+                            qDebug()<< ex6;
+
+                            }
+
+                        r6 = dati::rip6_prec;
+                       ui->lineEdit_ex6->setText(r6);
+                       qDebug()<< r6;
+
+                      }
                       }
                       else {
                         ui->checkBox_ex6->setChecked(false);
@@ -1087,20 +1288,56 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex7==0))
                       {
                         ui->checkBox_7->setChecked(true);
-                        QString r7;
-                        r7 = dati::rip7_prec;
-                        ui->lineEdit_ex1->setText(r7);
+                        QSqlQuery selezione7;
+                        selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
+                        selezione7.exec();
+                        if (selezione7.exec()) {
 
+                          while(selezione7.next())
+                        { ui->comboBox_ex7->setCurrentText(selezione7.value(0).toString());
+                            QString ex7;
+                            ex7 = selezione7.value(0).toString();
+                            qDebug()<< ex7;
+                            }
+
+
+
+                        r7 = dati::rip7_prec;
+                        ui->lineEdit_ex7->setText(r7);
+                        qDebug()<< r7;
+
+
+                      }
                       }
                       else {
                         ui->checkBox_7->setChecked(false);
                       }
+                      qDebug()<<r1;
+                      qDebug()<< r2;
+                      qDebug()<< r3;
+                      qDebug()<< r4;
+                      qDebug()<< r5;
+                      qDebug()<< r6;
+                      qDebug()<< r7;
+                      ui->lineEdit_ex1->setText(r1);
+                      ui->lineEdit_ex2->setText(r2);
+                      ui->lineEdit_ex3->setText(r3);
+                      ui->lineEdit_ex4->setText(r4);
+                      ui->lineEdit_ex5->setText(r5);
+                      ui->lineEdit_ex6->setText(r6);
+                      ui->lineEdit_ex7->setText(r7);
                      }
+
                      else {
                        ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
                        qDebug()<< "fino qui ok";
-
-
+                     r1 = ui->lineEdit_ex1->placeholderText();
+                     r2 = ui->lineEdit_ex2->placeholderText();
+                     r3 = ui->lineEdit_ex3->placeholderText();
+                     r4 = ui->lineEdit_ex4->placeholderText();
+                     r5 = ui->lineEdit_ex5->placeholderText();
+                     r6 = ui->lineEdit_ex6->placeholderText();
+                     r7= ui->lineEdit_ex7->placeholderText();
                      ui->lineEdit_ex1->setText(r1);
                      ui->lineEdit_ex2->setText(r2);
                      ui->lineEdit_ex3->setText(r3);
@@ -1109,20 +1346,8 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                      ui->lineEdit_ex6->setText(r6);
                      ui->lineEdit_ex7->setText(r7);
                      }
-                     qDebug()<< r1;
-                     qDebug()<< r3;
-                     qDebug()<< r2;
-                     qDebug()<< r4;
-                     qDebug()<< r5;
-                     qDebug()<< r6;
-                     qDebug()<< r7;
-                     ui->lineEdit_ex1->setText(r1);
-                     ui->lineEdit_ex2->setText(r2);
-                     ui->lineEdit_ex3->setText(r3);
-                     ui->lineEdit_ex4->setText(r4);
-                     ui->lineEdit_ex5->setText(r5);
-                     ui->lineEdit_ex6->setText(r6);
-                     ui->lineEdit_ex7->setText(r7);
+
+
 
 
 
