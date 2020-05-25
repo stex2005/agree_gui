@@ -89,7 +89,11 @@ void MainWindow::on_button_connect_clicked(bool check ) {
 		}
 	}
 }
+void MainWindow::on_pushButton_ros_clicked()
+{
+  flag = true;
 
+}
 
 void MainWindow::on_checkbox_use_environment_stateChanged(int state) {
 	bool enabled;
@@ -168,4 +172,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 }  // namespace agree_gui
+
+
 

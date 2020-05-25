@@ -20,8 +20,9 @@
 ** Namespace
 *****************************************************************************/
 
-namespace agree_gui {
 
+namespace agree_gui {
+extern bool flag;
 /*****************************************************************************
 ** Interface [MainWindow]
 *****************************************************************************/
@@ -29,6 +30,8 @@ namespace agree_gui {
  * @brief Qt central, all operations relating to the view part here.
  */
 class MainWindow : public QMainWindow {
+
+
 Q_OBJECT
 
 public:
@@ -53,6 +56,12 @@ public Q_SLOTS:
     ** Manual connections
     *******************************************/
     void updateLoggingView(); // no idea why this can't connect automatically
+
+      void on_pushButton_ros_clicked();
+
+
+private slots:
+ //   void on_pushButton_ros_clicked();
 
 private:
 	Ui::MainWindowDesign ui;

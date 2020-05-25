@@ -22,6 +22,7 @@
 *****************************************************************************/
 
 namespace agree_gui {
+bool flag;
 
 /*****************************************************************************
 ** Implementation
@@ -72,17 +73,35 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 void QNode::run() {
 	ros::Rate loop_rate(1);
 	int count = 0;
+
+
+
+
 	while ( ros::ok() ) {
 
 		std_msgs::String msg;
+
 		std::stringstream ss;
+
+
 		ss << "hello world " << count;
 		msg.data = ss.str();
+
+
 		chatter_publisher.publish(msg);
+
 		log(Info,std::string("I sent: ")+msg.data);
+
 		ros::spinOnce();
 		loop_rate.sleep();
 		++count;
+    if (flag== true)
+    {
+      system("rosrun turtlesim turtlesim_node");
+
+    }
+
+
 	}
 	std::cout << "Ros shutdown, proceeding to close the gui." << std::endl;
 	Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
