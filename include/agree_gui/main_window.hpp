@@ -63,7 +63,7 @@ public Q_SLOTS:
     void updateLoggingView(); // no idea why this can't connect automatically
 
 private slots:
-    void on_button_connect_clicked();
+    //void on_button_connect_clicked();
 
 private:
 	Ui::MainWindowDesign ui;

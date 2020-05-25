@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/immagini">
+        <file>images/bracciodx.png</file>
+        <file>images/icon.png</file>
+    </qresource>
+</RCC>

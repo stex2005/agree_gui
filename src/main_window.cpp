@@ -46,6 +46,8 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 	ui.view_logging->setModel(qnode.loggingModel());
     QObject::connect(&qnode, SIGNAL(loggingUpdated()), this, SLOT(updateLoggingView()));
 
+
+
     /*********************
     ** Auto Start
     **********************/
@@ -73,7 +75,10 @@ void MainWindow::showNoMasterMessage() {
  */
 
 void MainWindow::on_button_connect_clicked(bool check ) {
+
 	if ( ui.checkbox_use_environment->isChecked() ) {
+    Login = new login(this);
+    Login ->show();
 		if ( !qnode.init() ) {
 			showNoMasterMessage();
 		} else {
@@ -172,8 +177,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }  // namespace agree_gui
 
 
-void agree_gui::MainWindow::on_button_connect_clicked()
-{
-    Login = new login(this);
-    Login ->show();
-}
+//void agree_gui::MainWindow::on_button_connect_clicked()
+//{
+//    Login = new login(this);
+//    Login ->show();
+//}

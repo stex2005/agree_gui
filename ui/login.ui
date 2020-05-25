@@ -27,58 +27,7 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout">
-          <item row="3" column="2">
-           <widget class="QLineEdit" name="lineEdit_username"/>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="label_password">
-            <property name="font">
-             <font>
-              <family>Ubuntu</family>
-              <pointsize>13</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Password</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" rowspan="7">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="pixmap">
-             <pixmap resource="../../../../master_thesis/resource.qrc">:/img/img/agree-logo.jpg</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QPushButton" name="pushButton_accedi">
-            <property name="font">
-             <font>
-              <family>Sans</family>
-              <pointsize>13</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Accedi</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../../../../master_thesis/resource.qrc">
-              <normaloff>:/img/img/icone/Male.png</normaloff>:/img/img/icone/Male.png</iconset>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="2">
+          <item row="7" column="2">
            <widget class="QPushButton" name="pushButton_newrec">
             <property name="font">
              <font>
@@ -95,19 +44,53 @@
              <string>Nuova Registrazione </string>
             </property>
             <property name="icon">
-             <iconset resource="../../../../master_thesis/resource.qrc">
-              <normaloff>:/img/img/icone/Add.png</normaloff>:/img/img/icone/Add.png</iconset>
+             <iconset>
+              <normaloff>../resources/images/img/icone/Add.png</normaloff>../resources/images/img/icone/Add.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="label_username">
+            <property name="font">
+             <font>
+              <family>Ubuntu</family>
+              <pointsize>13</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Username</string>
+            </property>
+            <property name="pixmap">
+             <pixmap>:/images/icon.png</pixmap>
             </property>
            </widget>
           </item>
           <item row="4" column="2">
-           <widget class="QLineEdit" name="lineEdit_password">
-            <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
+           <widget class="QLineEdit" name="lineEdit_username"/>
+          </item>
+          <item row="6" column="2">
+           <widget class="QPushButton" name="pushButton_accedi">
+            <property name="font">
+             <font>
+              <family>Sans</family>
+              <pointsize>13</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Accedi</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../resources/images/img/icone/Male.png</normaloff>../resources/images/img/icone/Male.png</iconset>
             </property>
            </widget>
           </item>
-          <item row="8" column="3">
+          <item row="9" column="3">
            <widget class="QPushButton" name="pushButton_esci">
             <property name="font">
              <font>
@@ -121,24 +104,8 @@
              <string>Esci</string>
             </property>
             <property name="icon">
-             <iconset resource="../../../../master_thesis/resource.qrc">
-              <normaloff>:/img/img/icone/Turn off.png</normaloff>:/img/img/icone/Turn off.png</iconset>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_username">
-            <property name="font">
-             <font>
-              <family>Ubuntu</family>
-              <pointsize>13</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Username</string>
-            </property>
-            <property name="pixmap">
-             <pixmap>../Desktop/TESI/LoginApp_act_qt4/agree-logo.jpg</pixmap>
+             <iconset>
+              <normaloff>../resources/images/img/icone/Turn off.png</normaloff>../resources/images/img/icone/Turn off.png</iconset>
             </property>
            </widget>
           </item>
@@ -154,6 +121,52 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLineEdit" name="lineEdit_password">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLabel" name="label_password">
+            <property name="font">
+             <font>
+              <family>Ubuntu</family>
+              <pointsize>13</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="2">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="0" rowspan="8">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>:/images/icon.png</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -201,8 +214,8 @@
               <string>Salva</string>
              </property>
              <property name="icon">
-              <iconset resource="../../../../master_thesis/resource.qrc">
-               <normaloff>:/img/img/icone/Save.png</normaloff>:/img/img/icone/Save.png</iconset>
+              <iconset>
+               <normaloff>:/images/img/icone/Save.png</normaloff>:/images/img/icone/Save.png</iconset>
              </property>
             </widget>
            </item>
