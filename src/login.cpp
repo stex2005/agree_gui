@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include "../include/agree_gui/paginaprincipale.h"
 #include "../include/agree_gui/main_window.hpp"
+#include "../include/agree_gui/sc_assistivo.h"
 
 
 
@@ -16,6 +17,7 @@ int dati::password_i;
 int flag1;
 QString dati::count;
 QString dati::sigla;
+bool day;
 
 
 
@@ -108,11 +110,12 @@ void login::on_pushButton_accedi_clicked()
 
         }
      //apro una finestra in caso di scenario 3
-//     else if(dati::profilo==2){
-//         this->hide();
-//         Sc_assistivo = new sc_assistivo(this);
-//         Sc_assistivo -> show();
-//        }
+     else if(dati::profilo==3){
+         this->hide();
+         Sc_assistivo = new sc_assistivo(this);
+         Sc_assistivo -> show();
+
+        }
     }
 
         if (count >1)
@@ -170,6 +173,8 @@ Conferma = ui ->lineEdit_conferma->text();
 
 
      QSqlQuery qry;
+     QSqlQuery qry2;
+
 
 if (dati::password == Conferma) {
 
@@ -181,7 +186,7 @@ if (dati::password == Conferma) {
      {
          QMessageBox ::information(this,tr("Save"),tr("Salvato"));
          QMessageBox::information(this, tr("Information"), QString("Nuovo utente creato. Username : %1  e password:  %2").arg(dati::username).arg(dati::password));
-         //mydb1.close();
+         //mydb.close();
          this ->hide();
 
  //capire come mai non si aprono più le finestre interessate
@@ -190,11 +195,19 @@ if (dati::password == Conferma) {
          Paginaprincipale->show();
          //mydb.close();
         }
-//        else if(dati::profilo == 3) {
-//             Sc_assistivo = new sc_assistivo(this);
-//             Sc_assistivo ->show();
-//            // mydb.close();
-//         }
+        else if(dati::profilo == 3) {
+           if(!qry2.exec("insert into Utenti_ass (username, Nome, Cognome, DataNascita) values ('"+dati::username+"', '"+dati::Nome+"', '"+dati::Cognome+"', '"+dati::Data+"')"))
+          {
+            QMessageBox ::critical(this,tr("Errore"),tr("uff"));
+          }
+       else {
+
+           Sc_assistivo = new sc_assistivo(this);
+                       Sc_assistivo->show();
+          }
+
+            // mydb.close();
+         }
 
          }
 }

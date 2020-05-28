@@ -17,6 +17,7 @@
 #include "qnode.hpp"
 #include "login.h"
 #include "paginaprincipale.h"
+#include "sc_assistivo.h"
 
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSql>
@@ -70,6 +71,7 @@ private:
 	QNode qnode;
   paginaprincipale *Paginaprincipale;
   login *Login;
+  sc_assistivo *Sc_assistivo;
 };
 
 }  // namespace agree_gui

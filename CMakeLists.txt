@@ -63,10 +63,12 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 #    src/qnode.cpp
 #    src/login.cpp
 #    src/paginaprincipale.cpp
+#    src/sc_assistivo.cpp
 #    include/agree_gui/main_window.hpp
 #    include/agree_gui/qnode.hpp
 #    include/agree_gui/login.h
 #    include/agree_gui/paginaprincipale.h
+#    include/agree_gui/sc_assitivo.h
 #    )
 
 ##############################################################################

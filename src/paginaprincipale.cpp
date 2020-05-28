@@ -2,6 +2,7 @@
 #include "ui_paginaprincipale.h"
 #include "../include/agree_gui/login.h"
 #include "../include/agree_gui/main_window.hpp"
+#include "../include/agree_gui/sc_assistivo.h"
 #include <QMessageBox>
 
 
@@ -162,6 +163,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
       }
       else {
         QMessageBox ::critical(this,tr("Errore"),tr("bo3"));
+
       }
     }
 }
