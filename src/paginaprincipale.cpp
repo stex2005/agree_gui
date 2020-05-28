@@ -4,6 +4,7 @@
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/sc_assistivo.h"
 #include <QMessageBox>
+#include <QPixmap>
 
 
 int flag;
@@ -44,6 +45,12 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
   ui->stackedWidget->setCurrentWidget(ui->page_3);
+
+
+  // prova immagini
+  QPixmap pic1("/home/alice/catkin_ws/src/agree_gui/resources/images/img/sedia/sedia1.png");
+  ui->label_spalla->setPixmap(pic1);
+
 
   //creo la data
   QDate data;
@@ -202,8 +209,13 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
         QSqlQuery qry4;
         qry4.prepare("delete from Pazienti where Codice_ID ='"+dati::ind+"'");
         qry4.exec();
+
+        QSqlQuery qry5;
+        qry5.prepare("delete from Parametri_Paziente where Codice_ID ='"+dati::ind+"'");
+        qry5.exec();
         QMessageBox ::information(this,tr("Eliminato"),tr("Eliminato"));
         QMessageBox::information(this, tr("Information"), tr("Premere Elenco Pazienti per aggiornare il database dei Pazienti"));
+
       }
       else if(risposta==QMessageBox::No)
       {

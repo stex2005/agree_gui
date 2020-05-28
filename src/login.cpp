@@ -17,7 +17,7 @@ int dati::password_i;
 int flag1;
 QString dati::count;
 QString dati::sigla;
-bool day;
+
 
 
 
@@ -33,12 +33,9 @@ login::login(QWidget *parent) :
 
 mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
 //  mydb.setDatabaseName("../src/agree_gui/database/Sqlite_prova2");
-
-
-
-
-
-
+mydb.setHostName("alice");
+mydb.setUserName("alice");
+mydb.setPassword("ali");
 
   // questo mostra nella prima pagina se il database è connesso
   if (!mydb.open())
@@ -51,6 +48,7 @@ mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2
   //placeholder text
    ui->lineEdit_username->setPlaceholderText("Username");
    ui->lineEdit_password->setPlaceholderText("Password");
+
    QSqlQuery query;
    query.prepare("select count (*) from Count");
    query.exec();
@@ -196,7 +194,8 @@ if (dati::password == Conferma) {
          //mydb.close();
         }
         else if(dati::profilo == 3) {
-           if(!qry2.exec("insert into Utenti_ass (username, Nome, Cognome, DataNascita) values ('"+dati::username+"', '"+dati::Nome+"', '"+dati::Cognome+"', '"+dati::Data+"')"))
+
+           if(!qry2.exec("insert into Utenti_ass (usernameass, Nome, Cognome, DataNascita) values ('"+dati::username+"', '"+dati::Nome+"', '"+dati::Cognome+"', '"+dati::Data+"')"))
           {
             QMessageBox ::critical(this,tr("Errore"),tr("uff"));
           }
@@ -206,7 +205,7 @@ if (dati::password == Conferma) {
                        Sc_assistivo->show();
           }
 
-            // mydb.close();
+
          }
 
          }
