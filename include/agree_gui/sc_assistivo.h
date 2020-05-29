@@ -25,6 +25,7 @@ public:
   explicit sc_assistivo(QWidget *parent = nullptr);
   ~sc_assistivo();
 
+
 private slots:
   void on_pushButton_salva_clicked();
 
@@ -32,7 +33,8 @@ private slots:
 
 private:
   Ui::sc_assistivo *ui;
-  QSqlDatabase  mydb3;
+    QSqlDatabase  mydb3;
+
 };
 
 #endif // SC_ASSISTIVO_H

@@ -77,7 +77,7 @@ void sc_assistivo::on_pushButton_salva_clicked()
 
 
      QSqlQuery prova;
-     prova.prepare("insert into Utenti_ass (Patologia) values ('"+dati::patologia+"')");
+     prova.prepare("update Utenti_ass set Patologia = '"+dati::patologia+"'");
      prova.exec();
      if(prova.exec())
      {     QMessageBox::information(this, tr("done"), tr("done"));
