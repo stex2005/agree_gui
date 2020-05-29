@@ -47,6 +47,9 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->stackedWidget->setCurrentWidget(ui->page_3);
 
 
+
+
+
   // prova immagini
   QPixmap pic1("/home/alice/catkin_ws/src/agree_gui/resources/images/img/sedia/sedia1.png");
   ui->label_spalla->setPixmap(pic1);
