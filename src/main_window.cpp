@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "../include/agree_gui/main_window.hpp"
+#include "../include/agree_gui/matrix.h"
 
 /*****************************************************************************
 ** Namespaces
@@ -71,6 +72,8 @@ void MainWindow::showNoMasterMessage() {
  */
 
 void MainWindow::on_button_connect_clicked(bool check ) {
+  Matrix = new matrix(this);
+  Matrix -> show();
 	if ( ui.checkbox_use_environment->isChecked() ) {
 		if ( !qnode.init() ) {
 			showNoMasterMessage();

@@ -37,7 +37,7 @@ find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport)
 
 file(GLOB QT_FORMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ui/*.ui)
 file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
-file(GLOB_RECURSE QT_MOC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS include/agree_gui/*.hpp)
+file(GLOB_RECURSE QT_MOC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS include/agree_gui/*.hpp include/agree_gui/*.h)
 
 QT5_ADD_RESOURCES(QT_RESOURCES_CPP ${QT_RESOURCES})
 QT5_WRAP_UI(QT_FORMS_HPP ${QT_FORMS})
@@ -60,8 +60,9 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 #    src/main.cpp
 #    src/main_window.cpp
 #    src/qnode.cpp
-#    include/agree_qt_gui/main_window.hpp
-#    include/agree_qt_gui/qnode.hpp
+#    include/agree_gui/main_window.hpp
+#    include/agree_gui/qnode.hpp
+#    include/agreee_gui/matrix.h
 #    )
 
 ##############################################################################

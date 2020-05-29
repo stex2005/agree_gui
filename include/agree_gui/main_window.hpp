@@ -15,6 +15,8 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_main_window.h"
 #include "qnode.hpp"
+#include "matrix.h"
+#include <QTableView>
 
 /*****************************************************************************
 ** Namespace
@@ -66,6 +68,7 @@ private slots:
 private:
 	Ui::MainWindowDesign ui;
 	QNode qnode;
+  matrix *Matrix;
 };
 
 }  // namespace agree_gui
