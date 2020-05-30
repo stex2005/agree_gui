@@ -33,7 +33,7 @@ private slots:
 
 private:
   Ui::sc_assistivo *ui;
-    QSqlDatabase  mydb3;
+ //   QSqlDatabase  mydb3;
 
 };
 
