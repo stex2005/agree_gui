@@ -15,7 +15,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_main_window.h"
 #include "qnode.hpp"
-#include "matrix.h"
+#include "matrixwidget.h"
+#include "griddialog.h"
+
 #include <QTableView>
 
 /*****************************************************************************
@@ -65,10 +67,13 @@ public Q_SLOTS:
 private slots:
  //   void on_pushButton_ros_clicked();
 
+      void on_pushButton_grid_released();
+
 private:
 	Ui::MainWindowDesign ui;
 	QNode qnode;
-  matrix *Matrix;
+
+
 };
 
 }  // namespace agree_gui

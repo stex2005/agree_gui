@@ -13,7 +13,8 @@
 #include <QMessageBox>
 #include <iostream>
 #include "../include/agree_gui/main_window.hpp"
-#include "../include/agree_gui/matrix.h"
+#include "../include/agree_gui/matrixwidget.h"
+#include "../include/agree_gui/griddialog.h"
 
 /*****************************************************************************
 ** Namespaces
@@ -72,8 +73,7 @@ void MainWindow::showNoMasterMessage() {
  */
 
 void MainWindow::on_button_connect_clicked(bool check ) {
-  Matrix = new matrix(this);
-  Matrix -> show();
+
 	if ( ui.checkbox_use_environment->isChecked() ) {
 		if ( !qnode.init() ) {
 			showNoMasterMessage();
@@ -178,3 +178,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 
 
+
+void agree_gui::MainWindow::on_pushButton_grid_released()
+{
+  GridDialog* dia = new GridDialog(this);
+     dia->show();
+}
