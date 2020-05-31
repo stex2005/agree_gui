@@ -8,9 +8,10 @@ struct DataPoint {
     int x;
     int y;
     bool value;
-    QColor DrawColor; // we change this from selected / not selected.
+    QColor DrawColor{Qt::gray}; // we change this from selected / not selected.
     bool isSelected;
 };
+
 
 const int max_x = 15;
 const int max_y = 22;
@@ -18,7 +19,11 @@ const int max_y = 22;
 class MatrixWidget : public QWidget
 {
   Q_OBJECT
-  DataPoint Data[max_x][max_y];  /// this is where we want to load the data to
+  DataPoint Data[max_x][max_y]; // this is where we want to load the data to
+
+  int bw=0;
+  int bh=0;
+  int selCount= 0;
 public:
   explicit MatrixWidget(QWidget *parent = nullptr);
 

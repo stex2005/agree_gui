@@ -12,11 +12,38 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QPainter>
+#include <QMouseEvent>
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 {
+  LoadData();
 }
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
-{}
+{
+  QPoint p= event->pos(); //dove clicco
+
+  int xindex = p.x()/ bw;
+  int yindex = p.y()/ bh;
+  qDebug() <<yindex +1 <<" "<< xindex +1;
+  //get the data point (check se ind non è fuori dalla griglia)
+  DataPoint &dp = Data[yindex+1][xindex +1];
+
+  //zero non selezionabile
+  if(dp.value ==0) return;
+  if(dp.isSelected == false)
+  {
+     if(selCount>2) return;
+     dp.DrawColor = Qt::blue;
+     dp.isSelected = true;
+
+     selCount++;
+  }
+  else {
+    dp.DrawColor = Qt::green;
+    dp.isSelected = false;
+    selCount--;
+  }
+  update(); //aggiorna la griglia
+}
 void MatrixWidget::paintEvent(QPaintEvent *event)
 {
   QPainter p(this);
@@ -25,15 +52,17 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
    // size of area we have. w = width , h = height , we take 2 pixles for border
   int w = width() -2;
   int h = height() - 2;
-   // now we loop and drw the boxes
-  int bw = w / max_x;
-     int bh = h / max_y;
-     // now we loop and drw the boxes
-     for (int xi = 0; xi < max_x; ++xi) {
-         for (int yi = 0; yi < max_x; ++yi) {
-             p.drawRect( QRect( xi * bw, yi * bh, bw, bh  ) )  ;
-             p.drawText(QRect( xi * bw, yi * bh, bw, bh  ),
-                                  QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
+  //tiro fuori quanto dev essere grande ciascuna cella (divido la dimensione per il numero di celle che voglio avere
+   bw = w / max_y; // sono le mie colonne
+   bh = h / max_x; // sono le mie righe
+     // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
+
+     for (int xi = 0; xi < max_x-1; ++xi) {
+        for (int yi = 0; yi < max_y -1; ++yi) {
+                  p.setBrush(QBrush (Data[xi+1][yi+1].DrawColor));
+           QRect cellRect(yi*bw,xi*bh, bw,bh);
+             p.drawRect( cellRect )  ;
+             p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
          }
      }
 }
@@ -55,8 +84,18 @@ void MatrixWidget::LoadData()
       int x = list.at(0).toInt(); //mi riferisco alla prima colonna
       int y = list.at(1).toInt(); // alla seconda
       bool value = list.at(2).toInt(); // ai valori presenti nella 3 (bool)
-      if(x<max_x && y<max_y)
+
+
+
+      if(x<max_x && y<max_y) {
         Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
+        Data[x][y].isSelected = false;
+        if (Data[x][y].value ==0)
+          Data[x][y].DrawColor = Qt::gray;
+        else
+          Data[x][y].DrawColor = Qt::green;
+
+      }
       else
        qDebug()<< "x or y bigger than matrix!";
       }

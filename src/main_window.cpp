@@ -15,6 +15,7 @@
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/matrixwidget.h"
 #include "../include/agree_gui/griddialog.h"
+#include <QPainter>
 
 /*****************************************************************************
 ** Namespaces
