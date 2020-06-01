@@ -16,6 +16,7 @@
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 {
   LoadData();
+
 }
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
 {
@@ -34,6 +35,10 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
      if(selCount>2) return;
      dp.DrawColor = Qt::blue;
      dp.isSelected = true;
+     position.append(QPoint(yindex+1,xindex+1));
+     auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
+  // position.append(QPoint(yindex+1,xindex+1));
+
 
      selCount++;
   }
@@ -41,8 +46,25 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
     dp.DrawColor = Qt::green;
     dp.isSelected = false;
     selCount--;
+    auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
+    QPoint deletedFromVector = position[i1];
+    position.remove(i1);
   }
   update(); //aggiorna la griglia
+
+
+if (selCount==3)
+qDebug()<<position;
+
+
+//   QFile file_1("/home/alice/catkin_ws/src/agree_gui/resources/posizioni.txt");
+//   file_1.open(QIODevice::WriteOnly);
+//   QDataStream out(&file_1);
+//   out << position ;
+//   file_1.close();
+
+
+
 }
 void MatrixWidget::paintEvent(QPaintEvent *event)
 {
@@ -62,7 +84,7 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
                   p.setBrush(QBrush (Data[xi+1][yi+1].DrawColor));
            QRect cellRect(yi*bw,xi*bh, bw,bh);
              p.drawRect( cellRect )  ;
-             p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
+           //  p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
          }
      }
 }
@@ -102,4 +124,10 @@ void MatrixWidget::LoadData()
 
   }
    file.close();
+}
+
+void MatrixWidget::getpos(){
+  if (selCount==3)
+  qDebug()<<position;
+
 }

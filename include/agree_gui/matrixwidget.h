@@ -20,6 +20,11 @@ class MatrixWidget : public QWidget
 {
   Q_OBJECT
   DataPoint Data[max_x][max_y]; // this is where we want to load the data to
+ QVector<QPoint>position;
+
+
+
+
 
   int bw=0;
   int bh=0;
@@ -34,6 +39,8 @@ signals:
 
 public slots:
   void LoadData();
+  void getpos();
+
 
 
   // QWidget interface

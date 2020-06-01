@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "matrixwidget.h"
 
+
 namespace Ui {
 class GridDialog;
 }
