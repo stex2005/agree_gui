@@ -2,7 +2,7 @@
 #include "ui_paginaprincipale.h"
 #include "../include/agree_gui/login.h"
 #include "../include/agree_gui/main_window.hpp"
-//#include "../include/agree_gui/sc_assistivo.h"
+#include "../include/agree_gui/sc_assistivo.h"
 #include <QMessageBox>
 #include <QPixmap>
 
@@ -69,7 +69,7 @@ data= QDate::currentDate();
 ui->label_date->setText(data.toString());
 
 
-//  QSqlDatabase mydb2 = QSqlDatabase::database();
+  QSqlDatabase mydb2 = QSqlDatabase::database();
   QSqlQuery * qry3 = new QSqlQuery(mydb2);
   qry3 -> prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'" );
   qry3 -> exec();
@@ -149,6 +149,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
       qryc.prepare("insert into Count (username,cont) values('"+dati::codice_id+"', '"+dati::count+"')");
       qryc.exec();
       }
+   else qDebug()<<qry.lastError();
    }
      else {
        QMessageBox::warning(this,tr("Attenzione"), tr("Inserire Nome e Cognome del paziente!"));
@@ -160,6 +161,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
         QMessageBox ::critical(this,tr("Errore"),tr("Attenzione: Paziente già presente nel database"));
       }
     }
+ else qDebug()<<qry11.lastError();
    }
  if (flag==2) {
    qDebug()<<dati::count_act;
@@ -192,9 +194,12 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
       QSqlQuery * qry1 = new QSqlQuery(mydb2);
       qry1 -> prepare("select Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, LunghezzaBraccio, LunghezzaAvambraccio, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"' order by Cognome  asc");
       qry1 -> exec();
+      if(qry1->exec()) {
       model -> setQuery(*qry1);
       ui->tableView_database->setModel(model);
     //  qDebug() << (model->rowCount());
+      }
+      else qDebug()<<qry1->lastError();
 }
 
 void paginaprincipale::on_tableView_database_activated(const QModelIndex &index)
@@ -1018,7 +1023,7 @@ if(ui->checkBox_7->isChecked())
 qDebug()<< dati::ind;
 
 QSqlQuery esercizi;
-esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Pazienti where Codice_ID = '"+dati::ind+"'");
+esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"'");
 if(esercizi.exec()){
 while(esercizi.next())
 { ExInfo cur;
