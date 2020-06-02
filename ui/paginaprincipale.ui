@@ -155,7 +155,7 @@
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_3">
             <layout class="QGridLayout" name="gridLayout_4">
@@ -762,7 +762,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>6</number>
          </property>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
@@ -2449,6 +2449,27 @@ background-color: rgb(157, 241, 161);</string>
             </widget>
            </item>
           </layout>
+         </widget>
+         <widget class="QWidget" name="tab_sessione">
+          <attribute name="title">
+           <string>Sessione</string>
+          </attribute>
+          <widget class="QLabel" name="label_img">
+           <property name="geometry">
+            <rect>
+             <x>260</x>
+             <y>40</y>
+             <width>611</width>
+             <height>431</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
          </widget>
         </widget>
        </item>

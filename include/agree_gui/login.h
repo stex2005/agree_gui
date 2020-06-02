@@ -9,7 +9,7 @@
 #include <QFileInfo>
 
 #include "paginaprincipale.h"
-#include "sc_assistivo.h"
+//#include "sc_assistivo.h"
 
 
 
@@ -47,9 +47,9 @@ private slots:
 private:
   Ui::login *ui;
    paginaprincipale *Paginaprincipale; //dichiaro il nome delle finestre a cui accedo dalla mainwindow
-   sc_assistivo *Sc_assistivo;
+ //  sc_assistivo *Sc_assistivo;
    login *Login;
-   QSqlDatabase mydb;
+
 
 
 

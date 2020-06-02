@@ -3,11 +3,22 @@
 
 #include <QDialog>
 
-#include <QtSql> // includo libreria per SQL
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSql>
+#include <QtSql/QtSql>
 #include <QtDebug>
 #include <QFileInfo>
 #include <QMainWindow>
 #include <QDate>
+
+
+QList<QPixmap > GetImages(QString exID);  // in here we load all images from folder
+
+struct ExInfo{
+  QString EX;
+  int REP;
+  QList<QPixmap> images;
+};
 
 
 
@@ -22,6 +33,7 @@ class QVideoWidget;
 class paginaprincipale : public QDialog
 {
   Q_OBJECT
+   std::map<QString,ExInfo>ExInfoMap;
 
 public:
   explicit paginaprincipale(QWidget *parent = nullptr);

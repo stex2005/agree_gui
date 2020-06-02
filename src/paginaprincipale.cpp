@@ -2,9 +2,16 @@
 #include "ui_paginaprincipale.h"
 #include "../include/agree_gui/login.h"
 #include "../include/agree_gui/main_window.hpp"
-#include "../include/agree_gui/sc_assistivo.h"
+//#include "../include/agree_gui/sc_assistivo.h"
 #include <QMessageBox>
 #include <QPixmap>
+
+
+
+#include <iostream>
+#include <map>
+#include <string>
+#include <iterator>
 
 
 int flag;
@@ -62,7 +69,7 @@ data= QDate::currentDate();
 ui->label_date->setText(data.toString());
 
 
-  QSqlDatabase mydb2 = QSqlDatabase::database();
+//  QSqlDatabase mydb2 = QSqlDatabase::database();
   QSqlQuery * qry3 = new QSqlQuery(mydb2);
   qry3 -> prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'" );
   qry3 -> exec();
@@ -496,6 +503,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
   }
 }
+
 void paginaprincipale::on_pushButton_home_clicked()
 {
       ui->tabWidget->setCurrentWidget(ui->tab);
@@ -706,11 +714,7 @@ void paginaprincipale::on_pushButton_save_clicked()
     }
 }
 
-
-
-
 void paginaprincipale::on_pushButton_continua_clicked()
-
 {   qDebug() << flag;
     ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
     if (flag==4) //day N
@@ -765,8 +769,6 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
     }
 
 }
-
-
 
 void paginaprincipale::on_pushButton_salvaex_clicked()
 {
@@ -1013,6 +1015,101 @@ if(ui->checkBox_7->isChecked())
   }
 
 }
+qDebug()<< dati::ind;
+
+QSqlQuery esercizi;
+esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Pazienti where Codice_ID = '"+dati::ind+"'");
+if(esercizi.exec()){
+while(esercizi.next())
+{ ExInfo cur;
+  QString EX1 = esercizi.value(0).toString();
+  int RIP1 = esercizi.value(1).toInt();
+  qDebug()<<EX1;
+  if ( ! EX1.isEmpty() ){
+  // FILL IT
+  cur.EX = EX1; // fill it
+  cur.REP = RIP1;
+  ExInfoMap[EX1].images = GetImages(EX1);
+  ExInfoMap[EX1] = cur; // now we add it
+
+  }
+  else return;
+
+  QString EX2 = esercizi.value(2).toString();
+  int RIP2 = esercizi.value(3).toInt();
+  if(!EX2.isEmpty()) {
+  // FILL IT
+  cur.EX = EX2; // fill it
+  cur.REP = RIP2;
+  ExInfoMap[EX2].images = GetImages(EX2);  // use ID to get images  /////////////////////////////////////////////// IMAGES
+  ExInfoMap[EX2] = cur; // now we add it
+  }
+  else return;
+  QString EX3 = esercizi.value(4).toString();
+  int RIP3 = esercizi.value(5).toInt();
+  if(!EX3.isEmpty()) {
+  // FILL IT
+  cur.EX = EX3; // fill it
+  cur.REP = RIP3;
+   ExInfoMap[EX3].images = GetImages(EX3);
+  ExInfoMap[EX3] = cur; // now we add it
+
+
+  }
+  else return;
+  QString EX4 = esercizi.value(6).toString();
+  int RIP4 = esercizi.value(7).toInt();
+  if(!EX4.isEmpty()) {
+  // FILL IT
+  cur.EX = EX4; // fill it
+  cur.REP = RIP4;
+  ExInfoMap[EX4].images = GetImages(EX4);
+  ExInfoMap[EX4] = cur; // now we add it
+
+
+  }
+  else return;
+  QString EX5 = esercizi.value(8).toString();
+  int RIP5 = esercizi.value(9).toInt();
+  if(!EX5.isEmpty()){
+  // FILL IT
+  cur.EX = EX5; // fill it
+  cur.REP = RIP5;
+   ExInfoMap[EX5].images = GetImages(EX5);
+  ExInfoMap[EX5] = cur; // now we add it
+
+
+  }
+  else return;
+  QString EX6 = esercizi.value(10).toString();
+  int RIP6 = esercizi.value(11).toInt();
+  if(!EX6.isEmpty()) {
+  // FILL IT
+  cur.EX = EX6; // fill it
+  cur.REP = RIP6;
+  ExInfoMap[EX6].images = GetImages(EX6);
+  ExInfoMap[EX6] = cur; // now we add it
+
+
+  }
+  else return;
+  QString EX7 = esercizi.value(12).toString();
+  int RIP7 = esercizi.value(13).toInt();
+  if(!EX7.isEmpty()) {
+  // FILL IT
+  cur.EX = EX7; // fill it
+  cur.REP = RIP7;
+  ExInfoMap[EX7].images = GetImages(EX6);
+  ExInfoMap[EX7] = cur; // now we add it
+  }
+  else return;
+}
+}
+else qDebug()<<esercizi.lastError();
+
+
+
+  ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 
 }
@@ -1515,4 +1612,17 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       ui->checkBox_oi->setChecked(false);
     }
   }
+}
+
+QList<QPixmap>GetImages(QString exID) {
+  QList<QPixmap> mylist;
+QDir directory("/home/alice/Desktop/ex_img" + exID);
+QStringList images = directory.entryList(QStringList() << ".jpg" << ".JPG",QDir::Files);
+foreach(QString filename, images) {
+QPixmap pix(filename);
+mylist.append(pix);
+
+}
+return mylist;
+
 }

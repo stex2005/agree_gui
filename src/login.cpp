@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include "../include/agree_gui/paginaprincipale.h"
 #include "../include/agree_gui/main_window.hpp"
-#include "../include/agree_gui/sc_assistivo.h"
+// #include "../include/agree_gui/sc_assistivo.h"
 
 
 
@@ -110,8 +110,8 @@ void login::on_pushButton_accedi_clicked()
      //apro una finestra in caso di scenario 3
      else if(dati::profilo==3){
          this->hide();
-         Sc_assistivo = new sc_assistivo(this);
-         Sc_assistivo -> show();
+  //       Sc_assistivo = new sc_assistivo(this);
+   //      Sc_assistivo -> show();
 
         }
     }
@@ -201,8 +201,8 @@ if (dati::password == Conferma) {
           }
        else {
 
-           Sc_assistivo = new sc_assistivo(this);
-                       Sc_assistivo->show();
+           //Sc_assistivo = new sc_assistivo(this);
+           //            Sc_assistivo->show();
           }
 
 
