@@ -32,6 +32,19 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_status">
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>[+]Status</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="3">
     <widget class="QPushButton" name="pushButton_annulla">
      <property name="font">
@@ -51,38 +64,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="pushButton_home">
-     <property name="font">
-      <font>
-       <family>Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Home</string>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../resources/images/img/icone/Home.png</normaloff>../resources/images/img/icone/Home.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_status">
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>[+]Status</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="2">
     <widget class="QPushButton" name="pushButton_indietro">
      <property name="font">
@@ -99,6 +80,25 @@
      <property name="icon">
       <iconset>
        <normaloff>../resources/images/img/icone/Go back.png</normaloff>../resources/images/img/icone/Go back.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="pushButton_home">
+     <property name="font">
+      <font>
+       <family>Sans</family>
+       <pointsize>13</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Home</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../resources/images/img/icone/Home.png</normaloff>../resources/images/img/icone/Home.png</iconset>
      </property>
     </widget>
    </item>
@@ -741,7 +741,7 @@ background-color: rgb(157, 241, 161);</string>
        <string>Riabilitazione</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_status2">
          <property name="font">
           <font>
@@ -753,7 +753,7 @@ background-color: rgb(157, 241, 161);</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
+       <item row="6" column="0">
         <widget class="QTabWidget" name="tabWidget_2">
          <property name="maximumSize">
           <size>
@@ -762,7 +762,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>4</number>
          </property>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
@@ -1228,100 +1228,7 @@ background-color: rgb(157, 241, 161);</string>
            <string>Configurazione Moduli</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="0">
-            <widget class="QGroupBox" name="groupBox">
-             <property name="title">
-              <string>Moduli Agree</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_17">
-              <item row="0" column="1">
-               <widget class="QLabel" name="label_spallagomito">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/sedia/sedia2.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QCheckBox" name="checkBox_polso">
-                <property name="font">
-                 <font>
-                  <family>Ubuntu Condensed</family>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Modulo Polso </string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QCheckBox" name="checkBox_gomito">
-                <property name="font">
-                 <font>
-                  <family>Ubuntu Condensed</family>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Modulo Gomito</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QCheckBox" name="checkBox_spalla">
-                <property name="font">
-                 <font>
-                  <family>Ubuntu Condensed</family>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Modulo Spalla</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_spalla">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/sedia/sedia1.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_spallagomitopolso">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/sedia/sediatot.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QPushButton" name="pushButton_salvamoduli">
              <property name="font">
               <font>
@@ -1339,276 +1246,242 @@ background-color: rgb(157, 241, 161);</string>
              </property>
             </widget>
            </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_m_extra">
-          <attribute name="title">
-           <string>Moduli Extra </string>
-          </attribute>
-          <layout class="QGridLayout" name="gridLayout_9">
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_save">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Salva</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/img/img/icone/Save.png</normaloff>:/img/img/icone/Save.png</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QGroupBox" name="groupBox_2">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="groupBox">
              <property name="title">
-              <string>Moduli Extra</string>
+              <string>Moduli Agree</string>
              </property>
-             <layout class="QGridLayout" name="gridLayout_10">
-              <item row="7" column="6">
-               <widget class="QCheckBox" name="checkBox_MAP">
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>MAP </string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="6">
-               <widget class="QLabel" name="label_20">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/moduli_extra/mano.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLabel" name="label_18">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/moduli_extra/eeg2.jpg</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="9">
-               <spacer name="horizontalSpacer_11">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="1" column="3">
-               <spacer name="verticalSpacer_10">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="7" column="3">
-               <widget class="QCheckBox" name="checkBox_emg">
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>ElettroMioGramma</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="3">
-               <spacer name="verticalSpacer_8">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="5" column="3">
-               <spacer name="verticalSpacer_11">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="2" column="3">
-               <widget class="QLabel" name="label_19">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/moduli_extra/eeg.jpg</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="1">
-               <widget class="QCheckBox" name="checkBox_eeg">
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>ElettroEncefaloGramma </string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <spacer name="verticalSpacer_9">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="4" column="3">
-               <spacer name="verticalSpacer_12">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="2" column="7">
-               <spacer name="horizontalSpacer_10">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="2" column="5">
-               <spacer name="horizontalSpacer_9">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="7" column="8">
-               <widget class="QCheckBox" name="checkBox_oi">
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Oggetti Interattivi </string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="8">
-               <widget class="QLabel" name="label_21">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/moduli_extra/oi.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <spacer name="horizontalSpacer_7">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="2" column="0">
-               <spacer name="horizontalSpacer_8">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
+             <widget class="QGroupBox" name="groupBox_5">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>1441</width>
+                <height>61</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Lato Esoscheletro</string>
+              </property>
+              <widget class="QCheckBox" name="checkBox_sinistro">
+               <property name="geometry">
+                <rect>
+                 <x>150</x>
+                 <y>30</y>
+                 <width>251</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Sinistro</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_destro">
+               <property name="geometry">
+                <rect>
+                 <x>900</x>
+                 <y>30</y>
+                 <width>251</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Destro</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>100</y>
+                <width>611</width>
+                <height>471</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Moduli Meccanici</string>
+              </property>
+              <widget class="QCheckBox" name="checkBox_spalla">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>60</y>
+                 <width>251</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Spalla</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_gomito">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>150</y>
+                 <width>381</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Spalla Gomito</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_polso">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>240</y>
+                 <width>461</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Spalla Gomito Polso</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QGroupBox" name="groupBox_10">
+              <property name="geometry">
+               <rect>
+                <x>640</x>
+                <y>110</y>
+                <width>791</width>
+                <height>461</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Moduli Extra</string>
+              </property>
+              <widget class="QCheckBox" name="checkBox_eeg_2">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>50</y>
+                 <width>357</width>
+                 <height>27</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>EEG</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_emg_2">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>140</y>
+                 <width>356</width>
+                 <height>27</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>EMG</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_MAP_2">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>230</y>
+                 <width>481</width>
+                 <height>27</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Assistenza alla Presa</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_oi_2">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>330</y>
+                 <width>356</width>
+                 <height>31</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Oggetti Interattivi </string>
+               </property>
+              </widget>
+             </widget>
             </widget>
            </item>
           </layout>
@@ -1652,7 +1525,7 @@ background-color: rgb(157, 241, 161);</string>
               </font>
              </property>
              <property name="text">
-              <string>Salta</string>
+              <string>Avanti</string>
              </property>
              <property name="icon">
               <iconset>
@@ -1664,19 +1537,68 @@ background-color: rgb(157, 241, 161);</string>
          </widget>
          <widget class="QWidget" name="tab_init">
           <attribute name="title">
-           <string>Inizializzazione Agree</string>
+           <string>Inizializzazione AGREE</string>
           </attribute>
           <widget class="QPushButton" name="pushButton_continua">
            <property name="geometry">
             <rect>
-             <x>380</x>
-             <y>220</y>
+             <x>1070</x>
+             <y>400</y>
              <width>221</width>
              <height>81</height>
             </rect>
            </property>
            <property name="text">
             <string>Continua</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_18">
+           <property name="geometry">
+            <rect>
+             <x>140</x>
+             <y>90</y>
+             <width>1251</width>
+             <height>181</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>OpenSymbol</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>E' in corso l'Inizializzazione di AGREE. Attendere...</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="tab_vestizione">
+          <attribute name="title">
+           <string>Vestizione AGREE</string>
+          </attribute>
+          <widget class="QLabel" name="label_19">
+           <property name="geometry">
+            <rect>
+             <x>170</x>
+             <y>110</y>
+             <width>1161</width>
+             <height>161</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>OpenSymbol</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>                   Indossare l'esoscheletro sul Paziente.
+ 
+Una volta effettuata questa procedura premere Avanti per Continuare. </string>
            </property>
           </widget>
          </widget>
@@ -1691,48 +1613,10 @@ background-color: rgb(157, 241, 161);</string>
               <string>Modalità di Controllo</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_18">
-              <item row="0" column="5" rowspan="3">
-               <widget class="QGroupBox" name="groupBox_4">
-                <property name="font">
-                 <font>
-                  <family>Ubuntu Condensed</family>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="title">
-                 <string>Suggerimento </string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_15">
-                 <item row="0" column="2">
-                  <widget class="QLabel" name="label_25">
-                   <property name="font">
-                    <font>
-                     <family>Ubuntu Condensed</family>
-                     <pointsize>15</pointsize>
-                     <weight>75</weight>
-                     <italic>true</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Valore MRC al deltoide:  
- -  0 ≤ MRC ≤ 1    Ctrl 1 
- - 1 &lt; MRC &lt; 2    Ctrl 2 
- - 2 ≤ MRC &lt; 3.5 Ctrl 3 
- -  MRC ≥ 3.5       Ctrl 4 
- -  MRC ≥ 4.5       Ctrl 5</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="6" column="6">
-               <widget class="QLabel" name="label_22">
+              <item row="2" column="0">
+               <widget class="QRadioButton" name="radioButton_aan">
                 <property name="text">
-                 <string/>
+                 <string>Assisted as needed (Suggerimento : selezionare se 2 ≤ MRC &lt; 3.5  )</string>
                 </property>
                </widget>
               </item>
@@ -1743,93 +1627,6 @@ background-color: rgb(157, 241, 161);</string>
                 </property>
                 <property name="pixmap">
                  <pixmap>../resources/images/img/modalità/antg.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QRadioButton" name="radioButton_ag">
-                <property name="text">
-                 <string>Anti Gravitario (Ctrl4)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="QRadioButton" name="radioButton_chall">
-                <property name="text">
-                 <string>Challenging  (Ctrl5)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="QLabel" name="label_chall">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/modalità/challenging.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLabel" name="label_pass">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/modalità/mob_pass.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QRadioButton" name="radioButton_pass">
-                <property name="text">
-                 <string>Mobilizzazione Passiva (Ctrl1)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QRadioButton" name="radioButton_trigger">
-                <property name="text">
-                 <string>Mobilizzazione + trigger (Ctrl2)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLabel" name="label_trigger">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/modalità/trigger.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QRadioButton" name="radioButton_aan">
-                <property name="text">
-                 <string>Assisted as needed (Ctrl3)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLabel" name="label_asasne">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap>../resources/images/img/modalità/asasn.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -1867,6 +1664,80 @@ background-color: rgb(157, 241, 161);</string>
                 </property>
                </widget>
               </item>
+              <item row="6" column="0">
+               <widget class="QRadioButton" name="radioButton_chall">
+                <property name="text">
+                 <string>Challenging  (Suggerimento : selezionare se MRC ≥ 4.5 )</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="6">
+               <widget class="QLabel" name="label_22">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QLabel" name="label_chall">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap>../resources/images/img/modalità/challenging.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QRadioButton" name="radioButton_trigger">
+                <property name="text">
+                 <string>Mobilizzazione Passiva con Trigger (Suggerimento : selezionare se 1 &lt; MRC &lt; 2   )</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QRadioButton" name="radioButton_ag">
+                <property name="text">
+                 <string>Anti Gravitario (Suggerimento : selezionare se  MRC ≥ 3.5 )</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="radioButton_pass">
+                <property name="text">
+                 <string>Mobilizzazione Passiva (Suggerimento : selezionare se 0 ≤ MRC ≤ 1   )</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_trigger">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap>../resources/images/img/modalità/trigger.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_pass">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap>../resources/images/img/modalità/mob_pass.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
               <item row="1" column="2">
                <spacer name="horizontalSpacer_6">
                 <property name="orientation">
@@ -1879,6 +1750,19 @@ background-color: rgb(157, 241, 161);</string>
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_asasne">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap>../resources/images/img/modalità/asasn.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -2518,7 +2402,6 @@ background-color: rgb(157, 241, 161);</string>
   <tabstop>radioButton_utente</tabstop>
   <tabstop>lineEdit_cognome_2</tabstop>
   <tabstop>lineEdit_conferma</tabstop>
-  <tabstop>tabWidget_2</tabstop>
   <tabstop>pushButton_modifica</tabstop>
   <tabstop>pushButton_cerca_3</tabstop>
   <tabstop>lineEdit_cercapaziente_3</tabstop>

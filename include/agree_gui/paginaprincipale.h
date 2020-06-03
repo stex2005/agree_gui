@@ -79,7 +79,7 @@ private slots:
   void on_pushButton_cerca_3_clicked();
 
 
-  void on_pushButton_save_clicked();
+//  void on_pushButton_save_clicked();
 
 /*  void on_pushButton_spalla_clicked();
 
