@@ -4,14 +4,7 @@
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/sc_assistivo.h"
 #include <QMessageBox>
-#include <QPixmap>
 
-
-
-#include <iostream>
-#include <map>
-#include <string>
-#include <iterator>
 
 
 int flag;

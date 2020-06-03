@@ -10,6 +10,13 @@
 #include <QFileInfo>
 #include <QMainWindow>
 #include <QDate>
+#include <QMessageBox>
+#include <QMouseEvent>
+#include <QPixmap>
+#include <iostream>
+#include <map>
+#include <string>
+#include <iterator>
 
 
 QList<QPixmap > GetImages(QString exID);  // in here we load all images from folder
