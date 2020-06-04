@@ -80,11 +80,12 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
      // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
 
      for (int xi = 0; xi < max_x-1; ++xi) {
+
         for (int yi = 0; yi < max_y -1; ++yi) {
                   p.setBrush(QBrush (Data[xi+1][yi+1].DrawColor));
            QRect cellRect(yi*bw,xi*bh, bw,bh);
              p.drawRect( cellRect )  ;
-           //  p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
+            p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
          }
      }
 }
