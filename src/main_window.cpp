@@ -16,7 +16,7 @@
 #include "../include/agree_gui/login.h"
 #include "../include/agree_gui/paginaprincipale.h"
  #include "../include/agree_gui/sc_assistivo.h"
-
+#include "../include/agree_gui/matrixwidget.h"
 /*****************************************************************************
 ** Namespaces
 *****************************************************************************/

@@ -3,6 +3,7 @@
 #include "../include/agree_gui/login.h"
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/sc_assistivo.h"
+#include "../include/agree_gui/matrixwidget.h"
 #include <QMessageBox>
 
 
@@ -45,7 +46,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
   ui->stackedWidget->setCurrentWidget(ui->page_3);
-
+  MatrixWidget * m = new MatrixWidget (this);
+     ui->verticalLayout->addWidget(m);
 
 
 

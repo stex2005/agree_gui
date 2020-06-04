@@ -18,6 +18,8 @@
 #include <string>
 #include <iterator>
 
+#include "matrixwidget.h"
+
 
 QList<QPixmap > GetImages(QString exID);  // in here we load all images from folder
 

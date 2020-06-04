@@ -762,7 +762,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>7</number>
          </property>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
@@ -2330,6 +2330,50 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
                </spacer>
               </item>
              </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_3">
+          <attribute name="title">
+           <string>Tappetino</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QWidget" name="widget" native="true">
+             <widget class="QLabel" name="label_20">
+              <property name="geometry">
+               <rect>
+                <x>90</x>
+                <y>50</y>
+                <width>1381</width>
+                <height>111</height>
+               </rect>
+              </property>
+              <property name="font">
+               <font>
+                <family>OpenSymbol</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Selezionare 3 punti nella zona Verde con un click del mouse. 
+ Per deselezionare cliccare nuovamente sul punto desiderato. 
+ Ad operazione ultimata premere Salva</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::AutoText</enum>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Salva</string>
+             </property>
             </widget>
            </item>
           </layout>
