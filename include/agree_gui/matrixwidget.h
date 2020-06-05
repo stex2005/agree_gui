@@ -39,7 +39,7 @@ signals:
 
 public slots:
   void LoadData();
-  void getpos();
+
 
 
 

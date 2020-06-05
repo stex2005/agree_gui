@@ -29,11 +29,11 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   DataPoint &dp = Data[yindex+1][xindex +1];
 
   //zero non selezionabile
-  if(dp.value ==0) return;
+  if(dp.value ==0 || dp.DrawColor==Qt::black) return;
   if(dp.isSelected == false)
   {
      if(selCount>2) return;
-     dp.DrawColor = Qt::blue;
+     dp.DrawColor = Qt::cyan;
      dp.isSelected = true;
      position.append(QPoint(yindex+1,xindex+1));
      auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
@@ -69,7 +69,11 @@ qDebug()<<position;
 void MatrixWidget::paintEvent(QPaintEvent *event)
 {
   QPainter p(this);
+
+
   p.drawRect(0,0, width() -1, height() -1);
+
+
 
    // size of area we have. w = width , h = height , we take 2 pixles for border
   int w = width() -2;
@@ -77,21 +81,26 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
   //tiro fuori quanto dev essere grande ciascuna cella (divido la dimensione per il numero di celle che voglio avere
    bw = w / max_y; // sono le mie colonne
    bh = h / max_x; // sono le mie righe
-     // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
+     //  loop and drw the boxes, non uso 0,0 perchè i dati partono dalla posizione 1
 
      for (int xi = 0; xi < max_x-1; ++xi) {
 
         for (int yi = 0; yi < max_y -1; ++yi) {
                   p.setBrush(QBrush (Data[xi+1][yi+1].DrawColor));
            QRect cellRect(yi*bw,xi*bh, bw,bh);
+
              p.drawRect( cellRect )  ;
-            p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
+        //    p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
+
+
          }
      }
+
 }
 void MatrixWidget::LoadData()
 {
   QFile file("/home/alice/catkin_ws/src/agree_gui/resources/Punti_tappetino.csv");
+ // QFile file("/home/alice/Desktop/Punti_tappetino2.csv");
   if(!file.open(QFile::ReadOnly | QFile::Text))
   {
     qDebug()<< "FIle not exist";
@@ -114,9 +123,11 @@ void MatrixWidget::LoadData()
         Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
         Data[x][y].isSelected = false;
         if (Data[x][y].value ==0)
-          Data[x][y].DrawColor = Qt::gray;
-        else
+          Data[x][y].DrawColor = Qt::lightGray;
+       else {
           Data[x][y].DrawColor = Qt::green;
+          Data[1][3].DrawColor = Qt::black;
+        }
 
       }
       else
@@ -127,8 +138,7 @@ void MatrixWidget::LoadData()
    file.close();
 }
 
-void MatrixWidget::getpos(){
-  if (selCount==3)
-  qDebug()<<position;
 
+QVector<QPoint>position() {
+  return position();
 }
