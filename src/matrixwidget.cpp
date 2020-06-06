@@ -29,7 +29,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   DataPoint &dp = Data[yindex+1][xindex +1];
 
   //zero non selezionabile
-  if(dp.value ==0 ) return;
+  if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
   if(dp.isSelected == false)
   {
      if(selCount>2) return;
@@ -114,13 +114,14 @@ void MatrixWidget::LoadData()
         Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
         Data[x][y].isSelected = false;
         if (Data[x][y].value ==0)
-          Data[x][y].DrawColor = Qt::gray;
+          Data[x][y].DrawColor = Qt::lightGray;
 
         else{
           Data[x][y].DrawColor = Qt::green;
+          Data[1][3].DrawColor = Qt::black;
 
         }
-       Data[1][3].DrawColor = Qt::black;
+
       }
       else
        qDebug()<< "x or y bigger than matrix!";

@@ -17,6 +17,8 @@ int dati::password_i;
 int flag1;
 QString dati::count;
 QString dati::sigla;
+int dati::nuovo_utente;
+
 
 
 
@@ -112,6 +114,8 @@ void login::on_pushButton_accedi_clicked()
          this->hide();
          Sc_assistivo = new sc_assistivo(this);
          Sc_assistivo -> show();
+         dati::nuovo_utente=0;
+
 
         }
     }
@@ -163,6 +167,7 @@ Conferma = ui ->lineEdit_conferma->text();
       Profilo=QString::number(3);
       dati::profilo = Profilo.toInt();
       dati::sigla = "u";
+      dati::nuovo_utente=1;
   }
      qDebug()<<dati::profilo;
 
@@ -203,6 +208,8 @@ if (dati::password == Conferma) {
 
            Sc_assistivo = new sc_assistivo(this);
                        Sc_assistivo->show();
+
+
           }
 
 

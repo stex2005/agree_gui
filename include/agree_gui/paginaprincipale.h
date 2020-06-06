@@ -14,7 +14,7 @@
 #include <QMouseEvent>
 #include <QPixmap>
 #include <iostream>
-#include <map>
+#include <QMap>
 #include <string>
 #include <iterator>
 
@@ -43,6 +43,7 @@ class paginaprincipale : public QDialog
 {
   Q_OBJECT
    std::map<QString,ExInfo>ExInfoMap;
+    QVector<QPoint>position;
 
 public:
   explicit paginaprincipale(QWidget *parent = nullptr);
@@ -106,6 +107,8 @@ private slots:
   void on_pushButton_controllo_clicked();
 
   void on_pushButton_salvamoduli_clicked();
+
+  void on_pushButton_salvatapp_clicked();
 
 private:
   Ui::paginaprincipale *ui;

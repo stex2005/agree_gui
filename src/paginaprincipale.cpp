@@ -15,6 +15,7 @@ QString dati::ind;
 QString dati::NomeP, dati::CognomeP, dati::data1;
 QString dati::uservecchio;
 QString dati::count_act;
+QString dati::lato, dati::lato_prec; // 1 destro, 0 sinistro
 QString dati::modulo_spalla, dati::modulo_gomito, dati::modulo_polso;
 QString dati::modulo_spalla_prec, dati::modulo_gomito_prec, dati::modulo_polso_prec;
 QString dati::modulo_eeg, dati::modulo_emg;
@@ -48,6 +49,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->stackedWidget->setCurrentWidget(ui->page_3);
   MatrixWidget * m = new MatrixWidget (this);
      ui->verticalLayout->addWidget(m);
+      QVector<QPoint>position;
 
 
 
@@ -406,32 +408,33 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             GM2 = selezione.value(10).toString();
             Pm2 = selezione.value(11).toString();
             PM2 = selezione.value(12).toString();
-            dati::modulo_spalla_prec = selezione.value(13).toString();
-            dati::modulo_gomito_prec = selezione.value(14).toString();
-            dati::modulo_polso_prec = selezione.value(15).toString();
-            dati::modulo_eeg_prec = selezione.value(16).toString();
-            dati::modulo_emg_prec = selezione.value(17).toString();
-            dati::mano_prec = selezione.value(18).toString();
-            dati::oi_prec = selezione.value(19).toString();
-            dati::mood_prec = selezione.value(20).toString();
+            dati::lato_prec= selezione.value(13).toString();
+            dati::modulo_spalla_prec = selezione.value(14).toString();
+            dati::modulo_gomito_prec = selezione.value(15).toString();
+            dati::modulo_polso_prec = selezione.value(16).toString();
+            dati::modulo_eeg_prec = selezione.value(17).toString();
+            dati::modulo_emg_prec = selezione.value(18).toString();
+            dati::mano_prec = selezione.value(19).toString();
+            dati::oi_prec = selezione.value(20).toString();
+            dati::mood_prec = selezione.value(21).toString();
             dati::l_eeg_p = dati::modulo_eeg_prec.length();
             dati::l_emg_p = dati::modulo_emg_prec.length();
             dati::l_m_p = dati::mano_prec.length();
             dati::l_oi_p = dati::oi_prec.length();
-            dati::ex1_prec= selezione.value(21).toString();
-            dati::rip1_prec = selezione.value(22).toString();
-            dati::ex2_prec = selezione.value(23).toString();
-            dati::rip2_prec = selezione.value(24).toString();
-            dati::ex3_prec= selezione.value(25).toString();
-            dati::rip3_prec = selezione.value(26).toString();
-            dati::ex4_prec = selezione.value(27).toString();
-            dati::rip4_prec = selezione.value(28).toString();
-            dati::ex5_prec= selezione.value(29).toString();
-            dati::rip5_prec = selezione.value(30).toString();
-            dati::ex6_prec = selezione.value(31).toString();
-            dati::rip6_prec = selezione.value(32).toString();
-            dati::ex7_prec= selezione.value(33).toString();
-            dati::rip7_prec = selezione.value(34).toString();
+            dati::ex1_prec= selezione.value(22).toString();
+            dati::rip1_prec = selezione.value(23).toString();
+            dati::ex2_prec = selezione.value(24).toString();
+            dati::rip2_prec = selezione.value(25).toString();
+            dati::ex3_prec= selezione.value(26).toString();
+            dati::rip3_prec = selezione.value(27).toString();
+            dati::ex4_prec = selezione.value(28).toString();
+            dati::rip4_prec = selezione.value(29).toString();
+            dati::ex5_prec= selezione.value(30).toString();
+            dati::rip5_prec = selezione.value(31).toString();
+            dati::ex6_prec = selezione.value(32).toString();
+            dati::rip6_prec = selezione.value(33).toString();
+            dati::ex7_prec= selezione.value(34).toString();
+            dati::rip7_prec = selezione.value(35).toString();
             dati::lex1 = dati::ex1_prec.length();
             dati::lex2 = dati::ex2_prec.length();
             dati::lex3 = dati::ex3_prec.length();
@@ -555,6 +558,8 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
         }
         if (flag==4)
         {  ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
+          if(dati::lato_prec == "0") ui->checkBox_sinistro->setChecked(true);
+          else if (dati::lato_prec == "1") ui->checkBox_destro->setChecked(true);
 
           if(dati::modulo_spalla_prec=="1" && dati::modulo_gomito_prec=="0" && dati::modulo_polso_prec=="0")
           {
@@ -820,8 +825,6 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
    }
 
 
-
-
  }
  if(ui->checkBox_ex2->isChecked())
  {
@@ -1029,14 +1032,15 @@ if(ui->checkBox_7->isChecked())
 }
 qDebug()<< dati::ind;
 
+
 QSqlQuery esercizi;
-esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"'");
+esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
 if(esercizi.exec()){
 while(esercizi.next())
 { ExInfo cur;
   QString EX1 = esercizi.value(0).toString();
   int RIP1 = esercizi.value(1).toInt();
-  qDebug()<<EX1;
+
   if ( ! EX1.isEmpty() ){
   // FILL IT
   cur.EX = EX1; // fill it
@@ -1045,7 +1049,16 @@ while(esercizi.next())
   ExInfoMap[EX1] = cur; // now we add it
 
   }
-  else return;
+  else {
+   QString es = "01";
+   QString es2 = "02";
+   QString es3 = "03";
+   QString es4 = "04";
+   if(ExInfoMap.find(es) !=ExInfoMap.end() || (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+   ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+
+   }
+   else ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);  }
 
   QString EX2 = esercizi.value(2).toString();
   int RIP2 = esercizi.value(3).toInt();
@@ -1055,8 +1068,24 @@ while(esercizi.next())
   cur.REP = RIP2;
   ExInfoMap[EX2].images = GetImages(EX2);  // use ID to get images  /////////////////////////////////////////////// IMAGES
   ExInfoMap[EX2] = cur; // now we add it
+
   }
-  else return;
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
+
   QString EX3 = esercizi.value(4).toString();
   int RIP3 = esercizi.value(5).toInt();
   if(!EX3.isEmpty()) {
@@ -1066,9 +1095,22 @@ while(esercizi.next())
    ExInfoMap[EX3].images = GetImages(EX3);
   ExInfoMap[EX3] = cur; // now we add it
 
-
   }
-  else return;
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
   QString EX4 = esercizi.value(6).toString();
   int RIP4 = esercizi.value(7).toInt();
   if(!EX4.isEmpty()) {
@@ -1079,8 +1121,23 @@ while(esercizi.next())
   ExInfoMap[EX4] = cur; // now we add it
 
 
+
   }
-  else return;
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
   QString EX5 = esercizi.value(8).toString();
   int RIP5 = esercizi.value(9).toInt();
   if(!EX5.isEmpty()){
@@ -1091,8 +1148,23 @@ while(esercizi.next())
   ExInfoMap[EX5] = cur; // now we add it
 
 
+
   }
-  else return;
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
   QString EX6 = esercizi.value(10).toString();
   int RIP6 = esercizi.value(11).toInt();
   if(!EX6.isEmpty()) {
@@ -1103,8 +1175,23 @@ while(esercizi.next())
   ExInfoMap[EX6] = cur; // now we add it
 
 
+
   }
-  else return;
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
   QString EX7 = esercizi.value(12).toString();
   int RIP7 = esercizi.value(13).toInt();
   if(!EX7.isEmpty()) {
@@ -1113,16 +1200,26 @@ while(esercizi.next())
   cur.REP = RIP7;
   ExInfoMap[EX7].images = GetImages(EX6);
   ExInfoMap[EX7] = cur; // now we add it
+
   }
-  else return;
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
 }
+
 }
-else qDebug()<<esercizi.lastError();
-
-
-
-  ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-
 
 }
 
@@ -1491,11 +1588,27 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   dati::modulo_emg= "0";
   dati::mano = "0";
   dati::oi = "0";
+   QSqlQuery lato;
+   QSqlQuery modulo;
+  if(ui->checkBox_sinistro->isChecked())
+  {dati::lato="0" ;
+   lato.prepare("update Parametri_Paziente set Lato = '"+dati::lato+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'" );
+   lato.exec();
+   if(lato.exec()) QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del modulo meccanico Spalla salvata"));
+   else  QMessageBox ::critical(this,tr("Errore"),tr("lato"));
+  }
+ if(ui->checkBox_destro->isChecked())
+ { dati::lato = "1";
+   lato.prepare("update Parametri_Paziente set Lato = '"+dati::lato+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'" );
+   lato.exec();
+   if(lato.exec()) QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del modulo meccanico Spalla salvata"));
+   else  QMessageBox ::critical(this,tr("Errore"),tr("lato"));
 
+ }
 if(ui->checkBox_spalla->isChecked())
   {
     dati::modulo_spalla= "1";
-    QSqlQuery modulo;
+
     modulo.prepare("update Parametri_Paziente set Modulo_Spalla= '"+dati::modulo_spalla+"', Modulo_gomito = '"+dati::modulo_gomito+"', Modulo_polso = '"+dati::modulo_polso+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
     modulo.exec();
         if (modulo.exec())
@@ -1516,7 +1629,7 @@ if(ui->checkBox_spalla->isChecked())
   {
     dati::modulo_gomito = "1";
     dati::modulo_spalla = "1";
-    QSqlQuery modulo;
+    //QSqlQuery modulo;
     modulo.prepare("update Parametri_Paziente set Modulo_Spalla = '"+dati::modulo_spalla+"', Modulo_gomito= '"+dati::modulo_gomito+"', Modulo_polso='"+dati::modulo_polso+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
     modulo.exec();
         if (modulo.exec())
@@ -1536,7 +1649,7 @@ if(ui->checkBox_spalla->isChecked())
     dati::modulo_polso= "1";
     dati::modulo_gomito = "1";
 
-    QSqlQuery modulo;
+  //  QSqlQuery modulo;
     modulo.prepare("update Parametri_Paziente set Modulo_Spalla= '"+dati::modulo_spalla+"', Modulo_gomito='"+dati::modulo_gomito+"', Modulo_polso= '"+dati::modulo_polso+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
     modulo.exec();
         if (modulo.exec())
@@ -1710,4 +1823,9 @@ mylist.append(pix);
 }
 return mylist;
 
+}
+
+void paginaprincipale::on_pushButton_salvatapp_clicked()
+{ qDebug()<< position; //how i can access the vector?
+ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 }

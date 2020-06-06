@@ -6,6 +6,9 @@
 #include <QMessageBox>
 QString dati::patologia;
 
+int dati::controllo_voc;
+
+
 sc_assistivo::sc_assistivo(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::sc_assistivo)
@@ -19,11 +22,11 @@ sc_assistivo::sc_assistivo(QWidget *parent) :
    qry3.exec();
    while(qry3.next()){
       ui->label_utente->setText(qry3.value(0).toString() + " " +  qry3.value(1).toString());
+
  }
-   if (!QSqlDatabase::database().open())
-      ui->label_provaconn-> setText("Database non connesso");
-      else
-     ui->label_provaconn ->setText("Database connesso...");
+   qDebug() << dati::nuovo_utente;
+if(dati::nuovo_utente==1) ui->stackedWidget->setCurrentWidget(ui->page_config);
+else if(dati::nuovo_utente==0) ui->stackedWidget->setCurrentWidget(ui->page_2);
 }
 
 sc_assistivo::~sc_assistivo()
@@ -56,23 +59,36 @@ void sc_assistivo::on_pushButton_salva_clicked()
      prova.exec();
      if(prova.exec())
      {     QMessageBox::information(this, tr("done"), tr("done"));
+       ui->stackedWidget->setCurrentWidget(ui->page_2);
      }
      else { qDebug()<<prova.lastError().text();
 
      }}
 
+void sc_assistivo::on_pushButton_home_clicked()
+{
+   ui->stackedWidget->setCurrentWidget(ui->page_2);
+}
 
+void sc_assistivo::on_pushButton_vocale_clicked()
+{
+  QMessageBox messageBox(QMessageBox::Question, tr("Controllo Vocale"), tr("Si è scelto di utilizzare il controllo vocale. Confermare?"), QMessageBox::Yes | QMessageBox::No, this);
+      messageBox.setButtonText(QMessageBox::Yes, tr("Sì"));
+      messageBox.setButtonText(QMessageBox::No, tr("No"));
+      if (messageBox.exec() ==QMessageBox::Yes)
+      {
+       //messaggio ros per il controllo vocale
 
+        dati::controllo_voc=1;
 
+      }
+      else if(messageBox.exec() == QMessageBox::No)
+      {
+       dati::controllo_voc = 0;
+      }
+}
 
+void sc_assistivo::on_pushButton_modifica_clicked()
+{
 
-
-
-
-
-
-
-
-
-
-
+}

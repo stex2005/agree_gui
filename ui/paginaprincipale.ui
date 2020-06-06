@@ -2334,7 +2334,7 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab_3">
+         <widget class="QWidget" name="tab_tappetino">
           <attribute name="title">
            <string>Tappetino</string>
           </attribute>
@@ -2370,7 +2370,7 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pushButton_salvatapp">
              <property name="text">
               <string>Salva</string>
              </property>

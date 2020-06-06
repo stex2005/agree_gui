@@ -20,7 +20,7 @@ class MatrixWidget : public QWidget
 {
   Q_OBJECT
   DataPoint Data[max_x][max_y]; // this is where we want to load the data to
- QVector<QPoint>position;
+// QVector<QPoint>position;
 
 
 
@@ -31,7 +31,7 @@ class MatrixWidget : public QWidget
   int selCount= 0;
 public:
   explicit MatrixWidget(QWidget *parent = nullptr);
-
+ QVector<QPoint>position;
 
 
 

@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="1">
+   <item row="2" column="1">
     <widget class="QLabel" name="label_utente">
      <property name="font">
       <font>
@@ -23,14 +23,14 @@
       </font>
      </property>
      <property name="text">
-      <string>[+]Status</string>
+      <string>[+]Status </string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_config">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -326,14 +326,123 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_2"/>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_provaconn">
-     <property name="text">
-      <string>[+]Status </string>
-     </property>
+     <widget class="QWidget" name="page_2">
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="font">
+          <font>
+           <family>OpenSymbol</family>
+           <pointsize>15</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="title">
+          <string>UTILIZZO</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pushButton_joystick">
+            <property name="text">
+             <string>Configura Joystick</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QPushButton" name="pushButton_singoloj">
+            <property name="text">
+             <string>Controllo Singolo Giunto</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QPushButton" name="pushButton_modifica">
+            <property name="text">
+             <string>Modifica </string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="pushButton_gomito">
+            <property name="text">
+             <string>Controllo Gomito</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="pushButton_vocale">
+            <property name="text">
+             <string>Controllo Vocale</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="font">
+          <font>
+           <family>OpenSymbol</family>
+           <pointsize>15</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="title">
+          <string>POSIZIONI</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pushButton_rest">
+            <property name="text">
+             <string>Posizione di Rest</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pushButton_nuovaPos">
+            <property name="text">
+             <string>Salva Nuova Posizione</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButton_home">
+         <property name="font">
+          <font>
+           <family>OpenSymbol</family>
+           <pointsize>15</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Home</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="pushButton_spegni">
+         <property name="font">
+          <font>
+           <family>OpenSymbol</family>
+           <pointsize>15</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Spegni</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

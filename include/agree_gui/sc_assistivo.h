@@ -31,6 +31,12 @@ private slots:
 
 
 
+  void on_pushButton_home_clicked();
+
+  void on_pushButton_vocale_clicked();
+
+  void on_pushButton_modifica_clicked();
+
 private:
   Ui::sc_assistivo *ui;
  //   QSqlDatabase  mydb3;
