@@ -35,11 +35,13 @@ public:
 
 
 
+ QVector<QPoint> getPosition() const;
+
 signals:
 
 public slots:
-  void LoadData();
-  void getpos();
+ void LoadData();
+ // void getpos();
 
 
 

@@ -43,7 +43,13 @@ class paginaprincipale : public QDialog
 {
   Q_OBJECT
    std::map<QString,ExInfo>ExInfoMap;
-    QVector<QPoint>position;
+    MatrixWidget * matrix = new MatrixWidget (this);
+    int curImage = 0;
+    int rep = 0;
+    QVector<QString > sel_ex;
+    int curEx=0;;
+    QString key;
+
 
 public:
   explicit paginaprincipale(QWidget *parent = nullptr);
@@ -109,6 +115,10 @@ private slots:
   void on_pushButton_salvamoduli_clicked();
 
   void on_pushButton_salvatapp_clicked();
+
+  void on_pushButton_goon_clicked();
+
+  void on_pushButton_next_clicked();
 
 private:
   Ui::paginaprincipale *ui;

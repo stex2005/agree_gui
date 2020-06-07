@@ -18,6 +18,11 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
   LoadData();
 
 }
+
+QVector<QPoint> MatrixWidget::getPosition() const
+{
+  return position;
+}
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
 {
   QPoint p= event->pos(); //dove clicco
@@ -131,8 +136,8 @@ void MatrixWidget::LoadData()
    file.close();
 }
 
-void MatrixWidget::getpos(){
-  if (selCount==3)
-  qDebug()<<position;
+//void MatrixWidget::getpos(){
+//  if (selCount==3)
+//  qDebug()<<position;
 
-}
+//}

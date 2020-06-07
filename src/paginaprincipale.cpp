@@ -6,8 +6,6 @@
 #include "../include/agree_gui/matrixwidget.h"
 #include <QMessageBox>
 
-
-
 int flag;
 int prova;
 QString dati::codice_id;
@@ -40,16 +38,18 @@ QString dati::ex1, dati::ex2, dati::ex3, dati::ex4, dati::ex5, dati::ex6, dati::
 QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex5, dati::num_ex6, dati::num_ex7;
 
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
+
 paginaprincipale::paginaprincipale(QWidget *parent) :
+
   QDialog(parent),
   ui(new Ui::paginaprincipale)
 {
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
   ui->stackedWidget->setCurrentWidget(ui->page_3);
-  MatrixWidget * m = new MatrixWidget (this);
-     ui->verticalLayout->addWidget(m);
-      QVector<QPoint>position;
+//  MatrixWidget * matrix = new MatrixWidget (this);
+     ui->verticalLayout->addWidget(matrix);
+
 
 
 
@@ -1045,9 +1045,12 @@ while(esercizi.next())
   // FILL IT
   cur.EX = EX1; // fill it
   cur.REP = RIP1;
-  ExInfoMap[EX1].images = GetImages(EX1);
+  cur.images = GetImages(EX1);
   ExInfoMap[EX1] = cur; // now we add it
-
+  qDebug()<<cur.images.size();
+  sel_ex.append(EX1);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
   }
   else {
    QString es = "01";
@@ -1066,8 +1069,11 @@ while(esercizi.next())
   // FILL IT
   cur.EX = EX2; // fill it
   cur.REP = RIP2;
-  ExInfoMap[EX2].images = GetImages(EX2);  // use ID to get images  /////////////////////////////////////////////// IMAGES
+  cur.images = GetImages(EX2);  // use ID to get images  /////////////////////////////////////////////// IMAGES
   ExInfoMap[EX2] = cur; // now we add it
+  sel_ex.append(EX2);
+  qDebug()<< "sel:" << sel_ex;
+          qDebug()<< " size:" << sel_ex.size();
 
   }
   else {
@@ -1092,8 +1098,11 @@ while(esercizi.next())
   // FILL IT
   cur.EX = EX3; // fill it
   cur.REP = RIP3;
-   ExInfoMap[EX3].images = GetImages(EX3);
+   cur.images = GetImages(EX3);
   ExInfoMap[EX3] = cur; // now we add it
+   sel_ex.append(EX3);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
 
   }
   else {
@@ -1117,8 +1126,12 @@ while(esercizi.next())
   // FILL IT
   cur.EX = EX4; // fill it
   cur.REP = RIP4;
-  ExInfoMap[EX4].images = GetImages(EX4);
+  cur.images = GetImages(EX4);
   ExInfoMap[EX4] = cur; // now we add it
+   sel_ex.append(EX4);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
 
 
 
@@ -1144,8 +1157,12 @@ while(esercizi.next())
   // FILL IT
   cur.EX = EX5; // fill it
   cur.REP = RIP5;
-   ExInfoMap[EX5].images = GetImages(EX5);
+   cur.images = GetImages(EX5);
   ExInfoMap[EX5] = cur; // now we add it
+   sel_ex.append(EX5);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
 
 
 
@@ -1171,8 +1188,12 @@ while(esercizi.next())
   // FILL IT
   cur.EX = EX6; // fill it
   cur.REP = RIP6;
-  ExInfoMap[EX6].images = GetImages(EX6);
+  cur.images = GetImages(EX6);
   ExInfoMap[EX6] = cur; // now we add it
+   sel_ex.append(EX6);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
 
 
 
@@ -1198,8 +1219,12 @@ while(esercizi.next())
   // FILL IT
   cur.EX = EX7; // fill it
   cur.REP = RIP7;
-  ExInfoMap[EX7].images = GetImages(EX6);
+  cur.images = GetImages(EX7);
   ExInfoMap[EX7] = cur; // now we add it
+   sel_ex.append(EX7);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
 
   }
   else {
@@ -1814,18 +1839,89 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
 
 QList<QPixmap>GetImages(QString exID) {
   QList<QPixmap> mylist;
-QDir directory("/home/alice/Desktop/ex_img" + exID);
-QStringList images = directory.entryList(QStringList() << ".jpg" << ".JPG",QDir::Files);
+auto folder("/home/alice/catkin_ws/src/agree_gui/resources/ex_img/" + exID);
+QDir directory(folder);
+QStringList images = directory.entryList(QStringList() << "*.jpg" <<"*.JPG" ,QDir::Files);
+qDebug() << directory;
+qDebug() << "i found" << images.size();
 foreach(QString filename, images) {
-QPixmap pix(filename);
+QPixmap pix(folder+ QString("/") + filename);
 mylist.append(pix);
+qDebug()<<mylist;
 
 }
 return mylist;
 
+
 }
 
 void paginaprincipale::on_pushButton_salvatapp_clicked()
-{ qDebug()<< position; //how i can access the vector?
- ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+{
+
+QVector<QPoint> mylocalList =matrix->getPosition();
+ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+
 }
+
+void paginaprincipale::on_pushButton_goon_clicked()
+{
+  if(curEx<sel_ex.size()) {
+    key= sel_ex.at(curEx);
+  if (ExInfoMap.find(key) != ExInfoMap.end() ) {
+  ExInfo & one = ExInfoMap[key];
+  if (one.images.size() > 0)
+    ui->label_img->setPixmap(one.images.first());
+    else
+    qDebug() << "no images for key";
+  } else
+  qDebug() << "key is not valid";
+curEx++;
+}
+
+  if(curEx==sel_ex.size())
+  {
+    curEx=0;
+    return;
+  }
+}
+
+void paginaprincipale::on_pushButton_next_clicked()
+{
+  qDebug()<<sel_ex;
+  if(curEx<sel_ex.size()) {
+    key= sel_ex.at(curEx);
+    qDebug()<<key;
+      if (ExInfoMap.find(key) != ExInfoMap.end() ) {
+
+          ExInfo &one = ExInfoMap[key];
+
+          qDebug() << one.REP;
+
+  if(rep<one.REP) {
+          if (curImage < one.images.size()) {
+              ui->label_img->setPixmap(one.images.at(curImage));
+              curImage++;
+          }
+
+          if ( curImage == one.images.size() ) { // -1 we start in zero
+              curImage = 0;
+              rep++;
+          }
+  }
+          if ( rep == one.REP ) {
+              rep=0;
+               curEx++;
+
+              // now take next EX
+          }
+
+      }
+
+//      if(curEx==sel_ex.size())
+//      {
+//        curEx=0;
+//        return;
+//      }
+  }
+}
+

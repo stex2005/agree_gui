@@ -762,7 +762,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>7</number>
+          <number>8</number>
          </property>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
@@ -2396,6 +2396,32 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_goon">
+           <property name="geometry">
+            <rect>
+             <x>1160</x>
+             <y>150</y>
+             <width>89</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Go on</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_next">
+           <property name="geometry">
+            <rect>
+             <x>1080</x>
+             <y>70</y>
+             <width>89</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Next</string>
            </property>
           </widget>
          </widget>

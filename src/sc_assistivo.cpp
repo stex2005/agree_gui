@@ -63,7 +63,14 @@ void sc_assistivo::on_pushButton_salva_clicked()
      }
      else { qDebug()<<prova.lastError().text();
 
-     }}
+     }
+if (dati::nuovo_utente==0)
+{
+  QSqlQuery dati_ass;
+  //dati_ass.prepare("select Sesso, Patologia, Lato_dominante, Lunghezza_braccio, Lunghezza_avambraccio, uROM1_min, uROM1_max, uROM2_min, uROM2_max,uROM3_min, uROM3_max,uROM4_min, uROM4_max,uROM5_min, uROM5_max from Utenti_ass where usernameass = '"++"' ")
+}
+
+}
 
 void sc_assistivo::on_pushButton_home_clicked()
 {
@@ -89,6 +96,6 @@ void sc_assistivo::on_pushButton_vocale_clicked()
 }
 
 void sc_assistivo::on_pushButton_modifica_clicked()
-{
-
+{ dati::nuovo_utente = 0;
+ ui->stackedWidget->setCurrentWidget(ui->page_config);
 }
