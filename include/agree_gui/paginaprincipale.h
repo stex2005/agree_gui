@@ -21,6 +21,7 @@
 #include "matrixwidget.h"
 
 
+
 QList<QPixmap > GetImages(QString exID);  // in here we load all images from folder
 
 struct ExInfo{
@@ -123,6 +124,9 @@ private slots:
 private:
   Ui::paginaprincipale *ui;
   QSqlDatabase mydb2;
+
+
+
 
 
 

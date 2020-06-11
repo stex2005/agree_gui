@@ -68,6 +68,7 @@ private:
 	char** init_argv;
 	ros::Publisher chatter_publisher;
     QStringListModel logging_model;
+    // o anche pubblica variabile devo fare in modo che quando sono nella pp devo essere in grado di modificare la variabile qnode.variabile poi entro in qnode.cpp
 };
 
 }  // namespace agree_gui

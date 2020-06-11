@@ -76,7 +76,7 @@ void QNode::run() {
 
 		std_msgs::String msg;
 		std::stringstream ss;
-		ss << "hello world " << count;
+    ss << "hello world " << count; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
 		msg.data = ss.str();
 		chatter_publisher.publish(msg);
 		log(Info,std::string("I sent: ")+msg.data);

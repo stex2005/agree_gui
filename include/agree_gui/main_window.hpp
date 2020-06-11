@@ -68,7 +68,7 @@ private slots:
 
 private:
 	Ui::MainWindowDesign ui;
-	QNode qnode;
+  QNode qnode;
   paginaprincipale *Paginaprincipale;
   login *Login;
 //  sc_assistivo *Sc_assistivo;

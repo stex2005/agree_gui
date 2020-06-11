@@ -44,7 +44,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 	/*********************
 	** Logging
 	**********************/
-	ui.view_logging->setModel(qnode.loggingModel());
+  ui.view_logging->setModel(qnode.loggingModel());
     QObject::connect(&qnode, SIGNAL(loggingUpdated()), this, SLOT(updateLoggingView()));
 
 
@@ -79,7 +79,7 @@ void MainWindow::on_button_connect_clicked(bool check ) {
 
 	if ( ui.checkbox_use_environment->isChecked() ) {
 
-		if ( !qnode.init() ) {
+    if ( !qnode.init() ) {
 			showNoMasterMessage();
 		} else {
 			ui.button_connect->setEnabled(false);
@@ -87,7 +87,7 @@ void MainWindow::on_button_connect_clicked(bool check ) {
       Login ->show();
 		}
 	} else {
-		if ( ! qnode.init(ui.line_edit_master->text().toStdString(),
+    if ( ! qnode.init(ui.line_edit_master->text().toStdString(),
 				   ui.line_edit_host->text().toStdString()) ) {
 			showNoMasterMessage();
 		} else {
