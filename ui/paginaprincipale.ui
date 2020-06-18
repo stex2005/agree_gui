@@ -762,7 +762,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>8</number>
+          <number>7</number>
          </property>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
@@ -2336,7 +2336,7 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
          </widget>
          <widget class="QWidget" name="tab_tappetino">
           <attribute name="title">
-           <string>Tappetino</string>
+           <string>Pad</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
@@ -2344,7 +2344,7 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
              <widget class="QLabel" name="label_20">
               <property name="geometry">
                <rect>
-                <x>90</x>
+                <x>210</x>
                 <y>50</y>
                 <width>1381</width>
                 <height>111</height>
@@ -2360,8 +2360,8 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
               </property>
               <property name="text">
                <string>Selezionare 3 punti nella zona Verde con un click del mouse. 
- Per deselezionare cliccare nuovamente sul punto desiderato. 
- Ad operazione ultimata premere Salva</string>
+Per deselezionare cliccare nuovamente sul punto desiderato. 
+Ad operazione ultimata premere Salva</string>
               </property>
               <property name="textFormat">
                <enum>Qt::AutoText</enum>

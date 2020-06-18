@@ -24,6 +24,7 @@
 #include <string>
 #include <QThread>
 #include <QStringListModel>
+//#include "paginaprincipale.h"
 
 
 /*****************************************************************************
@@ -44,6 +45,8 @@ public:
 	bool init();
 	bool init(const std::string &master_url, const std::string &host_url);
 	void run();
+  QString status; //creo nuova variabile accessibile da fuori
+//sottoscrivermi
 
 	/*********************
 	** Logging
@@ -68,6 +71,7 @@ private:
 	char** init_argv;
 	ros::Publisher chatter_publisher;
     QStringListModel logging_model;
+
     // o anche pubblica variabile devo fare in modo che quando sono nella pp devo essere in grado di modificare la variabile qnode.variabile poi entro in qnode.cpp
 };
 

@@ -4,6 +4,7 @@
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/sc_assistivo.h"
 #include "../include/agree_gui/matrixwidget.h"
+#include "../include/agree_gui/qnode.hpp"
 #include <QMessageBox>
 
 int flag;
@@ -39,18 +40,25 @@ QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex
 
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
 
+//using namespace agree_gui;
+
 paginaprincipale::paginaprincipale(QWidget *parent) :
 
   QDialog(parent),
+
   ui(new Ui::paginaprincipale)
-{
+
+
+{ using namespace  agree_gui;
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
   ui->stackedWidget->setCurrentWidget(ui->page_3);
 //  MatrixWidget * matrix = new MatrixWidget (this);
      ui->verticalLayout->addWidget(matrix);
-
-
+     // ho aggiunto questi
+     ros::NodeHandle n;
+chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
+//definisco topic
 
 
 
@@ -246,6 +254,7 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
         ui->stackedWidget->setCurrentWidget(ui->page_3);
       }
     }
+
   }
   else
   {
@@ -552,6 +561,13 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
         {
          QMessageBox ::information(this,tr("Salvato"),tr("Parametri Salvati"));
          ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
+        // aggiungo questo:
+
+         ss << "ho salvato i rom " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+         msg.data = ss.str();
+       chatter_publisher.publish(msg);
+
+         //agree_gui::QNode status << "ho salvato la configurazione dedi rom";
        }
        else {
           QMessageBox ::critical(this,tr("Errore"),tr("bo3"));
@@ -1261,6 +1277,9 @@ void paginaprincipale::on_pushButton_controllo_clicked()
         {
 
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva con Trigger"));
+//         ss << "ho salvato la configurazione " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//         msg.data = ss.str();
+//       chatter_publisher.publish(msg);
 
 
 
@@ -1372,6 +1391,10 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 //         ui->lineEdit_ex6->setText(r6);
 //         ui->lineEdit_ex7->setText(r7);
 
+
+    ss1 << "ho salvato la configurazione" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+    msg.data = ss1.str();
+  chatter_publisher.publish(msg);
 
 
                      if (flag==4) {
@@ -1791,7 +1814,9 @@ if(ui->checkBox_spalla->isChecked())
 
 //  }
 //  else {
-
+  ss2 << "ho salvato i moduli " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+  msg.data = ss2.str();
+chatter_publisher.publish(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
  // }
 
@@ -1924,4 +1949,3 @@ void paginaprincipale::on_pushButton_next_clicked()
 //      }
   }
 }
-

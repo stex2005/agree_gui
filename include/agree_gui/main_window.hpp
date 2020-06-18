@@ -69,7 +69,7 @@ private slots:
 private:
 	Ui::MainWindowDesign ui;
   QNode qnode;
-  paginaprincipale *Paginaprincipale;
+  paginaprincipale *Paginaprincipale; //quando creo oggetto questo prenda in ingresso anche il puntantore a qnode
   login *Login;
 //  sc_assistivo *Sc_assistivo;
 };

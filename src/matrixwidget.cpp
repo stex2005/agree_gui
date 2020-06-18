@@ -76,6 +76,7 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
   QPainter p(this);
   p.drawRect(0,0, width() -1, height() -1);
 
+
    // size of area we have. w = width , h = height , we take 2 pixles for border
   int w = width() -2;
   int h = height() - 2;
@@ -90,13 +91,14 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
                   p.setBrush(QBrush (Data[xi+1][yi+1].DrawColor));
            QRect cellRect(yi*bw,xi*bh, bw,bh);
              p.drawRect( cellRect )  ;
-            p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
+        //    p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
          }
      }
+
 }
 void MatrixWidget::LoadData()
-{
-  QFile file("/home/alice/catkin_ws/src/agree_gui/resources/Punti_tappetino.csv");
+{ QFile file("/home/alice/Desktop/Punti_pad.CSV");
+ // QFile file("/home/alice/catkin_ws/src/agree_gui/resources/Punti_tappetino.csv");
   if(!file.open(QFile::ReadOnly | QFile::Text))
   {
     qDebug()<< "FIle not exist";
@@ -123,7 +125,7 @@ void MatrixWidget::LoadData()
 
         else{
           Data[x][y].DrawColor = Qt::green;
-          Data[1][3].DrawColor = Qt::black;
+          Data[14][19].DrawColor = Qt::black;
 
         }
 
@@ -134,6 +136,7 @@ void MatrixWidget::LoadData()
 
   }
    file.close();
+
 }
 
 //void MatrixWidget::getpos(){

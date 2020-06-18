@@ -16,6 +16,7 @@
 #include <std_msgs/String.h>
 #include <sstream>
 #include "../include/agree_gui/qnode.hpp"
+#include"../include/agree_gui/paginaprincipale.h"
 
 /*****************************************************************************
 ** Namespaces
@@ -48,7 +49,7 @@ bool QNode::init() {
 	ros::start(); // explicitly needed since our nodehandle is going out of scope.
 	ros::NodeHandle n;
 	// Add your ros communications here.
-	chatter_publisher = n.advertise<std_msgs::String>("chatter", 1000);
+  chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
 	start();
 	return true;
 }
@@ -63,8 +64,8 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 	}
 	ros::start(); // explicitly needed since our nodehandle is going out of scope.
 	ros::NodeHandle n;
-	// Add your ros communications here.
-	chatter_publisher = n.advertise<std_msgs::String>("chatter", 1000);
+  // Add your ros communications here. //tf tree
+  chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
 	start();
 	return true;
 }

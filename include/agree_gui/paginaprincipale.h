@@ -17,8 +17,21 @@
 #include <QMap>
 #include <string>
 #include <iterator>
+// ho aggiunto questi
+#include <ros/ros.h>
+#include <ros/network.h>
+#include <string>
+#include <std_msgs/String.h>
+#include <sstream>
+#include <string>
+#include <QThread>
+#include <QStringListModel>
+
+
 
 #include "matrixwidget.h"
+#include "qnode.hpp"
+//#include "main_window.hpp"
 
 
 
@@ -32,12 +45,17 @@ struct ExInfo{
 
 
 
+//se sottoscrivo a un topic non ho bisogno delle classi lo vedo come topic
 
+
+//namespace agree_gui {
 
 
 namespace Ui {
 class paginaprincipale;
+//using namespace  agree_gui;
 }
+//}
 class QMediaPlayer;
 class QVideoWidget;
 class paginaprincipale : public QDialog
@@ -48,13 +66,19 @@ class paginaprincipale : public QDialog
     int curImage = 0;
     int rep = 0;
     QVector<QString > sel_ex;
-    int curEx=0;;
+    int curEx=0;
     QString key;
+    // aggiungo questo
+    std_msgs::String msg;
+    std::stringstream ss;
+    std::stringstream ss1;
+    std::stringstream ss2;
 
 
 public:
   explicit paginaprincipale(QWidget *parent = nullptr);
   ~paginaprincipale();
+    //  agree_gui::QNode qnode;
 
 private slots:
   void on_pushButton_nuovopaziente_clicked();
@@ -124,6 +148,11 @@ private slots:
 private:
   Ui::paginaprincipale *ui;
   QSqlDatabase mydb2;
+ // agree_gui::QNode qnode;
+  //ho aggiunto questo
+  ros::Publisher chatter_publisher;
+
+
 
 
 
@@ -131,5 +160,6 @@ private:
 
 
 };
+
 
 #endif // PAGINAPRINCIPALE_H
