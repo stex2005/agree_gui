@@ -27,10 +27,10 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
+   <item row="1" column="1">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_config">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -381,7 +381,7 @@
           <item row="3" column="0">
            <widget class="QPushButton" name="pushButton_gomito">
             <property name="text">
-             <string>Controllo Gomito</string>
+             <string>Controllo  Rotazione Gomito</string>
             </property>
            </widget>
           </item>
@@ -463,9 +463,9 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>10</y>
+         <y>-10</y>
          <width>1101</width>
-         <height>61</height>
+         <height>51</height>
         </rect>
        </property>
        <property name="font">
@@ -480,6 +480,226 @@
         <string>Configurazione Joystick </string>
        </property>
       </widget>
+      <widget class="QPushButton" name="pushButton_configura">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>630</y>
+         <width>421</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>OpenSymbol</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Configura</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_salva_2">
+       <property name="geometry">
+        <rect>
+         <x>650</x>
+         <y>630</y>
+         <width>421</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>OpenSymbol</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Salva</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_istr">
+       <property name="geometry">
+        <rect>
+         <x>340</x>
+         <y>30</y>
+         <width>1081</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>19</pointsize>
+         <italic>true</italic>
+        </font>
+       </property>
+       <property name="text">
+        <string>Seguire le istruzioni che compariranno a Schermo</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page_joint">
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Singolo Giunto</string>
+         </property>
+         <widget class="QLabel" name="label_joint">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>40</y>
+            <width>941</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+            <italic>true</italic>
+           </font>
+          </property>
+          <property name="text">
+           <string>Seleziona il singolo giunto che vuoi controllare:</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_salva_single_joint">
+          <property name="geometry">
+           <rect>
+            <x>998</x>
+            <y>600</y>
+            <width>171</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>OpenSymbol</family>
+            <pointsize>15</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Salva</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_indietro_single_joint">
+          <property name="geometry">
+           <rect>
+            <x>778</x>
+            <y>600</y>
+            <width>181</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>OpenSymbol</family>
+            <pointsize>15</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Indietro</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>90</y>
+            <width>491</width>
+            <height>471</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QRadioButton" name="radioButton_flex_est_spalla">
+             <property name="font">
+              <font>
+               <family>OpenSymbol</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Flessione EstensioneSpalla</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_abdu_add_spalla">
+             <property name="font">
+              <font>
+               <family>OpenSymbol</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Abuzione Adduzione Spalla</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_rot_spalla">
+             <property name="font">
+              <font>
+               <family>OpenSymbol</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Rotazione Spalla</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_flex_est_gomito">
+             <property name="font">
+              <font>
+               <family>OpenSymbol</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Flessione Estensione Gomito</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_polso">
+             <property name="font">
+              <font>
+               <family>OpenSymbol</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Prono Supinazione Polso </string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

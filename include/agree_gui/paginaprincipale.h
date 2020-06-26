@@ -70,9 +70,11 @@ class paginaprincipale : public QDialog
     QString key;
     // aggiungo questo
     std_msgs::String msg;
-    std::stringstream ss;
-    std::stringstream ss1;
-    std::stringstream ss2;
+    std::stringstream ss; //ROM
+    std::stringstream ss1; //MODALITA
+    std::stringstream ss2; // MODULI
+    std::stringstream ss3; //ESERCIZI
+    std::stringstream ss4; //TAPPETINO
 
 
 public:
@@ -141,9 +143,11 @@ private slots:
 
   void on_pushButton_salvatapp_clicked();
 
-  void on_pushButton_goon_clicked();
+ // void on_pushButton_goon_clicked();
 
   void on_pushButton_next_clicked();
+
+  void on_pushButton_associa_clicked();
 
 private:
   Ui::paginaprincipale *ui;

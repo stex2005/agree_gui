@@ -563,6 +563,7 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
          ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
         // aggiungo questo:
 
+//pubblico che ho salvato i rom sul chatter
          ss << "ho salvato i rom " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
          msg.data = ss.str();
        chatter_publisher.publish(msg);
@@ -821,16 +822,16 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
        }
      if(dati::rip1.toInt()< 30) {
-     QSqlQuery es1;
-     es1.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"' , rip1 = '"+dati::rip1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-     es1.exec();
-     if(es1.exec())
-     {
-       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-     }
-     else {
-       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-     }
+//     QSqlQuery es1;
+//     es1.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"' , rip1 = '"+dati::rip1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//     es1.exec();
+//     if(es1.exec())
+//     {
+//       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//     }
+//     else {
+//       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//     }
      }
      else if(dati::rip1.toInt()>30)
      {
@@ -858,16 +859,16 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
        }
      if(dati::rip2.toInt()<30) {
-     QSqlQuery es2;
-     es2.prepare("update Parametri_Paziente set ex2 = '"+dati::num_ex2+"' , rip2 = '"+dati::rip2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-     es2.exec();
-     if(es2.exec())
-     {
-       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-     }
-     else {
-       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-     }
+//     QSqlQuery es2;
+//     es2.prepare("update Parametri_Paziente set ex2 = '"+dati::num_ex2+"' , rip2 = '"+dati::rip2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//     es2.exec();
+//     if(es2.exec())
+//     {
+//       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//     }
+//     else {
+//       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//     }
      }
      else if (dati::rip2.toInt()>30)
      {
@@ -892,16 +893,16 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
        }
      if(dati::rip3.toInt()<30) {
-     QSqlQuery es3;
-     es3.prepare("update Parametri_Paziente set ex3 = '"+dati::num_ex3+"' , rip3 = '"+dati::rip3+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-     es3.exec();
-     if(es3.exec())
-     {
-       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-     }
-     else {
-       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-     }
+//     QSqlQuery es3;
+//     es3.prepare("update Parametri_Paziente set ex3 = '"+dati::num_ex3+"' , rip3 = '"+dati::rip3+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//     es3.exec();
+//     if(es3.exec())
+//     {
+//       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//     }
+//     else {
+//       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//     }
      }
      else if (dati::rip3.toInt()>30) {
        QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
@@ -925,16 +926,16 @@ if(ui->checkBox_ex4->isChecked())
 
       }
     if (dati::rip4.toInt()<30) {
-    QSqlQuery es4;
-    es4.prepare("update Parametri_Paziente set ex4 = '"+dati::num_ex4+"' , rip4 = '"+dati::rip4+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    es4.exec();
-    if(es4.exec())
-    {
-      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-    }
-    else {
-      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-    }
+//    QSqlQuery es4;
+//    es4.prepare("update Parametri_Paziente set ex4 = '"+dati::num_ex4+"' , rip4 = '"+dati::rip4+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es4.exec();
+//    if(es4.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
     }
     else if (dati::rip4.toInt()>30)
     {
@@ -959,16 +960,16 @@ if(ui->checkBox_ex5->isChecked())
 
       }
     if(dati::rip5.toInt()<30) {
-    QSqlQuery es5;
-    es5.prepare("update Parametri_Paziente set ex5 = '"+dati::num_ex5+"' , rip5 = '"+dati::rip5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    es5.exec();
-    if(es5.exec())
-    {
-      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-    }
-    else {
-      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-    }
+//    QSqlQuery es5;
+//    es5.prepare("update Parametri_Paziente set ex5 = '"+dati::num_ex5+"' , rip5 = '"+dati::rip5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es5.exec();
+//    if(es5.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
     }
     else if(dati::rip5.toInt()>30) {
       QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
@@ -993,16 +994,16 @@ if(ui->checkBox_ex6->isChecked())
 
       }
     if(dati::rip6.toInt()<30) {
-    QSqlQuery es6;
-    es6.prepare("update Parametri_Paziente set ex6 = '"+dati::num_ex6+"' , rip6 = '"+dati::rip6+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    es6.exec();
-    if(es6.exec())
-    {
-      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-    }
-    else {
-      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-    }
+//    QSqlQuery es6;
+//    es6.prepare("update Parametri_Paziente set ex6 = '"+dati::num_ex6+"' , rip6 = '"+dati::rip6+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es6.exec();
+//    if(es6.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
     }
     else if(dati::rip6.toInt()>30)
     {
@@ -1028,16 +1029,16 @@ if(ui->checkBox_7->isChecked())
 
       }
     if(dati::rip7.toInt()<30) {
-    QSqlQuery es7;
-    es7.prepare("update Parametri_Paziente set ex7 = '"+dati::num_ex7+"' , rip7 = '"+dati::rip7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    es7.exec();
-    if(es7.exec())
-    {
-      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
-    }
-    else {
-      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
-    }
+//    QSqlQuery es7;
+//    es7.prepare("update Parametri_Paziente set ex7 = '"+dati::num_ex7+"' , rip7 = '"+dati::rip7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es7.exec();
+//    if(es7.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
     }
     else if(dati::rip7.toInt()>30)
     {
@@ -1047,7 +1048,22 @@ if(ui->checkBox_7->isChecked())
 
 }
 qDebug()<< dati::ind;
+QSqlQuery selezione;
+selezione.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"', rip1 = '"+dati::rip1+"',ex2 = '"+dati::num_ex2+"', rip2 = '"+dati::rip2+"',ex3 = '"+dati::num_ex3+"', rip3 = '"+dati::rip3+"',ex4 = '"+dati::num_ex4+"', rip4 = '"+dati::rip4+"',ex5 = '"+dati::num_ex5+"', rip5 = '"+dati::rip5+"',ex6 = '"+dati::num_ex6+"', rip6 = '"+dati::rip6+"',ex7 = '"+dati::num_ex7+"', rip7 = '"+dati::rip7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+selezione.exec();
+if (selezione.exec())
+{
+  QMessageBox ::information(this,tr("Salvato"),tr("Set di esercizi salvati"));
+  // mando messaggio che ho salvato esercizi
+  ss3 << "ho salvato il set di esercizi  " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+  msg.data = ss3.str();
+chatter_publisher.publish(msg);
 
+}
+else {
+  QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+  qDebug()<< selezione.lastError();
+}
 
 QSqlQuery esercizi;
 esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
@@ -1391,7 +1407,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 //         ui->lineEdit_ex6->setText(r6);
 //         ui->lineEdit_ex7->setText(r7);
 
-
+// modalità
     ss1 << "ho salvato la configurazione" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
     msg.data = ss1.str();
   chatter_publisher.publish(msg);
@@ -1636,40 +1652,18 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   dati::modulo_emg= "0";
   dati::mano = "0";
   dati::oi = "0";
-   QSqlQuery lato;
-   QSqlQuery modulo;
+
   if(ui->checkBox_sinistro->isChecked())
   {dati::lato="0" ;
-   lato.prepare("update Parametri_Paziente set Lato = '"+dati::lato+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'" );
-   lato.exec();
-   if(lato.exec()) QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del modulo meccanico Spalla salvata"));
-   else  QMessageBox ::critical(this,tr("Errore"),tr("lato"));
   }
  if(ui->checkBox_destro->isChecked())
  { dati::lato = "1";
-   lato.prepare("update Parametri_Paziente set Lato = '"+dati::lato+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'" );
-   lato.exec();
-   if(lato.exec()) QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del modulo meccanico Spalla salvata"));
-   else  QMessageBox ::critical(this,tr("Errore"),tr("lato"));
 
  }
 if(ui->checkBox_spalla->isChecked())
   {
     dati::modulo_spalla= "1";
 
-    modulo.prepare("update Parametri_Paziente set Modulo_Spalla= '"+dati::modulo_spalla+"', Modulo_gomito = '"+dati::modulo_gomito+"', Modulo_polso = '"+dati::modulo_polso+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modulo.exec();
-        if (modulo.exec())
-        {
-
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del modulo meccanico Spalla salvata"));
-
-
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-        }
 
   }
 
@@ -1677,19 +1671,7 @@ if(ui->checkBox_spalla->isChecked())
   {
     dati::modulo_gomito = "1";
     dati::modulo_spalla = "1";
-    //QSqlQuery modulo;
-    modulo.prepare("update Parametri_Paziente set Modulo_Spalla = '"+dati::modulo_spalla+"', Modulo_gomito= '"+dati::modulo_gomito+"', Modulo_polso='"+dati::modulo_polso+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modulo.exec();
-        if (modulo.exec())
-        {
 
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del modulo meccanico Gomito salvata"));
-
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-        }
   }
 
   if (ui->checkBox_polso->isChecked())
@@ -1697,58 +1679,18 @@ if(ui->checkBox_spalla->isChecked())
     dati::modulo_polso= "1";
     dati::modulo_gomito = "1";
 
-  //  QSqlQuery modulo;
-    modulo.prepare("update Parametri_Paziente set Modulo_Spalla= '"+dati::modulo_spalla+"', Modulo_gomito='"+dati::modulo_gomito+"', Modulo_polso= '"+dati::modulo_polso+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modulo.exec();
-        if (modulo.exec())
-        {
-
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del modulo meccanico Polso salvata"));
-
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-        }
   }
 
   if(ui->checkBox_eeg_2->isChecked())
   {
-    dati::modulo_extra= "1";
-    QSqlQuery moduli;
-    moduli.prepare("update Parametri_Paziente set EEG='"+dati::modulo_extra+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    dati::modulo_eeg= "1";
 
-   moduli.exec();
-
-          if (moduli.exec())
-          {
-
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra EEG salvata"));
-         ui->checkBox_eeg_2->setChecked(false);
-
-         }
-         else {
-            QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-          }
 
   }
   if(ui->checkBox_emg_2->isChecked())
   {
-    dati::modulo_extra= "1";
-    QSqlQuery moduli;
-    moduli.prepare("update Parametri_Paziente set EMG='"+dati::modulo_extra+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    dati::modulo_emg= "1";
 
-   moduli.exec();
-
-          if (moduli.exec())
-          {
-
-           QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra EMG salvata"));
-            ui->checkBox_emg_2->setChecked(false);
-         }
-         else {
-            QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-          }
   }
   if(ui->checkBox_MAP_2->isChecked() ||  (prova == 5))
   {
@@ -1756,20 +1698,7 @@ if(ui->checkBox_spalla->isChecked())
     if(dati::modulo_polso == "1")
     {
     dati::mano = "1";
-   QSqlQuery moduli;
-    moduli.prepare("update Parametri_Paziente set Mano='"+dati::mano+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
 
-   moduli.exec();
-
-          if (moduli.exec())
-          {
-
-          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra MAP salvata"));
-          ui->checkBox_MAP_2->setChecked(false);
-         }
-         else {
-            QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-          }
     }
 
 
@@ -1792,32 +1721,31 @@ if(ui->checkBox_spalla->isChecked())
   {
     dati::oi = "1";
 
-    QSqlQuery moduli;
-    moduli.prepare("update Parametri_Paziente set Oggetti_int='"+dati::oi+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-
-   moduli.exec();
-
-          if (moduli.exec())
-          {
-
-          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra: Oggetti Interattattivi salvata"));
-           ui->checkBox_oi_2->setChecked(false);
-         }
-         else {
-            QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-          }
   }
-//  if (flag==6)
+  QSqlQuery moduli;
+  moduli.prepare("update Parametri_Paziente set Lato = '"+dati::lato+"', Modulo_Spalla= '"+dati::modulo_spalla+"', Modulo_gomito = '"+dati::modulo_gomito+"', Modulo_polso = '"+dati::modulo_polso+"',EEG='"+dati::modulo_eeg+"', Oggetti_int='"+dati::oi+"', Mano='"+dati::mano+"', EMG='"+dati::modulo_emg+"' where Codice_ID= '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+ moduli.exec();
+ if (moduli.exec())
+ { QMessageBox ::information(this,tr("Salvato"),tr("Configurazione dei Moduli Meccanici ed Extra salvata"));
+ }
+ else {
+   QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
+   qDebug()<< moduli.lastError();
+ }
+
+  //  if (flag==6)
 // {
 //     ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
 
 
 //  }
 //  else {
+ //salvo i moduli
   ss2 << "ho salvato i moduli " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
   msg.data = ss2.str();
 chatter_publisher.publish(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
+}
  // }
 
  // ui->tabWidget_2->setCurrentWidget(ui->tab_m_extra);
@@ -1852,14 +1780,7 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
 //      ui->checkBox_oi_2->setChecked(false);
 //    }
 //  }
-}
-
-
-
-
-
-
-
+//}
 
 
 QList<QPixmap>GetImages(QString exID) {
@@ -1884,31 +1805,35 @@ void paginaprincipale::on_pushButton_salvatapp_clicked()
 {
 
 QVector<QPoint> mylocalList =matrix->getPosition();
+// mando il massaggio che ho salvato i punti sul tappetino
+ss4 << "ho salvato i punti sul tappetino" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+msg.data = ss4.str();
+chatter_publisher.publish(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 }
 
-void paginaprincipale::on_pushButton_goon_clicked()
-{
-  if(curEx<sel_ex.size()) {
-    key= sel_ex.at(curEx);
-  if (ExInfoMap.find(key) != ExInfoMap.end() ) {
-  ExInfo & one = ExInfoMap[key];
-  if (one.images.size() > 0)
-    ui->label_img->setPixmap(one.images.first());
-    else
-    qDebug() << "no images for key";
-  } else
-  qDebug() << "key is not valid";
-curEx++;
-}
+//void paginaprincipale::on_pushButton_goon_clicked()
+//{
+//  if(curEx<sel_ex.size()) {
+//    key= sel_ex.at(curEx);
+//  if (ExInfoMap.find(key) != ExInfoMap.end() ) {
+//  ExInfo & one = ExInfoMap[key];
+//  if (one.images.size() > 0)
+//    ui->label_img->setPixmap(one.images.first());
+//    else
+//    qDebug() << "no images for key";
+//  } else
+//  qDebug() << "key is not valid";
+//curEx++;
+//}
 
-  if(curEx==sel_ex.size())
-  {
-    curEx=0;
-    return;
-  }
-}
+//  if(curEx==sel_ex.size())
+//  {
+//    curEx=0;
+//    return;
+//  }
+//}
 
 void paginaprincipale::on_pushButton_next_clicked()
 {
@@ -1926,15 +1851,20 @@ void paginaprincipale::on_pushButton_next_clicked()
           if (curImage < one.images.size()) {
               ui->label_img->setPixmap(one.images.at(curImage));
               curImage++;
+              ui->label_fine_ex->setText("");
           }
 
           if ( curImage == one.images.size() ) { // -1 we start in zero
               curImage = 0;
               rep++;
+              ui->label_fine_ex->setText("");
           }
   }
           if ( rep == one.REP ) {
               rep=0;
+              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
+              QPixmap smile("/home/alice/Desktop/smile.jpeg");
+              ui->label_img->setPixmap(smile);
                curEx++;
 
               // now take next EX
@@ -1948,4 +1878,27 @@ void paginaprincipale::on_pushButton_next_clicked()
 //        return;
 //      }
   }
+}
+
+void paginaprincipale::on_pushButton_associa_clicked()
+{   QString user_doc_string;
+    QSqlQuery seleziona_iddoc;
+    seleziona_iddoc.prepare("Select UsernameDoc from Pazienti where Codice_ID = '"+dati::ind+"'");
+    seleziona_iddoc.exec();
+    while(seleziona_iddoc.next()) {
+      user_doc_string = seleziona_iddoc.value(0).toString();
+    }
+      user_doc_string += " " + dati::username;
+        QSqlQuery update;
+          update.prepare("Update Pazienti set UsernameDoc = '"+user_doc_string+"' where Codice_ID = '"+dati::ind+"'");
+            update.exec();
+              if (update.exec())
+                { QMessageBox ::information(this,tr("Salvato"),tr("Paziente associato al corrente username"));
+                }
+                else {
+                  QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
+                  qDebug()<< update.lastError();
+              }
+
+      qDebug()<< user_doc_string;
 }

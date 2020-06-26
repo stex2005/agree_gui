@@ -11,6 +11,8 @@
 #include <QDate>
 #include <QPainter>
 #include <QTimer>
+#include "paginaprincipale.h"
+
 
 //namespace agree_gui {
 
@@ -25,6 +27,24 @@ class sc_assistivo : public QDialog
 
   Q_OBJECT
   QColor col1{Qt::cyan};
+  QColor col2{Qt::cyan};
+  QColor col3{Qt::cyan};
+  QColor col4{Qt::cyan};
+
+  std_msgs::String msg;
+  std::stringstream ss_voc; //CONTROLLO VOCALE
+  std::stringstream ss_joy; //CONTROLLO JOYSTICK
+  std::stringstream ss_elb_rot; // ROTAZIONE GOMITO
+  std::stringstream ss_single_joy; // CONTROLLO SINGOLO GIUNTO
+  std::stringstream ss_rest; //POSIZIONE DI REST
+  std::stringstream ss_joy_conf; //CONFIGURAZIONE JOYSTICK
+  std::stringstream ss_rom; // CONFIGURAZIONE ROM
+
+  //AGGIUNGI GLI ALTRI MESSAGGI DA INVIARE
+
+
+
+
 
 
 public:
@@ -34,6 +54,11 @@ public:
   //definisco uno slot pubblico che uso per connettere il timer a una funzione
 public slots:
   void myfunction();
+  void myfunction1();
+  void myfunction2();
+  void myfunction3();
+  void myfunction4();
+
 
 private slots:
   void on_pushButton_salva_clicked();
@@ -48,10 +73,29 @@ private slots:
 
   void on_pushButton_joy_clicked();
 
+  void on_pushButton_salva_2_clicked();
+
+  void on_pushButton_configura_clicked();
+
+  void on_pushButton_joystick_clicked();
+
+  void on_pushButton_gomito_clicked();
+
+  void on_pushButton_indietro_single_joint_clicked();
+
+  void on_pushButton_salva_single_joint_clicked();
+
+  void on_pushButton_singoloj_clicked();
+
 private:
   Ui::sc_assistivo *ui;
  //   QSqlDatabase  mydb3;
   QTimer *timer;
+  QTimer *timer1;
+  QTimer *timer2;
+  QTimer *timer3;
+  QTimer *timer4;
+  ros::Publisher chatter_publisher;
 protected:
   virtual void paintEvent(QPaintEvent *event) override;
 };

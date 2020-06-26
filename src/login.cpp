@@ -28,6 +28,8 @@ login::login(QWidget *parent) :
   ui(new Ui::login)
 {
   ui->setupUi(this);
+  ros::NodeHandle n;
+chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
 
 
 
@@ -107,6 +109,9 @@ void login::on_pushButton_accedi_clicked()
             this->hide();
             Paginaprincipale = new paginaprincipale(this);
             Paginaprincipale -> show();
+            ss_log1 << "ho effettuato il login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+            msg.data = ss_log1.str();
+          chatter_publisher.publish(msg);
 
         }
      //apro una finestra in caso di scenario 3
@@ -115,6 +120,11 @@ void login::on_pushButton_accedi_clicked()
          Sc_assistivo = new sc_assistivo(this);
          Sc_assistivo -> show();
          dati::nuovo_utente=0;
+
+         ss_log2 << "ho effettuato il login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+         msg.data = ss_log2.str();
+       chatter_publisher.publish(msg);
+
 
 
         }
@@ -196,6 +206,10 @@ if (dati::password == Conferma) {
          if (dati::profilo == 1){
          Paginaprincipale  = new paginaprincipale(this);
          Paginaprincipale->show();
+
+         ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+         msg.data = ss_log1_new.str();
+       chatter_publisher.publish(msg);
          //mydb.close();
         }
         else if(dati::profilo == 3) {
@@ -208,6 +222,10 @@ if (dati::password == Conferma) {
 
            Sc_assistivo = new sc_assistivo(this);
                        Sc_assistivo->show();
+
+                       ss_log2_new << "ho effettuato il  nuovo login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+                       msg.data = ss_log2_new.str();
+                     chatter_publisher.publish(msg);
 
 
           }
