@@ -137,7 +137,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -769,8 +769,366 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>6</number>
          </property>
+         <widget class="QWidget" name="tab_moduli">
+          <attribute name="title">
+           <string>Configurazione Moduli</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="2" column="0">
+            <widget class="QPushButton" name="pushButton_salvamoduli">
+             <property name="font">
+              <font>
+               <family>Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Salva </string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Moduli Agree</string>
+             </property>
+             <widget class="QGroupBox" name="groupBox_5">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>1441</width>
+                <height>61</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Lato Esoscheletro</string>
+              </property>
+              <widget class="QCheckBox" name="checkBox_sinistro">
+               <property name="geometry">
+                <rect>
+                 <x>150</x>
+                 <y>30</y>
+                 <width>251</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Sinistro</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_destro">
+               <property name="geometry">
+                <rect>
+                 <x>900</x>
+                 <y>30</y>
+                 <width>251</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Destro</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>100</y>
+                <width>611</width>
+                <height>471</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Moduli Meccanici</string>
+              </property>
+              <widget class="QCheckBox" name="checkBox_spalla">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>60</y>
+                 <width>251</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Spalla</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_gomito">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>150</y>
+                 <width>381</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Spalla Gomito</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_polso">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>240</y>
+                 <width>461</width>
+                 <height>29</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Spalla Gomito Polso</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QGroupBox" name="groupBox_10">
+              <property name="geometry">
+               <rect>
+                <x>640</x>
+                <y>110</y>
+                <width>791</width>
+                <height>461</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>Moduli Extra</string>
+              </property>
+              <widget class="QCheckBox" name="checkBox_eeg_2">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>50</y>
+                 <width>357</width>
+                 <height>27</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>EEG</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_emg_2">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>140</y>
+                 <width>356</width>
+                 <height>27</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>EMG</string>
+               </property>
+              </widget>
+              <widget class="QCheckBox" name="checkBox_MAP_2">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>230</y>
+                 <width>481</width>
+                 <height>27</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>OpenSymbol</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modulo Assistenza alla Presa</string>
+               </property>
+              </widget>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_tutorial">
+          <attribute name="title">
+           <string>Tutorial Montaggio </string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_video">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap>:/img/img/agree-logo.jpg</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pushButton_riproduci">
+             <property name="text">
+              <string>Riproduci </string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>:/img/img/icone/Playback.png</normaloff>:/img/img/icone/Playback.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="pushButton_salta">
+             <property name="font">
+              <font>
+               <family>Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Avanti</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>:/img/img/icone/Go forward.png</normaloff>:/img/img/icone/Go forward.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_init">
+          <attribute name="title">
+           <string>Inizializzazione AGREE</string>
+          </attribute>
+          <widget class="QPushButton" name="pushButton_continua">
+           <property name="geometry">
+            <rect>
+             <x>1070</x>
+             <y>400</y>
+             <width>221</width>
+             <height>81</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Continua</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_18">
+           <property name="geometry">
+            <rect>
+             <x>140</x>
+             <y>90</y>
+             <width>1251</width>
+             <height>181</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>OpenSymbol</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>E' in corso l'Inizializzazione di AGREE. Attendere...</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="tab_vestizione">
+          <attribute name="title">
+           <string>Vestizione AGREE</string>
+          </attribute>
+          <widget class="QLabel" name="label_19">
+           <property name="geometry">
+            <rect>
+             <x>170</x>
+             <y>110</y>
+             <width>1161</width>
+             <height>161</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>OpenSymbol</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>                   Indossare l'esoscheletro sul Paziente.
+ 
+Una volta effettuata questa procedura premere Avanti per Continuare. </string>
+           </property>
+          </widget>
+         </widget>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
            <string>Configurazione Parametri</string>
@@ -1230,385 +1588,6 @@ background-color: rgb(157, 241, 161);</string>
            </property>
           </widget>
          </widget>
-         <widget class="QWidget" name="tab_moduli">
-          <attribute name="title">
-           <string>Configurazione Moduli</string>
-          </attribute>
-          <layout class="QGridLayout" name="gridLayout_7">
-           <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton_salvamoduli">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Salva </string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QGroupBox" name="groupBox">
-             <property name="title">
-              <string>Moduli Agree</string>
-             </property>
-             <widget class="QGroupBox" name="groupBox_5">
-              <property name="geometry">
-               <rect>
-                <x>10</x>
-                <y>30</y>
-                <width>1441</width>
-                <height>61</height>
-               </rect>
-              </property>
-              <property name="title">
-               <string>Lato Esoscheletro</string>
-              </property>
-              <widget class="QCheckBox" name="checkBox_sinistro">
-               <property name="geometry">
-                <rect>
-                 <x>150</x>
-                 <y>30</y>
-                 <width>251</width>
-                 <height>29</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <italic>false</italic>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Sinistro</string>
-               </property>
-              </widget>
-              <widget class="QCheckBox" name="checkBox_destro">
-               <property name="geometry">
-                <rect>
-                 <x>900</x>
-                 <y>30</y>
-                 <width>251</width>
-                 <height>29</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <italic>false</italic>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Destro</string>
-               </property>
-              </widget>
-             </widget>
-             <widget class="QGroupBox" name="groupBox_6">
-              <property name="geometry">
-               <rect>
-                <x>10</x>
-                <y>100</y>
-                <width>611</width>
-                <height>471</height>
-               </rect>
-              </property>
-              <property name="title">
-               <string>Moduli Meccanici</string>
-              </property>
-              <widget class="QCheckBox" name="checkBox_spalla">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>60</y>
-                 <width>251</width>
-                 <height>29</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <italic>false</italic>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Modulo Spalla</string>
-               </property>
-              </widget>
-              <widget class="QCheckBox" name="checkBox_gomito">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>150</y>
-                 <width>381</width>
-                 <height>29</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Modulo Spalla Gomito</string>
-               </property>
-              </widget>
-              <widget class="QCheckBox" name="checkBox_polso">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>240</y>
-                 <width>461</width>
-                 <height>29</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Modulo Spalla Gomito Polso</string>
-               </property>
-              </widget>
-             </widget>
-             <widget class="QGroupBox" name="groupBox_10">
-              <property name="geometry">
-               <rect>
-                <x>640</x>
-                <y>110</y>
-                <width>791</width>
-                <height>461</height>
-               </rect>
-              </property>
-              <property name="title">
-               <string>Moduli Extra</string>
-              </property>
-              <widget class="QCheckBox" name="checkBox_eeg_2">
-               <property name="geometry">
-                <rect>
-                 <x>30</x>
-                 <y>50</y>
-                 <width>357</width>
-                 <height>27</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>EEG</string>
-               </property>
-              </widget>
-              <widget class="QCheckBox" name="checkBox_emg_2">
-               <property name="geometry">
-                <rect>
-                 <x>30</x>
-                 <y>140</y>
-                 <width>356</width>
-                 <height>27</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>EMG</string>
-               </property>
-              </widget>
-              <widget class="QCheckBox" name="checkBox_MAP_2">
-               <property name="geometry">
-                <rect>
-                 <x>30</x>
-                 <y>230</y>
-                 <width>481</width>
-                 <height>27</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Modulo Assistenza alla Presa</string>
-               </property>
-              </widget>
-              <widget class="QCheckBox" name="checkBox_oi_2">
-               <property name="geometry">
-                <rect>
-                 <x>30</x>
-                 <y>330</y>
-                 <width>356</width>
-                 <height>31</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>OpenSymbol</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Oggetti Interattivi </string>
-               </property>
-              </widget>
-             </widget>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_tutorial">
-          <attribute name="title">
-           <string>Tutorial Montaggio </string>
-          </attribute>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_video">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>:/img/img/agree-logo.jpg</pixmap>
-             </property>
-             <property name="scaledContents">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_riproduci">
-             <property name="text">
-              <string>Riproduci </string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/img/img/icone/Playback.png</normaloff>:/img/img/icone/Playback.png</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_salta">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Avanti</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/img/img/icone/Go forward.png</normaloff>:/img/img/icone/Go forward.png</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_init">
-          <attribute name="title">
-           <string>Inizializzazione AGREE</string>
-          </attribute>
-          <widget class="QPushButton" name="pushButton_continua">
-           <property name="geometry">
-            <rect>
-             <x>1070</x>
-             <y>400</y>
-             <width>221</width>
-             <height>81</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Continua</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_18">
-           <property name="geometry">
-            <rect>
-             <x>140</x>
-             <y>90</y>
-             <width>1251</width>
-             <height>181</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>OpenSymbol</family>
-             <pointsize>20</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>E' in corso l'Inizializzazione di AGREE. Attendere...</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_vestizione">
-          <attribute name="title">
-           <string>Vestizione AGREE</string>
-          </attribute>
-          <widget class="QLabel" name="label_19">
-           <property name="geometry">
-            <rect>
-             <x>170</x>
-             <y>110</y>
-             <width>1161</width>
-             <height>161</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>OpenSymbol</family>
-             <pointsize>20</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>                   Indossare l'esoscheletro sul Paziente.
- 
-Una volta effettuata questa procedura premere Avanti per Continuare. </string>
-           </property>
-          </widget>
-         </widget>
          <widget class="QWidget" name="tab_controllo">
           <attribute name="title">
            <string>Controllo</string>
@@ -1787,165 +1766,6 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
               <string>Configurazione Esercizi</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_8">
-              <item row="13" column="0">
-               <spacer name="verticalSpacer_6">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="12" column="3">
-               <widget class="QComboBox" name="comboBox_ex5">
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Elevazione laterale su un piano frontale</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca senza oggetto</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca con oggetto</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="8" column="0" colspan="2">
-               <widget class="QCheckBox" name="checkBox_ex3">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="11" column="0">
-               <spacer name="verticalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="16" column="5">
-               <spacer name="horizontalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLabel" name="label_23">
-                <property name="font">
-                 <font>
-                  <family>Ubuntu Condensed</family>
-                  <pointsize>14</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Ripetizioni Esercizio</string>
-                </property>
-               </widget>
-              </item>
-              <item row="10" column="4">
-               <widget class="QLineEdit" name="lineEdit_ex4">
-                <property name="placeholderText">
-                 <string>10</string>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="0">
-               <spacer name="verticalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="8" column="3">
-               <widget class="QComboBox" name="comboBox_ex3">
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Elevazione laterale su un piano frontale</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca senza oggetto</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca con oggetto</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
               <item row="14" column="3">
                <widget class="QComboBox" name="comboBox_ex6">
                 <item>
@@ -1983,111 +1803,6 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
                   <string>Mano alla bocca con oggetto</string>
                  </property>
                 </item>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QCheckBox" name="checkBox_ex1">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <spacer name="verticalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="16" column="4">
-               <widget class="QLineEdit" name="lineEdit_ex7">
-                <property name="placeholderText">
-                 <string>10</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="4">
-               <widget class="QLineEdit" name="lineEdit_ex2">
-                <property name="placeholderText">
-                 <string>10</string>
-                </property>
-               </widget>
-              </item>
-              <item row="14" column="0" colspan="2">
-               <widget class="QCheckBox" name="checkBox_ex6">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="18" column="7">
-               <widget class="QPushButton" name="pushButton_salvaex">
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Salva</string>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
-                </property>
-               </widget>
-              </item>
-              <item row="16" column="3">
-               <widget class="QComboBox" name="comboBox_ex7">
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Elevazione laterale su un piano frontale</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca senza oggetto</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca con oggetto</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="16" column="0">
-               <widget class="QCheckBox" name="checkBox_7">
-                <property name="text">
-                 <string/>
-                </property>
                </widget>
               </item>
               <item row="2" column="3">
@@ -2129,80 +1844,8 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
                 </item>
                </widget>
               </item>
-              <item row="15" column="0">
-               <spacer name="verticalSpacer_7">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="16" column="7">
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="5" column="2" colspan="2">
-               <widget class="QComboBox" name="comboBox_ex2">
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Elevazione laterale su un piano frontale</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca senza oggetto</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mano alla bocca con oggetto</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QCheckBox" name="checkBox_ex2">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="10" column="3">
-               <widget class="QComboBox" name="comboBox_ex4">
+              <item row="12" column="3">
+               <widget class="QComboBox" name="comboBox_ex5">
                 <item>
                  <property name="text">
                   <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2255,15 +1898,66 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
                 </property>
                </widget>
               </item>
-              <item row="10" column="0" colspan="2">
-               <widget class="QCheckBox" name="checkBox_ex4">
-                <property name="text">
-                 <string/>
-                </property>
+              <item row="17" column="3">
+               <widget class="QComboBox" name="comboBox_ex7">
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Elevazione laterale su un piano frontale</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca senza oggetto</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca con oggetto</string>
+                 </property>
+                </item>
                </widget>
               </item>
-              <item row="7" column="0">
-               <spacer name="verticalSpacer_3">
+              <item row="14" column="6">
+               <widget class="QComboBox" name="comboBox_oi_es6">
+                <item>
+                 <property name="text">
+                  <string>Bicchiere</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Forchetta</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Libro</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="13" column="0">
+               <spacer name="verticalSpacer_6">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -2275,49 +1969,21 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
                 </property>
                </spacer>
               </item>
-              <item row="12" column="4">
-               <widget class="QLineEdit" name="lineEdit_ex5">
-                <property name="placeholderText">
-                 <string>10</string>
-                </property>
-               </widget>
-              </item>
-              <item row="12" column="0">
-               <widget class="QCheckBox" name="checkBox_ex5">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="16" column="6">
-               <spacer name="horizontalSpacer_4">
+              <item row="9" column="0">
+               <spacer name="verticalSpacer_4">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Vertical</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
-                  <height>20</height>
+                  <width>20</width>
+                  <height>40</height>
                  </size>
                 </property>
                </spacer>
               </item>
-              <item row="2" column="4">
-               <widget class="QLineEdit" name="lineEdit_ex1">
-                <property name="placeholderText">
-                 <string>10</string>
-                </property>
-               </widget>
-              </item>
-              <item row="14" column="4">
-               <widget class="QLineEdit" name="lineEdit_ex6">
-                <property name="placeholderText">
-                 <string>10</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="4">
-               <widget class="QLineEdit" name="lineEdit_ex3">
+              <item row="5" column="4">
+               <widget class="QLineEdit" name="lineEdit_ex2">
                 <property name="placeholderText">
                  <string>10</string>
                 </property>
@@ -2336,6 +2002,466 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
                 </property>
                </spacer>
               </item>
+              <item row="22" column="8">
+               <widget class="QPushButton" name="pushButton_salvaex">
+                <property name="font">
+                 <font>
+                  <family>Sans</family>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Salva</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="6">
+               <widget class="QComboBox" name="comboBox_oi_es2">
+                <item>
+                 <property name="text">
+                  <string>Bicchiere</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Forchetta</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Libro</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="8" column="4">
+               <widget class="QLineEdit" name="lineEdit_ex3">
+                <property name="placeholderText">
+                 <string>10</string>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="4">
+               <widget class="QLineEdit" name="lineEdit_ex5">
+                <property name="placeholderText">
+                 <string>10</string>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="0">
+               <spacer name="verticalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="12" column="6">
+               <widget class="QComboBox" name="comboBox_oi_es5">
+                <item>
+                 <property name="text">
+                  <string>Bicchiere</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Forchetta</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Libro</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="10" column="0" colspan="2">
+               <widget class="QCheckBox" name="checkBox_ex4">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="2" colspan="2">
+               <widget class="QComboBox" name="comboBox_ex2">
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Elevazione laterale su un piano frontale</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca senza oggetto</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca con oggetto</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="8" column="0" colspan="2">
+               <widget class="QCheckBox" name="checkBox_ex3">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLabel" name="label_23">
+                <property name="font">
+                 <font>
+                  <family>Ubuntu Condensed</family>
+                  <pointsize>14</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Ripetizioni Esercizio</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="6">
+               <widget class="QComboBox" name="comboBox_oi_es1">
+                <item>
+                 <property name="text">
+                  <string>Bicchiere</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Forchetta</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Libro</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="17" column="4">
+               <widget class="QLineEdit" name="lineEdit_ex7">
+                <property name="placeholderText">
+                 <string>10</string>
+                </property>
+               </widget>
+              </item>
+              <item row="17" column="0">
+               <widget class="QCheckBox" name="checkBox_7">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="4">
+               <widget class="QLineEdit" name="lineEdit_ex4">
+                <property name="placeholderText">
+                 <string>10</string>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="0">
+               <widget class="QCheckBox" name="checkBox_ex5">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="6">
+               <widget class="QComboBox" name="comboBox_oi_es4">
+                <item>
+                 <property name="text">
+                  <string>Bicchiere</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Forchetta</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Libro</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QCheckBox" name="checkBox_ex1">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="4">
+               <widget class="QLineEdit" name="lineEdit_ex6">
+                <property name="placeholderText">
+                 <string>10</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="7" column="0">
+               <spacer name="verticalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="8" column="3">
+               <widget class="QComboBox" name="comboBox_ex3">
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Elevazione laterale su un piano frontale</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca senza oggetto</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca con oggetto</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QCheckBox" name="checkBox_ex2">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="0" colspan="2">
+               <widget class="QCheckBox" name="checkBox_ex6">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="0">
+               <spacer name="verticalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="10" column="3">
+               <widget class="QComboBox" name="comboBox_ex4">
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Raggiungimento anteriore di target su un piano nello spazio con oggetti</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Elevazione laterale su un piano frontale</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca senza oggetto</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mano alla bocca con oggetto</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="8" column="6">
+               <widget class="QComboBox" name="comboBox_oi_es3">
+                <item>
+                 <property name="text">
+                  <string>Bicchiere</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Forchetta</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Libro</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="2" column="4">
+               <widget class="QLineEdit" name="lineEdit_ex1">
+                <property name="placeholderText">
+                 <string>10</string>
+                </property>
+               </widget>
+              </item>
+              <item row="19" column="6">
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="17" column="6">
+               <widget class="QComboBox" name="comboBox_oi_es7">
+                <item>
+                 <property name="text">
+                  <string>Bicchiere</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Forchetta</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Libro</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="19" column="7">
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="19" column="8">
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="22" column="3">
+               <widget class="QLabel" name="label_tempo">
+                <property name="font">
+                 <font>
+                  <family>OpenSymbol</family>
+                  <pointsize>15</pointsize>
+                  <italic>true</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>
@@ -2352,22 +2478,24 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
               <property name="geometry">
                <rect>
                 <x>210</x>
-                <y>50</y>
+                <y>20</y>
                 <width>1381</width>
-                <height>111</height>
+                <height>141</height>
                </rect>
               </property>
               <property name="font">
                <font>
-                <family>OpenSymbol</family>
+                <family>Ubuntu</family>
                 <pointsize>20</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
+                <weight>50</weight>
+                <italic>true</italic>
+                <bold>false</bold>
                </font>
               </property>
               <property name="text">
                <string>Selezionare 3 punti nella zona Verde con un click del mouse. 
 Per deselezionare cliccare nuovamente sul punto desiderato. 
+Se si desidera verificare la posizione sul pad reale premere Testa. 
 Ad operazione ultimata premere Salva</string>
               </property>
               <property name="textFormat">
@@ -2378,8 +2506,31 @@ Ad operazione ultimata premere Salva</string>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_salvatapp">
+             <property name="font">
+              <font>
+               <family>OpenSymbol</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Salva</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_testa">
+             <property name="font">
+              <font>
+               <family>OpenSymbol</family>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Testa</string>
              </property>
             </widget>
            </item>
@@ -2431,6 +2582,11 @@ Ad operazione ultimata premere Salva</string>
             <string/>
            </property>
           </widget>
+         </widget>
+         <widget class="QWidget" name="tab_valutazione">
+          <attribute name="title">
+           <string>Valutazione</string>
+          </attribute>
          </widget>
         </widget>
        </item>

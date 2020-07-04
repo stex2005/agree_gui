@@ -75,6 +75,16 @@ class paginaprincipale : public QDialog
     std::stringstream ss2; // MODULI
     std::stringstream ss3; //ESERCIZI
     std::stringstream ss4; //TAPPETINO
+    std::stringstream ss5; //CHECK TAPPETINO
+    // STRING LIST PER ASSOCIARE LO USER
+    QStringList associa_user;
+
+    bool check_ex1;
+    QString es1, es2,es3,es4,es5,es6,es7;
+    int t_es1, t_es2, t_es3, t_es4, t_es5, t_es6, t_es7;
+    int ripe1, ripe2, ripe3, ripe4, ripe5, ripe6, ripe7;
+    QString oggetto_es1, oggetto_es2, oggetto_es3, oggetto_es4, oggetto_es5, oggetto_es6, oggetto_es7;
+    int ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7;
 
 
 public:
@@ -104,6 +114,9 @@ private slots:
   void on_pushButton_vestizioneAgree_clicked();
 
   void on_pushButton_home_clicked();
+
+  void enable_combo();
+  void update_tempo_terapia();
 
 
 
@@ -148,6 +161,8 @@ private slots:
   void on_pushButton_next_clicked();
 
   void on_pushButton_associa_clicked();
+
+  void on_pushButton_testa_clicked();
 
 private:
   Ui::paginaprincipale *ui;
