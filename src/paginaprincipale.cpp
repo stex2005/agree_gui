@@ -69,6 +69,26 @@ connect(ui->comboBox_ex5, SIGNAL (currentTextChanged(QString)), this, SLOT(enabl
 connect(ui->comboBox_ex6, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
 connect(ui->comboBox_ex7, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
 
+//connect(ui->lineEdit_ex1, SIGNAL(TextChanged(QString)),this, SLOT(update_tempo_terapia(QString)));
+
+
+connect(ui->lineEdit_ex1, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+connect(ui->lineEdit_ex2, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+connect(ui->lineEdit_ex3, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+connect(ui->lineEdit_ex4, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+connect(ui->lineEdit_ex5, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+connect(ui->lineEdit_ex6, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+connect(ui->lineEdit_ex7, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+
+connect(ui->checkBox_ex1, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex2, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex3, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex4, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex5, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex6, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_7, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+
+
 
 
 
@@ -913,24 +933,176 @@ void paginaprincipale::enable_combo() {
 }
 void paginaprincipale::update_tempo_terapia(){
   QString t;
-  es1 = "Raggiuntimento anteriore di target su un piano senza oggetti";
+    qDebug()<< "sono nella funzione update_tempo_terapia";
+  es1 = "Raggiungimento anteriore di target su un piano senza oggetti";
   es2 = "Raggiungimento anteriore di target su un piano con oggetti";
   es3 = "Raggiungimento anteriore di target su un piano nello spazio senza oggetti";
   es4 = "Raggiungimento anteriore di target su un piano nello spazio con oggetti ";
   es5 = "Elevazione laterale su un piano frontale";
   es6 = "Mano alla bocca senza oggetto";
   es7 = "Mano alla bocca con oggetto";
+
+
   if (ui->comboBox_ex1->currentText()== es1 || ui->comboBox_ex1->currentText()==es3 || ui->comboBox_ex1->currentText() == es5 || ui->comboBox_ex1->currentText()== es6){
     t_es1 = 1;
-    ripe1 = dati::rip1.toInt();
+     ripe1 = ui->lineEdit_ex1->text().toInt();
+    //ripe1 = dati::rip1.toInt();
    t_es1 = t_es1*ripe1;
-    t = QString::number(t_es1);
-
-
-
+   qDebug() << "es 1";
+   qDebug() << t_es1;
 
   }
-// ui->label_tempo->setText("Tempo stimato per la terapia : %1 " .argc(t));
+  else if ( ui->comboBox_ex1->currentText() == es2 || ui->comboBox_ex1->currentText()== es7) {
+    t_es1 = 2;
+     ripe1 = ui->lineEdit_ex1->text().toInt();
+    t_es1 = t_es1* ripe1;
+    qDebug() << "es 1";
+    qDebug() << t_es1;
+  }
+  if (ui->comboBox_ex2->currentText()== es1 || ui->comboBox_ex2->currentText()==es3 || ui->comboBox_ex2->currentText() == es5 || ui->comboBox_ex2->currentText()== es6){
+    t_es2 = 1;
+ripe2 = ui->lineEdit_ex2->text().toInt();
+   t_es2 = t_es2*ripe2;
+   qDebug() << "es2";
+   qDebug() << t_es2;
+
+  }
+  else if ( ui->comboBox_ex2->currentText() == es2 || ui->comboBox_ex2->currentText()== es7) {
+    t_es2 = 2;
+    ripe2 = ui->lineEdit_ex2->text().toInt();
+    t_es2 = t_es2* ripe2;
+     qDebug() << "es2";
+    qDebug() << t_es2;
+  }
+  if (ui->comboBox_ex3->currentText()== es1 || ui->comboBox_ex3->currentText()==es3 || ui->comboBox_ex3->currentText() == es5 || ui->comboBox_ex3->currentText()== es6){
+    t_es3 = 1;
+ripe3 = ui->lineEdit_ex3->text().toInt();
+   t_es3 = t_es3*ripe3;
+    qDebug() << "es3";
+   qDebug() << t_es3;
+
+  }
+  else if ( ui->comboBox_ex3->currentText() == es2 || ui->comboBox_ex3->currentText()== es7) {
+    t_es3 = 2;
+    ripe3 = ui->lineEdit_ex3->text().toInt();
+    t_es3 = t_es3* ripe3;
+     qDebug() << "es3";
+    qDebug() << t_es3;
+  }
+  if (ui->comboBox_ex4->currentText()== es1 || ui->comboBox_ex4->currentText()==es3 || ui->comboBox_ex4->currentText() == es5 || ui->comboBox_ex4->currentText()== es6){
+    t_es4 = 1;
+ripe4 = ui->lineEdit_ex4->text().toInt();
+   t_es4 = t_es4*ripe4;
+
+  }
+  else if ( ui->comboBox_ex4->currentText() == es2 || ui->comboBox_ex4->currentText()== es7) {
+    t_es4 = 2;
+    ripe4 = ui->lineEdit_ex4->text().toInt();
+    t_es4 = t_es4* ripe4;
+  }
+  if (ui->comboBox_ex5->currentText()== es1 || ui->comboBox_ex5->currentText()==es3 || ui->comboBox_ex5->currentText() == es5 || ui->comboBox_ex5->currentText()== es6){
+    t_es5 = 1;
+ripe5 = ui->lineEdit_ex5->text().toInt();
+   t_es5 = t_es5*ripe5;
+
+  }
+  else if ( ui->comboBox_ex5->currentText() == es2 || ui->comboBox_ex5->currentText()== es7) {
+    t_es5 = 2;
+    ripe5 = ui->lineEdit_ex5->text().toInt();
+    t_es5 = t_es5* ripe5;
+  }
+
+  if (ui->comboBox_ex6->currentText()== es1 || ui->comboBox_ex6->currentText()==es3 || ui->comboBox_ex6->currentText() == es5 || ui->comboBox_ex6->currentText()== es6){
+    t_es6 = 1;
+ripe6 = ui->lineEdit_ex6->text().toInt();
+   t_es6 = t_es6*ripe6;
+
+  }
+  else if ( ui->comboBox_ex6->currentText() == es2 || ui->comboBox_ex6->currentText()== es7) {
+    t_es6 = 2;
+    ripe6 = ui->lineEdit_ex6->text().toInt();
+    t_es6 = t_es6* ripe6;
+  }
+
+  if (ui->comboBox_ex7->currentText()== es1 || ui->comboBox_ex7->currentText()==es3 || ui->comboBox_ex7->currentText() == es5 || ui->comboBox_ex7->currentText()== es6){
+    t_es7 = 1;
+ripe7 = ui->lineEdit_ex7->text().toInt();
+   t_es7 = t_es7*ripe7;
+
+  }
+  else if ( ui->comboBox_ex7->currentText() == es2 || ui->comboBox_ex7->currentText()== es7) {
+    t_es7 = 2;
+    ripe7 = ui->lineEdit_ex7->text().toInt();
+    t_es7 = t_es7* ripe7;
+  }
+  if(ui->checkBox_ex1->isChecked()) {
+    temp_tot = t_es1;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_ex2->isChecked()) {
+    temp_tot += t_es2;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_ex3->isChecked()) {
+    temp_tot += t_es3;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_ex4->isChecked()) {
+    temp_tot += t_es4;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_ex5->isChecked()) {
+    temp_tot += t_es5;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_ex6->isChecked()) {
+    temp_tot += t_es6;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_7->isChecked()) {
+    temp_tot += t_es7;
+    temp_string = QString::number(temp_tot);
+  }
+
+
+ qDebug()<< temp_tot;
+ qDebug()<< temp_string;
+
+ QString test = QString("Tempo Stimato per la Terapia : %1 minuti").arg(temp_string);
+
+ ui->label_tempo->setText(test);
+
+}
+void paginaprincipale::enable_combo_ex() {
+  ui->comboBox_ex1->setEnabled(false);
+  ui->comboBox_ex2->setEnabled(false);
+  ui->comboBox_ex3->setEnabled(false);
+  ui->comboBox_ex4->setEnabled(false);
+  ui->comboBox_ex5->setEnabled(false);
+  ui->comboBox_ex6->setEnabled(false);
+  ui->comboBox_ex7->setEnabled(false);
+
+  if(ui->checkBox_ex1->isChecked()) {
+    ui->comboBox_ex1->setEnabled(true);
+  }
+  if(ui->checkBox_ex2->isChecked()) {
+    ui->comboBox_ex2->setEnabled(true);
+  }
+  if(ui->checkBox_ex3->isChecked()) {
+    ui->comboBox_ex3->setEnabled(true);
+  }
+  if(ui->checkBox_ex4->isChecked()) {
+    ui->comboBox_ex4->setEnabled(true);
+  }
+  if(ui->checkBox_ex5->isChecked()) {
+    ui->comboBox_ex5->setEnabled(true);
+  }
+  if(ui->checkBox_ex6->isChecked()) {
+    ui->comboBox_ex6->setEnabled(true);
+  }
+  if(ui->checkBox_7->isChecked()) {
+    ui->comboBox_ex7->setEnabled(true);
+  }
 
 }
 void paginaprincipale::on_pushButton_salvaex_clicked()
@@ -1794,6 +1966,8 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                      }
 
       enable_combo();
+      update_tempo_terapia();
+      enable_combo_ex();
 
 
 

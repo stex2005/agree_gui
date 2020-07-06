@@ -769,7 +769,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>5</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -2452,8 +2452,8 @@ Una volta effettuata questa procedura premere Avanti per Continuare. </string>
                <widget class="QLabel" name="label_tempo">
                 <property name="font">
                  <font>
-                  <family>OpenSymbol</family>
-                  <pointsize>15</pointsize>
+                  <family>Ubuntu</family>
+                  <pointsize>20</pointsize>
                   <italic>true</italic>
                  </font>
                 </property>

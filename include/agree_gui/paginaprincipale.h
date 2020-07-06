@@ -83,8 +83,12 @@ class paginaprincipale : public QDialog
     QString es1, es2,es3,es4,es5,es6,es7;
     int t_es1, t_es2, t_es3, t_es4, t_es5, t_es6, t_es7;
     int ripe1, ripe2, ripe3, ripe4, ripe5, ripe6, ripe7;
+    int temp_tot;
+    QString temp_string;
     QString oggetto_es1, oggetto_es2, oggetto_es3, oggetto_es4, oggetto_es5, oggetto_es6, oggetto_es7;
     int ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7;
+
+
 
 
 public:
@@ -117,6 +121,7 @@ private slots:
 
   void enable_combo();
   void update_tempo_terapia();
+  void enable_combo_ex();
 
 
 
