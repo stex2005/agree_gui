@@ -33,6 +33,7 @@ int     dati::l_oi_p;
 QString dati::ex1_prec, dati::ex2_prec, dati::ex3_prec, dati::ex4_prec, dati::ex5_prec, dati::ex6_prec, dati::ex7_prec;
 int     dati::lex1, dati::lex2, dati::lex3, dati::lex4, dati::lex5, dati::lex6, dati::lex7;
 QString dati::rip1_prec, dati::rip2_prec, dati::rip3_prec, dati::rip4_prec, dati::rip5_prec, dati::rip6_prec, dati::rip7_prec;
+QString dati::ogg1_prec, dati::ogg2_prec, dati::ogg3_prec, dati::ogg4_prec, dati::ogg5_prec, dati::ogg6_prec, dati::ogg7_prec;
 QString dati::mood;
 QString dati::mood_prec;
 QString dati::ex1, dati::ex2, dati::ex3, dati::ex4, dati::ex5, dati::ex6, dati::ex7;
@@ -465,18 +466,25 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             dati::l_oi_p = dati::oi_prec.length();
             dati::ex1_prec= selezione.value(22).toString();
             dati::rip1_prec = selezione.value(23).toString();
-            dati::ex2_prec = selezione.value(24).toString();
-            dati::rip2_prec = selezione.value(25).toString();
-            dati::ex3_prec= selezione.value(26).toString();
-            dati::rip3_prec = selezione.value(27).toString();
-            dati::ex4_prec = selezione.value(28).toString();
-            dati::rip4_prec = selezione.value(29).toString();
-            dati::ex5_prec= selezione.value(30).toString();
-            dati::rip5_prec = selezione.value(31).toString();
-            dati::ex6_prec = selezione.value(32).toString();
-            dati::rip6_prec = selezione.value(33).toString();
-            dati::ex7_prec= selezione.value(34).toString();
-            dati::rip7_prec = selezione.value(35).toString();
+            dati::ogg1_prec = selezione.value(24).toString();
+            dati::ex2_prec = selezione.value(25).toString();
+            dati::rip2_prec = selezione.value(26).toString();
+            dati::ogg2_prec = selezione.value(27).toString();
+            dati::ex3_prec = selezione.value(28).toString();
+            dati::rip3_prec = selezione.value(29).toString();
+            dati::ogg3_prec = selezione.value(30).toString();
+            dati::ex4_prec = selezione.value(31).toString();
+            dati::rip4_prec = selezione.value(32).toString();
+            dati::ogg4_prec = selezione.value(33).toString();
+            dati::ex5_prec = selezione.value(34).toString();
+            dati::rip5_prec = selezione.value(35).toString();
+            dati::ogg5_prec = selezione.value(36).toString();
+            dati::ex6_prec = selezione.value(37).toString();
+            dati::rip6_prec = selezione.value(38).toString();
+            dati::ogg6_prec = selezione.value(39).toString();
+            dati::ex7_prec= selezione.value(40).toString();
+            dati::rip7_prec = selezione.value(41).toString();
+            dati::ogg7_prec = selezione.value(42).toString();
             dati::lex1 = dati::ex1_prec.length();
             dati::lex2 = dati::ex2_prec.length();
             dati::lex3 = dati::ex3_prec.length();
@@ -1116,10 +1124,14 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
    dati::ex1 = ui->comboBox_ex1->currentText();
 
    dati::rip1= ui->lineEdit_ex1->text();
-
+   if(ui->comboBox_oi_es1->isEnabled()) {
    if(ui->comboBox_oi_es1->currentText()== bicchiere ) {oggetto_es1= "1"; ros_ogg1=1;}
    else if (ui->comboBox_oi_es1->currentText()==forchetta) {oggetto_es1= "2"; ros_ogg1=2;}
-   else if(ui->comboBox_oi_es1 ->currentText()==libro) {oggetto_es1= "3"; ros_ogg1=3;}
+   else if(ui->comboBox_oi_es1 ->currentText()==libro) {oggetto_es1= "3"; ros_ogg1=3;} }
+   else if (!(ui->comboBox_oi_es1->isEnabled())) {
+     oggetto_es1="0";
+     ros_ogg1 = 0;
+   }
    qDebug()<< oggetto_es1;
    QSqlQuery selezione1;
    selezione1.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex1+"'");
@@ -1161,9 +1173,14 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
    dati::ex2 = ui->comboBox_ex2->currentText();
 
    dati::rip2= ui->lineEdit_ex2->text();
+   if(ui->comboBox_oi_es2->isEnabled()) {
    if(ui->comboBox_oi_es2->currentText()== bicchiere ) {oggetto_es2= "1"; ros_ogg2=1;}
    else if (ui->comboBox_oi_es2->currentText()==forchetta) {oggetto_es2 = "2"; ros_ogg2= 2;}
-   else if(ui->comboBox_oi_es2 ->currentText()==libro) {oggetto_es2= "3"; ros_ogg2= 3;}
+   else if(ui->comboBox_oi_es2 ->currentText()==libro) {oggetto_es2= "3"; ros_ogg2= 3;} }
+   else if (!(ui->comboBox_oi_es2->isEnabled())) {
+     oggetto_es2 = "0";
+     ros_ogg2 = 0;
+   }
    QSqlQuery selezione2;
    selezione2.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex2+"'");
    selezione2.exec();
@@ -1198,9 +1215,14 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
    dati::ex3 = ui->comboBox_ex3->currentText();
 
    dati::rip3= ui->lineEdit_ex3->text();
+   if(ui->comboBox_oi_es3->isEnabled()) {
    if(ui->comboBox_oi_es3->currentText()== bicchiere ) {oggetto_es3= "1"; ros_ogg3=1;}
    else if (ui->comboBox_oi_es3->currentText()==forchetta) {oggetto_es3= "2"; ros_ogg3=3;}
-   else if(ui->comboBox_oi_es3 ->currentText()==libro) {oggetto_es3= "3"; ros_ogg3=3;}
+   else if(ui->comboBox_oi_es3 ->currentText()==libro) {oggetto_es3= "3"; ros_ogg3=3;} }
+   else if(!(ui->comboBox_ex3->isEnabled())) {
+     oggetto_es3 = "0";
+     ros_ogg3 = 0;
+   }
    QSqlQuery selezione3;
    selezione3.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex3+"'");
    selezione3.exec();
@@ -1234,9 +1256,14 @@ if(ui->checkBox_ex4->isChecked())
   dati::ex4 = ui->comboBox_ex4->currentText();
 
   dati::rip4= ui->lineEdit_ex4->text();
+  if(ui->comboBox_ex4->isEnabled()) {
   if(ui->comboBox_oi_es4->currentText()== bicchiere ) {oggetto_es4= "1"; ros_ogg4=1;}
   else if (ui->comboBox_oi_es4->currentText()==forchetta) {oggetto_es4= "2"; ros_ogg4=3;}
-  else if(ui->comboBox_oi_es4 ->currentText()==libro) {oggetto_es4= "3"; ros_ogg4=3;}
+  else if(ui->comboBox_oi_es4 ->currentText()==libro) {oggetto_es4= "3"; ros_ogg4=3;} }
+  else if (!(ui->comboBox_oi_es4->isEnabled())) {
+    oggetto_es4 = "0";
+    ros_ogg4 = 0;
+  }
   QSqlQuery selezione4;
   selezione4.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex4+"'");
   selezione4.exec();
@@ -1271,9 +1298,15 @@ if(ui->checkBox_ex5->isChecked())
   dati::ex5 = ui->comboBox_ex5->currentText();
 
   dati::rip5= ui->lineEdit_ex5->text();
+  if(ui->comboBox_oi_es5->isEnabled()) {
   if(ui->comboBox_oi_es5->currentText()== bicchiere ) {oggetto_es5= "1"; ros_ogg5=1;}
   else if (ui->comboBox_oi_es5->currentText()==forchetta) {oggetto_es5= "2"; ros_ogg5=2;}
-  else if(ui->comboBox_oi_es5->currentText()==libro) {oggetto_es5= "3"; ros_ogg5=3;}
+  else if(ui->comboBox_oi_es5->currentText()==libro) {oggetto_es5= "3"; ros_ogg5=3;} }
+  else if (!(ui->comboBox_oi_es5->isEnabled())) {
+    oggetto_es5 = "0";
+    ros_ogg5 = 0;
+
+  }
   QSqlQuery selezione5;
   selezione5.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex5+"'");
   selezione5.exec();
@@ -1308,9 +1341,14 @@ if(ui->checkBox_ex6->isChecked())
   dati::ex6 = ui->comboBox_ex6->currentText();
 
   dati::rip6= ui->lineEdit_ex6->text();
+  if(ui->comboBox_oi_es6->isEnabled()) {
   if(ui->comboBox_oi_es6->currentText()== bicchiere ) {oggetto_es6= "1"; ros_ogg6=1;}
   else if (ui->comboBox_oi_es6->currentText()==forchetta) {oggetto_es6= "2"; ros_ogg6=2;}
-  else if(ui->comboBox_oi_es6 ->currentText()==libro) {oggetto_es6= "3"; ros_ogg6=3;}
+  else if(ui->comboBox_oi_es6 ->currentText()==libro) {oggetto_es6= "3"; ros_ogg6=3;} }
+  else if(!(ui->comboBox_ex6->isEnabled()))  {
+    oggetto_es6 = "0";
+    ros_ogg6 = 0;
+  }
   QSqlQuery selezione6;
   selezione6.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex6+"'");
   selezione6.exec();
@@ -1346,9 +1384,14 @@ if(ui->checkBox_7->isChecked())
   dati::ex7 = ui->comboBox_ex7->currentText();
 
   dati::rip7= ui->lineEdit_ex7->text();
+  if(ui->comboBox_ex7->isEnabled()) {
   if(ui->comboBox_oi_es7->currentText()== bicchiere ) {oggetto_es7= "1"; ros_ogg7=1;}
   else if (ui->comboBox_oi_es7->currentText()==forchetta) {oggetto_es7= "2"; ros_ogg7=2;}
-  else if(ui->comboBox_oi_es7 ->currentText()==libro) {oggetto_es7= "3"; ros_ogg7=3;}
+  else if(ui->comboBox_oi_es7 ->currentText()==libro) {oggetto_es7= "3"; ros_ogg7=3;} }
+  else if(!(ui->comboBox_oi_es7 ->isEnabled())) {
+    oggetto_es7 = "0";
+    ros_ogg7 = 0;
+  }
   QSqlQuery selezione7;
   selezione7.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex7+"'");
   selezione7.exec();
@@ -1769,6 +1812,15 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                         r1 = dati::rip1_prec;
                         ui->lineEdit_ex1->setText(r1);
                         qDebug()<< r1;
+                        if(dati::ogg1_prec =="1") {
+                          ui->comboBox_oi_es1->setCurrentText("Bicchiere");
+                        }
+                        else if(dati::ogg1_prec == "2") {
+                          ui->comboBox_oi_es1->setCurrentText("Forchetta");
+                        }
+                        else if(dati::ogg1_prec == "3") {
+                          ui->comboBox_oi_es1->setCurrentText("Libro");
+                        }
 
 
                         }
@@ -1796,6 +1848,16 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                         r2 = dati::rip2_prec;
                         ui->lineEdit_ex2->setText(r2);
                         qDebug()<<r2;
+                        if(dati::ogg2_prec =="1") {
+                          ui->comboBox_oi_es2->setCurrentText("Bicchiere");
+                        }
+                        else if(dati::ogg2_prec == "2") {
+                          ui->comboBox_oi_es2->setCurrentText("Forchetta");
+                        }
+                        else if(dati::ogg2_prec == "3") {
+                          ui->comboBox_oi_es2->setCurrentText("Libro");
+                        }
+
                       }
                       }
                       else {
@@ -1820,6 +1882,16 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 
                         r3 = dati::rip3_prec;
                         qDebug()<<r3;
+                        if(dati::ogg3_prec =="1") {
+                          ui->comboBox_oi_es3->setCurrentText("Bicchiere");
+                        }
+                        else if(dati::ogg3_prec == "2") {
+                          ui->comboBox_oi_es3->setCurrentText("Forchetta");
+                        }
+                        else if(dati::ogg3_prec == "3") {
+                          ui->comboBox_oi_es3->setCurrentText("Libro");
+                        }
+
 
                        ui->lineEdit_ex3->setText(r3);
 
@@ -1847,6 +1919,16 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                         r4 = dati::rip4_prec;
                         ui->lineEdit_ex4->setText(r4);
                         qDebug()<< r4;
+                        if(dati::ogg4_prec =="1") {
+                          ui->comboBox_oi_es4->setCurrentText("Bicchiere");
+                        }
+                        else if(dati::ogg4_prec == "2") {
+                          ui->comboBox_oi_es4->setCurrentText("Forchetta");
+                        }
+                        else if(dati::ogg4_prec == "3") {
+                          ui->comboBox_oi_es4->setCurrentText("Libro");
+                        }
+
 
                       }
                       }
@@ -1872,6 +1954,16 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                         r5 = dati::rip5_prec;
                         ui->lineEdit_ex5->setText(r5);
                         qDebug()<< r5;
+                        if(dati::ogg5_prec =="1") {
+                          ui->comboBox_oi_es5->setCurrentText("Bicchiere");
+                        }
+                        else if(dati::ogg5_prec == "2") {
+                          ui->comboBox_oi_es5->setCurrentText("Forchetta");
+                        }
+                        else if(dati::ogg5_prec == "3") {
+                          ui->comboBox_oi_es5->setCurrentText("Libro");
+                        }
+
 
                       }
                       }
@@ -1897,6 +1989,16 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                         r6 = dati::rip6_prec;
                        ui->lineEdit_ex6->setText(r6);
                        qDebug()<< r6;
+                       if(dati::ogg6_prec =="1") {
+                         ui->comboBox_oi_es6->setCurrentText("Bicchiere");
+                       }
+                       else if(dati::ogg6_prec == "2") {
+                         ui->comboBox_oi_es6->setCurrentText("Forchetta");
+                       }
+                       else if(dati::ogg6_prec == "3") {
+                         ui->comboBox_oi_es6->setCurrentText("Libro");
+                       }
+
 
                       }
                       }
@@ -1916,6 +2018,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                             QString ex7;
                             ex7 = selezione7.value(0).toString();
                             qDebug()<< ex7;
+
                             }
 
 
@@ -1923,6 +2026,16 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                         r7 = dati::rip7_prec;
                         ui->lineEdit_ex7->setText(r7);
                         qDebug()<< r7;
+                        if(dati::ogg7_prec =="1") {
+                          ui->comboBox_oi_es7->setCurrentText("Bicchiere");
+                        }
+                        else if(dati::ogg7_prec == "2") {
+                          ui->comboBox_oi_es7->setCurrentText("Forchetta");
+                        }
+                        else if(dati::ogg7_prec == "3") {
+                          ui->comboBox_oi_es7->setCurrentText("Libro");
+                        }
+
 
 
                       }
@@ -2175,7 +2288,7 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 //}
 
 void paginaprincipale::on_pushButton_next_clicked()
-{
+{ bool next = 0;
   qDebug()<<sel_ex;
   if(curEx<sel_ex.size()) {
     key= sel_ex.at(curEx);
@@ -2206,6 +2319,7 @@ void paginaprincipale::on_pushButton_next_clicked()
               ui->label_img->setPixmap(smile);
                curEx++;
 
+
               // now take next EX
           }
 
@@ -2213,16 +2327,17 @@ void paginaprincipale::on_pushButton_next_clicked()
 
       }
 
+
 //      if(curEx==sel_ex.size())
 //      {
 //        curEx=0;
 //        return;
 //      }
   }
-  if (curEx==sel_ex.size()) {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
-  }
+
+
 }
+
 
 void paginaprincipale::on_pushButton_associa_clicked()
 {   QString user_doc_string;
