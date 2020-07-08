@@ -69,7 +69,6 @@ private slots:
 
   void on_pushButton_vocale_clicked();
 
-  void on_pushButton_modifica_clicked();
 
   void on_pushButton_joy_clicked();
 
@@ -86,6 +85,8 @@ private slots:
   void on_pushButton_salva_single_joint_clicked();
 
   void on_pushButton_singoloj_clicked();
+
+  void on_pushButton_modifica_2_clicked();
 
 private:
   Ui::sc_assistivo *ui;

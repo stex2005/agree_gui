@@ -46,7 +46,7 @@ chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
  }
    qDebug() << dati::nuovo_utente;
 if(dati::nuovo_utente==1) ui->stackedWidget->setCurrentWidget(ui->page_config);
-else if(dati::nuovo_utente==0) ui->stackedWidget->setCurrentWidget(ui->page_2);
+else if(dati::nuovo_utente==0) ui->stackedWidget->setCurrentWidget(ui->page_prima);
 }
 
 sc_assistivo::~sc_assistivo()
@@ -151,7 +151,7 @@ void sc_assistivo::on_pushButton_salva_clicked()
      prova.prepare("update Utenti_ass set Sesso = '"+sesso+"', Patologia = '"+dati::patologia+"', Lato_dominante= '"+latodom+"', Lunghezza_braccio = '"+lb+"', Lunghezza_avambraccio = '"+la+"', uROM1_min= '"+ROM1_min+"', uROM1_max = '"+ROM1_max+"', uROM2_min= '"+ROM2_min+"', uROM2_max = '"+ROM2_max+"', uROM3_min= '"+ROM3_min+"', uROM3_max = '"+ROM3_max+"', uROM4_min= '"+ROM4_min+"', uROM4_max = '"+ROM4_max+"', uROM5_min= '"+ROM5_min+"', uROM5_max = '"+ROM5_max+"' where usernameass = '"+user+"'");
      prova.exec();
      if(prova.exec())
-     {     QMessageBox::information(this, tr("done"), tr("done"));
+     {     QMessageBox::information(this, tr("Salvato"), tr("Modifiche salvate correttamente"));
        ss_rom << "ho effettuato la configurazione dei ROM" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
        msg.data = ss_rom.str();
      chatter_publisher.publish(msg);
@@ -190,43 +190,7 @@ void sc_assistivo::on_pushButton_vocale_clicked()
       }
 }
 
-void sc_assistivo::on_pushButton_modifica_clicked()
-{ dati::nuovo_utente = 0;
- ui->stackedWidget->setCurrentWidget(ui->page_config);
- if (dati::nuovo_utente==0)
- {
-   QSqlQuery sel_mod;
 
-   sel_mod.prepare("select Sesso, Patologia, Lato_dominante, Lunghezza_braccio, Lunghezza_avambraccio, uROM1_min, uROM1_max, uROM2_min, uROM2_max,uROM3_min, uROM3_max,uROM4_min, uROM4_max,uROM5_min, uROM5_max from Utenti_ass where usernameass = '"+dati::username+"' ");
-   if (sel_mod.exec()){
-   while (sel_mod.next()) {
-  //  sel_mod.value(0).toString();
-  //  sel_mod.value(2).toString();
-     QString patologia = sel_mod.value(1).toString();
-
-     ui->lineEdit_patologia->setText(patologia);
-     ui->lineEdit_la->setText(sel_mod.value(4).toString());
-     ui->lineEdit_lb->setText(sel_mod.value(3).toString());
-     ui->lineEdit_rom1_min->setText(sel_mod.value(5).toString());
-     ui->lineEdit_rom1_max->setText(sel_mod.value(6).toString());
-     ui->lineEdit_rom2_min->setText(sel_mod.value(7).toString());
-     ui->lineEdit_rom2_max->setText(sel_mod.value(8).toString());
-     ui->lineEdit_rom3_min->setText(sel_mod.value(9).toString());
-     ui->lineEdit_rom3_max->setText(sel_mod.value(10).toString());
-     ui->lineEdit_rom4_min->setText(sel_mod.value(11).toString());
-     ui->lineEdit_rom4_max->setText(sel_mod.value(12).toString());
-     ui->lineEdit_rom5_min->setText(sel_mod.value(13).toString());
-     ui->lineEdit_rom5_max->setText(sel_mod.value(14).toString());
-   }
-   }
-   else{qDebug()<<sel_mod.lastError();}
-
-
-
-
- }
-
-}
 void sc_assistivo::paintEvent(QPaintEvent *event) {
   QPainter prova1(this);
   QPainter prova2(this);
@@ -408,4 +372,42 @@ void sc_assistivo::on_pushButton_salva_single_joint_clicked()
 void sc_assistivo::on_pushButton_singoloj_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->page_joint);
+}
+
+void sc_assistivo::on_pushButton_modifica_2_clicked()
+{
+  dati::nuovo_utente = 0;
+   ui->stackedWidget->setCurrentWidget(ui->page_config);
+   if (dati::nuovo_utente==0)
+   {
+     QSqlQuery sel_mod;
+
+     sel_mod.prepare("select Sesso, Patologia, Lato_dominante, Lunghezza_braccio, Lunghezza_avambraccio, uROM1_min, uROM1_max, uROM2_min, uROM2_max,uROM3_min, uROM3_max,uROM4_min, uROM4_max,uROM5_min, uROM5_max from Utenti_ass where usernameass = '"+dati::username+"' ");
+     if (sel_mod.exec()){
+     while (sel_mod.next()) {
+    //  sel_mod.value(0).toString();
+    //  sel_mod.value(2).toString();
+       QString patologia = sel_mod.value(1).toString();
+
+       ui->lineEdit_patologia->setText(patologia);
+       ui->lineEdit_la->setText(sel_mod.value(4).toString());
+       ui->lineEdit_lb->setText(sel_mod.value(3).toString());
+       ui->lineEdit_rom1_min->setText(sel_mod.value(5).toString());
+       ui->lineEdit_rom1_max->setText(sel_mod.value(6).toString());
+       ui->lineEdit_rom2_min->setText(sel_mod.value(7).toString());
+       ui->lineEdit_rom2_max->setText(sel_mod.value(8).toString());
+       ui->lineEdit_rom3_min->setText(sel_mod.value(9).toString());
+       ui->lineEdit_rom3_max->setText(sel_mod.value(10).toString());
+       ui->lineEdit_rom4_min->setText(sel_mod.value(11).toString());
+       ui->lineEdit_rom4_max->setText(sel_mod.value(12).toString());
+       ui->lineEdit_rom5_min->setText(sel_mod.value(13).toString());
+       ui->lineEdit_rom5_max->setText(sel_mod.value(14).toString());
+     }
+     }
+     else{qDebug()<<sel_mod.lastError();}
+
+
+
+
+   }
 }

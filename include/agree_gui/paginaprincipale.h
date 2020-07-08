@@ -35,7 +35,7 @@
 
 
 
-QList<QPixmap > GetImages(QString exID);  // in here we load all images from folder
+QList<QPixmap > GetImages(QString exID);  // carico tutte le immagini del folder
 
 struct ExInfo{
   QString EX;
@@ -43,7 +43,12 @@ struct ExInfo{
   QList<QPixmap> images;
 };
 
+QList<QPixmap > GetImages2(QString tutID); //carico le immagini dal folder tutorial
 
+struct TutInfo {
+  QString tut;
+  QList<QPixmap> img;
+};
 
 //se sottoscrivo a un topic non ho bisogno delle classi lo vedo come topic
 
@@ -61,13 +66,21 @@ class QVideoWidget;
 class paginaprincipale : public QDialog
 {
   Q_OBJECT
-   std::map<QString,ExInfo>ExInfoMap;
+   std::map<QString,ExInfo>ExInfoMap; // mappo gli esercizi
+   std::map<QString, TutInfo> TutInfoMap; // mappo le immagini del tutorial
     MatrixWidget * matrix = new MatrixWidget (this);
     int curImage = 0;
     int rep = 0;
-    QVector<QString > sel_ex;
+    QVector<QString> sel_ex;
     int curEx=0;
     QString key;
+
+    // sistemo mappatura immagini tutorial
+    int curImg = 0;
+    QVector<QString> sel_tut;
+    int curTut = 0;
+    QString key2;
+
     // aggiungo questo
     std_msgs::String msg;
     std::stringstream ss; //ROM
@@ -168,6 +181,12 @@ private slots:
   void on_pushButton_associa_clicked();
 
   void on_pushButton_testa_clicked();
+
+  void on_pushButton_indietro_2_clicked();
+
+  void on_pushButton_prosegui_clicked();
+
+  void on_pushButton_go_clicked();
 
 private:
   Ui::paginaprincipale *ui;

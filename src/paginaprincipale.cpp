@@ -626,8 +626,23 @@ void paginaprincipale::on_pushButton_home_clicked()
 }
 
 void paginaprincipale::on_pushButton_salta_clicked()
-{
-    ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+{    qDebug() << sel_tut;
+     if(curTut<sel_tut.size()) {
+       key2 = sel_tut.at(curTut);
+       qDebug() << key2;
+       if(TutInfoMap.find(key2) != TutInfoMap.end()) {
+         TutInfo &one2 = TutInfoMap[key2];
+         if(curImg < one2.img.size()){
+           ui->label_img_tut -> setPixmap(one2.img.at(curImg));
+           curImg ++;
+         }
+         if(curImg == one2.img.size()) {
+           curImg =0;
+           curTut ++;
+         }
+       }
+     }
+
 }
 
 void paginaprincipale::on_pushButton_salvaconf_clicked()
@@ -841,7 +856,7 @@ void paginaprincipale::on_pushButton_cerca_3_clicked()
 
 void paginaprincipale::on_pushButton_continua_clicked()
 {   qDebug() << flag;
-    ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+    ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
     if (flag==4) //day N
     {
         if(dati::mood_prec=="Trigger")
@@ -889,7 +904,7 @@ void paginaprincipale::on_pushButton_continua_clicked()
     }
    // day0
     else {
-ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
 
     }
 
@@ -905,7 +920,7 @@ void paginaprincipale::enable_combo() {
 
 
   es2 = "Raggiungimento anteriore di target su un piano con oggetti";
-  es4 = "Raggiungimento anteriore di target su un piano nello spazio con oggetti ";
+  es4 = "Raggiungimento anteriore di target su un piano nello spazio con oggetti";
   es7 = "Mano alla bocca con oggetto";
 
   qDebug()<< "sono nella funzione enable_combo";
@@ -1219,7 +1234,7 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
    if(ui->comboBox_oi_es3->currentText()== bicchiere ) {oggetto_es3= "1"; ros_ogg3=1;}
    else if (ui->comboBox_oi_es3->currentText()==forchetta) {oggetto_es3= "2"; ros_ogg3=3;}
    else if(ui->comboBox_oi_es3 ->currentText()==libro) {oggetto_es3= "3"; ros_ogg3=3;} }
-   else if(!(ui->comboBox_ex3->isEnabled())) {
+   else if(!(ui->comboBox_oi_es3->isEnabled())) {
      oggetto_es3 = "0";
      ros_ogg3 = 0;
    }
@@ -1256,7 +1271,7 @@ if(ui->checkBox_ex4->isChecked())
   dati::ex4 = ui->comboBox_ex4->currentText();
 
   dati::rip4= ui->lineEdit_ex4->text();
-  if(ui->comboBox_ex4->isEnabled()) {
+  if(ui->comboBox_oi_es4->isEnabled()) {
   if(ui->comboBox_oi_es4->currentText()== bicchiere ) {oggetto_es4= "1"; ros_ogg4=1;}
   else if (ui->comboBox_oi_es4->currentText()==forchetta) {oggetto_es4= "2"; ros_ogg4=3;}
   else if(ui->comboBox_oi_es4 ->currentText()==libro) {oggetto_es4= "3"; ros_ogg4=3;} }
@@ -1345,7 +1360,7 @@ if(ui->checkBox_ex6->isChecked())
   if(ui->comboBox_oi_es6->currentText()== bicchiere ) {oggetto_es6= "1"; ros_ogg6=1;}
   else if (ui->comboBox_oi_es6->currentText()==forchetta) {oggetto_es6= "2"; ros_ogg6=2;}
   else if(ui->comboBox_oi_es6 ->currentText()==libro) {oggetto_es6= "3"; ros_ogg6=3;} }
-  else if(!(ui->comboBox_ex6->isEnabled()))  {
+  else if(!(ui->comboBox_oi_es6->isEnabled()))  {
     oggetto_es6 = "0";
     ros_ogg6 = 0;
   }
@@ -1384,7 +1399,7 @@ if(ui->checkBox_7->isChecked())
   dati::ex7 = ui->comboBox_ex7->currentText();
 
   dati::rip7= ui->lineEdit_ex7->text();
-  if(ui->comboBox_ex7->isEnabled()) {
+  if(ui->comboBox_oi_es7->isEnabled()) {
   if(ui->comboBox_oi_es7->currentText()== bicchiere ) {oggetto_es7= "1"; ros_ogg7=1;}
   else if (ui->comboBox_oi_es7->currentText()==forchetta) {oggetto_es7= "2"; ros_ogg7=2;}
   else if(ui->comboBox_oi_es7 ->currentText()==libro) {oggetto_es7= "3"; ros_ogg7=3;} }
@@ -1452,7 +1467,7 @@ while(esercizi.next())
   cur.EX = EX1; // fill it
   cur.REP = RIP1;
   cur.images = GetImages(EX1);
-  ExInfoMap[EX1] = cur; // now we add it
+  ExInfoMap[EX1] = cur; //  add it
   qDebug()<<cur.images.size();
   sel_ex.append(EX1);
    qDebug()<< "sel:" << sel_ex;
@@ -1476,7 +1491,7 @@ while(esercizi.next())
   cur.EX = EX2; // fill it
   cur.REP = RIP2;
   cur.images = GetImages(EX2);  // use ID to get images  /////////////////////////////////////////////// IMAGES
-  ExInfoMap[EX2] = cur; // now we add it
+  ExInfoMap[EX2] = cur; //  add it
   sel_ex.append(EX2);
   qDebug()<< "sel:" << sel_ex;
           qDebug()<< " size:" << sel_ex.size();
@@ -1505,7 +1520,7 @@ while(esercizi.next())
   cur.EX = EX3; // fill it
   cur.REP = RIP3;
    cur.images = GetImages(EX3);
-  ExInfoMap[EX3] = cur; // now we add it
+  ExInfoMap[EX3] = cur; //  add it
    sel_ex.append(EX3);
    qDebug()<< "sel:" << sel_ex;
            qDebug()<< " size:" << sel_ex.size();
@@ -1533,7 +1548,7 @@ while(esercizi.next())
   cur.EX = EX4; // fill it
   cur.REP = RIP4;
   cur.images = GetImages(EX4);
-  ExInfoMap[EX4] = cur; // now we add it
+  ExInfoMap[EX4] = cur; //  add it
    sel_ex.append(EX4);
    qDebug()<< "sel:" << sel_ex;
            qDebug()<< " size:" << sel_ex.size();
@@ -1564,7 +1579,7 @@ while(esercizi.next())
   cur.EX = EX5; // fill it
   cur.REP = RIP5;
    cur.images = GetImages(EX5);
-  ExInfoMap[EX5] = cur; // now we add it
+  ExInfoMap[EX5] = cur; //  add it
    sel_ex.append(EX5);
    qDebug()<< "sel:" << sel_ex;
            qDebug()<< " size:" << sel_ex.size();
@@ -1595,7 +1610,7 @@ while(esercizi.next())
   cur.EX = EX6; // fill it
   cur.REP = RIP6;
   cur.images = GetImages(EX6);
-  ExInfoMap[EX6] = cur; // now we add it
+  ExInfoMap[EX6] = cur; //  add it
    sel_ex.append(EX6);
    qDebug()<< "sel:" << sel_ex;
            qDebug()<< " size:" << sel_ex.size();
@@ -1626,7 +1641,7 @@ while(esercizi.next())
   cur.EX = EX7; // fill it
   cur.REP = RIP7;
   cur.images = GetImages(EX7);
-  ExInfoMap[EX7] = cur; // now we add it
+  ExInfoMap[EX7] = cur; //  add it
    sel_ex.append(EX7);
    qDebug()<< "sel:" << sel_ex;
            qDebug()<< " size:" << sel_ex.size();
@@ -2197,6 +2212,82 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   msg.data = ss2.str();
 chatter_publisher.publish(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
+
+//recupero dati salvati
+QSqlQuery conf_moduli;
+conf_moduli.prepare("select Modulo_Spalla, Modulo_gomito, Modulo_polso, EEG, EMG, Mano from Parametri_Paziente where  Codice_ID= '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+if(conf_moduli.exec()){
+  qDebug()<< "ho eseguito la query";
+
+while(conf_moduli.next()) {
+  TutInfo curr;
+  QString spalla, gomito, polso, EEG, EMG, Mano;
+
+  spalla = conf_moduli.value(0).toString();
+  gomito = conf_moduli.value(1).toString();
+  polso = conf_moduli.value(2).toString();
+  EEG = conf_moduli.value(3).toString();
+  EMG = conf_moduli.value(4).toString();
+  Mano = conf_moduli.value(5).toString();
+
+  if (spalla == "1" && gomito == "1" && polso == "1") {
+   QString tut1 = "mecc1";
+   curr.tut = tut1;
+   curr.img = GetImages2(tut1);
+   TutInfoMap[tut1] = curr;
+   qDebug()<<curr.img.size();
+   sel_tut.append(tut1);
+   qDebug()<<"sel : " <<sel_tut;
+   qDebug()<<"size:" << sel_tut.size();
+  }
+  else if (spalla =="1" && gomito == "1" && polso == "0") {
+   QString tut2 = "mecc";
+   curr.tut = tut2;
+   curr.img = GetImages2(tut2);
+   TutInfoMap[tut2] = curr;
+   qDebug()<<curr.img.size();
+   sel_tut.append(tut2);
+   qDebug()<<"sel : " <<sel_tut;
+   qDebug()<<"size:" << sel_tut.size();
+
+  }
+  if(EEG == "1") {
+    QString tut3 = "eeg";
+    curr.tut = tut3;
+    curr.img = GetImages2(tut3);
+    TutInfoMap[tut3] = curr;
+    qDebug()<<curr.img.size();
+    sel_tut.append(tut3);
+    qDebug()<<"sel : " <<sel_tut;
+    qDebug()<<"size:" << sel_tut.size();
+
+  }
+  if (EMG == "1") {
+    QString tut4 = "emg";
+    curr.tut = tut4;
+    curr.img = GetImages2(tut4);
+    TutInfoMap[tut4] = curr;
+    qDebug()<<curr.img.size();
+    sel_tut.append(tut4);
+    qDebug()<<"sel : " <<sel_tut;
+    qDebug()<<"size:" << sel_tut.size();
+  }
+  if(Mano == "1") {
+    QString tut5 = "map";
+    curr.tut = tut5;
+    curr.img = GetImages2(tut5);
+    TutInfoMap[tut5] = curr;
+    qDebug()<<curr.img.size();
+    sel_tut.append(tut5);
+    qDebug()<<"sel : " <<sel_tut;
+    qDebug()<<"size:" << sel_tut.size();
+  }
+
+
+}
+}
+
+
 }
  // }
 
@@ -2253,6 +2344,21 @@ return mylist;
 
 }
 
+QList<QPixmap>GetImages2(QString tutID) {
+  QList<QPixmap> mylist2;
+  auto folder2("/home/alice/Desktop/tutorial/" +tutID);
+  QDir directory2(folder2);
+  QStringList img = directory2.entryList(QStringList() << "*.jpg" << "*.JPG" <<"*.png" << "*.PNG", QDir::Files );
+  qDebug()<<directory2;
+  qDebug() <<"i found" << img.size();
+  foreach (QString filename, img) {
+    QPixmap pix2(folder2 + QString("/") + filename);
+    mylist2.append(pix2);
+    qDebug()<< mylist2;
+  }
+  return mylist2;
+}
+
 void paginaprincipale::on_pushButton_salvatapp_clicked()
 {
 
@@ -2288,8 +2394,7 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 //}
 
 void paginaprincipale::on_pushButton_next_clicked()
-{ bool next = 0;
-  qDebug()<<sel_ex;
+{ qDebug()<<sel_ex;
   if(curEx<sel_ex.size()) {
     key= sel_ex.at(curEx);
     qDebug()<<key;
@@ -2318,13 +2423,8 @@ void paginaprincipale::on_pushButton_next_clicked()
               QPixmap smile("/home/alice/Desktop/smile.jpeg");
               ui->label_img->setPixmap(smile);
                curEx++;
-
-
               // now take next EX
           }
-
-
-
       }
 
 
@@ -2334,7 +2434,9 @@ void paginaprincipale::on_pushButton_next_clicked()
 //        return;
 //      }
   }
-
+  if (curEx==sel_ex.size()) {
+    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
+  }
 
 }
 
@@ -2377,4 +2479,57 @@ void paginaprincipale::on_pushButton_testa_clicked()
     msg.data = ss5.str();
     chatter_publisher.publish(msg);
 
+}
+
+void paginaprincipale::on_pushButton_indietro_2_clicked()
+{ qDebug()<< curTut;
+  qDebug()<< curImg;
+  if(curImg != 0) {
+    curImg --;
+    qDebug()<<curImg;
+
+
+    key2 = sel_tut.at(curTut);
+     qDebug() << key2;
+     if(TutInfoMap.find(key2) != TutInfoMap.end()) {
+    TutInfo &one2 = TutInfoMap[key2];
+
+    if(curImg <  one2.img.size()){
+             ui->label_img_tut -> setPixmap(one2.img.at(curImg));
+
+    qDebug() <<curTut;} }
+
+  }
+
+  else if(curImg ==0 && curTut != 0)
+  {curTut --;
+
+  key2 = sel_tut.at(curTut);
+   qDebug() << key2;
+   if(TutInfoMap.find(key2) != TutInfoMap.end()) {
+  TutInfo &one2 = TutInfoMap[key2];
+
+  if(curImg < one2.img.size()){
+           ui->label_img_tut -> setPixmap(one2.img.at(curImg));
+
+  qDebug() <<curTut;} }
+
+   }
+  else {
+   qDebug()<< "stop";
+  }
+
+
+
+}
+
+
+void paginaprincipale::on_pushButton_prosegui_clicked()
+{
+    ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+}
+
+void paginaprincipale::on_pushButton_go_clicked()
+{
+    ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
 }

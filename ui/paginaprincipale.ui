@@ -45,76 +45,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="3">
-    <widget class="QPushButton" name="pushButton_annulla">
-     <property name="font">
-      <font>
-       <family>Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Annulla</string>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../resources/images/img/icone/Undo.png</normaloff>../resources/images/img/icone/Undo.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="pushButton_indietro">
-     <property name="font">
-      <font>
-       <family>Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Indietro</string>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../resources/images/img/icone/Go back.png</normaloff>../resources/images/img/icone/Go back.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="pushButton_home">
-     <property name="font">
-      <font>
-       <family>Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Home</string>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../resources/images/img/icone/Home.png</normaloff>../resources/images/img/icone/Home.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4">
-    <widget class="QLabel" name="label_date">
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>[+]Date</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="5">
+   <item row="0" column="0" colspan="3">
     <widget class="QTabWidget" name="tabWidget">
      <property name="minimumSize">
       <size>
@@ -769,7 +700,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>6</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -1017,50 +948,109 @@ background-color: rgb(157, 241, 161);</string>
           <attribute name="title">
            <string>Tutorial Montaggio </string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_video">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>:/img/img/agree-logo.jpg</pixmap>
-             </property>
-             <property name="scaledContents">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_riproduci">
-             <property name="text">
-              <string>Riproduci </string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/img/img/icone/Playback.png</normaloff>:/img/img/icone/Playback.png</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_salta">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Avanti</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/img/img/icone/Go forward.png</normaloff>:/img/img/icone/Go forward.png</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QLabel" name="label_video">
+           <property name="geometry">
+            <rect>
+             <x>9</x>
+             <y>9</y>
+             <width>16</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>:/img/img/agree-logo.jpg</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_indietro_2">
+           <property name="geometry">
+            <rect>
+             <x>9</x>
+             <y>595</y>
+             <width>391</width>
+             <height>28</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Indietro </string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>:/img/img/icone/Playback.png</normaloff>:/img/img/icone/Playback.png</iconset>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_salta">
+           <property name="geometry">
+            <rect>
+             <x>420</x>
+             <y>595</y>
+             <width>391</width>
+             <height>29</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Avanti</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>:/img/img/icone/Go forward.png</normaloff>:/img/img/icone/Go forward.png</iconset>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_img_tut">
+           <property name="geometry">
+            <rect>
+             <x>290</x>
+             <y>50</y>
+             <width>641</width>
+             <height>451</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_prosegui">
+           <property name="geometry">
+            <rect>
+             <x>834</x>
+             <y>595</y>
+             <width>391</width>
+             <height>30</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Prosegui</string>
+           </property>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_init">
           <attribute name="title">
@@ -1126,6 +1116,27 @@ background-color: rgb(157, 241, 161);</string>
             <string>                   Indossare l'esoscheletro sul Paziente.
  
 Una volta effettuata questa procedura premere Avanti per Continuare. </string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_go">
+           <property name="geometry">
+            <rect>
+             <x>480</x>
+             <y>460</y>
+             <width>421</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <pointsize>15</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Avanti</string>
            </property>
           </widget>
          </widget>
@@ -2594,12 +2605,41 @@ Ad operazione ultimata premere Salva</string>
      </widget>
     </widget>
    </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="pushButton_home">
+     <property name="font">
+      <font>
+       <family>Sans</family>
+       <pointsize>13</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Home</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../resources/images/img/icone/Home.png</normaloff>../resources/images/img/icone/Home.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_date">
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>[+]Date</string>
+     </property>
+    </widget>
+   </item>
   </layout>
   <zorder>pushButton_home</zorder>
-  <zorder>pushButton_indietro</zorder>
   <zorder>label_status</zorder>
   <zorder>tabWidget</zorder>
-  <zorder>pushButton_annulla</zorder>
   <zorder>label_date</zorder>
  </widget>
  <tabstops>
@@ -2638,16 +2678,14 @@ Ad operazione ultimata premere Salva</string>
   <tabstop>pushButton_modifica</tabstop>
   <tabstop>pushButton_cerca_3</tabstop>
   <tabstop>lineEdit_cercapaziente_3</tabstop>
-  <tabstop>pushButton_annulla</tabstop>
   <tabstop>pushButton_home</tabstop>
   <tabstop>pushButton_vestizioneAgree</tabstop>
   <tabstop>pushButton_eliminapaziente</tabstop>
   <tabstop>tabWidget</tabstop>
-  <tabstop>pushButton_indietro</tabstop>
   <tabstop>pushButton_elencoPazienti</tabstop>
   <tabstop>tableView_database</tabstop>
   <tabstop>pushButton_continua</tabstop>
-  <tabstop>pushButton_riproduci</tabstop>
+  <tabstop>pushButton_indietro_2</tabstop>
   <tabstop>pushButton_salta</tabstop>
  </tabstops>
  <resources/>
