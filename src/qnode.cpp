@@ -40,7 +40,9 @@ QNode::~QNode() {
     }
 	wait();
 }
-
+//void callback(const std_msgs::StringConstPtr& str) {
+//   ROS_INFO("I heard: [%s]", str->data.c_str());
+//}
 bool QNode::init() {
 	ros::init(init_argc,init_argv,"agree_gui");
 	if ( ! ros::master::check() ) {
@@ -50,11 +52,13 @@ bool QNode::init() {
 	ros::NodeHandle n;
 	// Add your ros communications here.
   chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
+ // command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
 	start();
 	return true;
 }
 
 bool QNode::init(const std::string &master_url, const std::string &host_url) {
+
 	std::map<std::string,std::string> remappings;
 	remappings["__master"] = master_url;
 	remappings["__hostname"] = host_url;
@@ -65,7 +69,11 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 	ros::start(); // explicitly needed since our nodehandle is going out of scope.
 	ros::NodeHandle n;
   // Add your ros communications here. //tf tree
-  chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
+  chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000); //creo il topic
+//  command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
+
+
+
 	start();
 	return true;
 }
@@ -80,6 +88,8 @@ void QNode::run() {
     ss << "hello world " << count; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
 		msg.data = ss.str();
 		chatter_publisher.publish(msg);
+
+
 		log(Info,std::string("I sent: ")+msg.data);
 		ros::spinOnce();
 		loop_rate.sleep();

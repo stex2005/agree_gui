@@ -112,6 +112,7 @@ void login::on_pushButton_accedi_clicked()
             ss_log1 << "ho effettuato il login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
             msg.data = ss_log1.str();
           chatter_publisher.publish(msg);
+          ROS_INFO_STREAM(msg);
 
         }
      //apro una finestra in caso di scenario 3
@@ -124,6 +125,7 @@ void login::on_pushButton_accedi_clicked()
          ss_log2 << "ho effettuato il login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
          msg.data = ss_log2.str();
        chatter_publisher.publish(msg);
+       ROS_INFO_STREAM(msg);
 
 
 
@@ -210,6 +212,7 @@ if (dati::password == Conferma) {
          ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
          msg.data = ss_log1_new.str();
        chatter_publisher.publish(msg);
+       ROS_INFO_STREAM(msg);
          //mydb.close();
         }
         else if(dati::profilo == 3) {
@@ -226,6 +229,7 @@ if (dati::password == Conferma) {
                        ss_log2_new << "ho effettuato il  nuovo login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
                        msg.data = ss_log2_new.str();
                      chatter_publisher.publish(msg);
+                     ROS_INFO_STREAM(msg);
 
 
           }

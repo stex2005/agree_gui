@@ -44,6 +44,7 @@ public:
 	virtual ~QNode();
 	bool init();
 	bool init(const std::string &master_url, const std::string &host_url);
+
 	void run();
   QString status; //creo nuova variabile accessibile da fuori
 //sottoscrivermi
@@ -66,10 +67,12 @@ Q_SIGNALS:
 	void loggingUpdated();
     void rosShutdown();
 
+
 private:
 	int init_argc;
 	char** init_argv;
-	ros::Publisher chatter_publisher;
+  ros::Publisher chatter_publisher; //creo il topicstatus (chatter)  da cui faccio il publish
+ // ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
     QStringListModel logging_model;
 
     // o anche pubblica variabile devo fare in modo che quando sono nella pp devo essere in grado di modificare la variabile qnode.variabile poi entro in qnode.cpp

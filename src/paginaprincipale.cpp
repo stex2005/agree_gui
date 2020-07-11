@@ -42,12 +42,15 @@ QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
 
 //using namespace agree_gui;
-
+void callback(const std_msgs::StringConstPtr& str) {
+   ROS_INFO("I heard: [%s]", str->data.c_str());
+}
 paginaprincipale::paginaprincipale(QWidget *parent) :
 
   QDialog(parent),
 
   ui(new Ui::paginaprincipale)
+
 
 
 { using namespace  agree_gui;
@@ -60,6 +63,10 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
      ros::NodeHandle n;
 chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
 //definisco topic
+
+//definisco topic da cui faccio subscribe
+
+ command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
 
 //connetto combobox con combo box
 connect(ui->comboBox_ex1, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
@@ -88,7 +95,6 @@ connect(ui->checkBox_ex4, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_ex5, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_ex6, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_7, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
-
 
 
 
@@ -133,6 +139,8 @@ ui->label_date->setText(data.toString());
 paginaprincipale::~paginaprincipale()
 {
   delete ui;
+
+
 }
 
 void paginaprincipale::on_pushButton_nuovopaziente_clicked()
@@ -248,6 +256,8 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
       if(qry1->exec()) {
       model -> setQuery(*qry1);
       ui->tableView_database->setModel(model);
+      ui->tableView_database->resizeColumnsToContents();
+
     //  qDebug() << (model->rowCount());
       }
       else qDebug()<<qry1->lastError();
@@ -269,8 +279,16 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
     {
       dati::NomeP = qry7.value(0).toString();
       dati::CognomeP = qry7.value(1).toString();
-      QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Conferma"), tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No);
-      if (risposta==QMessageBox::Yes)
+//      QMessageBox msgBox;
+//      msgBox.setText("The document has been modified.");
+//      msgBox.setInformativeText("Do you want to save your changes?");
+//      msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+//      msgBox.setDefaultButton(QMessageBox::Save);
+//      int ret = msgBox.exec();
+      QMessageBox risposta(QMessageBox::Question ,tr("Conferma"), tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No,this);
+          risposta.setButtonText(QMessageBox::Yes, tr("Conferma"));
+          risposta.setButtonText(QMessageBox::No, tr("No"));
+          if (risposta.exec()==QMessageBox::Yes)
       {
         QSqlQuery qry4;
         qry4.prepare("delete from Pazienti where Codice_ID ='"+dati::ind+"'");
@@ -283,7 +301,7 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
         QMessageBox::information(this, tr("Information"), tr("Premere Elenco Pazienti per aggiornare il database dei Pazienti"));
 
       }
-      else if(risposta==QMessageBox::No)
+      else if(risposta.exec()==QMessageBox::No)
       {
         ui->stackedWidget->setCurrentWidget(ui->page_3);
       }
@@ -1447,6 +1465,7 @@ if (selezione.exec())
   ss3 << "ho salvato il set di esercizi  " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
   msg.data = ss3.str();
 chatter_publisher.publish(msg);
+ROS_INFO_STREAM(msg);
 
 }
 else {
@@ -1666,7 +1685,13 @@ while(esercizi.next())
 }
 
 }
-
+QSqlQuery ins_val;
+   ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
+      ins_val.exec();
+         if (ins_val.exec()) {
+           qDebug()<< "fatto";
+         }
+         else qDebug()<< ins_val.lastError();
 }
 
 void paginaprincipale::on_pushButton_controllo_clicked()
@@ -1800,6 +1825,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
     ss1 << "ho salvato la configurazione" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
     msg.data = ss1.str();
   chatter_publisher.publish(msg);
+  ROS_INFO_STREAM(msg);
 
 
                      if (flag==4) {
@@ -2211,6 +2237,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   ss2 << "ho salvato i moduli " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
   msg.data = ss2.str();
 chatter_publisher.publish(msg);
+ROS_INFO_STREAM(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
 
 //recupero dati salvati
@@ -2367,6 +2394,7 @@ QVector<QPoint> mylocalList =matrix->getPosition();
 ss4 << "ho salvato i punti sul tappetino" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
 msg.data = ss4.str();
 chatter_publisher.publish(msg);
+ROS_INFO_STREAM(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 }
@@ -2436,6 +2464,18 @@ void paginaprincipale::on_pushButton_next_clicked()
   }
   if (curEx==sel_ex.size()) {
     ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
+    //carico la tabella dei pazienti
+        QSqlQueryModel *model1 = new QSqlQueryModel();
+        QSqlQuery * qry_val = new QSqlQuery(mydb2);
+        qry_val -> prepare("select * from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+        qry_val -> exec();
+        if(qry_val->exec()) {
+        model1 -> setQuery(*qry_val);
+        ui->tableView_valutazioni->setModel(model1);
+        ui->tableView_valutazioni->resizeColumnsToContents();
+      //  qDebug() << (model->rowCount());
+        }
+        else qDebug()<<qry_val->lastError();
   }
 
 }
@@ -2479,6 +2519,7 @@ void paginaprincipale::on_pushButton_testa_clicked()
     msg.data = ss5.str();
     chatter_publisher.publish(msg);
 
+    ROS_INFO_STREAM(msg);
 }
 
 void paginaprincipale::on_pushButton_indietro_2_clicked()

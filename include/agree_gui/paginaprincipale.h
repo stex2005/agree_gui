@@ -194,6 +194,8 @@ private:
  // agree_gui::QNode qnode;
   //ho aggiunto questo
   ros::Publisher chatter_publisher;
+  ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
+
 
 
 
