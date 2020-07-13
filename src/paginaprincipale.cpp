@@ -40,10 +40,13 @@ QString dati::ex1, dati::ex2, dati::ex3, dati::ex4, dati::ex5, dati::ex6, dati::
 QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex5, dati::num_ex6, dati::num_ex7;
 
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
-
+QString dati::next_img;
 //using namespace agree_gui;
 void callback(const std_msgs::StringConstPtr& str) {
    ROS_INFO("I heard: [%s]", str->data.c_str());
+   dati::next_img = str->data.c_str();
+  qDebug()<< dati::next_img;
+
 }
 paginaprincipale::paginaprincipale(QWidget *parent) :
 
@@ -67,6 +70,7 @@ chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
 //definisco topic da cui faccio subscribe
 
  command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
+
 
 //connetto combobox con combo box
 connect(ui->comboBox_ex1, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
@@ -1685,13 +1689,13 @@ while(esercizi.next())
 }
 
 }
-QSqlQuery ins_val;
-   ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
-      ins_val.exec();
-         if (ins_val.exec()) {
-           qDebug()<< "fatto";
-         }
-         else qDebug()<< ins_val.lastError();
+//QSqlQuery ins_val;
+//   ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
+
+//         if (ins_val.exec()) {
+//           qDebug()<< "fatto";
+//         }
+//         else qDebug()<< ins_val.lastError();
 }
 
 void paginaprincipale::on_pushButton_controllo_clicked()
@@ -1744,7 +1748,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 
   if(ui->radioButton_aan->isChecked())
   {
-    dati::mood = "Assisted ad needed";
+    dati::mood = "Assisted as needed";
     QSqlQuery modalita;
     modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
     modalita.exec();
@@ -2122,6 +2126,97 @@ void paginaprincipale::on_pushButton_controllo_clicked()
       enable_combo();
       update_tempo_terapia();
       enable_combo_ex();
+      QSqlQuery ins_val;
+         ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
+
+               if (ins_val.exec()) {
+                 qDebug()<< "fatto";
+               }
+               else qDebug()<< ins_val.lastError();
+      rand1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands1 = QString::number(rand1);
+      rand2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands2 = QString::number(rand2);
+      rand3= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+       QString rands3 = QString::number(rand3);
+      rand4= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands4 = QString::number(rand4);
+      rand5= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands5 = QString::number(rand5);
+      rand10 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands10 = QString::number(rand10);
+      arr7_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_1 = QString::number(arr7_1);
+      arr7_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_2 = QString::number(arr7_2);
+      arr7_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_3 = QString::number(arr7_3);
+      arr7_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_4 = QString::number(arr7_4);
+      arr7_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_5 = QString::number(arr7_5);
+      val.append(arr7_1);
+      val.append(arr7_2);
+      val.append(arr7_3);
+      val.append(arr7_4);
+      val.append(arr7_5);
+
+
+      arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_1 = QString::number(arr9_1);
+      arr9_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_2 = QString::number(arr9_2);
+      arr9_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_3 = QString::number(arr9_3);
+      arr9_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_4 = QString::number(arr9_4);
+      arr9_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_5 = QString::number(arr9_5);
+      val2.append(arr9_1);
+      val2.append(arr9_2);
+      val2.append(arr9_3);
+      val2.append(arr9_4);
+      val2.append(arr9_5);
+      val8.append(arr7_1);
+      val8.append(arr7_2);
+      val8.append(arr7_3);
+      val8.append(arr7_4);
+      val8.append(arr7_5);
+      val8.append(arr9_1);
+      val8.append(arr9_2);
+      val8.append(arr9_3);
+      val8.append(arr9_4);
+      val8.append(arr9_5);
+      qDebug() << val;
+      qDebug() << val2;
+      qDebug ()<< val8;
+
+
+
+      if (dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging") {
+        QSqlQuery val_data;
+        val_data.prepare ("update Valutazioni set Intrajoint_coordination = '"+rands1+"', Normalized_jerk = '"+rands2+"', Movement_arrest_period_ratio ='"+rands3+"', Peak_speed_ratio = '"+rands4+"', Acceleration_metric = '"+rands5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+
+       if( val_data.exec()) qDebug() << "fattoo";
+       else qDebug()<< val_data.lastError();
+
+      }
+      if (dati::mood == "Assisted as needed") {
+       QSqlQuery val_data1;
+       val_data1.prepare("update Valutazioni set Active_movement_Idex = '"+rands10+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+       val_data1.exec();
+      }
+      if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
+
+      }
+      if (dati::mood == "Trigger") {
+       //matrice
+      }
+
+
+
+
+qDebug()<< rand1;
 
 
 
@@ -2397,6 +2492,7 @@ chatter_publisher.publish(msg);
 ROS_INFO_STREAM(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
+
 }
 
 //void paginaprincipale::on_pushButton_goon_clicked()
@@ -2423,6 +2519,69 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 void paginaprincipale::on_pushButton_next_clicked()
 { qDebug()<<sel_ex;
+  next_img();
+//  if(dati::next_img=="a"){
+//  if(curEx<sel_ex.size()) {
+//    key= sel_ex.at(curEx);
+//    qDebug()<<key;
+//      if (ExInfoMap.find(key) != ExInfoMap.end() ) {
+
+//          ExInfo &one = ExInfoMap[key];
+
+//          qDebug() << one.REP;
+
+//  if(rep<one.REP) {
+//          if (curImage < one.images.size()) {
+//              ui->label_img->setPixmap(one.images.at(curImage));
+//              curImage++;
+//              ui->label_fine_ex->setText("");
+//          }
+
+//          if ( curImage == one.images.size() ) { // -1 we start in zero
+//              curImage = 0;
+//              rep++;
+//              ui->label_fine_ex->setText("");
+//          }
+//  }
+//          if ( rep == one.REP ) {
+//              rep=0;
+//              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
+//              QPixmap smile("/home/alice/Desktop/smile.jpeg");
+//              ui->label_img->setPixmap(smile);
+//               curEx++;
+//              // now take next EX
+//          }
+//      }
+
+
+//      if(curEx==sel_ex.size())
+//      {
+//        curEx=0;
+//        return;
+//      }
+//  }
+//  if (curEx==sel_ex.size()) {
+//    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
+//    //carico la tabella dei pazienti
+//        QSqlQueryModel *model1 = new QSqlQueryModel();
+//        QSqlQuery * qry_val = new QSqlQuery(mydb2);
+//        qry_val -> prepare("select * from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+//        qry_val -> exec();
+//        if(qry_val->exec()) {
+//        model1 -> setQuery(*qry_val);
+//        ui->tableView_valutazioni->setModel(model1);
+//        ui->tableView_valutazioni->resizeColumnsToContents();
+//      //  qDebug() << (model->rowCount());
+//        }
+//        else qDebug()<<qry_val->lastError();
+//  }
+ // dati::next_img ="b";
+//  }
+
+}
+void paginaprincipale::next_img() {
+  qDebug()<< "sono nella funzione next_img";
+  if(dati::next_img=="a"){
   if(curEx<sel_ex.size()) {
     key= sel_ex.at(curEx);
     qDebug()<<key;
@@ -2478,8 +2637,9 @@ void paginaprincipale::on_pushButton_next_clicked()
         else qDebug()<<qry_val->lastError();
   }
 
+dati::next_img = "b";
+  }
 }
-
 
 void paginaprincipale::on_pushButton_associa_clicked()
 {   QString user_doc_string;

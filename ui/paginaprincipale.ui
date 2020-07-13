@@ -68,7 +68,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -700,7 +700,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>5</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">

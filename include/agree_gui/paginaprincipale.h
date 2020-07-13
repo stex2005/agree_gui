@@ -101,6 +101,13 @@ class paginaprincipale : public QDialog
     QString oggetto_es1, oggetto_es2, oggetto_es3, oggetto_es4, oggetto_es5, oggetto_es6, oggetto_es7;
     int ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7;
 
+    float  rand1, rand2, rand3, rand4, rand5, rand6,rand10;
+    float arr7_1, arr7_2,arr7_3,arr7_4,arr7_5;
+    float arr9_1, arr9_2,arr9_3,arr9_4,arr9_5;
+    QVector<float> val;
+    QVector<float> val2;
+    QVector<float> val8;
+
 
 
 
@@ -135,6 +142,8 @@ private slots:
   void enable_combo();
   void update_tempo_terapia();
   void enable_combo_ex();
+
+  void next_img();
 
 
 
