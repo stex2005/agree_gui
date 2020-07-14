@@ -700,7 +700,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -970,8 +970,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QPushButton" name="pushButton_indietro_2">
            <property name="geometry">
             <rect>
-             <x>9</x>
-             <y>595</y>
+             <x>270</x>
+             <y>560</y>
              <width>391</width>
              <height>28</height>
             </rect>
@@ -994,8 +994,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QPushButton" name="pushButton_salta">
            <property name="geometry">
             <rect>
-             <x>420</x>
-             <y>595</y>
+             <x>690</x>
+             <y>560</y>
              <width>391</width>
              <height>29</height>
             </rect>
@@ -1018,8 +1018,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QLabel" name="label_img_tut">
            <property name="geometry">
             <rect>
-             <x>290</x>
-             <y>50</y>
+             <x>350</x>
+             <y>80</y>
              <width>641</width>
              <height>451</height>
             </rect>
@@ -1034,8 +1034,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QPushButton" name="pushButton_prosegui">
            <property name="geometry">
             <rect>
-             <x>834</x>
-             <y>595</y>
+             <x>470</x>
+             <y>600</y>
              <width>391</width>
              <height>30</height>
             </rect>
@@ -1051,6 +1051,28 @@ background-color: rgb(157, 241, 161);</string>
             <string>Prosegui</string>
            </property>
           </widget>
+          <widget class="QLabel" name="label_istr">
+           <property name="geometry">
+            <rect>
+             <x>300</x>
+             <y>10</y>
+             <width>771</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <pointsize>16</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Seguire le istruzioni per il Montaggio dei moduli selezionati.
+Terminata la procedura premere il tasto &quot;Prosegui&quot;</string>
+           </property>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_init">
           <attribute name="title">
@@ -1059,10 +1081,10 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QPushButton" name="pushButton_continua">
            <property name="geometry">
             <rect>
-             <x>1070</x>
-             <y>400</y>
+             <x>590</x>
+             <y>540</y>
              <width>221</width>
-             <height>81</height>
+             <height>31</height>
             </rect>
            </property>
            <property name="text">
@@ -1072,10 +1094,10 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QLabel" name="label_18">
            <property name="geometry">
             <rect>
-             <x>140</x>
-             <y>90</y>
-             <width>1251</width>
-             <height>181</height>
+             <x>300</x>
+             <y>180</y>
+             <width>791</width>
+             <height>101</height>
             </rect>
            </property>
            <property name="font">
@@ -1098,8 +1120,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QLabel" name="label_19">
            <property name="geometry">
             <rect>
-             <x>170</x>
-             <y>110</y>
+             <x>80</x>
+             <y>150</y>
              <width>1161</width>
              <height>161</height>
             </rect>
@@ -1115,7 +1137,7 @@ background-color: rgb(157, 241, 161);</string>
            <property name="text">
             <string>                   Indossare l'esoscheletro sul Paziente.
  
-Una volta effettuata questa procedura premere Avanti per Continuare. </string>
+Una volta effettuata la procedura premere Avanti per Continuare. </string>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButton_go">

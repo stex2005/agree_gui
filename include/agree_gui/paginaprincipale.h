@@ -107,6 +107,9 @@ class paginaprincipale : public QDialog
     QVector<float> val;
     QVector<float> val2;
     QVector<float> val8;
+    QStringList vals;
+    QStringList vals2;
+    QStringList vals8;
 
 
 

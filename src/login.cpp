@@ -27,6 +27,7 @@ login::login(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::login)
 {
+
   ui->setupUi(this);
   ros::NodeHandle n;
 chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);

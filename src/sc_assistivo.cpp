@@ -170,11 +170,16 @@ void sc_assistivo::on_pushButton_home_clicked()
 }
 
 void sc_assistivo::on_pushButton_vocale_clicked()
-{
-  QMessageBox messageBox(QMessageBox::Question, tr("Controllo Vocale"), tr("Si è scelto di utilizzare il controllo vocale. Confermare?"), QMessageBox::Yes | QMessageBox::No, this);
-      messageBox.setButtonText(QMessageBox::Yes, tr("Sì"));
-      messageBox.setButtonText(QMessageBox::No, tr("No"));
-      if (messageBox.exec() ==QMessageBox::Yes)
+{       QMessageBox controllovoc;
+        controllovoc.setText(tr("Si è scelto di utilizzare il controllo vocale per la sessione corrente.Confermare?"));
+        QAbstractButton* pButtonYes = controllovoc.addButton(tr("Conferma"), QMessageBox::YesRole);
+        QAbstractButton* pButtonNo =  controllovoc.addButton(tr("No"), QMessageBox::NoRole);
+        controllovoc.exec();
+        if(controllovoc.clickedButton()==pButtonYes)
+//  QMessageBox messageBox(QMessageBox::Question, tr("Controllo Vocale"), tr("Si è scelto di utilizzare il controllo vocale. Confermare?"), QMessageBox::Yes | QMessageBox::No, this);
+//      messageBox.setButtonText(QMessageBox::Yes, tr("Sì"));
+//      messageBox.setButtonText(QMessageBox::No, tr("No"));
+//      if (messageBox.exec() ==QMessageBox::Yes)
       {
        //messaggio ros per il controllo vocale
 
@@ -184,8 +189,7 @@ void sc_assistivo::on_pushButton_vocale_clicked()
       chatter_publisher.publish(msg);
 
       }
-      else if(messageBox.exec() == QMessageBox::No)
-      {
+ else if(controllovoc.clickedButton()==pButtonNo)      {
        dati::controllo_voc = 0;
       }
 }
@@ -269,10 +273,16 @@ void sc_assistivo::on_pushButton_configura_clicked()
 }
 
 void sc_assistivo::on_pushButton_joystick_clicked()
-{   QMessageBox messageBox(QMessageBox::Question, tr("Controllo con Joystick"), tr("Si è scelto di utilizzare il controllo vocale. Confermare?"), QMessageBox::Yes | QMessageBox::No, this);
-    messageBox.setButtonText(QMessageBox::Yes, tr("Sì"));
-    messageBox.setButtonText(QMessageBox::No, tr("No"));
-    if (messageBox.exec() ==QMessageBox::Yes)
+{  QMessageBox controllojoy;
+   controllojoy.setText(tr("Si è scelto di utilizzare il controllo vocale per la sessione corrente.Confermare?"));
+   QAbstractButton* pButtonYes = controllojoy.addButton(tr("Conferma"), QMessageBox::YesRole);
+   QAbstractButton* pButtonNo =  controllojoy.addButton(tr("No"), QMessageBox::NoRole);
+   controllojoy.exec();
+   if(controllojoy.clickedButton()==pButtonYes)
+//  QMessageBox messageBox(QMessageBox::Question, tr("Controllo con Joystick"), tr("Si è scelto di utilizzare il controllo vocale. Confermare?"), QMessageBox::Yes | QMessageBox::No, this);
+//    messageBox.setButtonText(QMessageBox::Yes, tr("Sì"));
+//    messageBox.setButtonText(QMessageBox::No, tr("No"));
+//    if (messageBox.exec() ==QMessageBox::Yes)
     {
      //messaggio ros per il controllo vocale
 
@@ -283,7 +293,7 @@ void sc_assistivo::on_pushButton_joystick_clicked()
 
 
     }
-    else if(messageBox.exec() == QMessageBox::No)
+    else if(controllojoy.clickedButton()==pButtonNo)
     {
      dati::controllo_joy = 0;
     }
@@ -291,10 +301,17 @@ void sc_assistivo::on_pushButton_joystick_clicked()
 }
 
 void sc_assistivo::on_pushButton_gomito_clicked()
-{  QMessageBox messageBox(QMessageBox::Question, tr("Controllo Rotazione del Gomito"), tr("Si è scelto di controllare la rotazione del gomito. Confermare?"), QMessageBox::Yes | QMessageBox::No, this);
-   messageBox.setButtonText(QMessageBox::Yes, tr("Sì"));
-   messageBox.setButtonText(QMessageBox::No, tr("No"));
-   if (messageBox.exec() ==QMessageBox::Yes)
+
+{ QMessageBox controllogom;
+  controllogom.setText(tr("Si è scelto di controllare la rotazione del gomito.Confermare?"));
+  QAbstractButton* pButtonYes = controllogom.addButton(tr("Conferma"), QMessageBox::YesRole);
+  QAbstractButton* pButtonNo =  controllogom.addButton(tr("No"), QMessageBox::NoRole);
+  controllogom.exec();
+  if(controllogom.clickedButton()==pButtonYes)
+//  QMessageBox messageBox(QMessageBox::Question, tr("Controllo Rotazione del Gomito"), tr("Si è scelto di controllare la rotazione del gomito. Confermare?"), QMessageBox::Yes | QMessageBox::No, this);
+//   messageBox.setButtonText(QMessageBox::Yes, tr("Sì"));
+//   messageBox.setButtonText(QMessageBox::No, tr("No"));
+//   if (messageBox.exec() ==QMessageBox::Yes)
    {
     //messaggio ros per il controllo vocale
 
@@ -305,7 +322,7 @@ void sc_assistivo::on_pushButton_gomito_clicked()
 
 
    }
-   else if(messageBox.exec() == QMessageBox::No)
+   else if(controllogom.clickedButton()==pButtonNo)
    {
     dati::controllo_gomito = 0;
    }

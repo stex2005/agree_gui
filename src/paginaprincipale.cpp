@@ -56,7 +56,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
 
-{ using namespace  agree_gui;
+{
+  using namespace  agree_gui;
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
   ui->stackedWidget->setCurrentWidget(ui->page_3);
@@ -289,10 +290,16 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
 //      msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 //      msgBox.setDefaultButton(QMessageBox::Save);
 //      int ret = msgBox.exec();
-      QMessageBox risposta(QMessageBox::Question ,tr("Conferma"), tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No,this);
-          risposta.setButtonText(QMessageBox::Yes, tr("Conferma"));
-          risposta.setButtonText(QMessageBox::No, tr("No"));
-          if (risposta.exec()==QMessageBox::Yes)
+//      QMessageBox risposta(QMessageBox::Question ,tr("Conferma"), tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No,this);
+//      QAbstractButton* pButtonYes =    risposta.setButtonText(QMessageBox::Yes, tr("Conferma"));
+//      QAbstractButton* pButtonNo =     risposta.setButtonText(QMessageBox::No, tr("No"));
+    //      if (risposta.exec()==QMessageBox::Yes)
+      QMessageBox risposta;
+      risposta.setText(tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP));
+      QAbstractButton* pButtonYes = risposta.addButton(tr("Conferma"), QMessageBox::YesRole);
+      QAbstractButton* pButtonNo =  risposta.addButton(tr("No"), QMessageBox::NoRole);
+      risposta.exec();
+      if(risposta.clickedButton()==pButtonYes)
       {
         QSqlQuery qry4;
         qry4.prepare("delete from Pazienti where Codice_ID ='"+dati::ind+"'");
@@ -305,7 +312,7 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
         QMessageBox::information(this, tr("Information"), tr("Premere Elenco Pazienti per aggiornare il database dei Pazienti"));
 
       }
-      else if(risposta.exec()==QMessageBox::No)
+      else if(risposta.clickedButton()==pButtonNo)
       {
         ui->stackedWidget->setCurrentWidget(ui->page_3);
       }
@@ -452,8 +459,14 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
       dati::NomeP = qry7.value(0).toString();
       dati::CognomeP = qry7.value(1).toString();
       ui->label_status2->setText("Paziente: " + qry7.value(0).toString()+ " "+ qry7.value(1).toString());
-      QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Conferma"), tr("Si è scelto di iniziare la sessione di terapia del paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No);
-      if (risposta==QMessageBox::Yes)
+      QMessageBox risposta;
+      risposta.setText(tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP));
+      QAbstractButton* pButtonYes = risposta.addButton(tr("Conferma"), QMessageBox::YesRole);
+      QAbstractButton* pButtonNo =  risposta.addButton(tr("No"), QMessageBox::NoRole);
+      risposta.exec();
+      if(risposta.clickedButton()==pButtonYes)
+     // QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Conferma"), tr("Si è scelto di iniziare la sessione di terapia del paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No);
+     // if (risposta==QMessageBox::Yes)
       {
         QSqlQuery selezione; // selezioni l'ultima riga salvata con questo codice id
         selezione.prepare ("select *  from Parametri_Paziente where Codice_ID = '"+dati::ind+"' order by Data_acquisizione desc limit 1");
@@ -627,7 +640,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
      }
 
 
-      else if(risposta==QMessageBox::No){
+      else if(risposta.clickedButton()==pButtonNo){
         ui->tabWidget->setCurrentWidget(ui->tab);
         ui->stackedWidget->setCurrentWidget(ui->page_3);
       }
@@ -2160,7 +2173,8 @@ void paginaprincipale::on_pushButton_controllo_clicked()
       val.append(arr7_3);
       val.append(arr7_4);
       val.append(arr7_5);
-
+      vals << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5;
+      QString valss = vals.join(",");
 
       arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
       QString arrs9_1 = QString::number(arr9_1);
@@ -2177,6 +2191,8 @@ void paginaprincipale::on_pushButton_controllo_clicked()
       val2.append(arr9_3);
       val2.append(arr9_4);
       val2.append(arr9_5);
+      vals2 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+      QString valss2 = vals2.join(",");
       val8.append(arr7_1);
       val8.append(arr7_2);
       val8.append(arr7_3);
@@ -2187,9 +2203,16 @@ void paginaprincipale::on_pushButton_controllo_clicked()
       val8.append(arr9_3);
       val8.append(arr9_4);
       val8.append(arr9_5);
+      vals8 << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+      QString valss8 = vals8.join(",");
       qDebug() << val;
       qDebug() << val2;
       qDebug ()<< val8;
+      //creo la matrice fittizia 5x19
+
+
+
+
 
 
 
@@ -2207,7 +2230,9 @@ void paginaprincipale::on_pushButton_controllo_clicked()
        val_data1.exec();
       }
       if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
-
+       QSqlQuery val_data2;
+       val_data2.prepare("update Valutazioni set Per_corretta_attivazione_muscolare = '"+valss+"', Normalized_EMG_action_level = '"+valss8+"', Indice_co_contrazione = '"+valss2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+       val_data2.exec();
       }
       if (dati::mood == "Trigger") {
        //matrice
@@ -2450,7 +2475,8 @@ while(conf_moduli.next()) {
 
 QList<QPixmap>GetImages(QString exID) {
   QList<QPixmap> mylist;
-auto folder("/home/alice/catkin_ws/src/agree_gui/resources/ex_img/" + exID);
+//auto folder("/home/alice/catkin_ws/src/agree_gui/resources/ex_img/" + exID);
+auto folder ("/home/alice/Desktop/ex_img1/" + exID);
 QDir directory(folder);
 QStringList images = directory.entryList(QStringList() << "*.jpg" <<"*.JPG" ,QDir::Files);
 qDebug() << directory;
@@ -2519,69 +2545,8 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 void paginaprincipale::on_pushButton_next_clicked()
 { qDebug()<<sel_ex;
-  next_img();
+  // next_img();
 //  if(dati::next_img=="a"){
-//  if(curEx<sel_ex.size()) {
-//    key= sel_ex.at(curEx);
-//    qDebug()<<key;
-//      if (ExInfoMap.find(key) != ExInfoMap.end() ) {
-
-//          ExInfo &one = ExInfoMap[key];
-
-//          qDebug() << one.REP;
-
-//  if(rep<one.REP) {
-//          if (curImage < one.images.size()) {
-//              ui->label_img->setPixmap(one.images.at(curImage));
-//              curImage++;
-//              ui->label_fine_ex->setText("");
-//          }
-
-//          if ( curImage == one.images.size() ) { // -1 we start in zero
-//              curImage = 0;
-//              rep++;
-//              ui->label_fine_ex->setText("");
-//          }
-//  }
-//          if ( rep == one.REP ) {
-//              rep=0;
-//              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
-//              QPixmap smile("/home/alice/Desktop/smile.jpeg");
-//              ui->label_img->setPixmap(smile);
-//               curEx++;
-//              // now take next EX
-//          }
-//      }
-
-
-//      if(curEx==sel_ex.size())
-//      {
-//        curEx=0;
-//        return;
-//      }
-//  }
-//  if (curEx==sel_ex.size()) {
-//    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
-//    //carico la tabella dei pazienti
-//        QSqlQueryModel *model1 = new QSqlQueryModel();
-//        QSqlQuery * qry_val = new QSqlQuery(mydb2);
-//        qry_val -> prepare("select * from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
-//        qry_val -> exec();
-//        if(qry_val->exec()) {
-//        model1 -> setQuery(*qry_val);
-//        ui->tableView_valutazioni->setModel(model1);
-//        ui->tableView_valutazioni->resizeColumnsToContents();
-//      //  qDebug() << (model->rowCount());
-//        }
-//        else qDebug()<<qry_val->lastError();
-//  }
- // dati::next_img ="b";
-//  }
-
-}
-void paginaprincipale::next_img() {
-  qDebug()<< "sono nella funzione next_img";
-  if(dati::next_img=="a"){
   if(curEx<sel_ex.size()) {
     key= sel_ex.at(curEx);
     qDebug()<<key;
@@ -2636,9 +2601,70 @@ void paginaprincipale::next_img() {
         }
         else qDebug()<<qry_val->lastError();
   }
+ // dati::next_img ="b";
+//  }
 
-dati::next_img = "b";
-  }
+}
+void paginaprincipale::next_img() {
+//  qDebug()<< "sono nella funzione next_img";
+//  if(dati::next_img=="a"){
+//  if(curEx<sel_ex.size()) {
+//    key= sel_ex.at(curEx);
+//    qDebug()<<key;
+//      if (ExInfoMap.find(key) != ExInfoMap.end() ) {
+
+//          ExInfo &one = ExInfoMap[key];
+
+//          qDebug() << one.REP;
+
+//  if(rep<one.REP) {
+//          if (curImage < one.images.size()) {
+//              ui->label_img->setPixmap(one.images.at(curImage));
+//              curImage++;
+//              ui->label_fine_ex->setText("");
+//          }
+
+//          if ( curImage == one.images.size() ) { // -1 we start in zero
+//              curImage = 0;
+//              rep++;
+//              ui->label_fine_ex->setText("");
+//          }
+//  }
+//          if ( rep == one.REP ) {
+//              rep=0;
+//              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
+//              QPixmap smile("/home/alice/Desktop/smile.jpeg");
+//              ui->label_img->setPixmap(smile);
+//               curEx++;
+//              // now take next EX
+//          }
+//      }
+
+
+////      if(curEx==sel_ex.size())
+////      {
+////        curEx=0;
+////        return;
+////      }
+//  }
+//  if (curEx==sel_ex.size()) {
+//    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
+//    //carico la tabella dei pazienti
+//        QSqlQueryModel *model1 = new QSqlQueryModel();
+//        QSqlQuery * qry_val = new QSqlQuery(mydb2);
+//        qry_val -> prepare("select * from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+//        qry_val -> exec();
+//        if(qry_val->exec()) {
+//        model1 -> setQuery(*qry_val);
+//        ui->tableView_valutazioni->setModel(model1);
+//        ui->tableView_valutazioni->resizeColumnsToContents();
+//      //  qDebug() << (model->rowCount());
+//        }
+//        else qDebug()<<qry_val->lastError();
+//  }
+
+//dati::next_img = "b";
+//  }
 }
 
 void paginaprincipale::on_pushButton_associa_clicked()
