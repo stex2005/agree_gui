@@ -26,12 +26,17 @@
 #include <string>
 #include <QThread>
 #include <QStringListModel>
+#include <QTimer>
+
 
 
 
 #include "matrixwidget.h"
 #include "qnode.hpp"
 //#include "main_window.hpp"
+
+
+
 
 
 
@@ -49,7 +54,15 @@ struct TutInfo {
   QString tut;
   QList<QPixmap> img;
 };
-
+class SignalHelper : public QObject { //classe che richiamo nella callback e mi emette segnale ogni volta che viene chiamata la callback, così posso connettere segnale con funzione che voglio che faccia cose
+Q_OBJECT
+signals:
+void SignalName();
+public:
+void SendSignal() {
+    emit SignalName();
+    }
+};
 //se sottoscrivo a un topic non ho bisogno delle classi lo vedo come topic
 
 
@@ -61,9 +74,11 @@ class paginaprincipale;
 //using namespace  agree_gui;
 }
 //}
+
 class QMediaPlayer;
 class QVideoWidget;
 class paginaprincipale : public QDialog
+
 {
   Q_OBJECT
    std::map<QString,ExInfo>ExInfoMap; // mappo gli esercizi
@@ -147,6 +162,7 @@ private slots:
   void enable_combo_ex();
 
   void next_img();
+  void prova_signal();
 
 
 
@@ -192,7 +208,7 @@ private slots:
 
   void on_pushButton_associa_clicked();
 
-  void on_pushButton_testa_clicked();
+
 
   void on_pushButton_indietro_2_clicked();
 
@@ -208,13 +224,8 @@ private:
   ros::Publisher chatter_publisher;
   ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
 
-
-
-
-
-
-
-
+  SignalHelper *helper;
+  QTimer *timer;
 
 };
 

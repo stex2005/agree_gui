@@ -35,7 +35,7 @@ chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
 
 
   QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
-
+//mydb.setDatabaseName("~/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
 mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
 //  mydb.setDatabaseName("../src/agree_gui/database/Sqlite_prova2");
 mydb.setHostName("alice");

@@ -251,6 +251,9 @@ background-color: rgb(157, 241, 161);</string>
              </item>
              <item row="4" column="6">
               <widget class="QPushButton" name="pushButton_associa">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(189, 255, 192);</string>
+               </property>
                <property name="text">
                 <string>Associa Paziente</string>
                </property>
@@ -700,7 +703,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>7</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -2552,21 +2555,6 @@ Ad operazione ultimata premere Salva</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_testa">
-             <property name="font">
-              <font>
-               <family>OpenSymbol</family>
-               <pointsize>15</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Testa</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tab_sessione">
@@ -2592,14 +2580,14 @@ Ad operazione ultimata premere Salva</string>
           <widget class="QPushButton" name="pushButton_next">
            <property name="geometry">
             <rect>
-             <x>600</x>
+             <x>580</x>
              <y>560</y>
-             <width>89</width>
+             <width>151</width>
              <height>25</height>
             </rect>
            </property>
            <property name="text">
-            <string>Next</string>
+            <string>Inizia Terapia</string>
            </property>
           </widget>
           <widget class="QLabel" name="label_fine_ex">
