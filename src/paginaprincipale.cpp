@@ -43,7 +43,20 @@ QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, 
 QString dati::next_img;
 //using namespace agree_gui;
  SignalHelper *helper;
+
+ void paginaprincipale::callback1(const std_msgs::StringConstPtr& str) {
+   ROS_INFO("I heard: [%s]", str->data.c_str());
+   dati::next_img = str->data.c_str();
+   qDebug()<< dati::next_img;
+
+
+ }
+ void paginaprincipale::callback2(const std_msgs::Int8 msg) {
+   num = msg.data;
+   ROS_INFO("I heard: [%d]", num);
+ }
 void callback(const std_msgs::StringConstPtr& str) {
+
    ROS_INFO("I heard: [%s]", str->data.c_str());
    dati::next_img = str->data.c_str();
  // qDebug()<< dati::next_img;
@@ -58,6 +71,7 @@ void paginaprincipale::prova_signal() {
     helper->SendSignal();
   }
 }
+
 paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
@@ -84,9 +98,9 @@ chatter_publisher = n.advertise<std_msgs::String>("/status", 1000);
 //definisco topic
 
 //definisco topic da cui faccio subscribe
-
+//ros::MultiThreadedSpinner spinner(1);
  command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
-
+//spinner.spin();
 
 //connetto combobox con combo box
 connect(ui->comboBox_ex1, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));

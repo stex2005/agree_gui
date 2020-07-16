@@ -22,11 +22,13 @@
 #include <ros/network.h>
 #include <string>
 #include <std_msgs/String.h>
+#include<std_msgs/Int8.h>
 #include <sstream>
 #include <string>
 #include <QThread>
 #include <QStringListModel>
 #include <QTimer>
+
 
 
 
@@ -125,7 +127,7 @@ class paginaprincipale : public QDialog
     QStringList vals;
     QStringList vals2;
     QStringList vals8;
-
+    int8_t num;
 
 
 
@@ -215,14 +217,15 @@ private slots:
   void on_pushButton_prosegui_clicked();
 
   void on_pushButton_go_clicked();
-
+ void callback1(const std_msgs::StringConstPtr& str);
+ void callback2(const std_msgs::Int8 msg);
 private:
   Ui::paginaprincipale *ui;
   QSqlDatabase mydb2;
  // agree_gui::QNode qnode;
   //ho aggiunto questo
   ros::Publisher chatter_publisher;
-  ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
+ ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
 
   SignalHelper *helper;
   QTimer *timer;
