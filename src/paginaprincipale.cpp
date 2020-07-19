@@ -131,10 +131,16 @@ connect(ui->checkBox_ex6, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_7, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 
 timer = new QTimer(this);
+timer_init = new QTimer(this);
+timer_rehab = new QTimer(this);
 
 // setup signal and slot
 connect(timer, SIGNAL(timeout()),
       this, SLOT(prova_signal()));
+
+connect(timer_init,SIGNAL(timeout()), this, SLOT(skip_init()));
+
+connect(timer_rehab, SIGNAL(timeout()),this,SLOT(next_img()));
 
 // msec
 
@@ -158,7 +164,26 @@ connect(timer, SIGNAL(timeout()),
 
     QPixmap pic5("/home/alice/catkin_ws/src/agree_gui/resources/images/img/modalità/challenging.png");
     ui->label_chall->setPixmap(pic5);
-
+// setto icone
+   ui->pushButton_cerca_3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Zoom.png"));
+   ui->pushButton_elencoPazienti->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Database.png"));
+   ui->pushButton_eliminapaziente->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Delete.png"));
+   ui->pushButton_utente->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Person.png"));
+   ui->pushButton_home->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Home.png"));
+   ui->pushButton_nuovopaziente->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add.png"));
+   ui->pushButton_modifica->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Modify.png"));
+   ui->pushButton_vestizioneAgree->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Movie.png"));
+   ui->pushButton_salva->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_salva_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_salvamoduli->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_salvaconf->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_controllo->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_salvaex->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_salvatapp->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_salta->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
+   ui->pushButton_indietro_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Back.png"));
+   ui->pushButton_prosegui->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
+   ui->pushButton_go->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward"));
 
   //creo la data
   QDate data;
@@ -173,7 +198,7 @@ ui->label_date->setText(data.toString());
   qry3 -> exec();
   while(qry3->next()){
 
-     ui->label_status->setText(qry3->value(0).toString() + " " +  qry3->value(1).toString());
+     ui->label_status->setText("Utente:" + qry3->value(0).toString() + " " +  qry3->value(1).toString());
 }
 }
 
@@ -416,6 +441,15 @@ void paginaprincipale::on_pushButton_utente_clicked()
          ui->lineEdit_password_2 ->setText(qry3.value(4).toString());
          ui->lineEdit_conferma ->setText(qry3.value(4).toString());
          dati::uservecchio=dati::username;
+         QString profilo = qry3.value(5).toString();
+         if(profilo == "1") ui->radioButton_terapista->setChecked(true);
+         else if(profilo == "2") ui->radioButton_tecnico->setChecked(true);
+         else if(profilo == "3") ui->radioButton_utente->setChecked(true);
+       } }
+     else
+     {
+         QMessageBox ::critical(this,tr("Errore"),tr("boh3"));
+     }
          QSqlQuery prova1;
          prova1.prepare("select cont from Count where username = '"+dati::username+"'");
          prova1.exec();
@@ -424,12 +458,10 @@ void paginaprincipale::on_pushButton_utente_clicked()
            dati::count_act= prova1.value(0).toString();
            qDebug()<< dati::count_act;
       }
-      }
-     }
-       else
-       {
-           QMessageBox ::critical(this,tr("Errore"),tr("boh3"));
-       }
+
+
+
+
 }
 
 void paginaprincipale::on_pushButton_salva_2_clicked()
@@ -458,6 +490,7 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
       dati::sigla = "u";
   }
   dati::username = dati::Nome+ dati::Cognome + dati::sigla + dati::count_act;
+  qDebug()<< dati::username;
 
   qry6.prepare("update Users set Username= '"+dati::username+"', Nome ='"+dati::Nome+"', Cognome= '"+dati::Cognome+"', Data_di_Nascita= '"+dati::Data+"',  Password= '"+dati::password+"' where Username = '"+dati::uservecchio+"'");
   if (qry6.exec())
@@ -472,7 +505,7 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
     if(qry12.exec())
     {
       QSqlQuery prova2;
-      prova2.prepare("update Pazienti set usernameDoc = '"+dati::username+"' where UsernameDoc = '"+dati::uservecchio+"'" );
+      prova2.prepare("update Pazienti set UsernameDoc = '"+dati::username+"' where UsernameDoc = '"+dati::uservecchio+"'" );
       prova2.exec();
     }
   }
@@ -698,6 +731,7 @@ void paginaprincipale::on_pushButton_home_clicked()
 
 void paginaprincipale::on_pushButton_salta_clicked()
 {    qDebug() << sel_tut;
+
      if(curTut<sel_tut.size()) {
        key2 = sel_tut.at(curTut);
        qDebug() << key2;
@@ -712,6 +746,11 @@ void paginaprincipale::on_pushButton_salta_clicked()
            curTut ++;
          }
        }
+     }
+     else if(curTut== sel_tut.size()) {
+       timer_init->start(5000);
+       ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+
      }
 
 }
@@ -924,62 +963,64 @@ void paginaprincipale::on_pushButton_cerca_3_clicked()
 //   ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
 //    }
 //}
+void paginaprincipale::skip_init() {
 
-void paginaprincipale::on_pushButton_continua_clicked()
-{   qDebug() << flag;
-    ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
-    if (flag==4) //day N
-    {
-        if(dati::mood_prec=="Trigger")
-         {
-           ui->radioButton_trigger->setChecked(true);
-         }
-        else {
+  qDebug() << flag;
+  qDebug()<< "timer...";
+     ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+     if (flag==4) //day N
+     {
+         if(dati::mood_prec=="Trigger")
           {
-            ui->radioButton_trigger->setChecked(false);
+            ui->radioButton_trigger->setChecked(true);
           }
-        }
-          if(dati::mood_prec== "Mobilizzazione Passiva" )
-         {
-           ui->radioButton_pass->setChecked(true);
+         else {
+           {
+             ui->radioButton_trigger->setChecked(false);
+           }
          }
+           if(dati::mood_prec== "Mobilizzazione Passiva" )
+          {
+            ui->radioButton_pass->setChecked(true);
+          }
+           else
+           {
+             ui->radioButton_pass-> setChecked(false);
+           }
+           if(dati::mood_prec=="Assisted as needed")
+          {
+            ui->radioButton_aan->setChecked(true);
+          }
+           else {
+             ui->radioButton_aan->setChecked(false);
+           }
+          if (dati::mood_prec=="Anti-g")
+          {
+            ui->radioButton_ag->setChecked(true);
+          }
           else
           {
-            ui->radioButton_pass-> setChecked(false);
+            ui->radioButton_ag->setChecked(false);
           }
-          if(dati::mood_prec=="Assisted as needed")
-         {
-           ui->radioButton_aan->setChecked(true);
-         }
-          else {
-            ui->radioButton_aan->setChecked(false);
-          }
-         if (dati::mood_prec=="Anti-g")
-         {
-           ui->radioButton_ag->setChecked(true);
-         }
-         else
-         {
-           ui->radioButton_ag->setChecked(false);
-         }
-          if(dati::mood_prec=="Challenging")
-         {
-           ui->radioButton_chall->setChecked(true);
-         }
-          else
+           if(dati::mood_prec=="Challenging")
           {
-            ui->radioButton_chall->setChecked(false);
+            ui->radioButton_chall->setChecked(true);
           }
+           else
+           {
+             ui->radioButton_chall->setChecked(false);
+           }
 
 
-    }
-   // day0
-    else {
-ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+     }
+    // day0
+     else {
+ ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
 
-    }
-
+     }
+     timer_init->stop();
 }
+
 void paginaprincipale::enable_combo() {
   ui->comboBox_oi_es1->setEnabled(false);
   ui->comboBox_oi_es2->setEnabled(false);
@@ -2581,7 +2622,7 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 void paginaprincipale::on_pushButton_next_clicked()
 { //qDebug()<<sel_ex;
-  timer->start(1000);
+  timer_rehab->start(3000);
   // next_img();
 //  if(dati::next_img=="a"){
 //  if(curEx<sel_ex.size()) {
@@ -2642,9 +2683,10 @@ void paginaprincipale::on_pushButton_next_clicked()
 //  }
 
 }
+
 void paginaprincipale::next_img() {
   qDebug()<< "sono nella funzione next_img";
-  if(dati::next_img=="a"){
+ // if(dati::next_img=="a"){
   if(curEx<sel_ex.size()) {
     key= sel_ex.at(curEx);
     qDebug()<<key;
@@ -2685,6 +2727,7 @@ void paginaprincipale::next_img() {
 //      }
   }
   if (curEx==sel_ex.size()) {
+
     ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
     timer->stop();
     //carico la tabella dei pazienti
@@ -2699,43 +2742,13 @@ void paginaprincipale::next_img() {
       //  qDebug() << (model->rowCount());
         }
         else qDebug()<<qry_val->lastError();
+        timer_rehab->stop();
   }
 
-dati::next_img = "b";
+//dati::next_img = "b";
 
   }
-}
-
-void paginaprincipale::on_pushButton_associa_clicked()
-{   QString user_doc_string;
-    QSqlQuery seleziona_iddoc;
-    seleziona_iddoc.prepare("Select UsernameDoc from Pazienti where Codice_ID = '"+dati::ind+"'");
-    seleziona_iddoc.exec();
-    while(seleziona_iddoc.next()) {
-      user_doc_string = seleziona_iddoc.value(0).toString();
-    }
-     associa_user << user_doc_string;
-     associa_user << dati::username;
-       qDebug()<< associa_user;
-      // devo creare una string list in cui aggiungo usernamedoc selezionato da query e username doc corrente,
-      //poi salvo nel db (e se crea problemi converto in stringa ma non dovrebbe) e poi capisco come rifermi a un elemento della stringa
-      //quando poi devo selezionare i dati
-      user_doc_string += " " + dati::username;
-        QSqlQuery update;
-          //vai avanti da qui
-          update.prepare("Update Pazienti set UsernameDoc = '"+user_doc_string+"' where Codice_ID = '"+dati::ind+"'");
-            update.exec();
-              if (update.exec())
-                { QMessageBox ::information(this,tr("Salvato"),tr("Paziente associato al corrente username"));
-                }
-                else {
-                  QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-                  qDebug()<< update.lastError();
-              }
-
-      qDebug()<< user_doc_string;
-}
-
+//}
 
 
 void paginaprincipale::on_pushButton_indietro_2_clicked()
@@ -2784,6 +2797,7 @@ void paginaprincipale::on_pushButton_indietro_2_clicked()
 void paginaprincipale::on_pushButton_prosegui_clicked()
 {
     ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+    timer_init->start(5000);
 }
 
 void paginaprincipale::on_pushButton_go_clicked()

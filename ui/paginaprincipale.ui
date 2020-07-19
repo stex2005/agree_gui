@@ -32,16 +32,18 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_status">
+   <item row="4" column="1">
+    <widget class="QPushButton" name="pushButton_home">
      <property name="font">
       <font>
+       <family>Sans</family>
        <pointsize>13</pointsize>
-       <italic>true</italic>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>[+]Status</string>
+      <string>Home</string>
      </property>
     </widget>
    </item>
@@ -68,7 +70,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -103,10 +105,6 @@
                <property name="text">
                 <string>Elenco Pazienti</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../resources/images/img/icone/Database.png</normaloff>../resources/images/img/icone/Database.png</iconset>
-               </property>
               </widget>
              </item>
              <item row="6" column="0" colspan="12">
@@ -129,35 +127,12 @@
                <property name="text">
                 <string>Cerca</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../resources/images/img/icone/Zoom.png</normaloff>../resources/images/img/icone/Zoom.png</iconset>
-               </property>
               </widget>
              </item>
              <item row="4" column="1">
               <widget class="QLineEdit" name="lineEdit_cercapaziente_3">
                <property name="placeholderText">
                 <string>Inserire il Cognome del Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="10" colspan="2">
-              <widget class="QPushButton" name="pushButton_utente">
-               <property name="font">
-                <font>
-                 <family>Sans</family>
-                 <pointsize>13</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Modifica Dati Utente</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../resources/images/img/icone/Person.png</normaloff>../resources/images/img/icone/Person.png</iconset>
                </property>
               </widget>
              </item>
@@ -168,26 +143,7 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="5">
-              <widget class="QPushButton" name="pushButton_eliminapaziente">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
-               </property>
-               <property name="text">
-                <string>Elimina Paziente</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../resources/images/img/icone/Delete.png</normaloff>../resources/images/img/icone/Delete.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="11">
+             <item row="7" column="10">
               <widget class="QPushButton" name="pushButton_vestizioneAgree">
                <property name="font">
                 <font>
@@ -201,13 +157,24 @@
                <property name="text">
                 <string>Seduta Riabiliativa</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../resources/images/img/icone/Movie.png</normaloff>../resources/images/img/icone/Movie.png</iconset>
+              </widget>
+             </item>
+             <item row="5" column="4">
+              <widget class="QPushButton" name="pushButton_eliminapaziente">
+               <property name="font">
+                <font>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(189, 255, 192);</string>
+               </property>
+               <property name="text">
+                <string>Elimina Paziente</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="10">
+             <item row="5" column="6">
               <widget class="QPushButton" name="pushButton_modifica">
                <property name="font">
                 <font>
@@ -222,13 +189,40 @@ background-color: rgb(157, 241, 161);</string>
                <property name="text">
                 <string>Modifica Paziente</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../resources/images/img/icone/Modify.png</normaloff>../resources/images/img/icone/Modify.png</iconset>
+              </widget>
+             </item>
+             <item row="5" column="0" colspan="3">
+              <widget class="QLabel" name="label_21">
+               <property name="font">
+                <font>
+                 <family>Ubuntu</family>
+                 <pointsize>14</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Per Selezionare un Paziente fare Doppio Click sul relativo Codice_ID</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="7">
+             <item row="7" column="0">
+              <widget class="QPushButton" name="pushButton_utente">
+               <property name="font">
+                <font>
+                 <family>Sans</family>
+                 <pointsize>13</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Modifica Dati Utente</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="6">
               <widget class="QPushButton" name="pushButton_nuovopaziente">
                <property name="font">
                 <font>
@@ -242,20 +236,6 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="text">
                 <string>Inserisci Nuovo Paziente</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../resources/images/img/icone/Add.png</normaloff>../resources/images/img/icone/Add.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="6">
-              <widget class="QPushButton" name="pushButton_associa">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
-               </property>
-               <property name="text">
-                <string>Associa Paziente</string>
                </property>
               </widget>
              </item>
@@ -424,10 +404,6 @@ background-color: rgb(157, 241, 161);</string>
                    <property name="text">
                     <string>Salva</string>
                    </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
-                   </property>
                   </widget>
                  </item>
                  <item row="3" column="1">
@@ -435,7 +411,7 @@ background-color: rgb(157, 241, 161);</string>
                    <item>
                     <widget class="QLabel" name="label_avambraccio">
                      <property name="text">
-                      <string>Lunghezza Avambraccio</string>
+                      <string>Lunghezza Avambraccio (A)</string>
                      </property>
                     </widget>
                    </item>
@@ -514,7 +490,7 @@ background-color: rgb(157, 241, 161);</string>
                    <item>
                     <widget class="QLabel" name="label_braccio">
                      <property name="text">
-                      <string>Lunghezza Braccio</string>
+                      <string>Lunghezza Braccio (B)</string>
                      </property>
                     </widget>
                    </item>
@@ -579,10 +555,6 @@ background-color: rgb(157, 241, 161);</string>
                   </property>
                   <property name="text">
                    <string>Salva</string>
-                  </property>
-                  <property name="icon">
-                   <iconset>
-                    <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -703,7 +675,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>8</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -722,25 +694,34 @@ background-color: rgb(157, 241, 161);</string>
              <property name="text">
               <string>Salva </string>
              </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
-             </property>
             </widget>
            </item>
            <item row="0" column="0">
             <widget class="QGroupBox" name="groupBox">
+             <property name="font">
+              <font>
+               <pointsize>17</pointsize>
+              </font>
+             </property>
              <property name="title">
               <string>Moduli Agree</string>
              </property>
              <widget class="QGroupBox" name="groupBox_5">
               <property name="geometry">
                <rect>
-                <x>10</x>
+                <x>0</x>
                 <y>30</y>
                 <width>1441</width>
-                <height>61</height>
+                <height>71</height>
                </rect>
+              </property>
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>15</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
               </property>
               <property name="title">
                <string>Lato Esoscheletro</string>
@@ -756,11 +737,11 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
+                 <weight>50</weight>
                  <italic>false</italic>
-                 <bold>true</bold>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -778,11 +759,11 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
+                 <weight>50</weight>
                  <italic>false</italic>
-                 <bold>true</bold>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -799,6 +780,14 @@ background-color: rgb(157, 241, 161);</string>
                 <height>471</height>
                </rect>
               </property>
+              <property name="font">
+               <font>
+                <family>Sans</family>
+                <pointsize>15</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="title">
                <string>Moduli Meccanici</string>
               </property>
@@ -813,15 +802,15 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
+                 <weight>50</weight>
                  <italic>false</italic>
-                 <bold>true</bold>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
-                <string>Modulo Spalla</string>
+                <string>Spalla</string>
                </property>
               </widget>
               <widget class="QCheckBox" name="checkBox_gomito">
@@ -835,14 +824,14 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
-                <string>Modulo Spalla Gomito</string>
+                <string>Spalla + Gomito</string>
                </property>
               </widget>
               <widget class="QCheckBox" name="checkBox_polso">
@@ -856,25 +845,33 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
-                <string>Modulo Spalla Gomito Polso</string>
+                <string>Spalla + Gomito +  Polso</string>
                </property>
               </widget>
              </widget>
              <widget class="QGroupBox" name="groupBox_10">
               <property name="geometry">
                <rect>
-                <x>640</x>
-                <y>110</y>
-                <width>791</width>
+                <x>630</x>
+                <y>109</y>
+                <width>811</width>
                 <height>461</height>
                </rect>
+              </property>
+              <property name="font">
+               <font>
+                <family>Sans</family>
+                <pointsize>15</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
               </property>
               <property name="title">
                <string>Moduli Extra</string>
@@ -890,10 +887,10 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -911,10 +908,10 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -932,10 +929,10 @@ background-color: rgb(157, 241, 161);</string>
                </property>
                <property name="font">
                 <font>
-                 <family>OpenSymbol</family>
+                 <family>Ubuntu</family>
                  <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -973,8 +970,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QPushButton" name="pushButton_indietro_2">
            <property name="geometry">
             <rect>
-             <x>270</x>
-             <y>560</y>
+             <x>230</x>
+             <y>530</y>
              <width>391</width>
              <height>28</height>
             </rect>
@@ -998,7 +995,7 @@ background-color: rgb(157, 241, 161);</string>
            <property name="geometry">
             <rect>
              <x>690</x>
-             <y>560</y>
+             <y>530</y>
              <width>391</width>
              <height>29</height>
             </rect>
@@ -1021,10 +1018,10 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QLabel" name="label_img_tut">
            <property name="geometry">
             <rect>
-             <x>350</x>
+             <x>270</x>
              <y>80</y>
-             <width>641</width>
-             <height>451</height>
+             <width>741</width>
+             <height>431</height>
             </rect>
            </property>
            <property name="text">
@@ -1037,8 +1034,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QPushButton" name="pushButton_prosegui">
            <property name="geometry">
             <rect>
-             <x>470</x>
-             <y>600</y>
+             <x>450</x>
+             <y>570</y>
              <width>391</width>
              <height>30</height>
             </rect>
@@ -1051,7 +1048,7 @@ background-color: rgb(157, 241, 161);</string>
             </font>
            </property>
            <property name="text">
-            <string>Prosegui</string>
+            <string>Salta Tutorial</string>
            </property>
           </widget>
           <widget class="QLabel" name="label_istr">
@@ -1072,8 +1069,7 @@ background-color: rgb(157, 241, 161);</string>
             </font>
            </property>
            <property name="text">
-            <string>Seguire le istruzioni per il Montaggio dei moduli selezionati.
-Terminata la procedura premere il tasto &quot;Prosegui&quot;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;Seguire le istruzioni per il Montaggio dei moduli selezionati.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;Per Saltare il Tutorial fare click su &amp;quot;Salta Tutorial&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </widget>
@@ -1081,19 +1077,6 @@ Terminata la procedura premere il tasto &quot;Prosegui&quot;</string>
           <attribute name="title">
            <string>Inizializzazione AGREE</string>
           </attribute>
-          <widget class="QPushButton" name="pushButton_continua">
-           <property name="geometry">
-            <rect>
-             <x>590</x>
-             <y>540</y>
-             <width>221</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Continua</string>
-           </property>
-          </widget>
           <widget class="QLabel" name="label_18">
            <property name="geometry">
             <rect>
@@ -1112,7 +1095,7 @@ Terminata la procedura premere il tasto &quot;Prosegui&quot;</string>
             </font>
            </property>
            <property name="text">
-            <string>E' in corso l'Inizializzazione di AGREE. Attendere...</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;E' in corso l'Inizializzazione di AGREE. Attendere...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </widget>
@@ -1123,9 +1106,9 @@ Terminata la procedura premere il tasto &quot;Prosegui&quot;</string>
           <widget class="QLabel" name="label_19">
            <property name="geometry">
             <rect>
-             <x>80</x>
-             <y>150</y>
-             <width>1161</width>
+             <x>90</x>
+             <y>10</y>
+             <width>1101</width>
              <height>161</height>
             </rect>
            </property>
@@ -1138,9 +1121,7 @@ Terminata la procedura premere il tasto &quot;Prosegui&quot;</string>
             </font>
            </property>
            <property name="text">
-            <string>                   Indossare l'esoscheletro sul Paziente.
- 
-Una volta effettuata la procedura premere Avanti per Continuare. </string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;Indossare l'esoscheletro sul Paziente.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;Verificare la vestibilità sul Paziente.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;Una volta effettuata la procedura premere Avanti per Continuare. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButton_go">
@@ -1383,8 +1364,8 @@ Una volta effettuata la procedura premere Avanti per Continuare. </string>
           <widget class="QPushButton" name="pushButton_salvaconf">
            <property name="geometry">
             <rect>
-             <x>971</x>
-             <y>590</y>
+             <x>980</x>
+             <y>570</y>
              <width>291</width>
              <height>29</height>
             </rect>
@@ -1398,10 +1379,6 @@ Una volta effettuata la procedura premere Avanti per Continuare. </string>
            </property>
            <property name="text">
             <string> Salva Parametri </string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
            </property>
           </widget>
           <widget class="QLineEdit" name="lineEdit_flessospallamin">
@@ -1679,10 +1656,6 @@ Una volta effettuata la procedura premere Avanti per Continuare. </string>
                 </property>
                 <property name="text">
                  <string>Salva</string>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
                 </property>
                </widget>
               </item>
@@ -2049,10 +2022,6 @@ Una volta effettuata la procedura premere Avanti per Continuare. </string>
                 </property>
                 <property name="text">
                  <string>Salva</string>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>../resources/images/img/icone/Save.png</normaloff>../resources/images/img/icone/Save.png</iconset>
                 </property>
                </widget>
               </item>
@@ -2521,18 +2490,15 @@ Una volta effettuata la procedura premere Avanti per Continuare. </string>
               </property>
               <property name="font">
                <font>
-                <family>Ubuntu</family>
+                <family>OpenSymbol</family>
                 <pointsize>20</pointsize>
                 <weight>50</weight>
-                <italic>true</italic>
+                <italic>false</italic>
                 <bold>false</bold>
                </font>
               </property>
               <property name="text">
-               <string>Selezionare 3 punti nella zona Verde con un click del mouse. 
-Per deselezionare cliccare nuovamente sul punto desiderato. 
-Se si desidera verificare la posizione sul pad reale premere Testa. 
-Ad operazione ultimata premere Salva</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Selezionare 3 punti nella zona Verde con un click del mouse. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Per deselezionare cliccare nuovamente sul punto desiderato. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Se si desidera verificare la posizione sul Pad reale premere Testa. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Ad operazione ultimata premere Salva&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="textFormat">
                <enum>Qt::AutoText</enum>
@@ -2620,26 +2586,20 @@ Ad operazione ultimata premere Salva</string>
      </widget>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="pushButton_home">
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_status">
      <property name="font">
       <font>
-       <family>Sans</family>
        <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
-      <string>Home</string>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../resources/images/img/icone/Home.png</normaloff>../resources/images/img/icone/Home.png</iconset>
+      <string>[+]Status</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
+   <item row="4" column="2">
     <widget class="QLabel" name="label_date">
      <property name="font">
       <font>
@@ -2652,10 +2612,6 @@ Ad operazione ultimata premere Salva</string>
     </widget>
    </item>
   </layout>
-  <zorder>pushButton_home</zorder>
-  <zorder>label_status</zorder>
-  <zorder>tabWidget</zorder>
-  <zorder>label_date</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit_flessospallamin</tabstop>
@@ -2669,8 +2625,6 @@ Ad operazione ultimata premere Salva</string>
   <tabstop>lineEdit_polomin</tabstop>
   <tabstop>lineEdit_polsomax</tabstop>
   <tabstop>pushButton_salvaconf</tabstop>
-  <tabstop>pushButton_utente</tabstop>
-  <tabstop>pushButton_nuovopaziente</tabstop>
   <tabstop>lineEdit_nome</tabstop>
   <tabstop>lineEdit_cognome</tabstop>
   <tabstop>lineEdit_datanascita</tabstop>
@@ -2690,16 +2644,11 @@ Ad operazione ultimata premere Salva</string>
   <tabstop>radioButton_utente</tabstop>
   <tabstop>lineEdit_cognome_2</tabstop>
   <tabstop>lineEdit_conferma</tabstop>
-  <tabstop>pushButton_modifica</tabstop>
   <tabstop>pushButton_cerca_3</tabstop>
   <tabstop>lineEdit_cercapaziente_3</tabstop>
-  <tabstop>pushButton_home</tabstop>
-  <tabstop>pushButton_vestizioneAgree</tabstop>
-  <tabstop>pushButton_eliminapaziente</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>pushButton_elencoPazienti</tabstop>
   <tabstop>tableView_database</tabstop>
-  <tabstop>pushButton_continua</tabstop>
   <tabstop>pushButton_indietro_2</tabstop>
   <tabstop>pushButton_salta</tabstop>
  </tabstops>

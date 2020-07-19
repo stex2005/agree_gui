@@ -27,6 +27,13 @@ login::login(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::login)
 {
+ //setto le icone dei pulsanti
+//  QPixmap pixmap("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add.png");
+//  QIcon ButtonIcon(pixmap);
+//  ui->pushButton_accedi->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Male.png"));
+//  ui->pushButton_accedi->setIconSize(pixmap.rect().size());
+
+
 
   ui->setupUi(this);
   ros::NodeHandle n;

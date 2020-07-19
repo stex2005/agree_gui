@@ -143,13 +143,11 @@ private slots:
 
   void on_pushButton_elencoPazienti_clicked();
 
-
   void on_tableView_database_activated(const QModelIndex &index);
 
   void on_pushButton_eliminapaziente_clicked();
 
   void on_pushButton_modifica_clicked();
-
 
   void on_pushButton_utente_clicked();
 
@@ -160,41 +158,22 @@ private slots:
   void on_pushButton_home_clicked();
 
   void enable_combo();
+
   void update_tempo_terapia();
+
   void enable_combo_ex();
 
   void next_img();
+
   void prova_signal();
-
-
 
   void on_pushButton_salta_clicked();
 
   void on_pushButton_salvaconf_clicked();
 
-
   void on_pushButton_cerca_3_clicked();
 
 
-//  void on_pushButton_save_clicked();
-
-/*  void on_pushButton_spalla_clicked();
-
-  void on_pushButton_spallagomito_clicked();
-
-  void on_pushButton_spallagomitopolso_clicked()*/;
-
-  void on_pushButton_continua_clicked();
-
-//  void on_pushButton_trigger_clicked();
-
-//  void on_pushButton_passivo_clicked();
-
-//  void on_pushButton_antig_clicked();
-
-//  void on_pushButton_aan_clicked();
-
-//  void on_pushButton_chall_clicked();
 
   void on_pushButton_salvaex_clicked();
 
@@ -204,21 +183,21 @@ private slots:
 
   void on_pushButton_salvatapp_clicked();
 
- // void on_pushButton_goon_clicked();
-
   void on_pushButton_next_clicked();
-
-  void on_pushButton_associa_clicked();
-
-
 
   void on_pushButton_indietro_2_clicked();
 
   void on_pushButton_prosegui_clicked();
 
   void on_pushButton_go_clicked();
+
  void callback1(const std_msgs::StringConstPtr& str);
+
  void callback2(const std_msgs::Int8 msg);
+
+ void skip_init();
+
+// void img_rehab();
 private:
   Ui::paginaprincipale *ui;
   QSqlDatabase mydb2;
@@ -229,7 +208,8 @@ private:
 
   SignalHelper *helper;
   QTimer *timer;
-
+  QTimer *timer_init;
+  QTimer *timer_rehab;
 };
 
 

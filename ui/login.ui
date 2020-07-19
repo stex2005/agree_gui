@@ -43,10 +43,6 @@
             <property name="text">
              <string>Nuova Registrazione </string>
             </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../resources/images/img/icone/Add.png</normaloff>../resources/images/img/icone/Add.png</iconset>
-            </property>
            </widget>
           </item>
           <item row="4" column="1">
@@ -83,10 +79,6 @@
             </property>
             <property name="text">
              <string>Accedi</string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../resources/images/img/icone/Male.png</normaloff>../resources/images/img/icone/Male.png</iconset>
             </property>
            </widget>
           </item>
