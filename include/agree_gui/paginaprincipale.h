@@ -55,6 +55,7 @@ QList<QPixmap > GetImages2(QString tutID); //carico le immagini dal folder tutor
 struct TutInfo {
   QString tut;
   QList<QPixmap> img;
+  QStringList istr;
 };
 class SignalHelper : public QObject { //classe che richiamo nella callback e mi emette segnale ogni volta che viene chiamata la callback, così posso connettere segnale con funzione che voglio che faccia cose
 Q_OBJECT
@@ -197,7 +198,11 @@ private slots:
 
  void skip_init();
 
+ void show_val();
+
 // void img_rehab();
+ void on_pushButton_clicked();
+
 private:
   Ui::paginaprincipale *ui;
   QSqlDatabase mydb2;
@@ -210,6 +215,7 @@ private:
   QTimer *timer;
   QTimer *timer_init;
   QTimer *timer_rehab;
+  QTimer *timer_val;
 };
 
 
