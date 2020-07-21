@@ -38,7 +38,9 @@ login::login(QWidget *parent) :
   ui->setupUi(this);
   ros::NodeHandle n;
 chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
-
+//Paginaprincipale = new paginaprincipale();
+//connect(Paginaprincipale, SIGNAL(SignalName1()), this, SLOT(prova()));
+//qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(SignalName1()), this, SLOT(prova()));
 
 
   QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
@@ -71,13 +73,20 @@ mydb.setPassword("ali");
 
      qDebug()<< dati::count;
    }
+   Paginaprincipale = new paginaprincipale();
+
+   connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
+   qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
 }
 
 login::~login()
 {
   delete ui;
 }
-
+void login::prova() {
+  show();
+  qDebug()<<"sono in prova slot";
+}
 void login::on_pushButton_accedi_clicked()
 {
 
@@ -116,6 +125,7 @@ void login::on_pushButton_accedi_clicked()
      if (dati::profilo == 1){
             this->hide();
             Paginaprincipale = new paginaprincipale(this);
+            connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
             Paginaprincipale -> show();
             ss_log1 << "ho effettuato il login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
             msg.data = ss_log1.str();
@@ -215,6 +225,7 @@ if (dati::password == Conferma) {
  //capire come mai non si aprono più le finestre interessate
          if (dati::profilo == 1){
          Paginaprincipale  = new paginaprincipale(this);
+         connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
          Paginaprincipale->show();
 
          ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata

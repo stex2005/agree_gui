@@ -44,7 +44,7 @@ QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, 
 QString dati::next_img;
 //using namespace agree_gui;
  SignalHelper *helper;
-
+//SignalHelper1 *helper1;
  void paginaprincipale::callback1(const std_msgs::StringConstPtr& str) {
    ROS_INFO("I heard: [%s]", str->data.c_str());
    dati::next_img = str->data.c_str();
@@ -86,8 +86,10 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   using namespace  agree_gui;
 qDebug()<< "qui";
    helper = new SignalHelper();
+ //  helper1 = new SignalHelper1();
    prova_signal();
   connect(helper, SIGNAL(SignalName()),this, SLOT(next_img()));
+
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
   ui->stackedWidget->setCurrentWidget(ui->page_3);
@@ -135,9 +137,10 @@ timer = new QTimer(this);
 timer_init = new QTimer(this);
 timer_rehab = new QTimer(this);
 timer_val = new QTimer(this);
+timer_feedback = new QTimer(this);
 // setup signal and slot
 connect(timer, SIGNAL(timeout()),
-      this, SLOT(prova_signal()));
+      this, SLOT(next_img()));
 
 connect(timer_init,SIGNAL(timeout()), this, SLOT(skip_init()));
 
@@ -145,6 +148,7 @@ connect(timer_rehab, SIGNAL(timeout()),this,SLOT(next_img()));
 
 connect(timer_val, SIGNAL(timeout()), this,  SLOT(show_val()));
 
+connect(timer_feedback, SIGNAL(timeout()), this, SLOT(show_feed()));
 // msec
 
 
@@ -206,6 +210,10 @@ connect(timer_val, SIGNAL(timeout()), this,  SLOT(show_val()));
    ui->pushButton_indietro_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Back.png"));
    ui->pushButton_prosegui->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
    ui->pushButton_go->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward"));
+   ui->pushButton_logout->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Turn off"));
+   ui->pushButton_go->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward"));
+   ui->pushButton_avanti_v->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward"));
+   ui->pushButton->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Stop sign"));
 
   //creo la data
   QDate data;
@@ -220,7 +228,7 @@ ui->label_date->setText(data.toString());
   qry3 -> exec();
   while(qry3->next()){
 
-     ui->label_status->setText("Utente:" + qry3->value(0).toString() + " " +  qry3->value(1).toString());
+     ui->label_status->setText("Utente: " + qry3->value(0).toString() + " " +  qry3->value(1).toString());
 }
 }
 
@@ -535,6 +543,8 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
   {
     QMessageBox ::critical(this,tr("Errore"),tr("bo3"));
   }
+   // QString text = (("Utente: %1 %2 ").arg(dati::Nome) .arg(dati::Cognome));
+    ui->label_status->setText(QString("Utente: %1 %2").arg(dati::Nome) .arg(dati::Cognome));
 }
 
 void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
@@ -750,6 +760,46 @@ void paginaprincipale::on_pushButton_home_clicked()
 {
       ui->tabWidget->setCurrentWidget(ui->tab);
       ui->stackedWidget->setCurrentWidget(ui->page_3);
+      ui->checkBox_sinistro->setChecked(false);
+      ui->checkBox_destro->setChecked(false);
+      ui->checkBox_eeg_2->setChecked(false);
+      ui->checkBox_emg_2->setChecked(false);
+      ui->checkBox_MAP_2->setChecked(false);
+      ui->checkBox_spalla->setChecked(false);
+      ui->checkBox_gomito->setChecked(false);
+      ui->checkBox_polso->setChecked(false);
+      ui->radioButton_pass->setAutoExclusive(false);
+      ui->radioButton_pass->setChecked(false);
+      ui->radioButton_pass->setAutoExclusive(true);
+       ui->radioButton_ag->setAutoExclusive(false);
+      ui->radioButton_ag->setChecked(false);
+      ui->radioButton_ag->setAutoExclusive(true);
+       ui->radioButton_aan->setAutoExclusive(false);
+      ui->radioButton_aan->setChecked(false);
+      ui->radioButton_aan->setAutoExclusive(true);
+       ui->radioButton_chall->setAutoExclusive(false);
+      ui->radioButton_chall->setChecked(false);
+      ui->radioButton_chall->setAutoExclusive(true);
+       ui->radioButton_trigger->setAutoExclusive(false);
+      ui->radioButton_trigger->setChecked(false);
+      ui->radioButton_trigger->setAutoExclusive(true);
+      ui->checkBox_ex1->setChecked(false);
+      ui->checkBox_ex2->setChecked(false);
+      ui->checkBox_ex3->setChecked(false);
+      ui->checkBox_ex4->setChecked(false);
+      ui->checkBox_ex5->setChecked(false);
+      ui->checkBox_ex6->setChecked(false);
+      ui->checkBox_7->setChecked(false);
+      ui->comboBox_ex1->setCurrentIndex(0);
+      ui->comboBox_ex2->setCurrentIndex(0);
+      ui->comboBox_ex3->setCurrentIndex(0);
+      ui->comboBox_ex4->setCurrentIndex(0);
+      ui->comboBox_ex5->setCurrentIndex(0);
+      ui->comboBox_ex6->setCurrentIndex(0);
+      ui->comboBox_ex7->setCurrentIndex(0);
+
+
+
 }
 
 void paginaprincipale::on_pushButton_salta_clicked()
@@ -774,6 +824,8 @@ void paginaprincipale::on_pushButton_salta_clicked()
      else if(curTut== sel_tut.size()) {
        timer_init->start(5000);
        ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+       ui->label_img_tut->clear();
+       ui->label_tut->setText("");
 
      }
 
@@ -1654,7 +1706,7 @@ else {
 }
 
 QSqlQuery esercizi;
-esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1");
 if(esercizi.exec()){
 while(esercizi.next())
 { ExInfo cur;
@@ -2479,7 +2531,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
 
     else if (dati::modulo_polso == "0" ) {
-      qDebug()<< "modulo polso stronzo";
+
       QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Attenzione"), tr("Il modulo extra: Mano non può essere attivato se la configurazione dei moduli moduli meccanici non comprende anche il Modulo : Polso. Si desidera modificare la configurazione dei Moduli Meccanici? "));
       if (risposta==QMessageBox::Yes)
       {
@@ -2529,12 +2581,13 @@ ROS_INFO_STREAM(msg);
 
 //recupero dati salvati
 QSqlQuery conf_moduli;
-conf_moduli.prepare("select Modulo_Spalla, Modulo_gomito, Modulo_polso, EEG, EMG, Mano from Parametri_Paziente where  Codice_ID= '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+conf_moduli.prepare("select Modulo_Spalla, Modulo_gomito, Modulo_polso, EEG, EMG, Mano from Parametri_Paziente where  Codice_ID= '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1");
 if(conf_moduli.exec()){
   qDebug()<< "ho eseguito la query";
 
 while(conf_moduli.next()) {
   TutInfo curr;
+  VestInfo curr1;
   QString spalla, gomito, polso, EEG, EMG, Mano;
 
   spalla = conf_moduli.value(0).toString();
@@ -2548,7 +2601,8 @@ while(conf_moduli.next()) {
 //QString string3 = ""
 QStringList istr1 = {"Impostare la lunghezza del braccio del paziente regolando la distanza tra asse 1 e asse 4. ", "Svitare le viti cherchiate in figura, bloccando la testa della vite e svitando il bullone.\nSuccessivamente posizionare il giunto 4 (in corrispondenza dell'asse 4) sfilando o infilando la barra di collegamento all'interno della morsa.\nRuotare la morsa attorno all'asse della vite soltanto se necessario.", "Impostare la lunghezza dell'avambraccio del paziente regolando la distanza tra l'asse 4 e l'attacco del giunto 5. ","Per farlo, svitare le 4 viti ad incasso esagonale mostrate in figura,\nquindi far slittare la barra di aggancio al giunto 5, fino a raggiungere la posizione desiderata.\nIn fine avvitare le 4 viti. "};
 QStringList istr2 = {"Posizionare gli elettrodi sul Deltoide posteriore", "Posizionare gli elettrodi sul deltoide anteriore", "Posizionare gli elettrodi sul deltoide mediale", "Posizionare gli elettrodi sul bicipite", "Accendere il dispositivo utilizzando il tasto on/off.\nPosizionarlo nell'apposito alloggiamento in dotazione in corrispondenza della spalla dell'utente"};
-// QStringList istr1 = {"Impostare", "ciao", "ciao"};
+QStringList istr3 = {"Agganciare il Modulo di Assistenza alla Presa al giunto 5 (Polso) dell'esoscheletro"};
+QStringList istr_vest1 = {"Individuare e definire una posizione confortevole ddel paziente in modo tale che la shiena sia appoggiata allo schienale.", "il giunto 1 (spalla) deve essere almeno allo stesso livello della spalla nel piano orizzontale lungo x, come mostrato in figura.\nVerificare inoltre che l'altezza del giunto 1(spalla) sia tale da evitare il contatto tra la spalla del paziente e il giunto stesso, sia in stasi che in movimento.\nVerificare infine che il sistema di aggancio del polso all'esoscheletro non sia in alcun modo d'ostacolo al movimento di presa della mano,\ne che non provochi sensazione di trazione nella mano del paziente."};
  if (spalla =="1" && gomito == "1" && polso == "1") {
    QString tut1 = "mecc1";
    curr.tut = tut1;
@@ -2557,8 +2611,17 @@ QStringList istr2 = {"Posizionare gli elettrodi sul Deltoide posteriore", "Posiz
    TutInfoMap[tut1] = curr;
    qDebug()<<curr.img.size();
    sel_tut.append(tut1);
-   qDebug()<<"sel : " <<sel_tut;
-   qDebug()<<"size:" << sel_tut.size();
+
+   QString vest1 = "vest";
+   curr1.vest = vest1;
+   curr1.img_v = GetImages3(vest1);
+   curr1.istr_vest = istr_vest1;
+   VestInfoMap[vest1] = curr1;
+   sel_vest.append(vest1);
+   qDebug()<<"sel : " <<sel_vest;
+   qDebug()<<"size:" << sel_vest.size();
+
+
   }
   else if (spalla =="1" && gomito == "1" && polso == "0") {
    QString tut2 = "mecc";
@@ -2597,6 +2660,7 @@ QStringList istr2 = {"Posizionare gli elettrodi sul Deltoide posteriore", "Posiz
     QString tut5 = "map";
     curr.tut = tut5;
     curr.img = GetImages2(tut5);
+    curr.istr = istr3;
     TutInfoMap[tut5] = curr;
     qDebug()<<curr.img.size();
     sel_tut.append(tut5);
@@ -2680,11 +2744,25 @@ QList<QPixmap>GetImages2(QString tutID) {
   }
   return mylist2;
 }
-
+QList<QPixmap>GetImages3(QString vestID) {
+  QList<QPixmap> mylist3;
+  auto folder3 ("/home/alice/Desktop/vestizione/" +vestID);
+  QDir directory3(folder3);
+  QStringList img_v = directory3.entryList(QStringList() <<"*.jpg" << "*.JPG" <<"*.png" << "*.PNG", QDir::Files );
+  qDebug() <<directory3;
+  qDebug() << "i found" << img_v.size();
+  foreach(QString filename, img_v) {
+    QPixmap pix3(folder3 + QString("/") + filename);
+    mylist3.append(pix3);
+    qDebug()<< mylist3;
+  }
+  return mylist3;
+}
 void paginaprincipale::on_pushButton_salvatapp_clicked()
 {
 
 QVector<QPoint> mylocalList =matrix->getPosition();
+
 // mando il massaggio che ho salvato i punti sul tappetino
 ss4 << "ho salvato i punti sul tappetino" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
 msg.data = ss4.str();
@@ -2719,8 +2797,9 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 void paginaprincipale::on_pushButton_next_clicked()
 { //qDebug()<<sel_ex;
-  timer_rehab->start(3000);
-  // next_img();
+timer_rehab->start(3000);
+ //  next_img();
+ // timer->start(1000);
 //  if(dati::next_img=="a"){
 //  if(curEx<sel_ex.size()) {
 //    key= sel_ex.at(curEx);
@@ -2808,9 +2887,10 @@ void paginaprincipale::next_img() {
   }
           if ( rep == one.REP ) {
               rep=0;
-              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
-              QPixmap smile("/home/alice/Desktop/smile.jpeg");
-              ui->label_img->setPixmap(smile);
+              timer_feedback->start(2500);
+//              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
+//              QPixmap smile("/home/alice/Desktop/smile.jpeg");
+//              ui->label_img->setPixmap(smile);
                curEx++;
               // now take next EX
           }
@@ -2823,15 +2903,15 @@ void paginaprincipale::next_img() {
 //        return;
 //      }
   }
-  if (curEx==sel_ex.size()) {
+  else if (curEx==sel_ex.size()) {
 
    //ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
-    timer->stop();
-    timer_val->start(3000);
+qDebug()<< "in ==";
+    timer_val->start(2500);
     //carico la tabella dei parametri cinematici  dei pazienti
         QSqlQueryModel *model1 = new QSqlQueryModel();
         QSqlQuery * qry_val = new QSqlQuery(mydb2);
-        qry_val -> prepare("select Intrajoint_coordination, Normalized_jerk, Movement_arrest_period_ratio, Peak_speed_ratio, Acceleration_metric from Valutazioni  where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+        qry_val -> prepare("select Intrajoint_coordination, Normalized_jerk, Movement_arrest_period_ratio, Peak_speed_ratio, Acceleration_metric from Valutazioni  where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
         qry_val -> exec();
         if(qry_val->exec()) {
         model1 -> setQuery(*qry_val);
@@ -2842,7 +2922,7 @@ void paginaprincipale::next_img() {
     // carico la tabella dei parametri EMG dei pazienti
         QSqlQueryModel *model2 = new QSqlQueryModel();
         QSqlQuery * qry_val_emg = new QSqlQuery(mydb2);
-        qry_val_emg -> prepare ("select Per_corretta_attivazione_muscolare, Normalized_EMG_action_level, Indice_co_contrazione, Sinergie_muscolari, Active_movement_Idex from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+        qry_val_emg -> prepare ("select Per_corretta_attivazione_muscolare, Normalized_EMG_action_level, Indice_co_contrazione, Sinergie_muscolari, Active_movement_Idex from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
         qry_val_emg-> exec();
         if(qry_val_emg-> exec()) {
         model2 -> setQuery(*qry_val_emg);
@@ -2854,15 +2934,24 @@ void paginaprincipale::next_img() {
         else  qDebug()<< qry_val_emg ->lastError();
         timer_rehab->stop();
   }
-
 //dati::next_img = "b";
 
-  }
-//}
-
+  //}
+}
+void paginaprincipale::show_feed() {
+  ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
+  QPixmap smile("/home/alice/Desktop/smile.jpeg");
+  ui->label_img->setPixmap(smile);
+ timer_feedback->stop();
+}
 void paginaprincipale::show_val() {
+  qDebug() << "sono in show val";
    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
    timer_val->stop();
+  // timer->stop();
+
+   ui->label_img->clear();
+   ui->label_fine_ex->clear();
 }
 void paginaprincipale::on_pushButton_indietro_2_clicked()
 { qDebug()<< curTut;
@@ -2920,9 +3009,62 @@ void paginaprincipale::on_pushButton_go_clicked()
 
 
 void paginaprincipale::on_pushButton_clicked()
-{
+{   timer->stop();
     timer_rehab->stop();
     ui->tabWidget->setCurrentWidget(ui->tab);
     ui->stackedWidget->setCurrentWidget(ui->page_3);
 
+}
+
+void paginaprincipale::on_pushButton_avanti_v_clicked()
+{
+  qDebug() << sel_vest;
+
+      if(curVest<sel_vest.size()) {
+        key3 = sel_vest.at(curVest);
+        qDebug() << key2;
+        if(VestInfoMap.find(key3) != VestInfoMap.end()) {
+          VestInfo &one3 = VestInfoMap[key3];
+          if(curimgs < one3.img_v.size()){
+            ui->label_img_vest -> setPixmap(one3.img_v.at(curimgs));
+            ui->label_istr_vest->setText(one3.istr_vest.at(curimgs));
+            curimgs ++;
+          }
+          if(curimgs == one3.img_v.size()) {
+            curimgs =0;
+            curVest++;
+          }
+        }
+      }
+      else if(curTut== sel_tut.size()) {
+       // timer_init->start(5000);
+        ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+        ui->label_img_vest->clear();
+        ui->label_istr_vest->setText("");
+
+      }
+}
+
+void paginaprincipale::on_pushButton_logout_clicked()
+{
+
+
+  QMessageBox logout;
+  logout.setText(tr("Si è scelto di effetturare il Log out?"));
+  QAbstractButton* pButtonYes = logout.addButton(tr("Conferma"), QMessageBox::YesRole);
+  QAbstractButton* pButtonNo =  logout.addButton(tr("No"), QMessageBox::NoRole);
+  logout.exec();
+  if(logout.clickedButton()==pButtonYes) {
+
+    emit ShowMain();
+    accept();
+
+
+
+
+
+  }
+  else if (logout.clickedButton()==pButtonNo) {
+
+  }
 }

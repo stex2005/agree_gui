@@ -57,6 +57,12 @@ struct TutInfo {
   QList<QPixmap> img;
   QStringList istr;
 };
+QList<QPixmap> GetImages3(QString vestID);
+struct VestInfo {
+  QString vest;
+  QList<QPixmap> img_v;
+  QStringList istr_vest;
+};
 class SignalHelper : public QObject { //classe che richiamo nella callback e mi emette segnale ogni volta che viene chiamata la callback, così posso connettere segnale con funzione che voglio che faccia cose
 Q_OBJECT
 signals:
@@ -66,6 +72,15 @@ void SendSignal() {
     emit SignalName();
     }
 };
+//class SignalHelper1 : public QObject {
+//  Q_OBJECT
+//signals:
+//  void SignalName1();
+//public:
+//  void SendSignal1 () {
+//    emit SignalName1();
+//  }
+//};
 //se sottoscrivo a un topic non ho bisogno delle classi lo vedo come topic
 
 
@@ -86,6 +101,7 @@ class paginaprincipale : public QDialog
   Q_OBJECT
    std::map<QString,ExInfo>ExInfoMap; // mappo gli esercizi
    std::map<QString, TutInfo> TutInfoMap; // mappo le immagini del tutorial
+   std::map<QString, VestInfo> VestInfoMap; // mappo le immagini della vestizione
     MatrixWidget * matrix = new MatrixWidget (this);
     int curImage = 0;
     int rep = 0;
@@ -98,6 +114,11 @@ class paginaprincipale : public QDialog
     QVector<QString> sel_tut;
     int curTut = 0;
     QString key2;
+    // sistemo mappatura immagini vestizione
+    int curimgs = 0;
+    QVector<QString> sel_vest;
+    int curVest = 0;
+    QString key3;
 
     // aggiungo questo
     std_msgs::String msg;
@@ -136,6 +157,12 @@ public:
   explicit paginaprincipale(QWidget *parent = nullptr);
   ~paginaprincipale();
     //  agree_gui::QNode qnode;
+   //   SignalHelper1 *helper1;
+signals:
+  //  void login_open();
+      void ShowMain();
+
+
 
 private slots:
   void on_pushButton_nuovopaziente_clicked();
@@ -200,8 +227,14 @@ private slots:
 
  void show_val();
 
+ void show_feed();
+
 // void img_rehab();
  void on_pushButton_clicked();
+
+ void on_pushButton_avanti_v_clicked();
+
+ void on_pushButton_logout_clicked();
 
 private:
   Ui::paginaprincipale *ui;
@@ -212,10 +245,12 @@ private:
  ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
 
   SignalHelper *helper;
+ // SignalHelper1 *helper1;
   QTimer *timer;
   QTimer *timer_init;
   QTimer *timer_rehab;
   QTimer *timer_val;
+  QTimer *timer_feedback;
 };
 
 

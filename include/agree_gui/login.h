@@ -42,6 +42,10 @@ class login : public QMainWindow
 public:
   explicit login(QWidget *parent = nullptr);
   ~login();
+//public slots :
+// // void open_log();
+public slots :
+  void prova();
 
 private slots:
   void on_pushButton_accedi_clicked();
@@ -49,6 +53,10 @@ private slots:
   void on_pushButton_newrec_clicked();
 
   void on_pushButton_salva_clicked();
+ //void prova();
+
+
+
 
  // void on_pushButton_modifica_clicked();
 
