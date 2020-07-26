@@ -6,7 +6,7 @@
 #include "../include/agree_gui/sc_assistivo.h"
 
 
-
+/**********************       DICHIARAZIONE VARIABILI GLOBALI                           *********************/
 QString dati::username;
 QString dati::password;
 QString dati::Nome;
@@ -36,13 +36,17 @@ login::login(QWidget *parent) :
 
 
   ui->setupUi(this);
+
+/**********************       DICHIARO NODO                           *********************/
   ros::NodeHandle n;
+
+/**********************       CREDO TOPIC                          *********************/
 chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
 //Paginaprincipale = new paginaprincipale();
 //connect(Paginaprincipale, SIGNAL(SignalName1()), this, SLOT(prova()));
 //qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(SignalName1()), this, SLOT(prova()));
 
-
+/**********************       COLLEGO DATABASE                            *********************/
   QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
 //mydb.setDatabaseName("~/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
 mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
@@ -73,20 +77,26 @@ mydb.setPassword("ali");
 
      qDebug()<< dati::count;
    }
+
+/**********************       CONNETTO LOGIN CON PAGINAPRINCIPALE                  *********************/
    Paginaprincipale = new paginaprincipale();
 
-   connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
-   qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
+   connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+   qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
 }
 
 login::~login()
 {
   delete ui;
 }
-void login::prova() {
+/**********************       MOSTRA LA FINESTRA DI LOGIN                             ********************/
+void login::showlogin() {
   show();
   qDebug()<<"sono in prova slot";
 }
+
+/**********************       FUNZIONE ACCEDI                                         ********************/
+
 void login::on_pushButton_accedi_clicked()
 {
 
@@ -125,7 +135,7 @@ void login::on_pushButton_accedi_clicked()
      if (dati::profilo == 1){
             this->hide();
             Paginaprincipale = new paginaprincipale(this);
-            connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
+            connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
             Paginaprincipale -> show();
             ss_log1 << "ho effettuato il login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
             msg.data = ss_log1.str();
@@ -159,7 +169,7 @@ void login::on_pushButton_accedi_clicked()
 
     }
 
-
+/**********************       FUNZIONE NUOVA REGISTRAZIONE                            ********************/
 void login::on_pushButton_newrec_clicked()
 {
 
@@ -168,6 +178,8 @@ void login::on_pushButton_newrec_clicked()
 
 
 }
+
+/**********************       FUNZIONE SALVA NUOVA REGISTRAZIONE                      *********************/
 
 void login::on_pushButton_salva_clicked()
 {
@@ -225,7 +237,7 @@ if (dati::password == Conferma) {
  //capire come mai non si aprono più le finestre interessate
          if (dati::profilo == 1){
          Paginaprincipale  = new paginaprincipale(this);
-         connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(prova()));
+         connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
          Paginaprincipale->show();
 
          ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata

@@ -42,7 +42,7 @@ QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex
 
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
 QString dati::next_img;
-//using namespace agree_gui;
+
  SignalHelper *helper;
 //SignalHelper1 *helper1;
  void paginaprincipale::callback1(const std_msgs::StringConstPtr& str) {
@@ -56,22 +56,22 @@ QString dati::next_img;
    num = msg.data;
    ROS_INFO("I heard: [%d]", num);
  }
-void callback(const std_msgs::StringConstPtr& str) {
+//void callback(const std_msgs::StringConstPtr& str) {
 
-   ROS_INFO("I heard: [%s]", str->data.c_str());
-   dati::next_img = str->data.c_str();
- // qDebug()<< dati::next_img;
+//   ROS_INFO("I heard: [%s]", str->data.c_str());
+//   dati::next_img = str->data.c_str();
+// // qDebug()<< dati::next_img;
 
- // helper->SendSignal();
+// // helper->SendSignal();
 
-}
-void paginaprincipale::prova_signal() {
+//}
+//void paginaprincipale::prova_signal() {
 
-  if (dati::next_img == "a") {
- qDebug()<< "sono nella funzione prova_signal";
-    helper->SendSignal();
-  }
-}
+//  if (dati::next_img == "a") {
+// qDebug()<< "sono nella funzione prova_signal";
+//    helper->SendSignal();
+//  }
+//}
 
 paginaprincipale::paginaprincipale(QWidget *parent) :
 
@@ -85,10 +85,10 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 {
   using namespace  agree_gui;
 qDebug()<< "qui";
-   helper = new SignalHelper();
+ //  helper = new SignalHelper();
  //  helper1 = new SignalHelper1();
-   prova_signal();
-  connect(helper, SIGNAL(SignalName()),this, SLOT(next_img()));
+ //  prova_signal();
+//  connect(helper, SIGNAL(SignalName()),this, SLOT(next_img()));
 
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
@@ -102,7 +102,7 @@ chatter_publisher = n.advertise<std_msgs::String>("/status", 1000);
 
 //definisco topic da cui faccio subscribe
 //ros::MultiThreadedSpinner spinner(1);
- command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
+ command_subscriber = n.subscribe("/command", 1000, &paginaprincipale::callback2, this); //creo il topic a cui faccio il subscribe
 //spinner.spin();
 
 //connetto combobox con combo box
@@ -133,14 +133,14 @@ connect(ui->checkBox_ex5, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_ex6, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_7, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
 
-timer = new QTimer(this);
+//timer = new QTimer(this);
 timer_init = new QTimer(this);
 timer_rehab = new QTimer(this);
 timer_val = new QTimer(this);
 timer_feedback = new QTimer(this);
 // setup signal and slot
-connect(timer, SIGNAL(timeout()),
-      this, SLOT(next_img()));
+//connect(timer, SIGNAL(timeout()),
+      //this, SLOT(next_img()));
 
 connect(timer_init,SIGNAL(timeout()), this, SLOT(skip_init()));
 
@@ -150,10 +150,6 @@ connect(timer_val, SIGNAL(timeout()), this,  SLOT(show_val()));
 
 connect(timer_feedback, SIGNAL(timeout()), this, SLOT(show_feed()));
 // msec
-
-
-
-
 
 
  // prova immagini
@@ -235,10 +231,9 @@ ui->label_date->setText(data.toString());
 paginaprincipale::~paginaprincipale()
 {
   delete ui;
-
-
 }
 
+/**********************       INSERISCO NUOVO PAZIENTE            *********************/
 void paginaprincipale::on_pushButton_nuovopaziente_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->page_4);
@@ -261,6 +256,7 @@ void paginaprincipale::on_pushButton_nuovopaziente_clicked()
     }
 }
 
+/**********************       SALVO PAZIENTE (NUOVO E MODIFICA)  *********************/
 void paginaprincipale::on_pushButton_salva_clicked()
 {
 
@@ -342,8 +338,9 @@ void paginaprincipale::on_pushButton_salva_clicked()
     }
 }
 
+/**********************      CARICO TABELLA PAZIENTI                       *********************/
 void paginaprincipale::on_pushButton_elencoPazienti_clicked()
-{    prova_signal();
+{   // prova_signal();
   //carico la tabella dei pazienti
       QSqlQueryModel *model = new QSqlQueryModel();
       QSqlQuery * qry1 = new QSqlQuery(mydb2);
@@ -359,12 +356,14 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
       else qDebug()<<qry1->lastError();
 }
 
+/**********************       ATTIVO DOPPIO CLICK TABELLA                 *********************/
 void paginaprincipale::on_tableView_database_activated(const QModelIndex &index)
 {
      dati::ind= ui-> tableView_database->model()->data(index).toString();
  flag= 3; //paziente selezionato
 }
 
+/**********************       ELIMINO PAZIENTE                      *********************/
 void paginaprincipale::on_pushButton_eliminapaziente_clicked()
 {   if(flag==3)
   {
@@ -416,6 +415,7 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
   }
 }
 
+/**********************       MODIFICO PAZIENTE                       *********************/
 void paginaprincipale::on_pushButton_modifica_clicked()
 { if (flag==3)
   {
@@ -456,6 +456,7 @@ void paginaprincipale::on_pushButton_modifica_clicked()
   }
     }
 
+/**********************       DICHIARO DATI UTENTE                       *********************/
 void paginaprincipale::on_pushButton_utente_clicked()
 {
   ui->stackedWidget->setCurrentWidget(ui->page_5);
@@ -494,6 +495,7 @@ void paginaprincipale::on_pushButton_utente_clicked()
 
 }
 
+/**********************       SALVO DATI UTENTE NUOVI                       *********************/
 void paginaprincipale::on_pushButton_salva_2_clicked()
 {
   QSqlQuery qry6;
@@ -547,6 +549,7 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
     ui->label_status->setText(QString("Utente: %1 %2").arg(dati::Nome) .arg(dati::Cognome));
 }
 
+/**********************       INIZIO SEDUTA RIABILITATIVA                       *********************/
 void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 {
   if (flag==3)
@@ -756,6 +759,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
   }
 }
 
+/**********************       TORNO ALLA HOME E PULISCO TUTTA LA GUI             *********************/
 void paginaprincipale::on_pushButton_home_clicked()
 {
       ui->tabWidget->setCurrentWidget(ui->tab);
@@ -802,6 +806,7 @@ void paginaprincipale::on_pushButton_home_clicked()
 
 }
 
+/**********************       SCORRO IL TUTORIAL DEL MONTAGGIO                       *********************/
 void paginaprincipale::on_pushButton_salta_clicked()
 {    qDebug() << sel_tut;
 
@@ -831,6 +836,7 @@ void paginaprincipale::on_pushButton_salta_clicked()
 
 }
 
+/**********************       SALVO CONFIGURAZIONE ROM                       *********************/
 void paginaprincipale::on_pushButton_salvaconf_clicked()
 {
     QString FESm1, FESM1, AASm1, AASM1, RIESm1, RIESM1,Gm1, GM1, Pm1,PM1;
@@ -980,6 +986,8 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
 //        }
 }
 }
+
+/**********************       CERCO PAZIENTE PER COGNOME                       *********************/
 void paginaprincipale::on_pushButton_cerca_3_clicked()
 {
     QString Ricerca;
@@ -994,171 +1002,7 @@ void paginaprincipale::on_pushButton_cerca_3_clicked()
      qDebug() << (model1->rowCount());
 }
 
-//void paginaprincipale::on_pushButton_save_clicked()
-//{
-//    if(ui->checkBox_eeg->isChecked())
-//    {
-//      dati::modulo_extra= "1";
-//      QSqlQuery moduli;
-//      moduli.prepare("update Parametri_Paziente set EEG='"+dati::modulo_extra+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-
-//     moduli.exec();
-
-//            if (moduli.exec())
-//            {
-
-//           QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra EEG salvata"));
-//           ui->checkBox_eeg->setChecked(false);
-
-//           }
-//           else {
-//              QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-//            }
-
-//    }
-//    if(ui->checkBox_emg->isChecked())
-//    {
-//      dati::modulo_extra= "1";
-//      QSqlQuery moduli;
-//      moduli.prepare("update Parametri_Paziente set EMG='"+dati::modulo_extra+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-
-//     moduli.exec();
-
-//            if (moduli.exec())
-//            {
-
-//             QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra EMG salvata"));
-//              ui->checkBox_emg->setChecked(false);
-//           }
-//           else {
-//              QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-//            }
-//    }
-//    if(ui->checkBox_MAP->isChecked() ||  (prova == 5))
-//    {
-//      //|| (dati::modulo_prec== "S-P-G")
-//      if(dati::modulo_polso == "1")
-//      {
-//      dati::mano = "1";
-//     QSqlQuery moduli;
-//      moduli.prepare("update Parametri_Paziente set Mano='"+dati::mano+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-
-//     moduli.exec();
-
-//            if (moduli.exec())
-//            {
-
-//            QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra MAP salvata"));
-//            ui->checkBox_MAP->setChecked(false);
-//           }
-//           else {
-//              QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-//            }
-//      }
-// //|| (dati::modulo_prec== "S-G") || (dati::modulo_prec=="S")
-
-//      else if (dati::modulo_polso == "0" ) {
-//        qDebug()<< "qui";
-//        QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Attenzione"), tr("Il modulo extra: Mano non può essere attivato se la configurazione dei moduli moduli meccanici non comprende anche il Modulo : Polso. Si desidera modificare la configurazione dei Moduli Meccanici? "));
-//        if (risposta==QMessageBox::Yes)
-//        {
-//            flag=6;
-//           // ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
-//      }
-//        else if (risposta==QMessageBox::No) {
-//          ui->checkBox_MAP->setChecked(false);
-//        }
-//      }
-
-//    }
-//    if(ui->checkBox_oi->isChecked())
-//    {
-//      dati::oi = "1";
-
-//      QSqlQuery moduli;
-//      moduli.prepare("update Parametri_Paziente set Oggetti_int='"+dati::oi+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-
-//     moduli.exec();
-
-//            if (moduli.exec())
-//            {
-
-//            QMessageBox ::information(this,tr("Salvato"),tr("Configurazione del Modulo Extra: Oggetti Interattattivi salvata"));
-//             ui->checkBox_oi->setChecked(false);
-//           }
-//           else {
-//              QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
-//            }
-//    }
-//    if (flag==6)
-//   {
-//       ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
-
-
-//    }
-//    else {
-
-//   ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
-//    }
-//}
-void paginaprincipale::skip_init() {
-
-  qDebug() << flag;
-  qDebug()<< "timer...";
-     ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
-     if (flag==4) //day N
-     {
-         if(dati::mood_prec=="Trigger")
-          {
-            ui->radioButton_trigger->setChecked(true);
-          }
-         else {
-           {
-             ui->radioButton_trigger->setChecked(false);
-           }
-         }
-           if(dati::mood_prec== "Mobilizzazione Passiva" )
-          {
-            ui->radioButton_pass->setChecked(true);
-          }
-           else
-           {
-             ui->radioButton_pass-> setChecked(false);
-           }
-           if(dati::mood_prec=="Assisted as needed")
-          {
-            ui->radioButton_aan->setChecked(true);
-          }
-           else {
-             ui->radioButton_aan->setChecked(false);
-           }
-          if (dati::mood_prec=="Anti-g")
-          {
-            ui->radioButton_ag->setChecked(true);
-          }
-          else
-          {
-            ui->radioButton_ag->setChecked(false);
-          }
-           if(dati::mood_prec=="Challenging")
-          {
-            ui->radioButton_chall->setChecked(true);
-          }
-           else
-           {
-             ui->radioButton_chall->setChecked(false);
-           }
-
-
-     }
-    // day0
-     else {
- ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
-
-     }
-     timer_init->stop();
-}
-
+/**********************       INABILITO LA SELEZIONE DEGLI OGGETTI INTERATIVI                       *********************/
 void paginaprincipale::enable_combo() {
   ui->comboBox_oi_es1->setEnabled(false);
   ui->comboBox_oi_es2->setEnabled(false);
@@ -1204,6 +1048,8 @@ void paginaprincipale::enable_combo() {
   }
 
 }
+
+/**********************       CALCOLO TEMPO STIMATO PER LA TERAPIA                       *********************/
 void paginaprincipale::update_tempo_terapia(){
   QString t;
     qDebug()<< "sono nella funzione update_tempo_terapia";
@@ -1346,6 +1192,8 @@ ripe7 = ui->lineEdit_ex7->text().toInt();
  ui->label_tempo->setText(test);
 
 }
+
+/**********************       INABILITO COMBO ESERCIZI (PROVVISORIO)                       *********************/
 void paginaprincipale::enable_combo_ex() {
   ui->comboBox_ex1->setEnabled(false);
   ui->comboBox_ex2->setEnabled(false);
@@ -1378,6 +1226,8 @@ void paginaprincipale::enable_combo_ex() {
   }
 
 }
+
+/**********************       SALVO ESERCIZI                       *********************/
 void paginaprincipale::on_pushButton_salvaex_clicked()
 {    QString bicchiere, forchetta, libro;
      bicchiere = "Bicchiere";
@@ -1926,8 +1776,8 @@ while(esercizi.next())
 //         else qDebug()<< ins_val.lastError();
 }
 
+/**********************       SALVO MODALITÀ DI CONTROLLO                       *********************/
 void paginaprincipale::on_pushButton_controllo_clicked()
-
 {
 
   if(ui->radioButton_trigger->isChecked()) {
@@ -2467,9 +2317,9 @@ qDebug()<< rand1;
 
 }
 
+/**********************       SALVO MODULI MECCANICI ED EXTRA                       *********************/
 void paginaprincipale::on_pushButton_salvamoduli_clicked()
-
-{ int8_t check;
+{ int8_t check = 0;
   dati::modulo_spalla= "0";
   dati::modulo_gomito = "0";
   dati::modulo_polso="0";
@@ -2674,43 +2524,8 @@ QStringList istr_vest1 = {"Individuare e definire una posizione confortevole dde
 
 
 }
- // }
 
- // ui->tabWidget_2->setCurrentWidget(ui->tab_m_extra);
-
-//  if (flag==6)
-//  {
-//    if (dati::modulo_emg_prec=="1")
-//    {
-//      ui->checkBox_emg_2->setChecked(true);
-//    }
-//    else if(dati::modulo_eeg_prec=="1")
-//    {
-//      ui->checkBox_eeg_2->setChecked(true);
-//    }
-//    else {
-//      ui->checkBox_eeg_2->setChecked(false);
-//      ui->checkBox_emg_2->setChecked(false);
-//    }
-//    if(!(dati::l_m_p==0))
-//    {
-//      ui->checkBox_MAP_2->setChecked(true);
-//      flag= 5;
-//    }
-//    else {
-//      ui->checkBox_MAP_2->setChecked(false);
-//    }
-//    if(!(dati::l_oi_p==0))
-//    {
-//      ui->checkBox_oi->setChecked(true);
-//    }
-//    else {
-//      ui->checkBox_oi_2->setChecked(false);
-//    }
-//  }
-//}
-
-
+/**********************       SALVO IN UNA LISTA IMMAGINI PER ESERCIZI                       *********************/
 QList<QPixmap>GetImages(QString exID) {
   QList<QPixmap> mylist;
 //auto folder("/home/alice/catkin_ws/src/agree_gui/resources/ex_img/" + exID);
@@ -2730,6 +2545,7 @@ return mylist;
 
 }
 
+/**********************       SALVO IN UNA LISTA IMMAGINI PER TUTORIAL MONTAGGIO                       *********************/
 QList<QPixmap>GetImages2(QString tutID) {
   QList<QPixmap> mylist2;
   auto folder2("/home/alice/Desktop/tutorial/" +tutID);
@@ -2744,6 +2560,8 @@ QList<QPixmap>GetImages2(QString tutID) {
   }
   return mylist2;
 }
+
+/**********************       SALVO IN UNA LISTA IMMAGINI PER TUTORIAL VESTIZIONE                      *********************/
 QList<QPixmap>GetImages3(QString vestID) {
   QList<QPixmap> mylist3;
   auto folder3 ("/home/alice/Desktop/vestizione/" +vestID);
@@ -2758,6 +2576,8 @@ QList<QPixmap>GetImages3(QString vestID) {
   }
   return mylist3;
 }
+
+/**********************       SALVO I 3 PUNTI DEL PAD                       *********************/
 void paginaprincipale::on_pushButton_salvatapp_clicked()
 {
 
@@ -2773,28 +2593,7 @@ ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 
 }
 
-//void paginaprincipale::on_pushButton_goon_clicked()
-//{
-//  if(curEx<sel_ex.size()) {
-//    key= sel_ex.at(curEx);
-//  if (ExInfoMap.find(key) != ExInfoMap.end() ) {
-//  ExInfo & one = ExInfoMap[key];
-//  if (one.images.size() > 0)
-//    ui->label_img->setPixmap(one.images.first());
-//    else
-//    qDebug() << "no images for key";
-//  } else
-//  qDebug() << "key is not valid";
-//curEx++;
-//}
-
-//  if(curEx==sel_ex.size())
-//  {
-//    curEx=0;
-//    return;
-//  }
-//}
-
+/**********************       INIZIO TERAPIA                       *********************/
 void paginaprincipale::on_pushButton_next_clicked()
 { //qDebug()<<sel_ex;
 timer_rehab->start(3000);
@@ -2860,6 +2659,7 @@ timer_rehab->start(3000);
 
 }
 
+/**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI                    *********************/
 void paginaprincipale::next_img() {
   qDebug()<< "sono nella funzione next_img";
  // if(dati::next_img=="a"){
@@ -2936,14 +2736,18 @@ qDebug()<< "in ==";
   }
 //dati::next_img = "b";
 
-  //}
+//  }
 }
+
+/**********************       MOSTRO FEEDBACK DURANTE LA TERAPIA                       *********************/
 void paginaprincipale::show_feed() {
   ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
   QPixmap smile("/home/alice/Desktop/smile.jpeg");
   ui->label_img->setPixmap(smile);
  timer_feedback->stop();
 }
+
+/**********************       MOSTRO I RISULTATI DELLA SESSIONE                       *********************/
 void paginaprincipale::show_val() {
   qDebug() << "sono in show val";
    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
@@ -2953,6 +2757,8 @@ void paginaprincipale::show_val() {
    ui->label_img->clear();
    ui->label_fine_ex->clear();
 }
+
+/**********************       SCORRO INDIETRO LE IMMAGINI DEL TUTORIAL DI MONTAGGIO (DA SISTEMARE)  *********************/
 void paginaprincipale::on_pushButton_indietro_2_clicked()
 { qDebug()<< curTut;
   qDebug()<< curImg;
@@ -2995,27 +2801,29 @@ void paginaprincipale::on_pushButton_indietro_2_clicked()
 
 }
 
-
+/**********************       SALTO TUTORIAL MONTAGGIO  *********************/
 void paginaprincipale::on_pushButton_prosegui_clicked()
 {
     ui->tabWidget_2->setCurrentWidget(ui->tab_init);
     timer_init->start(5000);
 }
 
+/**********************       SALTO TUTORIAL VESTIZIONE  *********************/
 void paginaprincipale::on_pushButton_go_clicked()
 {
     ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
 }
 
-
+/**********************       INTERROMPO TERAPIA  *********************/
 void paginaprincipale::on_pushButton_clicked()
-{   timer->stop();
+{   //timer->stop();
     timer_rehab->stop();
     ui->tabWidget->setCurrentWidget(ui->tab);
     ui->stackedWidget->setCurrentWidget(ui->page_3);
 
 }
 
+/**********************       SCORRO AVANTI IMMAGINI TUTORIAL VESTIZIONE  *********************/
 void paginaprincipale::on_pushButton_avanti_v_clicked()
 {
   qDebug() << sel_vest;
@@ -3045,6 +2853,7 @@ void paginaprincipale::on_pushButton_avanti_v_clicked()
       }
 }
 
+/**********************       EFFETTUO LOG OUT  *********************/
 void paginaprincipale::on_pushButton_logout_clicked()
 {
 
