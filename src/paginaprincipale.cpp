@@ -2877,3 +2877,28 @@ void paginaprincipale::on_pushButton_logout_clicked()
 
   }
 }
+
+void paginaprincipale::skip_init(){
+timer_init->stop();
+ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+if (flag == 4) {
+  if (dati::mood_prec == "Mobilizzazione Passiva"){
+    ui->radioButton_pass->setChecked(true);
+  }
+  else if (dati::mood_prec == "Trigger") {
+    ui->radioButton_trigger->setChecked(true);
+  }
+  else if(dati::mood_prec == "Assisted as needed") {
+    ui->radioButton_aan->setChecked(true);
+
+  }
+  else if(dati::mood_prec == "Anti_g") {
+    ui->radioButton_ag->setChecked(true);
+
+  }
+  else if(dati::mood_prec == "Challenging") {
+    ui->radioButton_chall->setChecked(true);
+  }
+}
+//ui->stackedWidget->setCurrentWidget(ui->page_3);
+}

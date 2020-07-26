@@ -320,7 +320,7 @@ private slots:
 
  void callback2(const std_msgs::Int8 msg);
 
-// void skip_init();
+ void skip_init();
 
 /**********************    FUNZIONE PER MOSTRARE VALUTAZIONE    ******************/
 
