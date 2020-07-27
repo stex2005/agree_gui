@@ -316,7 +316,7 @@ private slots:
 
 /**********************       DICHIARAZIONE CALLBACK ROS     *********************/
 
- void callback1(const std_msgs::StringConstPtr& str);
+// void callback1(const std_msgs::StringConstPtr& str);
 
  void callback2(const std_msgs::Int8 msg);
 
@@ -351,7 +351,7 @@ private:
   //ho aggiunto questo
 
 /**********************       DICHIARO TOPIC                      *********************/
- ros::Publisher chatter_publisher;
+ ros::Publisher status_publisher;
  ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
 
   SignalHelper *helper;

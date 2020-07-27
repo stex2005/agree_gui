@@ -96,7 +96,7 @@ private:
   QTimer *timer2;
   QTimer *timer3;
   QTimer *timer4;
-  ros::Publisher chatter_publisher;
+  ros::Publisher status_publisher;
 protected:
   virtual void paintEvent(QPaintEvent *event) override;
 };

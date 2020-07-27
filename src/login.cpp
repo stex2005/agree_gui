@@ -18,6 +18,7 @@ int flag1;
 QString dati::count;
 QString dati::sigla;
 int dati::nuovo_utente;
+int8_t dati::status1=0, dati::command=0;
 
 
 
@@ -40,11 +41,11 @@ login::login(QWidget *parent) :
 /**********************       DICHIARO NODO                           *********************/
   ros::NodeHandle n;
 
-/**********************       CREDO TOPIC                          *********************/
-chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
-//Paginaprincipale = new paginaprincipale();
-//connect(Paginaprincipale, SIGNAL(SignalName1()), this, SLOT(prova()));
-//qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(SignalName1()), this, SLOT(prova()));
+/**********************       CREO TOPIC                          *********************/
+status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
+command_subscriber = n.subscribe("/gui/command", 1000, &login::callback_log, this); //creo il topic a cui faccio il subscribe
+
+
 
 /**********************       COLLEGO DATABASE                            *********************/
   QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
@@ -75,7 +76,7 @@ mydb.setPassword("ali");
      query.first();
      dati::count= query.value(0).toString();
 
-     qDebug()<< dati::count;
+    // qDebug()<< dati::count;
    }
 
 /**********************       CONNETTO LOGIN CON PAGINAPRINCIPALE                  *********************/
@@ -83,11 +84,23 @@ mydb.setPassword("ali");
 
    connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
    qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+
+   dati::status1 = 1;
+
+   std_msgs::Int8 msg;
+   msg.data = dati::status1;
+   ROS_INFO ("%d", msg.data);
+   status_publisher.publish(msg);
 }
 
 login::~login()
 {
   delete ui;
+}
+void login::callback_log(const std_msgs::Int8 msg) {
+//  num = msg.data;
+  dati::command = msg.data;
+  ROS_INFO("I heard: %d", dati::command);
 }
 /**********************       MOSTRA LA FINESTRA DI LOGIN                             ********************/
 void login::showlogin() {
@@ -130,17 +143,25 @@ void login::on_pushButton_accedi_clicked()
              while(query.next()){
                  dati::profilo = query.value(0).toInt();
              }
-     qDebug () << dati::profilo;
+    // qDebug () << dati::profilo;
 
      if (dati::profilo == 1){
-            this->hide();
+
+       if (dati::command == 2) {
+         this->hide();
             Paginaprincipale = new paginaprincipale(this);
             connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
-            Paginaprincipale -> show();
-            ss_log1 << "ho effettuato il login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-            msg.data = ss_log1.str();
-          chatter_publisher.publish(msg);
-          ROS_INFO_STREAM(msg);
+            Paginaprincipale -> show();}
+//            dati::status1 = 1;
+
+//            std_msgs::Int8 msg;
+//            msg.data = dati::status1;
+//            ROS_INFO ("%d", msg.data);
+//            status_publisher.publish(msg);
+//            ss_log1 << "ho effettuato il login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//            msg.data = ss_log1.str();
+//          status_publisher.publish(msg);
+//          ROS_INFO_STREAM(msg);
 
         }
      //apro una finestra in caso di scenario 3
@@ -152,7 +173,7 @@ void login::on_pushButton_accedi_clicked()
 
          ss_log2 << "ho effettuato il login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
          msg.data = ss_log2.str();
-       chatter_publisher.publish(msg);
+       status_publisher.publish(msg);
        ROS_INFO_STREAM(msg);
 
 
@@ -236,14 +257,20 @@ if (dati::password == Conferma) {
 
  //capire come mai non si aprono più le finestre interessate
          if (dati::profilo == 1){
+           dati::status1 = 1;
          Paginaprincipale  = new paginaprincipale(this);
          connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
          Paginaprincipale->show();
+         dati::status1 = 1;
 
-         ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-         msg.data = ss_log1_new.str();
-       chatter_publisher.publish(msg);
-       ROS_INFO_STREAM(msg);
+         std_msgs::Int8 msg;
+         msg.data = dati::status1;
+         ROS_INFO ("%d", msg.data);
+         status_publisher.publish(msg);
+//         ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//         msg.data = ss_log1_new.str();
+//       status_publisher.publish(msg);
+//       ROS_INFO_STREAM(msg);
          //mydb.close();
         }
         else if(dati::profilo == 3) {
@@ -259,7 +286,7 @@ if (dati::password == Conferma) {
 
                        ss_log2_new << "ho effettuato il  nuovo login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
                        msg.data = ss_log2_new.str();
-                     chatter_publisher.publish(msg);
+                     status_publisher.publish(msg);
                      ROS_INFO_STREAM(msg);
 
 

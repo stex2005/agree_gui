@@ -2,6 +2,9 @@
 #define MATRIXWIDGET_H
 
 #include <QWidget>
+#include <ros/ros.h>
+#include <ros/network.h>
+
 
 
 struct DataPoint {
@@ -49,6 +52,9 @@ public slots:
 protected:
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void paintEvent(QPaintEvent *event) override;
+
+private:
+  ros::Publisher status_publisher;
 };
 
 #endif // MATRIXWIDGET_H

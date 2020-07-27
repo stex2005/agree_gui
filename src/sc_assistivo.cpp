@@ -18,7 +18,7 @@ sc_assistivo::sc_assistivo(QWidget *parent) :
 {
   ui->setupUi(this);
 ros::NodeHandle n;
-chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
+status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
   //creo il timer per cambiare il colore dei rettangoli del joystick
  timer = new QTimer(this);
  timer1 = new QTimer(this);
@@ -154,7 +154,7 @@ void sc_assistivo::on_pushButton_salva_clicked()
      {     QMessageBox::information(this, tr("Salvato"), tr("Modifiche salvate correttamente"));
        ss_rom << "ho effettuato la configurazione dei ROM" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
        msg.data = ss_rom.str();
-     chatter_publisher.publish(msg);
+     status_publisher.publish(msg);
        ui->stackedWidget->setCurrentWidget(ui->page_2);
      }
      else { qDebug()<<prova.lastError().text();
@@ -186,7 +186,7 @@ void sc_assistivo::on_pushButton_vocale_clicked()
         dati::controllo_voc=1;
         ss_voc << "ho effettuato la configurazione dei ROM" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
         msg.data = ss_voc.str();
-      chatter_publisher.publish(msg);
+      status_publisher.publish(msg);
 
       }
  else if(controllovoc.clickedButton()==pButtonNo)      {
@@ -258,7 +258,7 @@ void sc_assistivo::on_pushButton_salva_2_clicked()
      joy=2;
      ss_joy_conf << "ho effettuato la configurazione dei ROM" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
      msg.data = ss_joy_conf.str();
-   chatter_publisher.publish(msg);
+   status_publisher.publish(msg);
 
 }
 
@@ -289,7 +289,7 @@ void sc_assistivo::on_pushButton_joystick_clicked()
       dati::controllo_joy=1;
       ss_joy << "ho selezionato il controllo con il Joystick" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
       msg.data = ss_joy.str();
-    chatter_publisher.publish(msg);
+    status_publisher.publish(msg);
 
 
     }
@@ -318,7 +318,7 @@ void sc_assistivo::on_pushButton_gomito_clicked()
      dati::controllo_gomito=1;
      ss_elb_rot << "ho selezionato la rotazione del gomito" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
      msg.data = ss_elb_rot.str();
-   chatter_publisher.publish(msg);
+   status_publisher.publish(msg);
 
 
    }
@@ -376,7 +376,7 @@ void sc_assistivo::on_pushButton_salva_single_joint_clicked()
              ui->stackedWidget->setCurrentWidget(ui->page_2);
              ss_single_joy << "ho selezionato il controllo del singolo giunto" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
              msg.data = ss_single_joy.str();
-           chatter_publisher.publish(msg);
+           status_publisher.publish(msg);
            }
          else  if(messageBox.exec()==QMessageBox::No) {
              ui->stackedWidget->setCurrentWidget(ui->page_joint);

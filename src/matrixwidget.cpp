@@ -1,4 +1,6 @@
 #include "../include/agree_gui/matrixwidget.h"
+#include "../include/agree_gui/login.h"
+
 
 #include <QFile>
 #include <QDebug>
@@ -16,6 +18,11 @@
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 {
   LoadData();
+  /**********************       DICHIARO NODO                           *********************/
+    ros::NodeHandle n;
+
+  /**********************       CREO TOPIC                          *********************/
+  status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
 
 }
 
@@ -42,6 +49,12 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
      dp.isSelected = true;
      position.append(QPoint(yindex+1,xindex+1));
      auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
+     dati::status1 = 9;
+
+         std_msgs::Int8 msg;
+         msg.data = dati::status1;
+         ROS_INFO ("%d", msg.data);
+         status_publisher.publish(msg);
   // position.append(QPoint(yindex+1,xindex+1));
 
 

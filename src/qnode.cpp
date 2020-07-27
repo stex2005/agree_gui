@@ -51,7 +51,7 @@ bool QNode::init() {
 	ros::start(); // explicitly needed since our nodehandle is going out of scope.
 	ros::NodeHandle n;
 	// Add your ros communications here.
-  chatter_publisher = n.advertise<std_msgs::String>("/status", 1000);
+  chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000);
  // command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
 	start();
 	return true;
@@ -69,7 +69,7 @@ bool QNode::init(const std::string &master_url, const std::string &host_url) {
 	ros::start(); // explicitly needed since our nodehandle is going out of scope.
 	ros::NodeHandle n;
   // Add your ros communications here. //tf tree
-  chatter_publisher = n.advertise<std_msgs::String>("/status", 1000); //creo il topic
+  chatter_publisher = n.advertise<std_msgs::String>("/chatter", 1000); //creo il topic
 //  command_subscriber = n.subscribe("/command", 1000, callback); //creo il topic a cui faccio il subscribe
 
 

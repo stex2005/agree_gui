@@ -42,19 +42,21 @@ QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex
 
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
 QString dati::next_img;
+//int8_t dati::status1;
 
  SignalHelper *helper;
 //SignalHelper1 *helper1;
- void paginaprincipale::callback1(const std_msgs::StringConstPtr& str) {
-   ROS_INFO("I heard: [%s]", str->data.c_str());
-   dati::next_img = str->data.c_str();
-   qDebug()<< dati::next_img;
+// void paginaprincipale::callback1(const std_msgs::StringConstPtr& str) {
+//   ROS_INFO("I heard: [%s]", str->data.c_str());
+//   dati::next_img = str->data.c_str();
+//   qDebug()<< dati::next_img;
 
 
- }
+// }
  void paginaprincipale::callback2(const std_msgs::Int8 msg) {
-   num = msg.data;
-   ROS_INFO("I heard: [%d]", num);
+ //  num = msg.data;
+   dati::command = msg.data;
+   ROS_INFO("I heard: [%d]", dati::command);
  }
 //void callback(const std_msgs::StringConstPtr& str) {
 
@@ -84,7 +86,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 {
   using namespace  agree_gui;
-qDebug()<< "qui";
+//qDebug()<< "qui";
  //  helper = new SignalHelper();
  //  helper1 = new SignalHelper1();
  //  prova_signal();
@@ -97,12 +99,12 @@ qDebug()<< "qui";
      ui->verticalLayout->addWidget(matrix);
      // ho aggiunto questi
      ros::NodeHandle n;
-chatter_publisher = n.advertise<std_msgs::String>("/status", 1000);
+status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
 //definisco topic
 
 //definisco topic da cui faccio subscribe
 //ros::MultiThreadedSpinner spinner(1);
- command_subscriber = n.subscribe("/command", 1000, &paginaprincipale::callback2, this); //creo il topic a cui faccio il subscribe
+ command_subscriber = n.subscribe("/gui/command", 1000, &paginaprincipale::callback2, this); //creo il topic a cui faccio il subscribe
 //spinner.spin();
 
 //connetto combobox con combo box
@@ -225,6 +227,13 @@ ui->label_date->setText(data.toString());
   while(qry3->next()){
 
      ui->label_status->setText("Utente: " + qry3->value(0).toString() + " " +  qry3->value(1).toString());
+
+     dati::status1 = 2;
+
+     std_msgs::Int8 msg;
+     msg.data = dati::status1;
+     ROS_INFO ("%d", msg.data);
+     status_publisher.publish(msg);
 }
 }
 
@@ -551,7 +560,7 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
 
 /**********************       INIZIO SEDUTA RIABILITATIVA                       *********************/
 void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
-{
+{     if (dati::command == 3){
   if (flag==3)
   {
     qDebug()<< dati::ind;
@@ -572,6 +581,12 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
      // QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Conferma"), tr("Si è scelto di iniziare la sessione di terapia del paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No);
      // if (risposta==QMessageBox::Yes)
       {
+        dati::status1 = 3;
+
+               std_msgs::Int8 msg;
+               msg.data = dati::status1;
+               ROS_INFO ("%d", msg.data);
+               status_publisher.publish(msg);
         QSqlQuery selezione; // selezioni l'ultima riga salvata con questo codice id
         selezione.prepare ("select *  from Parametri_Paziente where Codice_ID = '"+dati::ind+"' order by Data_acquisizione desc limit 1");
         if (selezione.exec())
@@ -757,6 +772,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
       QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vuole iniziare la seduta riabilitativa"));
 
   }
+  }
 }
 
 /**********************       TORNO ALLA HOME E PULISCO TUTTA LA GUI             *********************/
@@ -923,67 +939,21 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
          ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
         // aggiungo questo:
 
-//pubblico che ho salvato i rom sul chatter
-         ss << "ho salvato i rom " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-         msg.data = ss.str();
-       chatter_publisher.publish(msg);
+//pubblico che ho salvato i rom su gui/status
+
+       dati::status1 = 4;
+
+       std_msgs::Int8 msg;
+       msg.data = dati::status1;
+       ROS_INFO ("%d", msg.data);
+       status_publisher.publish(msg);
 
          //agree_gui::QNode status << "ho salvato la configurazione dedi rom";
        }
        else {
           QMessageBox ::critical(this,tr("Errore"),tr("bo3"));
         }
-//        if (flag==4)
-//        {  ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
-//          if(dati::lato_prec == "0") ui->checkBox_sinistro->setChecked(true);
-//          else if (dati::lato_prec == "1") ui->checkBox_destro->setChecked(true);
 
-//          if(dati::modulo_spalla_prec=="1" && dati::modulo_gomito_prec=="0" && dati::modulo_polso_prec=="0")
-//          {
-//            dati::modulo_prec1= "Spalla";
-
-//            ui->checkBox_spalla->setChecked(true);
-//          }
-//          if (dati::modulo_gomito_prec== "1" && dati::modulo_polso_prec =="0") {
-//            dati::modulo_prec1 = "Spalla e Gomito";
-
-//            ui-> checkBox_gomito ->setChecked(true);
-//          }
-//          if (dati::modulo_polso_prec=="1") {
-//            dati::modulo_prec1 = "Spalla, Gomito e Polso";
-
-//            ui->checkBox_polso->setChecked(true);
-//          }
-
-//                   if (dati::modulo_emg_prec=="1")
-//                   {
-//                     ui->checkBox_emg_2->setChecked(true);
-//                   }
-//                   else if(dati::modulo_eeg_prec=="1")
-//                   {
-//                     ui->checkBox_eeg_2->setChecked(true);
-//                   }
-//                   else {
-//                     ui->checkBox_eeg_2->setChecked(false);
-//                     ui->checkBox_emg_2->setChecked(false);
-//                   }
-//                   if(!(dati::l_m_p==0))
-//                   {
-//                     ui->checkBox_MAP_2->setChecked(true);
-//                     prova= 5;
-//                   }
-//                   else {
-//                     ui->checkBox_MAP_2->setChecked(false);
-//                   }
-//                   if(!(dati::l_oi_p==0))
-//                   {
-//                     ui->checkBox_oi_2->setChecked(true);
-//                   }
-//                   else {
-//                     ui->checkBox_oi_2->setChecked(false);
-//                   }
-
-//        }
 }
 }
 
@@ -1544,10 +1514,16 @@ if (selezione.exec())
 {
   QMessageBox ::information(this,tr("Salvato"),tr("Set di esercizi salvati"));
   // mando messaggio che ho salvato esercizi
-  ss3 << "ho salvato il set di esercizi  " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-  msg.data = ss3.str();
-chatter_publisher.publish(msg);
-ROS_INFO_STREAM(msg);
+//  ss3 << "ho salvato il set di esercizi  " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//  msg.data = ss3.str();
+//status_publisher.publish(msg);
+//ROS_INFO_STREAM(msg);
+dati::status1 = 5;
+
+std_msgs::Int8 msg;
+msg.data = dati::status1;
+ROS_INFO ("%d", msg.data);
+status_publisher.publish(msg);
 
 }
 else {
@@ -1904,10 +1880,10 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 //         ui->lineEdit_ex7->setText(r7);
 
 // modalità
-    ss1 << "ho salvato la configurazione" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-    msg.data = ss1.str();
-  chatter_publisher.publish(msg);
-  ROS_INFO_STREAM(msg);
+//    ss1 << "ho salvato la configurazione" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//    msg.data = ss1.str();
+//  status_publisher.publish(msg);
+//  ROS_INFO_STREAM(msg);
 
 
                      if (flag==4) {
@@ -2423,10 +2399,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 //  }
 //  else {
  //salvo i moduli
-  ss2 << "ho salvato i moduli " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-  msg.data = ss2.str();
-chatter_publisher.publish(msg);
-ROS_INFO_STREAM(msg);
+//  ss2 << "ho salvato i moduli " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//  msg.data = ss2.str();
+//status_publisher.publish(msg);
+//ROS_INFO_STREAM(msg);
 //ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
 
 //recupero dati salvati
@@ -2584,11 +2560,17 @@ void paginaprincipale::on_pushButton_salvatapp_clicked()
 QVector<QPoint> mylocalList =matrix->getPosition();
 
 // mando il massaggio che ho salvato i punti sul tappetino
-ss4 << "ho salvato i punti sul tappetino" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-msg.data = ss4.str();
-chatter_publisher.publish(msg);
-ROS_INFO_STREAM(msg);
+//ss4 << "ho salvato i punti sul tappetino" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//msg.data = ss4.str();
+//status_publisher.publish(msg);
+//ROS_INFO_STREAM(msg);
 ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+dati::status1 = 10;
+
+std_msgs::Int8 msg;
+msg.data = dati::status1;
+ROS_INFO ("%d", msg.data);
+status_publisher.publish(msg);
 
 
 }
@@ -2677,6 +2659,12 @@ void paginaprincipale::next_img() {
               ui->label_img->setPixmap(one.images.at(curImage));
               curImage++;
               ui->label_fine_ex->setText("");
+              dati::status1 = 12;
+
+                  std_msgs::Int8 msg;
+                  msg.data = dati::status1;
+                  ROS_INFO ("%d", msg.data);
+                  status_publisher.publish(msg);
           }
 
           if ( curImage == one.images.size() ) { // -1 we start in zero
@@ -2728,6 +2716,12 @@ qDebug()<< "in ==";
         model2 -> setQuery(*qry_val_emg);
         ui->tableView_parametriEMG-> setModel(model2);
         ui->tableView_parametriEMG-> resizeColumnsToContents();
+        dati::status1 = 13;
+
+            std_msgs::Int8 msg;
+            msg.data = dati::status1;
+            ROS_INFO ("%d", msg.data);
+            status_publisher.publish(msg);
         }
 
 
@@ -2810,7 +2804,7 @@ void paginaprincipale::on_pushButton_prosegui_clicked()
 
 /**********************       SALTO TUTORIAL VESTIZIONE  *********************/
 void paginaprincipale::on_pushButton_go_clicked()
-{
+{ if(dati::command == 4)
     ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
 }
 
@@ -2846,7 +2840,9 @@ void paginaprincipale::on_pushButton_avanti_v_clicked()
       }
       else if(curTut== sel_tut.size()) {
        // timer_init->start(5000);
+        if(dati::command == 4) {
         ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+        }
         ui->label_img_vest->clear();
         ui->label_istr_vest->setText("");
 
