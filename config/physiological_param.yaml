@@ -1,0 +1,17 @@
+physiological_param/ROM_Max:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+
+physiological_param/ROM_Min:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+
+physiological_param/arm_length:
+  - 0.0
+  - 0.0

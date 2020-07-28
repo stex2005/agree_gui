@@ -154,10 +154,30 @@ class paginaprincipale : public QDialog
     std::stringstream ss4; //TAPPETINO
     std::stringstream ss5; //CHECK TAPPETINO
 
+    std_msgs::Int8 msg_status_pp;
+
     // STRING LIST PER ASSOCIARE LO USER
     QStringList associa_user;
 
     bool check_ex1;
+
+    /*****************************************************************************
+
+    ***************         DICHIARO VARIABILI ROS PARAMETERS   ******************
+
+    *****************************************************************************/
+
+    /***************               MODULI ATTIVI               ******************/
+
+    bool active_module_spalla = 0;
+    bool active_module_gomito = 0;
+    bool active_module_polso = 0;
+    bool active_module_MAT = 0;
+    bool active_module_RF = 0;
+    bool active_module_EEG_EMG = 0;
+    bool active_module_MAP = 0;
+    std::vector<bool> active_modules;
+
     /*****************************************************************************
 
     ***************            CALCOLO TEMPO TERAPIA            ******************

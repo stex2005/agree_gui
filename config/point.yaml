@@ -1,0 +1,51 @@
+point0/mat_coordinates:
+  - 0
+  - 0
+point0/enabled: false
+point0/color: 1
+point0/configuration:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+
+
+point1/mat_coordinates:
+  - 0
+  - 0
+point1/enabled: false
+point1/color: 1
+point1/configuration:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+
+
+point2/mat_coordinates:
+  - 0
+  - 0
+point2/enabled: false
+point2/color: 1
+point2/configuration:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+
+
+point3/mat_coordinates:
+  - 0
+  - 0
+point3/enabled: false
+point3/color: 1
+point3/configuration:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+

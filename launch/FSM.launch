@@ -1,0 +1,12 @@
+<launch>
+        <!-- <node name="FSM" pkg="agree_fsm_pkg" type="agree_fsm" /> -->
+	
+
+        <rosparam file="$(find agree_gui)/config/point.yaml" />
+        <rosparam file="$(find agree_gui)/config/exercise.yaml" />
+        <rosparam file="$(find agree_gui)/config/general.yaml" />
+        <rosparam file="$(find agree_gui)/config/physiological_param.yaml" />
+
+</launch>
+
+

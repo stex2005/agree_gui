@@ -18,7 +18,7 @@ int flag1;
 QString dati::count;
 QString dati::sigla;
 int dati::nuovo_utente;
-int8_t dati::status1=0, dati::command=0;
+int8_t dati::status1=0, dati::command=0, dati::command_old = 1;
 
 
 
@@ -85,22 +85,52 @@ mydb.setPassword("ali");
    connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
    qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
 
-   dati::status1 = 1;
 
-   std_msgs::Int8 msg;
-   msg.data = dati::status1;
-   ROS_INFO ("%d", msg.data);
-   status_publisher.publish(msg);
 }
 
 login::~login()
 {
   delete ui;
 }
-void login::callback_log(const std_msgs::Int8 msg) {
-//  num = msg.data;
-  dati::command = msg.data;
-  ROS_INFO("I heard: %d", dati::command);
+//void login::cambia_status(){
+//  if((dati::command_old) != (dati::command)) {
+//    dati::command_old=dati::command;
+//    ROS_INFO("I heard: %d Log Page", dati::command);
+
+//    if (dati::command_old == 2) {
+
+//      this->hide();
+////      ROS_INFO("HIDED");
+//     Paginaprincipale = new paginaprincipale();
+
+////      ROS_INFO("OPEN PAGINAPRINCIPALE");
+//      connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+////      ROS_INFO("CONNECT PAGINA PRINCIPALE");
+//      Paginaprincipale -> show();
+////      ROS_INFO("SHOW PAGINA PRINCIPALE");
+//   }
+//  }
+//}
+void login::callback_log(const std_msgs::Int8 msg_command) {
+  dati::command = msg_command.data;
+//cambia_status();
+  if((dati::command_old) != (dati::command)) {
+    dati::command_old=dati::command;
+   ROS_INFO("I heard: %d Log Page", dati::command);
+
+    if (dati::command_old == 2) {
+
+      this->hide();
+//      ROS_INFO("HIDED");
+//     Paginaprincipale = new paginaprincipale();
+
+//      ROS_INFO("OPEN PAGINAPRINCIPALE");
+//      connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+//      ROS_INFO("CONNECT PAGINA PRINCIPALE");
+//      Paginaprincipale -> show();
+//      ROS_INFO("SHOW PAGINA PRINCIPALE");
+   }
+  }
 }
 /**********************       MOSTRA LA FINESTRA DI LOGIN                             ********************/
 void login::showlogin() {
@@ -146,22 +176,19 @@ void login::on_pushButton_accedi_clicked()
     // qDebug () << dati::profilo;
 
      if (dati::profilo == 1){
+       dati::status1 =1;
+       msg_status.data = dati::status1;
+       ROS_INFO ("Push button ################# %d", msg_status.data);
+       status_publisher.publish(msg_status);
 
-       if (dati::command == 2) {
-         this->hide();
-            Paginaprincipale = new paginaprincipale(this);
-            connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
-            Paginaprincipale -> show();}
-//            dati::status1 = 1;
+//       if (dati::command == 2) {
+//         this->hide();
+//         Paginaprincipale = new paginaprincipale();
+//         Paginaprincipale->show();
+//       }
 
-//            std_msgs::Int8 msg;
-//            msg.data = dati::status1;
-//            ROS_INFO ("%d", msg.data);
-//            status_publisher.publish(msg);
-//            ss_log1 << "ho effettuato il login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-//            msg.data = ss_log1.str();
-//          status_publisher.publish(msg);
-//          ROS_INFO_STREAM(msg);
+
+
 
         }
      //apro una finestra in caso di scenario 3
@@ -258,6 +285,9 @@ if (dati::password == Conferma) {
  //capire come mai non si aprono più le finestre interessate
          if (dati::profilo == 1){
            dati::status1 = 1;
+
+
+
          Paginaprincipale  = new paginaprincipale(this);
          connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
          Paginaprincipale->show();
@@ -265,7 +295,7 @@ if (dati::password == Conferma) {
 
          std_msgs::Int8 msg;
          msg.data = dati::status1;
-         ROS_INFO ("%d", msg.data);
+         ROS_INFO ("sbagliato? %d", msg.data);
          status_publisher.publish(msg);
 //         ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
 //         msg.data = ss_log1_new.str();

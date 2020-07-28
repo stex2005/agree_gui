@@ -1,0 +1,17 @@
+registration_matrix:
+  - 0.0
+  - 0.0
+  - 0.0
+
+active_modules:
+  - false   # SPALLA
+  - false   # GOMITO
+  - false   # POLSO
+  - false   # MAT
+  - false   # RF SYSTEM
+  - false   # EMG/EEG
+  - false   # MAP
+
+current_exercise: 0
+
+

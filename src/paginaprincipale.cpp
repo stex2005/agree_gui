@@ -45,35 +45,36 @@ QString dati::next_img;
 //int8_t dati::status1;
 
  SignalHelper *helper;
-//SignalHelper1 *helper1;
-// void paginaprincipale::callback1(const std_msgs::StringConstPtr& str) {
-//   ROS_INFO("I heard: [%s]", str->data.c_str());
-//   dati::next_img = str->data.c_str();
-//   qDebug()<< dati::next_img;
 
+ void paginaprincipale::callback2(const std_msgs::Int8 msg_command_pp) {
 
-// }
- void paginaprincipale::callback2(const std_msgs::Int8 msg) {
- //  num = msg.data;
-   dati::command = msg.data;
-   ROS_INFO("I heard: [%d]", dati::command);
+   dati::command_old = 1;
+   dati::command = msg_command_pp.data;
+     if((dati::command_old) != (dati::command)) {
+       dati::command_old=dati::command;
+       ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command);
+
+       if(dati::command_old ==2) {
+         QSqlQuery prova;
+         prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
+         prova.exec();
+         if (prova.exec()) {
+           qDebug()<< "sono nella query prova";
+           while(prova.next()) {
+           ui->label_status->setText("Utente: " + prova.value(0).toString() + " " +  prova.value(1).toString());
+         } }
+         else qDebug()<< prova.lastError();
+         this->show();
+       }
+   if (dati::command_old ==3) {
+      ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+   }
+   if(dati::command_old == 4) {
+     ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+   }
  }
-//void callback(const std_msgs::StringConstPtr& str) {
+ }
 
-//   ROS_INFO("I heard: [%s]", str->data.c_str());
-//   dati::next_img = str->data.c_str();
-// // qDebug()<< dati::next_img;
-
-// // helper->SendSignal();
-
-//}
-//void paginaprincipale::prova_signal() {
-
-//  if (dati::next_img == "a") {
-// qDebug()<< "sono nella funzione prova_signal";
-//    helper->SendSignal();
-//  }
-//}
 
 paginaprincipale::paginaprincipale(QWidget *parent) :
 
@@ -85,12 +86,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
 {
-  using namespace  agree_gui;
-//qDebug()<< "qui";
- //  helper = new SignalHelper();
- //  helper1 = new SignalHelper1();
- //  prova_signal();
-//  connect(helper, SIGNAL(SignalName()),this, SLOT(next_img()));
+
 
   ui->setupUi(this);
   ui->tabWidget->setCurrentWidget(ui->tab);
@@ -103,9 +99,9 @@ status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
 //definisco topic
 
 //definisco topic da cui faccio subscribe
-//ros::MultiThreadedSpinner spinner(1);
+
  command_subscriber = n.subscribe("/gui/command", 1000, &paginaprincipale::callback2, this); //creo il topic a cui faccio il subscribe
-//spinner.spin();
+
 
 //connetto combobox con combo box
 connect(ui->comboBox_ex1, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
@@ -140,6 +136,7 @@ timer_init = new QTimer(this);
 timer_rehab = new QTimer(this);
 timer_val = new QTimer(this);
 timer_feedback = new QTimer(this);
+ROS_INFO("TIMER");
 // setup signal and slot
 //connect(timer, SIGNAL(timeout()),
       //this, SLOT(next_img()));
@@ -221,20 +218,14 @@ ui->label_date->setText(data.toString());
 
 
   QSqlDatabase mydb2 = QSqlDatabase::database();
-  QSqlQuery * qry3 = new QSqlQuery(mydb2);
-  qry3 -> prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'" );
-  qry3 -> exec();
-  while(qry3->next()){
 
-     ui->label_status->setText("Utente: " + qry3->value(0).toString() + " " +  qry3->value(1).toString());
 
-     dati::status1 = 2;
 
-     std_msgs::Int8 msg;
-     msg.data = dati::status1;
-     ROS_INFO ("%d", msg.data);
-     status_publisher.publish(msg);
-}
+
+
+
+
+
 }
 
 paginaprincipale::~paginaprincipale()
@@ -244,7 +235,8 @@ paginaprincipale::~paginaprincipale()
 
 /**********************       INSERISCO NUOVO PAZIENTE            *********************/
 void paginaprincipale::on_pushButton_nuovopaziente_clicked()
-{
+{    ROS_INFO("NUOVOPAZIENTE");
+     qDebug()<< "nuovopaziente";
     ui->stackedWidget->setCurrentWidget(ui->page_4);
      flag=1; //nuovo paziente
     ui->lineEdit_nome->clear();
@@ -560,7 +552,7 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
 
 /**********************       INIZIO SEDUTA RIABILITATIVA                       *********************/
 void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
-{     if (dati::command == 3){
+{   //  if (dati::command == 3){
   if (flag==3)
   {
     qDebug()<< dati::ind;
@@ -581,12 +573,12 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
      // QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Conferma"), tr("Si è scelto di iniziare la sessione di terapia del paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No);
      // if (risposta==QMessageBox::Yes)
       {
-        dati::status1 = 3;
+//        dati::status1 = 3;
 
-               std_msgs::Int8 msg;
-               msg.data = dati::status1;
-               ROS_INFO ("%d", msg.data);
-               status_publisher.publish(msg);
+//               std_msgs::Int8 msg;
+//               msg.data = dati::status1;
+//               ROS_INFO ("%d", msg.data);
+//               status_publisher.publish(msg);
         QSqlQuery selezione; // selezioni l'ultima riga salvata con questo codice id
         selezione.prepare ("select *  from Parametri_Paziente where Codice_ID = '"+dati::ind+"' order by Data_acquisizione desc limit 1");
         if (selezione.exec())
@@ -695,7 +687,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
                   ui->tabWidget->setCurrentWidget(ui->tab_2);
                   ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
                 }
-             }
+           //  }
         }
  if (flag==4)
  {
@@ -764,7 +756,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
         ui->tabWidget->setCurrentWidget(ui->tab);
         ui->stackedWidget->setCurrentWidget(ui->page_3);
       }
-    //}
+    }
 }
   }
   else
@@ -772,7 +764,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
       QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vuole iniziare la seduta riabilitativa"));
 
   }
-  }
+ // }
 }
 
 /**********************       TORNO ALLA HOME E PULISCO TUTTA LA GUI             *********************/
@@ -2323,6 +2315,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     dati::modulo_gomito = "1";
     dati::modulo_spalla = "1";
     dati::oi = "1";
+    active_module_spalla = 1;
+    active_module_gomito = 1;
+    active_module_RF = 1;
+    active_module_MAT = 1;
 
   }
 
@@ -2331,6 +2327,11 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     dati::modulo_polso= "1";
     dati::modulo_gomito = "1";
     dati::oi = "1";
+    active_module_spalla = 1;
+    active_module_gomito = 1;
+    active_module_RF = 1;
+    active_module_MAT = 1;
+    active_module_polso = 1;
 
 
   }
@@ -2338,12 +2339,14 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   if(ui->checkBox_eeg_2->isChecked())
   {
     dati::modulo_eeg= "1";
+    active_module_EEG_EMG=1;
 
 
   }
   if(ui->checkBox_emg_2->isChecked())
   {
     dati::modulo_emg= "1";
+    active_module_EEG_EMG = 1;
 
   }
   if(ui->checkBox_MAP_2->isChecked() ||  (prova == 5))
@@ -2352,6 +2355,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     if(dati::modulo_polso == "1")
     {
     dati::mano = "1";
+    active_module_MAP = 1;
 
     }
 
@@ -2385,6 +2389,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
  if (moduli.exec())
  { QMessageBox ::information(this,tr("Salvato"),tr("Configurazione dei Moduli Meccanici ed Extra salvata"));
    ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
+   active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP};
  }
  else {
    QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
@@ -2497,6 +2502,9 @@ QStringList istr_vest1 = {"Individuare e definire una posizione confortevole dde
 
 }
 }
+/***************         SETTO ROS PARAMETERS CON I MODULI   ******************/
+ros::NodeHandle n;
+n.setParam("/active_modules", active_modules );
 
 
 }
@@ -2804,8 +2812,14 @@ void paginaprincipale::on_pushButton_prosegui_clicked()
 
 /**********************       SALTO TUTORIAL VESTIZIONE  *********************/
 void paginaprincipale::on_pushButton_go_clicked()
-{ if(dati::command == 4)
-    ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+{  dati::status1 = 3;
+
+   std_msgs::Int8 msg;
+   msg.data = dati::status1;
+   ROS_INFO ("%d", msg.data);
+   status_publisher.publish(msg);
+//  if(dati::command == 4)
+//    ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
 }
 
 /**********************       INTERROMPO TERAPIA  *********************/
@@ -2875,8 +2889,13 @@ void paginaprincipale::on_pushButton_logout_clicked()
 }
 
 void paginaprincipale::skip_init(){
-timer_init->stop();
-ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+  timer_init->stop();
+  //ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+  dati::status1 =2;
+  msg_status_pp.data = dati::status1;
+  ROS_INFO ("%d", msg_status_pp.data);
+  status_publisher.publish(msg_status_pp);
+
 if (flag == 4) {
   if (dati::mood_prec == "Mobilizzazione Passiva"){
     ui->radioButton_pass->setChecked(true);
