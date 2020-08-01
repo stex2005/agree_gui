@@ -176,7 +176,12 @@ class paginaprincipale : public QDialog
     bool active_module_RF = 0;
     bool active_module_EEG_EMG = 0;
     bool active_module_MAP = 0;
+
+    /***************          DEFINISCO ROS PARAMETERS          ******************/
+
     std::vector<bool> active_modules;
+    std::vector<float> J_MAX;
+    std::vector<float> J_MIN;
 
     /*****************************************************************************
 

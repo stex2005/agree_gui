@@ -72,6 +72,9 @@ QString dati::next_img;
    if(dati::command_old == 4) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
    }
+   if(dati::command_old == 5) {
+     ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+   }
  }
  }
 
@@ -928,17 +931,25 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
     if (qry9.exec())
         {
          QMessageBox ::information(this,tr("Salvato"),tr("Parametri Salvati"));
-         ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+        // ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
         // aggiungo questo:
 
 //pubblico che ho salvato i rom su gui/status
 
        dati::status1 = 4;
 
-       std_msgs::Int8 msg;
-       msg.data = dati::status1;
-       ROS_INFO ("%d", msg.data);
-       status_publisher.publish(msg);
+       std_msgs::Int8 msg_status;
+       msg_status.data = dati::status1;
+       ROS_INFO ("%d", msg_status.data);
+       status_publisher.publish(msg_status);
+              /***************         SETTO ROS PARAMETERS CON I ROM   ******************/
+       J_MAX = {FESM1_f, AASM1_f, RIESM1_f, GM1_f, PM1_f};
+       J_MIN = {FESm1_f, AASm1_f, RIESm1_f, Gm1_f, Pm1_f};
+
+       ros::NodeHandle n;
+
+       n.setParam("/physiological_param/ROM_Max", J_MAX);
+       n.setParam("/physiological_param/ROM_Min", J_MIN);
 
          //agree_gui::QNode status << "ho salvato la configurazione dedi rom";
        }
@@ -2505,6 +2516,7 @@ QStringList istr_vest1 = {"Individuare e definire una posizione confortevole dde
 /***************         SETTO ROS PARAMETERS CON I MODULI   ******************/
 ros::NodeHandle n;
 n.setParam("/active_modules", active_modules );
+
 
 
 }
