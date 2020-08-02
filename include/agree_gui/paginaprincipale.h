@@ -179,10 +179,17 @@ class paginaprincipale : public QDialog
 
     /***************          DEFINISCO ROS PARAMETERS          ******************/
 
-    std::vector<bool> active_modules;
-    std::vector<float> J_MAX;
-    std::vector<float> J_MIN;
-
+    std::vector<bool> active_modules; //MODULI ATTIVI
+    std::vector<float> J_MAX;         // ROM MAX
+    std::vector<float> J_MIN;         // ROM MIN
+    float upperarm, lowerarm;
+    std::vector<float> ARM_LENGTH;    // LUNGHEZZA BRACCIO
+    uint8_t mode;
+    int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
+    std::vector<int> ex_seq;
+    int rep1=0, rep2=0, rep3=0, rep4=0, rep5=0, rep6=0, rep7=0;
+    std::vector<int> ex_rep;
+    std::vector<int> ex_obj;
     /*****************************************************************************
 
     ***************            CALCOLO TEMPO TERAPIA            ******************
@@ -201,7 +208,7 @@ class paginaprincipale : public QDialog
     *****************************************************************************/
 
     QString oggetto_es1, oggetto_es2, oggetto_es3, oggetto_es4, oggetto_es5, oggetto_es6, oggetto_es7;
-    int ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7;
+    int ros_ogg1=0, ros_ogg2=0, ros_ogg3=0, ros_ogg4=0, ros_ogg5=0, ros_ogg6=0, ros_ogg7=0;
 
     /*****************************************************************************
 

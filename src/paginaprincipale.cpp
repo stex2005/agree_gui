@@ -942,14 +942,27 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
        msg_status.data = dati::status1;
        ROS_INFO ("%d", msg_status.data);
        status_publisher.publish(msg_status);
+       QString l_b, l_a;
+       QSqlQuery lunghezza;
+       lunghezza.prepare("select LunghezzaBraccio, LunghezzaAvambraccio from Pazienti where Codice_ID = '"+dati::ind+"' ");
+       lunghezza.exec();
+       while(lunghezza.next()) {
+         l_b = lunghezza.value(0).toString();
+         l_a = lunghezza.value(1).toString();
+       }
+
+       upperarm = l_b.toFloat();
+       lowerarm = l_a.toFloat();
               /***************         SETTO ROS PARAMETERS CON I ROM   ******************/
        J_MAX = {FESM1_f, AASM1_f, RIESM1_f, GM1_f, PM1_f};
        J_MIN = {FESm1_f, AASm1_f, RIESm1_f, Gm1_f, Pm1_f};
+       ARM_LENGTH = {upperarm, lowerarm};
 
        ros::NodeHandle n;
 
        n.setParam("/physiological_param/ROM_Max", J_MAX);
        n.setParam("/physiological_param/ROM_Min", J_MIN);
+       n.setParam ("/physiological_param/arm_length", ARM_LENGTH);
 
          //agree_gui::QNode status << "ho salvato la configurazione dedi rom";
        }
@@ -1212,6 +1225,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
    dati::ex1 = ui->comboBox_ex1->currentText();
 
    dati::rip1= ui->lineEdit_ex1->text();
+   rep1 = dati::rip1.toInt();
    if(ui->comboBox_oi_es1->isEnabled()) {
    if(ui->comboBox_oi_es1->currentText()== bicchiere ) {oggetto_es1= "1"; ros_ogg1=1;}
    else if (ui->comboBox_oi_es1->currentText()==forchetta) {oggetto_es1= "2"; ros_ogg1=2;}
@@ -1228,6 +1242,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
      while(selezione1.next())
      {
      dati::num_ex1 = selezione1.value(0).toString();
+     exe1 = dati::num_ex1.toInt();
 
        }
      if(dati::rip1.toInt()< 30) {
@@ -1261,6 +1276,7 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
    dati::ex2 = ui->comboBox_ex2->currentText();
 
    dati::rip2= ui->lineEdit_ex2->text();
+   rep2 = dati::rip2.toInt();
    if(ui->comboBox_oi_es2->isEnabled()) {
    if(ui->comboBox_oi_es2->currentText()== bicchiere ) {oggetto_es2= "1"; ros_ogg2=1;}
    else if (ui->comboBox_oi_es2->currentText()==forchetta) {oggetto_es2 = "2"; ros_ogg2= 2;}
@@ -1276,6 +1292,7 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
      while(selezione2.next())
      {
      dati::num_ex2 = selezione2.value(0).toString();
+     exe2 = dati::num_ex2.toInt();
 
 
        }
@@ -1303,6 +1320,7 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
    dati::ex3 = ui->comboBox_ex3->currentText();
 
    dati::rip3= ui->lineEdit_ex3->text();
+   rep3 = dati::rip3.toInt();
    if(ui->comboBox_oi_es3->isEnabled()) {
    if(ui->comboBox_oi_es3->currentText()== bicchiere ) {oggetto_es3= "1"; ros_ogg3=1;}
    else if (ui->comboBox_oi_es3->currentText()==forchetta) {oggetto_es3= "2"; ros_ogg3=3;}
@@ -1318,6 +1336,7 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
      while(selezione3.next())
      {
      dati::num_ex3 = selezione3.value(0).toString();
+     exe3 = dati::num_ex3.toInt();
 
 
        }
@@ -1344,6 +1363,7 @@ if(ui->checkBox_ex4->isChecked())
   dati::ex4 = ui->comboBox_ex4->currentText();
 
   dati::rip4= ui->lineEdit_ex4->text();
+  rep4 = dati::rip4.toInt();
   if(ui->comboBox_oi_es4->isEnabled()) {
   if(ui->comboBox_oi_es4->currentText()== bicchiere ) {oggetto_es4= "1"; ros_ogg4=1;}
   else if (ui->comboBox_oi_es4->currentText()==forchetta) {oggetto_es4= "2"; ros_ogg4=3;}
@@ -1359,6 +1379,7 @@ if(ui->checkBox_ex4->isChecked())
     while(selezione4.next())
     {
     dati::num_ex4 = selezione4.value(0).toString();
+    exe4 = dati::num_ex4.toInt();
 
 
       }
@@ -1386,6 +1407,7 @@ if(ui->checkBox_ex5->isChecked())
   dati::ex5 = ui->comboBox_ex5->currentText();
 
   dati::rip5= ui->lineEdit_ex5->text();
+  rep5 = dati::rip5.toInt();
   if(ui->comboBox_oi_es5->isEnabled()) {
   if(ui->comboBox_oi_es5->currentText()== bicchiere ) {oggetto_es5= "1"; ros_ogg5=1;}
   else if (ui->comboBox_oi_es5->currentText()==forchetta) {oggetto_es5= "2"; ros_ogg5=2;}
@@ -1402,6 +1424,7 @@ if(ui->checkBox_ex5->isChecked())
     while(selezione5.next())
     {
     dati::num_ex5 = selezione5.value(0).toString();
+    exe5 = dati::num_ex5.toInt();
 
 
       }
@@ -1429,6 +1452,7 @@ if(ui->checkBox_ex6->isChecked())
   dati::ex6 = ui->comboBox_ex6->currentText();
 
   dati::rip6= ui->lineEdit_ex6->text();
+  rep6 = dati::rip6.toInt();
   if(ui->comboBox_oi_es6->isEnabled()) {
   if(ui->comboBox_oi_es6->currentText()== bicchiere ) {oggetto_es6= "1"; ros_ogg6=1;}
   else if (ui->comboBox_oi_es6->currentText()==forchetta) {oggetto_es6= "2"; ros_ogg6=2;}
@@ -1444,6 +1468,7 @@ if(ui->checkBox_ex6->isChecked())
     while(selezione6.next())
     {
     dati::num_ex6 = selezione6.value(0).toString();
+    exe6 = dati::num_ex6.toInt();
 
 
       }
@@ -1472,6 +1497,7 @@ if(ui->checkBox_7->isChecked())
   dati::ex7 = ui->comboBox_ex7->currentText();
 
   dati::rip7= ui->lineEdit_ex7->text();
+  rep7 = dati::rip7.toInt();
   if(ui->comboBox_oi_es7->isEnabled()) {
   if(ui->comboBox_oi_es7->currentText()== bicchiere ) {oggetto_es7= "1"; ros_ogg7=1;}
   else if (ui->comboBox_oi_es7->currentText()==forchetta) {oggetto_es7= "2"; ros_ogg7=2;}
@@ -1487,6 +1513,7 @@ if(ui->checkBox_7->isChecked())
     while(selezione7.next())
     {
     dati::num_ex7 = selezione7.value(0).toString();
+    exe7 = dati::num_ex7.toInt();
 
 
       }
@@ -1521,12 +1548,26 @@ if (selezione.exec())
 //  msg.data = ss3.str();
 //status_publisher.publish(msg);
 //ROS_INFO_STREAM(msg);
-dati::status1 = 5;
 
-std_msgs::Int8 msg;
-msg.data = dati::status1;
-ROS_INFO ("%d", msg.data);
-status_publisher.publish(msg);
+ /******************       AGGIORNO TOPIC STATUS : FINISHED EXERCISE SEQUENCE                 ***********************/
+//std_msgs::Int8 msg_status;
+  dati::status1 = 5;
+msg_status_pp.data = dati::status1;
+ROS_INFO ("%d", msg_status_pp.data);
+status_publisher.publish(msg_status_pp);
+
+ /******************         AGGIORNO ROS PARAMETERS : EXERCISE SEQUENCE                      ***********************/
+ex_seq = {exe1, exe2, exe3, exe4, exe5, exe6, exe7};
+ex_rep = {rep1, rep2, rep3, rep4, rep5, rep6, rep7};
+ex_obj = {ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7};
+ros::NodeHandle n;
+n.setParam("/exercise/sequence", ex_seq);
+n.setParam("/exercise/repetitions", ex_rep);
+n.setParam ("/object", ex_obj);
+
+
+
+
 
 }
 else {
@@ -1766,7 +1807,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
     modalita.exec();
         if (modalita.exec())
         {
-
+         mode = 2;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva con Trigger"));
 //         ss << "ho salvato la configurazione " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
 //         msg.data = ss.str();
@@ -1790,7 +1831,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
     modalita.exec();
         if (modalita.exec())
         {
-
+         mode = 1;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva"));
 
 
@@ -1811,7 +1852,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
     modalita.exec();
         if (modalita.exec())
         {
-
+         mode = 3;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Assisted As Needed"));
 
 
@@ -1832,7 +1873,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
     modalita.exec();
         if (modalita.exec())
         {
-
+         mode = 4;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Anti Gravitario"));
 
 
@@ -1852,7 +1893,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
     modalita.exec();
         if (modalita.exec())
         {
-
+         mode = 5;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Challenging"));
 
 
@@ -1882,6 +1923,9 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 //         ui->lineEdit_ex6->setText(r6);
 //         ui->lineEdit_ex7->setText(r7);
 
+
+         ros::NodeHandle n;
+         n.setParam ("/exercise/mode", mode);
 // modalità
 //    ss1 << "ho salvato la configurazione" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
 //    msg.data = ss1.str();
