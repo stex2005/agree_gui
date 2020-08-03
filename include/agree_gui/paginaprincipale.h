@@ -190,6 +190,11 @@ class paginaprincipale : public QDialog
     int rep1=0, rep2=0, rep3=0, rep4=0, rep5=0, rep6=0, rep7=0;
     std::vector<int> ex_rep;
     std::vector<int> ex_obj;
+
+     std::vector<int> point1;
+
+     std::vector<int> point2;
+      std::vector<int> point3;
     /*****************************************************************************
 
     ***************            CALCOLO TEMPO TERAPIA            ******************

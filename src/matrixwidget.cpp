@@ -23,15 +23,42 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 
   /**********************       CREO TOPIC                          *********************/
   status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
+   command_subscriber = n.subscribe("/gui/command", 1000, &MatrixWidget::callback_matrix, this);
 
 }
+void MatrixWidget::callback_matrix(const std_msgs::Int8 msg_command_matrix) {
+ //  ros::NodeHandle n;
+   dati::command = msg_command_matrix.data;
+    if((dati::command_old) != (dati::command)) {
+      dati::command_old=dati::command;
+      ROS_INFO("I heard: %d MATRIX WIDGET", dati::command);
+//      if(dati::command_old == 8) {
+//qDebug()<< "callback_matrix, command_old 8";
+//        n.getParam("/point1/mat_coordinates", point1);
+//        n.getParam("/point2/mat_coordinates", point2);
+//        n.getParam ("/point3/mat_coordinates", point3);
+//        dati::status1 = 8;
 
+//            std_msgs::Int8 msg;
+//            msg.data = dati::status1;
+//            ROS_INFO ("%d", msg.data);
+//            status_publisher.publish(msg);
+
+//      }
+//      if(dati::command_old == 9) {
+//        n.setParam("/point1/mat_coordinates", point1);
+//        n.setParam("/point2/mat_coordinates", point2);
+//        n.setParam("/point3/mat_coordinates", point3);
+//      }
+    }
+
+}
 QVector<QPoint> MatrixWidget::getPosition() const
 {
   return position;
 }
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
-{
+{ ros::NodeHandle n;
   QPoint p= event->pos(); //dove clicco
 
   int xindex = p.x()/ bw;
@@ -49,12 +76,27 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
      dp.isSelected = true;
      position.append(QPoint(yindex+1,xindex+1));
      auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
-     dati::status1 = 9;
+if(std::count(point1.begin(), point1.end(), zero_point1)) {
+  point1 = {(yindex+1),(xindex+1)};
 
-         std_msgs::Int8 msg;
-         msg.data = dati::status1;
-         ROS_INFO ("%d", msg.data);
-         status_publisher.publish(msg);
+}
+ qDebug()<<point1;
+ if (std::count(point2.begin(), point2.end(), zero_point1)) {
+   point2 = {(yindex+1),(xindex+1)};
+
+}
+  qDebug()<<point2;
+ if (std::count(point2.begin(), point2.end(), zero_point1)) {
+ point3 = {(yindex+1),(xindex+1)};
+
+}
+  qDebug()<< point3;
+//     dati::status1 = 9;
+
+//         std_msgs::Int8 msg;
+//         msg.data = dati::status1;
+//         ROS_INFO ("%d", msg.data);
+//         status_publisher.publish(msg);
   // position.append(QPoint(yindex+1,xindex+1));
 
 

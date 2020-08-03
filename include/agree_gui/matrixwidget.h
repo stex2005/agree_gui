@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <ros/ros.h>
 #include <ros/network.h>
+#include<std_msgs/Int8.h>
 
 
 
@@ -36,6 +37,14 @@ public:
   explicit MatrixWidget(QWidget *parent = nullptr);
  QVector<QPoint>position;
 
+ /***************          DEFINISCO ROS PARAMETERS          ******************/
+ std::vector<int> point1;
+  int zero_point1 = 0;
+ std::vector<int> point2;
+  int zero_point2 = 0;
+ std::vector<int> point3;
+  int zero_point3 = 0;
+
 
 
  QVector<QPoint> getPosition() const;
@@ -44,6 +53,8 @@ signals:
 
 public slots:
  void LoadData();
+
+ void callback_matrix(const std_msgs::Int8 msg);
  // void getpos();
 
 
@@ -55,6 +66,7 @@ protected:
 
 private:
   ros::Publisher status_publisher;
+   ros::Subscriber command_subscriber;
 };
 
 #endif // MATRIXWIDGET_H

@@ -47,7 +47,7 @@ QString dati::next_img;
  SignalHelper *helper;
 
  void paginaprincipale::callback2(const std_msgs::Int8 msg_command_pp) {
-
+   ros::NodeHandle n;
    dati::command_old = 1;
    dati::command = msg_command_pp.data;
      if((dati::command_old) != (dati::command)) {
@@ -74,6 +74,32 @@ QString dati::next_img;
    }
    if(dati::command_old == 5) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+   }
+   if(dati::command_old == 7) {
+      ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+      dati::status1 = 7;
+    msg_status_pp.data = dati::status1;
+    ROS_INFO ("%d", msg_status_pp.data);
+    status_publisher.publish(msg_status_pp);
+   }
+   if(dati::command_old == 8) {
+
+     n.getParam("/point1/mat_coordinates", point1);
+     n.getParam("/point2/mat_coordinates", point2);
+     n.getParam ("/point3/mat_coordinates", point3);
+     qDebug()<< point1;
+     dati::status1 = 8;
+
+         std_msgs::Int8 msg;
+         msg.data = dati::status1;
+         ROS_INFO ("%d", msg.data);
+         status_publisher.publish(msg);
+
+   }
+   if(dati::command_old == 9) {
+     n.setParam("/point1/mat_coordinates", point1);
+     n.setParam("/point2/mat_coordinates", point2);
+     n.setParam("/point3/mat_coordinates", point3);
    }
  }
  }
@@ -1600,10 +1626,11 @@ while(esercizi.next())
    QString es3 = "03";
    QString es4 = "04";
    if(ExInfoMap.find(es) !=ExInfoMap.end() || (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-   ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+  // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
 
    }
-   else ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);  }
+   //else ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+  }
 
   QString EX2 = esercizi.value(2).toString();
   int RIP2 = esercizi.value(3).toInt();
@@ -1625,12 +1652,12 @@ while(esercizi.next())
     QString es3 = "03";
     QString es4 = "04";
     if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+   // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
     std::cout<< "Key found";
 
 
     }
-    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
     std::cout<< "key not found";}
   }
 
@@ -1654,12 +1681,12 @@ while(esercizi.next())
     QString es3 = "03";
     QString es4 = "04";
     if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+   // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
     std::cout<< "Key found";
 
 
     }
-    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
     std::cout<< "key not found";}
   }
   QString EX4 = esercizi.value(6).toString();
@@ -1685,12 +1712,12 @@ while(esercizi.next())
     QString es3 = "03";
     QString es4 = "04";
     if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
     std::cout<< "Key found";
 
 
     }
-    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    else  {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
     std::cout<< "key not found";}
   }
   QString EX5 = esercizi.value(8).toString();
@@ -1716,12 +1743,12 @@ while(esercizi.next())
     QString es3 = "03";
     QString es4 = "04";
     if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+   // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
     std::cout<< "Key found";
 
 
     }
-    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
     std::cout<< "key not found";}
   }
   QString EX6 = esercizi.value(10).toString();
@@ -1747,12 +1774,12 @@ while(esercizi.next())
     QString es3 = "03";
     QString es4 = "04";
     if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
     std::cout<< "Key found";
 
 
     }
-    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
     std::cout<< "key not found";}
   }
   QString EX7 = esercizi.value(12).toString();
@@ -1776,12 +1803,12 @@ while(esercizi.next())
     QString es3 = "03";
     QString es4 = "04";
     if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
     std::cout<< "Key found";
 
 
     }
-    else {ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
     std::cout<< "key not found";}
   }
 }
