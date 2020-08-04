@@ -114,8 +114,14 @@ else if (std::count(point2.begin(), point2.end(), zero_point1)) {
 
 else if (std::count(point2.begin(), point2.end(), zero_point1)) {
  point3 = {(yindex+1),(xindex+1)};
+ n.setParam("/point3/mat_coordinates", point3);
  qDebug()<< "riempio point3";
  qDebug()<< point3;
+ dati::status1 = 7;
+          std_msgs::Int8 msg;
+          msg.data = dati::status1;
+          ROS_INFO ("%d", msg.data);
+          status_publisher.publish(msg);
 
 }
 

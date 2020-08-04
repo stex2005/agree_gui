@@ -51,10 +51,13 @@ QString dati::next_img;
    dati::command_old = 1;
    dati::command = msg_command_pp.data;
      if((dati::command_old) != (dati::command)) {
+       qDebug()<< dati::command_old;
+       qDebug()<< dati::command;
        dati::command_old=dati::command;
        ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command);
 
        if(dati::command_old ==2) {
+
          QSqlQuery prova;
          prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
          prova.exec();
@@ -68,9 +71,11 @@ QString dati::next_img;
        }
    if (dati::command_old ==3) {
       ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+
    }
    if(dati::command_old == 4) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+
    }
    if(dati::command_old == 5) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
@@ -82,25 +87,25 @@ QString dati::next_img;
     ROS_INFO ("%d", msg_status_pp.data);
     status_publisher.publish(msg_status_pp);
    }
-   if(dati::command_old == 8) {
+   //   if(dati::command_old == 8) {
 
-     n.getParam("/point1/mat_coordinates", point1);
-     n.getParam("/point2/mat_coordinates", point2);
-     n.getParam ("/point3/mat_coordinates", point3);
-     qDebug()<< point1;
-     dati::status1 = 8;
+   //     n.getParam("/point1/mat_coordinates", point1);
+   //     n.getParam("/point2/mat_coordinates", point2);
+   //     n.getParam ("/point3/mat_coordinates", point3);
+   //     qDebug()<< point1;
+   //     dati::status1 = 8;
 
-         std_msgs::Int8 msg;
-         msg.data = dati::status1;
-         ROS_INFO ("%d", msg.data);
-         status_publisher.publish(msg);
+   //         std_msgs::Int8 msg;
+   //         msg.data = dati::status1;
+   //         ROS_INFO ("%d", msg.data);
+   //         status_publisher.publish(msg);
 
-   }
-   if(dati::command_old == 9) {
-     n.setParam("/point1/mat_coordinates", point1);
-     n.setParam("/point2/mat_coordinates", point2);
-     n.setParam("/point3/mat_coordinates", point3);
-   }
+   //   }
+   //   if(dati::command_old == 9) {
+   //     n.setParam("/point1/mat_coordinates", point1);
+   //     n.setParam("/point2/mat_coordinates", point2);
+   //     n.setParam("/point3/mat_coordinates", point3);
+   //   }
  }
  }
 

@@ -54,7 +54,7 @@ signals:
 public slots:
  void LoadData();
 
- void callback_matrix(const std_msgs::Int8 msg);
+ void callback_matrix(const std_msgs::Int8 msg_command_matrix);
  // void getpos();
 
 
