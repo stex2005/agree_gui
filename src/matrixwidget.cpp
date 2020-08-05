@@ -26,6 +26,7 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
    command_subscriber = n.subscribe("/gui/command", 1000, &MatrixWidget::callback_matrix, this);
 
 }
+ /**********************       FUNZIONE DI CALLBACK                    *********************/
 void MatrixWidget::callback_matrix(const std_msgs::Int8 msg_command_matrix) {
    ros::NodeHandle n;
    dati::command_old = 1;
@@ -35,7 +36,7 @@ void MatrixWidget::callback_matrix(const std_msgs::Int8 msg_command_matrix) {
     if((dati::command_old) != (dati::command)) {
       dati::command_old=dati::command;
 qDebug()<< "matrix";
-      if(dati::command_old == 8) {
+      if(dati::command_old == 8) { //SALVO PARAMETRI DA ROSPARAMETERS
 qDebug()<< "callback_matrix, command_old 8";
         n.getParam("/point1/mat_coordinates", point1);
         n.getParam("/point2/mat_coordinates", point2);
@@ -52,12 +53,13 @@ qDebug()<< "callback_matrix, command_old 8";
 
       }
       if(dati::command_old == 9) {
-        n.setParam("/point1/mat_coordinates", point1);
-        n.setParam("/point2/mat_coordinates", point2);
-        n.setParam("/point3/mat_coordinates", point3);
+//        n.setParam("/point1/mat_coordinates", point1);
+//        n.setParam("/point2/mat_coordinates", point2);
+//        n.setParam("/point3/mat_coordinates", point3);
         qDebug()<< point1;
         qDebug()<< point2;
         qDebug()<<point3;
+
       }
     }
 
@@ -68,6 +70,7 @@ QVector<QPoint> MatrixWidget::getPosition() const
 }
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
 { ros::NodeHandle n;
+  if(dati::command_old == 9){
   QPoint p= event->pos(); //dove clicco
 
   int xindex = p.x()/ bw;
@@ -85,13 +88,13 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
      dp.isSelected = true;
      position.append(QPoint(yindex+1,xindex+1));
      auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
-     if(dati::command_old == 9) {
+  //   if(dati::command_old == 9) {
 if(std::count(point1.begin(), point1.end(), zero_point1)) {
   point1 = {(yindex+1),(xindex+1)};
   n.setParam("/point1/mat_coordinates", point1);
   qDebug()<< "riempio point1";
   qDebug()<< point1;
-  dati::status1 = 7;
+  dati::status1 = 8;
            std_msgs::Int8 msg;
            msg.data = dati::status1;
            ROS_INFO ("%d", msg.data);
@@ -99,12 +102,12 @@ if(std::count(point1.begin(), point1.end(), zero_point1)) {
 
 }
 
-else if (std::count(point2.begin(), point2.end(), zero_point1)) {
+else if (std::count(point2.begin(), point2.end(), zero_point2)) {
    point2 = {(yindex+1),(xindex+1)};
    n.setParam("/point2/mat_coordinates", point2);
    qDebug()<< "riempio point2";
    qDebug()<< point2;
-   dati::status1 = 7;
+   dati::status1 = 8;
             std_msgs::Int8 msg;
             msg.data = dati::status1;
             ROS_INFO ("%d", msg.data);
@@ -112,14 +115,20 @@ else if (std::count(point2.begin(), point2.end(), zero_point1)) {
 
 }
 
-else if (std::count(point2.begin(), point2.end(), zero_point1)) {
+else if (std::count(point3.begin(), point3.end(), zero_point3)) {
  point3 = {(yindex+1),(xindex+1)};
+ n.setParam("/point3/mat_coordinates", point3);
  qDebug()<< "riempio point3";
  qDebug()<< point3;
+ dati::status1 = 8;
+          std_msgs::Int8 msg;
+          msg.data = dati::status1;
+          ROS_INFO ("%d", msg.data);
+          status_publisher.publish(msg);
 
 }
 
-     }
+  //   }
 //     dati::status1 = 9;
 
 //         std_msgs::Int8 msg;
@@ -136,15 +145,125 @@ else if (std::count(point2.begin(), point2.end(), zero_point1)) {
     dp.isSelected = false;
     selCount--;
     auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
+    std::vector<int> deselezione;
+    deselezione = {yindex+1, xindex+1};
     QPoint deletedFromVector = position[i1];
     position.remove(i1);
-  }
+    if(point1 == deselezione) {
+      point1 = {0,0};
+      n.setParam("/point1/mat_coordinates", point1);
+      dati::status1 = 8;
+               std_msgs::Int8 msg;
+               msg.data = dati::status1;
+               ROS_INFO ("%d", msg.data);
+               status_publisher.publish(msg);
+
+    }
+    else if (point2 == deselezione) {
+      point2 = {0,0};
+      n.setParam("/point2/mat_coordinates", point2);
+      dati::status1 = 8;
+               std_msgs::Int8 msg;
+               msg.data = dati::status1;
+               ROS_INFO ("%d", msg.data);
+               status_publisher.publish(msg);
+    }
+    else if (point3 == deselezione){
+      point3 = {0,0};
+      n.setParam("/point3/mat_coordinates", point3);
+      dati::status1 = 8;
+               std_msgs::Int8 msg;
+               msg.data = dati::status1;
+               ROS_INFO ("%d", msg.data);
+               status_publisher.publish(msg);
+    }
+   }
   update(); //aggiorna la griglia
 
 
 if (selCount==3)
 qDebug()<<position;
+std::vector<int> point_min;
 
+
+//// devo ordinare i punti selezionati
+//if(point1[1]<point2[1] && point1[1]< point3[1]) {
+//  point_min = point1;
+//  if (point2[1]< point3[1]) {
+//    //point1 , point2 , point 3
+//    point1 = point_min;
+//    point2= point2;
+//    point3 = point3;
+//    if(dati::command_old == 9){
+//      n.setParam("point1/mat_cooridnates", point1);
+//      n.setParam("point2/mat_cooridnates", point2);
+//      n.setParam("point3/mat_cooridnates", point3);
+//    }
+//  }
+//  else {
+//    // point1, point3, point2
+//    point1 = point_min;
+//    point2 = point3;
+//    point3 = point2;
+//    if(dati::command_old == 9){
+//      n.setParam("point1/mat_cooridnates", point1);
+//      n.setParam("point2/mat_cooridnates", point2);
+//      n.setParam("point3/mat_cooridnates", point3);
+//    }
+//  }
+
+//}
+//else if (point2[1]< point1[1] && point2[1]< point3[2]) {
+//  point_min = point2;
+//  if (point1[1]< point3[1]){
+//    // point2, point1, point3
+//    point1 = point_min;
+//    point2 = point1;
+//    point3 = point3;
+//    if(dati::command_old == 9){
+//      n.setParam("point1/mat_cooridnates", point1);
+//      n.setParam("point2/mat_cooridnates", point2);
+//      n.setParam("point3/mat_cooridnates", point3);
+//    }
+
+//  }
+//  else if (point3[1]< point1[1]){
+//    // point2, point3, point1
+//    point1 = point_min;
+//    point2 = point3;
+//    point3 = point1;
+//    if(dati::command_old == 9){
+//      n.setParam("point1/mat_cooridnates", point1);
+//      n.setParam("point2/mat_cooridnates", point2);
+//      n.setParam("point3/mat_cooridnates", point3);
+//    }
+//  }
+
+//}
+//else if (point3[1]< point1[1] && point3[1]< point2[1]) {
+//  point_min = point3;
+//  if(point1[1]<point2[1]) {
+//     point1 = point_min;
+//    point2 = point1;
+//    point3 = point2;
+//    if(dati::command_old == 9){
+//      n.setParam("point1/mat_cooridnates", point1);
+//      n.setParam("point2/mat_cooridnates", point2);
+//      n.setParam("point3/mat_cooridnates", point3);
+//    }
+//  }
+//  else if (point2[1]< point1[1]) {
+//    point1 = point_min;
+//    point2 = point2;
+//    point3 = point1;
+//    if(dati::command_old == 9){
+//      n.setParam("point1/mat_cooridnates", point1);
+//      n.setParam("point2/mat_cooridnates", point2);
+//      n.setParam("point3/mat_cooridnates", point3);
+//    }
+
+//  }
+//}
 
 //   QFile file_1("/home/alice/catkin_ws/src/agree_gui/resources/posizioni.txt");
 //   file_1.open(QIODevice::WriteOnly);
@@ -153,7 +272,7 @@ qDebug()<<position;
 //   file_1.close();
 
 
-
+  }
 }
 void MatrixWidget::paintEvent(QPaintEvent *event)
 {

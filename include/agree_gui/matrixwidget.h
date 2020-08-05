@@ -37,6 +37,7 @@ public:
   explicit MatrixWidget(QWidget *parent = nullptr);
  QVector<QPoint>position;
 
+
  /***************          DEFINISCO ROS PARAMETERS          ******************/
  std::vector<int> point1;
   int zero_point1 = 0;
@@ -44,7 +45,7 @@ public:
   int zero_point2 = 0;
  std::vector<int> point3;
   int zero_point3 = 0;
-
+std::vector<int> points;
 
 
  QVector<QPoint> getPosition() const;
