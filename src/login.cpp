@@ -18,7 +18,7 @@ int flag1;
 QString dati::count;
 QString dati::sigla;
 int dati::nuovo_utente;
-int8_t dati::status1=0, dati::command=0, dati::command_old = 1;
+int8_t dati::status1=0, dati::command_login=0, dati::command_old_login = 1;
 
 
 
@@ -111,14 +111,14 @@ login::~login()
 //   }
 //  }
 //}
-void login::callback_log(const std_msgs::Int8 msg_command) {
-  dati::command = msg_command.data;
+void login::callback_log(const agree_gui::agree_gui_command msg_command) {
+  dati::command_login = msg_command.mode;
 //cambia_status();
-  if((dati::command_old) != (dati::command)) {
-    dati::command_old=dati::command;
-   ROS_INFO("I heard: %d Log Page", dati::command);
+  if((dati::command_old_login) != (dati::command_login)) {
+    dati::command_old_login=dati::command_login;
+   ROS_INFO("I heard: %d Log Page", dati::command_login);
 
-    if (dati::command_old == 2) {
+    if (dati::command_old_login == 2) {
 
       this->hide();
 //      ROS_INFO("HIDED");

@@ -5,6 +5,7 @@
 #include <ros/ros.h>
 #include <ros/network.h>
 #include<std_msgs/Int8.h>
+#include "agree_gui/agree_gui_command.h"
 
 
 
@@ -55,7 +56,7 @@ signals:
 public slots:
  void LoadData();
 
- void callback_matrix(const std_msgs::Int8 msg_command_matrix);
+ void callback_matrix(const agree_gui::agree_gui_command msg_command_matrix);
  // void getpos();
 
 

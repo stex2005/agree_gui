@@ -700,11 +700,11 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>8</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
-           <string>Configurazione Moduli</string>
+           <string>Moduli</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_7">
            <item row="2" column="0">
@@ -971,7 +971,7 @@ background-color: rgb(157, 241, 161);</string>
          </widget>
          <widget class="QWidget" name="tab_tutorial">
           <attribute name="title">
-           <string>Tutorial Montaggio </string>
+           <string> Montaggio </string>
           </attribute>
           <widget class="QLabel" name="label_video">
            <property name="geometry">
@@ -1119,7 +1119,7 @@ background-color: rgb(157, 241, 161);</string>
          </widget>
          <widget class="QWidget" name="tab_init">
           <attribute name="title">
-           <string>Inizializzazione AGREE</string>
+           <string>Inizializzazione </string>
           </attribute>
           <widget class="QLabel" name="label_18">
            <property name="geometry">
@@ -1145,7 +1145,7 @@ background-color: rgb(157, 241, 161);</string>
          </widget>
          <widget class="QWidget" name="tab_vestizione">
           <attribute name="title">
-           <string>Vestizione AGREE</string>
+           <string>Vestizione</string>
           </attribute>
           <widget class="QLabel" name="label_19">
            <property name="geometry">
@@ -1245,7 +1245,7 @@ background-color: rgb(157, 241, 161);</string>
          </widget>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
-           <string>Configurazione Parametri</string>
+           <string>ROM</string>
           </attribute>
           <widget class="QLabel" name="label">
            <property name="geometry">
@@ -2556,6 +2556,43 @@ background-color: rgb(157, 241, 161);</string>
             </widget>
            </item>
           </layout>
+         </widget>
+         <widget class="QWidget" name="tab_calibrazione">
+          <attribute name="title">
+           <string>Calibrazione Pad</string>
+          </attribute>
+          <widget class="QLabel" name="label_28">
+           <property name="geometry">
+            <rect>
+             <x>80</x>
+             <y>80</y>
+             <width>1151</width>
+             <height>321</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>25</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Terapista, posiziona la mano del Paziente su un punto del Pad illuminato, 
+dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="geometry">
+            <rect>
+             <x>460</x>
+             <y>520</y>
+             <width>291</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Fatto</string>
+           </property>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_tappetino">
           <attribute name="title">

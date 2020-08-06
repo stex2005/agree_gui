@@ -10,12 +10,35 @@ project(agree_gui)
 ##############################################################################
 
 # qt_build provides the qt cmake glue, roscpp the comms for a default talker
-find_package(catkin REQUIRED COMPONENTS roscpp)
+find_package(
+    catkin
+    REQUIRED COMPONENTS
+    roscpp
+    std_msgs
+    message_generation)
+
+
+add_message_files(
+    DIRECTORY
+    msg
+    FILES
+    agree_gui_command.msg
+    )
+
+generate_messages(
+    DEPENDENCIES
+    roscpp std_msgs
+    )
+
+
+catkin_package(
+    LIBRARIES agree_gui
+    CATKIN_DEPENDS roscpp std_msgs)
+
 include_directories(${catkin_INCLUDE_DIRS})
 # Use this to define what the package will export (e.g. libs, headers).
 # Since the default here is to produce only a binary, we don't worry about
 # exporting anything.
-catkin_package()
 
 ##############################################################################
 # Qt Environment

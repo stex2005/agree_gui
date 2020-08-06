@@ -35,6 +35,7 @@
 
 #include "matrixwidget.h"
 #include "qnode.hpp"
+#include "agree_gui/agree_gui_command.h"
 //#include "main_window.hpp"
 
 
@@ -355,7 +356,7 @@ private slots:
 
 // void callback1(const std_msgs::StringConstPtr& str);
 
- void callback2(const std_msgs::Int8 msg);
+ void callback2(const agree_gui::agree_gui_command msg);
 
  void skip_init();
 
@@ -378,6 +379,8 @@ private slots:
 /**********************       LOG-OUT                           *********************/
 
  void on_pushButton_logout_clicked();
+
+ void on_pushButton_2_clicked();
 
 private:
   Ui::paginaprincipale *ui;

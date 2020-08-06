@@ -43,20 +43,27 @@ QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
 QString dati::next_img;
 //int8_t dati::status1;
+int8_t dati::command_pp = 0, dati::command_old_pp = 1;
+int8_t dati::command_exercise_pp = 0, dati::command_task_pp= 0;
+int8_t dati::command_exercise_old_pp, dati::command_task_old_pp;
 
  SignalHelper *helper;
 
- void paginaprincipale::callback2(const std_msgs::Int8 msg_command_pp) {
+ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_pp) {
    ros::NodeHandle n;
-   dati::command_old = 1;
-   dati::command = msg_command_pp.data;
-     if((dati::command_old) != (dati::command)) {
-       qDebug()<< dati::command_old;
-       qDebug()<< dati::command;
-       dati::command_old=dati::command;
-       ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command);
+ //  dati::command_old_pp = 1;
+   dati::command_pp = msg_command_pp.mode;
+   dati::command_exercise_pp = msg_command_pp.exercise;
+   dati::command_task_pp = msg_command_pp.task;
+     if((dati::command_old_pp) != (dati::command_pp) || (dati::command_exercise_old_pp)!= (dati::command_exercise_pp) || (dati::command_task_old_pp)!= (dati::command_task_pp)) {
+       qDebug()<< dati::command_old_pp;
+       qDebug()<< dati::command_pp;
+       dati::command_old_pp=dati::command_pp;
+       dati::command_task_old_pp = dati::command_task_pp;
+       dati::command_exercise_old_pp = dati::command_exercise_pp;
+       ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command_pp);
 
-       if(dati::command_old ==2) {
+       if(dati::command_old_pp ==2) {
 
          QSqlQuery prova;
          prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
@@ -69,23 +76,37 @@ QString dati::next_img;
          else qDebug()<< prova.lastError();
          this->show();
        }
-   if (dati::command_old ==3) {
+   if (dati::command_old_pp ==3) {
       ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
 
    }
-   if(dati::command_old == 4) {
+   if(dati::command_old_pp == 4) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
 
    }
-   if(dati::command_old == 5) {
+   if(dati::command_old_pp == 5) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
    }
-   if(dati::command_old == 7) {
+   if(dati::command_old_pp == 6){
+     ui->tabWidget_2->setCurrentWidget(ui->tab_calibrazione);
+
+   }
+   if(dati::command_old_pp == 7) {
       ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
       dati::status1 = 7;
     msg_status_pp.data = dati::status1;
     ROS_INFO ("%d", msg_status_pp.data);
     status_publisher.publish(msg_status_pp);
+   }
+
+   if(dati::command_old_pp == 11) {
+     ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+   }
+   if(dati::command_old_pp ==12){
+
+//     dati::command_exercise_pp = msg_command_pp.exercise;
+//     dati::command_task_pp = msg_command_pp.task;
+}
    }
    //   if(dati::command_old == 8) {
 
@@ -107,7 +128,7 @@ QString dati::next_img;
    //     n.setParam("/point3/mat_coordinates", point3);
    //   }
  }
- }
+
 
 
 paginaprincipale::paginaprincipale(QWidget *parent) :
@@ -1593,7 +1614,7 @@ ex_rep = {rep1, rep2, rep3, rep4, rep5, rep6, rep7};
 ex_obj = {ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7};
 ros::NodeHandle n;
 n.setParam("/exercise/sequence", ex_seq);
-n.setParam("/exercise/repetitions", ex_rep);
+n.setParam("/exercise/repetition", ex_rep);
 n.setParam ("/object", ex_obj);
 
 
@@ -2598,6 +2619,7 @@ n.setParam("/active_modules", active_modules );
 }
 
 /**********************       SALVO IN UNA LISTA IMMAGINI PER ESERCIZI                       *********************/
+//SALVO TUTTE LE IMMAGINI DEGLI ESERCIZI IN UNA LISTA
 QList<QPixmap>GetImages(QString exID) {
   QList<QPixmap> mylist;
 //auto folder("/home/alice/catkin_ws/src/agree_gui/resources/ex_img/" + exID);
@@ -2660,7 +2682,7 @@ QVector<QPoint> mylocalList =matrix->getPosition();
 //msg.data = ss4.str();
 //status_publisher.publish(msg);
 //ROS_INFO_STREAM(msg);
-ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
 dati::status1 = 10;
 
 std_msgs::Int8 msg;
@@ -2674,7 +2696,14 @@ status_publisher.publish(msg);
 /**********************       INIZIO TERAPIA                       *********************/
 void paginaprincipale::on_pushButton_next_clicked()
 { //qDebug()<<sel_ex;
-timer_rehab->start(3000);
+timer_rehab->start(20);
+dati::status1 = 11;
+
+std_msgs::Int8 msg;
+msg.data = dati::status1;
+ROS_INFO ("%d", msg.data);
+status_publisher.publish(msg);
+
  //  next_img();
  // timer->start(1000);
 //  if(dati::next_img=="a"){
@@ -2739,91 +2768,137 @@ timer_rehab->start(3000);
 
 /**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI                    *********************/
 void paginaprincipale::next_img() {
+  qDebug()<< dati::command_exercise_pp;
+
+  QPixmap case99("/home/alice/Desktop/ex_img1/01/wait.jpg");
+  QPixmap case1("/home/alice/Desktop/ex_img1/01/es1_2.JPG");
+  QPixmap case3("/home/alice/Desktop/ex_img1/01/es1_4.JPG");
+  QPixmap case5("/home/alice/Desktop/ex_img1/01/es1_6.JPG");
+  QPixmap def("/home/alice/Desktop/ex_img1/01/es1_1.JPG");
+  /**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI FUNZIONE NUOVA             *********************/
+  switch (dati::command_exercise_pp) {
+
+  case 1 :
+    qDebug()<< dati::command_task_pp;
+    switch (dati::command_task_pp) {
+
+    case 99:
+      ui->label_img->setPixmap(case99);
+      qDebug()<< "case99";
+      break;
+
+    case 1:
+      ui->label_img->setPixmap(case1);
+      qDebug()<< "case1";
+      break;
+
+    case 3:
+      ui->label_img->setPixmap(case3);
+      qDebug()<< "case3";
+      break;
+
+    case 5:
+      ui->label_img->setPixmap(case5);
+      qDebug()<< "case5";
+      break;
+
+    default:
+      ui->label_img->setPixmap(def);
+      qDebug()<< "casedef";
+      break;
+
+
+    }   // end switch task
+    break; //break exer 1
+
+  } // end switch exer
+
+  /**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI FUNZIONE VECCHIA          *********************/
   qDebug()<< "sono nella funzione next_img";
- // if(dati::next_img=="a"){
-  if(curEx<sel_ex.size()) {
-    key= sel_ex.at(curEx);
-    qDebug()<<key;
-      if (ExInfoMap.find(key) != ExInfoMap.end() ) {
+// // if(dati::next_img=="a"){
+//  if(curEx<sel_ex.size()) {
+//    key= sel_ex.at(curEx);
+//    qDebug()<<key;
+//      if (ExInfoMap.find(key) != ExInfoMap.end() ) {
 
-          ExInfo &one = ExInfoMap[key];
+//          ExInfo &one = ExInfoMap[key];
 
-          qDebug() << one.REP;
+//          qDebug() << one.REP;
 
-  if(rep<one.REP) {
-          if (curImage < one.images.size()) {
-              ui->label_img->setPixmap(one.images.at(curImage));
-              curImage++;
-              ui->label_fine_ex->setText("");
-              dati::status1 = 12;
+//  if(rep<one.REP) {
+//          if (curImage < one.images.size()) {
+//              ui->label_img->setPixmap(one.images.at(curImage));
+//              curImage++;
+//              ui->label_fine_ex->setText("");
+//              dati::status1 = 12;
 
-                  std_msgs::Int8 msg;
-                  msg.data = dati::status1;
-                  ROS_INFO ("%d", msg.data);
-                  status_publisher.publish(msg);
-          }
+//                  std_msgs::Int8 msg;
+//                  msg.data = dati::status1;
+//                  ROS_INFO ("%d", msg.data);
+//                  status_publisher.publish(msg);
+//          }
 
-          if ( curImage == one.images.size() ) { // -1 we start in zero
-              curImage = 0;
-              rep++;
-              ui->label_fine_ex->setText("");
-          }
-  }
-          if ( rep == one.REP ) {
-              rep=0;
-              timer_feedback->start(2500);
-//              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
-//              QPixmap smile("/home/alice/Desktop/smile.jpeg");
-//              ui->label_img->setPixmap(smile);
-               curEx++;
-              // now take next EX
-          }
-      }
-
-
-//      if(curEx==sel_ex.size())
-//      {
-//        curEx=0;
-//        return;
+//          if ( curImage == one.images.size() ) { // -1 we start in zero
+//              curImage = 0;
+//              rep++;
+//              ui->label_fine_ex->setText("");
+//          }
+//  }
+//          if ( rep == one.REP ) {
+//              rep=0;
+//              timer_feedback->start(2500);
+////              ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
+////              QPixmap smile("/home/alice/Desktop/smile.jpeg");
+////              ui->label_img->setPixmap(smile);
+//               curEx++;
+//              // now take next EX
+//          }
 //      }
-  }
-  else if (curEx==sel_ex.size()) {
-
-   //ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
-qDebug()<< "in ==";
-    timer_val->start(2500);
-    //carico la tabella dei parametri cinematici  dei pazienti
-        QSqlQueryModel *model1 = new QSqlQueryModel();
-        QSqlQuery * qry_val = new QSqlQuery(mydb2);
-        qry_val -> prepare("select Intrajoint_coordination, Normalized_jerk, Movement_arrest_period_ratio, Peak_speed_ratio, Acceleration_metric from Valutazioni  where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
-        qry_val -> exec();
-        if(qry_val->exec()) {
-        model1 -> setQuery(*qry_val);
-        ui->tableView_valutazioni->setModel(model1);
-        ui->tableView_valutazioni->resizeColumnsToContents(); }
-        else qDebug()<<qry_val->lastError();
-      //  qDebug() << (model->rowCount());
-    // carico la tabella dei parametri EMG dei pazienti
-        QSqlQueryModel *model2 = new QSqlQueryModel();
-        QSqlQuery * qry_val_emg = new QSqlQuery(mydb2);
-        qry_val_emg -> prepare ("select Per_corretta_attivazione_muscolare, Normalized_EMG_action_level, Indice_co_contrazione, Sinergie_muscolari, Active_movement_Idex from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
-        qry_val_emg-> exec();
-        if(qry_val_emg-> exec()) {
-        model2 -> setQuery(*qry_val_emg);
-        ui->tableView_parametriEMG-> setModel(model2);
-        ui->tableView_parametriEMG-> resizeColumnsToContents();
-        dati::status1 = 13;
-
-            std_msgs::Int8 msg;
-            msg.data = dati::status1;
-            ROS_INFO ("%d", msg.data);
-            status_publisher.publish(msg);
-        }
 
 
-        else  qDebug()<< qry_val_emg ->lastError();
-        timer_rehab->stop();
-  }
+////      if(curEx==sel_ex.size())
+////      {
+////        curEx=0;
+////        return;
+////      }
+//  }
+//  else if (curEx==sel_ex.size()) {
+
+//   //ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
+//qDebug()<< "in ==";
+//    timer_val->start(2500);
+//    //carico la tabella dei parametri cinematici  dei pazienti
+//        QSqlQueryModel *model1 = new QSqlQueryModel();
+//        QSqlQuery * qry_val = new QSqlQuery(mydb2);
+//        qry_val -> prepare("select Intrajoint_coordination, Normalized_jerk, Movement_arrest_period_ratio, Peak_speed_ratio, Acceleration_metric from Valutazioni  where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
+//        qry_val -> exec();
+//        if(qry_val->exec()) {
+//        model1 -> setQuery(*qry_val);
+//        ui->tableView_valutazioni->setModel(model1);
+//        ui->tableView_valutazioni->resizeColumnsToContents(); }
+//        else qDebug()<<qry_val->lastError();
+//      //  qDebug() << (model->rowCount());
+//    // carico la tabella dei parametri EMG dei pazienti
+//        QSqlQueryModel *model2 = new QSqlQueryModel();
+//        QSqlQuery * qry_val_emg = new QSqlQuery(mydb2);
+//        qry_val_emg -> prepare ("select Per_corretta_attivazione_muscolare, Normalized_EMG_action_level, Indice_co_contrazione, Sinergie_muscolari, Active_movement_Idex from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
+//        qry_val_emg-> exec();
+//        if(qry_val_emg-> exec()) {
+//        model2 -> setQuery(*qry_val_emg);
+//        ui->tableView_parametriEMG-> setModel(model2);
+//        ui->tableView_parametriEMG-> resizeColumnsToContents();
+//        dati::status1 = 13;
+
+//            std_msgs::Int8 msg;
+//            msg.data = dati::status1;
+//            ROS_INFO ("%d", msg.data);
+//            status_publisher.publish(msg);
+//        }
+
+
+//        else  qDebug()<< qry_val_emg ->lastError();
+//        timer_rehab->stop();
+//  }
 //dati::next_img = "b";
 
 //  }
@@ -2942,7 +3017,7 @@ void paginaprincipale::on_pushButton_avanti_v_clicked()
       }
       else if(curTut== sel_tut.size()) {
        // timer_init->start(5000);
-        if(dati::command == 4) {
+        if(dati::command_pp == 4) {
         ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
         }
         ui->label_img_vest->clear();
@@ -3004,4 +3079,14 @@ if (flag == 4) {
   }
 }
 //ui->stackedWidget->setCurrentWidget(ui->page_3);
+}
+
+void paginaprincipale::on_pushButton_2_clicked()
+{
+  dati::status1 = 6;
+
+     std_msgs::Int8 msg;
+     msg.data = dati::status1;
+     ROS_INFO ("%d", msg.data);
+     status_publisher.publish(msg);
 }
