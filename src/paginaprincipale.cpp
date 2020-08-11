@@ -46,6 +46,7 @@ QString dati::next_img;
 int8_t dati::command_pp = 0, dati::command_old_pp = 1;
 int8_t dati::command_exercise_pp = 0, dati::command_task_pp= 0;
 int8_t dati::command_exercise_old_pp, dati::command_task_old_pp;
+int8_t dati::flag=0;
 
  SignalHelper *helper;
 
@@ -178,13 +179,13 @@ connect(ui->lineEdit_ex5, SIGNAL(textChanged(const QString)),this, SLOT(update_t
 connect(ui->lineEdit_ex6, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
 connect(ui->lineEdit_ex7, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
 
-connect(ui->checkBox_ex1, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
-connect(ui->checkBox_ex2, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
-connect(ui->checkBox_ex3, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
-connect(ui->checkBox_ex4, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
-connect(ui->checkBox_ex5, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
-connect(ui->checkBox_ex6, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
-connect(ui->checkBox_7, SIGNAL(clicked(bool)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_ex6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+connect(ui->checkBox_7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
 
 //timer = new QTimer(this);
 timer_init = new QTimer(this);
@@ -1241,19 +1242,19 @@ void paginaprincipale::enable_combo_ex() {
   ui->comboBox_ex6->setEnabled(false);
   ui->comboBox_ex7->setEnabled(false);
 
-  if(ui->checkBox_ex1->isChecked()) {
+  if(ui->checkBox_ex1->isChecked() ) {
     ui->comboBox_ex1->setEnabled(true);
   }
-  if(ui->checkBox_ex2->isChecked()) {
+  if(ui->checkBox_ex2->isChecked() ) {
     ui->comboBox_ex2->setEnabled(true);
   }
-  if(ui->checkBox_ex3->isChecked()) {
+  if(ui->checkBox_ex3->isChecked()&&dati::flag ==2) {
     ui->comboBox_ex3->setEnabled(true);
   }
-  if(ui->checkBox_ex4->isChecked()) {
+  if(ui->checkBox_ex4->isChecked() ) {
     ui->comboBox_ex4->setEnabled(true);
   }
-  if(ui->checkBox_ex5->isChecked()) {
+  if(ui->checkBox_ex5->isChecked() ) {
     ui->comboBox_ex5->setEnabled(true);
   }
   if(ui->checkBox_ex6->isChecked()) {
@@ -2384,6 +2385,11 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 
 qDebug()<< rand1;
 
+if (dati::flag ==0 ){
+  ui->checkBox_ex1->setChecked(true);
+  dati::flag++;
+}
+
 
 
 
@@ -3089,4 +3095,77 @@ void paginaprincipale::on_pushButton_2_clicked()
      msg.data = dati::status1;
      ROS_INFO ("%d", msg.data);
      status_publisher.publish(msg);
+}
+
+void paginaprincipale::on_pushButton_add_clicked()
+
+{ if(dati::flag == 0) {
+  dati::flag++;}
+  if(dati::flag == 1) {
+    ui->checkBox_ex2->setChecked(true);
+
+    dati::flag++;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag==2) {
+    ui->checkBox_ex3->setChecked(true);
+    dati::flag++;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag==3) {
+    ui->checkBox_ex4->setChecked(true);
+    dati::flag++;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag==4) {
+    ui->checkBox_ex5->setChecked(true);
+    dati::flag++;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag==5) {
+    ui->checkBox_ex6->setChecked(true);
+    dati::flag++;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag==6) {
+    ui->checkBox_7->setChecked(true);
+    dati::flag++;
+     qDebug()<<dati::flag;
+  }
+
+}
+
+void paginaprincipale::on_pushButton_remove_clicked()
+{ if(dati::flag == 6){
+    ui->checkBox_7->setChecked(false);
+    dati::flag--;
+    qDebug()<<dati::flag;
+
+  }
+  else if (dati::flag ==5) {
+    ui->checkBox_ex6->setChecked(false);
+    dati::flag--;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag ==4) {
+    ui->checkBox_ex5->setChecked(false);
+    dati::flag--;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag ==3) {
+    ui->checkBox_ex4->setChecked(false);
+    dati::flag--;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag ==2) {
+    ui->checkBox_ex3->setChecked(false);
+    dati::flag--;
+     qDebug()<<dati::flag;
+  }
+  else if (dati::flag ==1) {
+    ui->checkBox_ex2->setChecked(false);
+    dati::flag--;
+     qDebug()<<dati::flag;
+  }
+
 }
