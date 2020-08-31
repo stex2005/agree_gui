@@ -79,7 +79,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   int yindex = p.y()/ bh;
   qDebug() <<yindex +1 <<" "<< xindex +1;
   //get the data point (check se ind non è fuori dalla griglia)
-  DataPoint &dp = Data[yindex+1][xindex +1];
+  DataPoint &dp = Data[14-yindex][xindex +1];
 
   //zero non selezionabile
   if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
@@ -88,11 +88,11 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
      if(selCount>2) return;
      dp.DrawColor = Qt::blue;
      dp.isSelected = true;
-     position.append(QPoint(yindex+1,xindex+1));
-     auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
+     position.append(QPoint(14-yindex,xindex+1));
+     auto i1 = position.indexOf(QPoint(14-yindex,xindex+1));
   //   if(dati::command_old == 9) {
 if(std::count(point1.begin(), point1.end(), zero_point1)) {
-  point1 = {(yindex+1),(xindex+1)};
+  point1 = {(14-yindex),(xindex+1)};
   n.setParam("/point1/mat_coordinates", point1);
   qDebug()<< "riempio point1";
   qDebug()<< point1;
@@ -105,7 +105,7 @@ if(std::count(point1.begin(), point1.end(), zero_point1)) {
 }
 
 else if (std::count(point2.begin(), point2.end(), zero_point2)) {
-   point2 = {(yindex+1),(xindex+1)};
+   point2 = {(14-yindex),(xindex+1)};
    n.setParam("/point2/mat_coordinates", point2);
    qDebug()<< "riempio point2";
    qDebug()<< point2;
@@ -118,7 +118,7 @@ else if (std::count(point2.begin(), point2.end(), zero_point2)) {
 }
 
 else if (std::count(point3.begin(), point3.end(), zero_point3)) {
- point3 = {(yindex+1),(xindex+1)};
+ point3 = {(14-yindex),(xindex+1)};
  n.setParam("/point3/mat_coordinates", point3);
  qDebug()<< "riempio point3";
  qDebug()<< point3;
@@ -146,9 +146,9 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
     dp.DrawColor = Qt::green;
     dp.isSelected = false;
     selCount--;
-    auto i1 = position.indexOf(QPoint(yindex+1,xindex+1));
+    auto i1 = position.indexOf(QPoint(14-yindex,xindex+1));
     std::vector<int> deselezione;
-    deselezione = {yindex+1, xindex+1};
+    deselezione = {14-yindex, xindex+1};
     QPoint deletedFromVector = position[i1];
     position.remove(i1);
     if(point1 == deselezione) {
@@ -186,6 +186,7 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
 if (selCount==3)
 qDebug()<<position;
 std::vector<int> point_min;
+
 
 
 //// devo ordinare i punti selezionati
@@ -291,9 +292,10 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
      // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
 
      for (int xi = 0; xi < max_x-1; ++xi) {
-
+// for (int xi =14; xi >=1; --xi) {
         for (int yi = 0; yi < max_y -1; ++yi) {
-                  p.setBrush(QBrush (Data[xi+1][yi+1].DrawColor));
+          int new_x= 14-xi;
+                  p.setBrush(QBrush (Data[new_x][yi+1].DrawColor));
            QRect cellRect(yi*bw,xi*bh, bw,bh);
              p.drawRect( cellRect )  ;
         //    p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
@@ -302,8 +304,9 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
 
 }
 void MatrixWidget::LoadData()
-{ QFile file("/home/alice/Desktop/Punti_pad.CSV");
+{// QFile file("/home/alice/Desktop/Punti_pad.CSV");
  // QFile file("/home/alice/catkin_ws/src/agree_gui/resources/Punti_tappetino.csv");
+  QFile file("/home/alice/Desktop/Punti_tappetino.csv");
   if(!file.open(QFile::ReadOnly | QFile::Text))
   {
     qDebug()<< "FIle not exist";
@@ -330,7 +333,7 @@ void MatrixWidget::LoadData()
 
         else{
           Data[x][y].DrawColor = Qt::green;
-          Data[14][19].DrawColor = Qt::black;
+          Data[1][6].DrawColor = Qt::black;
 
         }
 

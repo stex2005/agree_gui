@@ -21,6 +21,7 @@ struct DataPoint {
 const int max_x = 15;
 const int max_y = 22;
 
+
 class MatrixWidget : public QWidget
 {
   Q_OBJECT

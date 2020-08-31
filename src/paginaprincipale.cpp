@@ -46,7 +46,7 @@ QString dati::next_img;
 int8_t dati::command_pp = 0, dati::command_old_pp = 1;
 int8_t dati::command_exercise_pp = 0, dati::command_task_pp= 0;
 int8_t dati::command_exercise_old_pp, dati::command_task_old_pp;
-int8_t dati::flag=0;
+int8_t dati::flag_ex=0;
 
  SignalHelper *helper;
 
@@ -72,7 +72,7 @@ int8_t dati::flag=0;
          if (prova.exec()) {
            qDebug()<< "sono nella query prova";
            while(prova.next()) {
-           ui->label_status->setText("Utente: " + prova.value(0).toString() + " " +  prova.value(1).toString());
+           ui->label_status->setText("Terapista: " + prova.value(0).toString() + " " +  prova.value(1).toString());
          } }
          else qDebug()<< prova.lastError();
          this->show();
@@ -265,6 +265,8 @@ connect(timer_feedback, SIGNAL(timeout()), this, SLOT(show_feed()));
    ui->pushButton_go->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward"));
    ui->pushButton_avanti_v->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward"));
    ui->pushButton->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Stop sign"));
+   ui->pushButton_add->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add"));
+   ui->pushButton_remove->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Remove"));
 
   //creo la data
   QDate data;
@@ -1248,7 +1250,7 @@ void paginaprincipale::enable_combo_ex() {
   if(ui->checkBox_ex2->isChecked() ) {
     ui->comboBox_ex2->setEnabled(true);
   }
-  if(ui->checkBox_ex3->isChecked()&&dati::flag ==2) {
+  if(ui->checkBox_ex3->isChecked()) {
     ui->comboBox_ex3->setEnabled(true);
   }
   if(ui->checkBox_ex4->isChecked() ) {
@@ -1994,6 +1996,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex1==0))
                       {
                         ui->checkBox_ex1->setChecked(true);
+                        dati::flag_ex=0;
                         QSqlQuery selezione1;
                         selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
                         selezione1.exec();
@@ -2032,6 +2035,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex2==0))
                       {
                         ui->checkBox_ex2->setChecked(true);
+                        dati::flag_ex = 1;
                         QSqlQuery selezione2;
                         selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
                         selezione2.exec();
@@ -2067,6 +2071,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex3==0))
                       {
                         ui->checkBox_ex3->setChecked(true);
+                        dati::flag_ex=2;
                         QSqlQuery selezione3;
                         selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
                         selezione3.exec();
@@ -2103,6 +2108,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex4==0))
                       {
                         ui->checkBox_ex4->setChecked(true);
+                        dati::flag_ex=3;
                         QSqlQuery selezione4;
                         selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
                         selezione4.exec();
@@ -2138,6 +2144,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex5==0))
                       {
                         ui->checkBox_ex5->setChecked(true);
+                        dati::flag_ex=4;
                         QSqlQuery selezione5;
                         selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
                         selezione5.exec();
@@ -2173,6 +2180,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex6==0))
                       {
                         ui->checkBox_ex6->setChecked(true);
+                        dati::flag_ex=5;
                         QSqlQuery selezione6;
                         selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
                         selezione6.exec();
@@ -2208,6 +2216,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
                       if(!(dati::lex7==0))
                       {
                         ui->checkBox_7->setChecked(true);
+                        dati::flag_ex=6;
                         QSqlQuery selezione7;
                         selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
                         selezione7.exec();
@@ -2385,9 +2394,9 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 
 qDebug()<< rand1;
 
-if (dati::flag ==0 ){
+if (dati::flag_ex ==0 ){
   ui->checkBox_ex1->setChecked(true);
-  dati::flag++;
+  dati::flag_ex++;
 }
 
 
@@ -2775,15 +2784,66 @@ status_publisher.publish(msg);
 /**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI                    *********************/
 void paginaprincipale::next_img() {
   qDebug()<< dati::command_exercise_pp;
+QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7;
+  istr99 = "Resta in Attesa di una nuova istruzione";
+  istr_def = "Posizione di Rest";
+  istr_def6 = "Posizione di Rest";
+  istr_def7 = "Posizione di Rest";
 
-  QPixmap case99("/home/alice/Desktop/ex_img1/01/wait.jpg");
-  QPixmap case1("/home/alice/Desktop/ex_img1/01/es1_2.JPG");
-  QPixmap case3("/home/alice/Desktop/ex_img1/01/es1_4.JPG");
-  QPixmap case5("/home/alice/Desktop/ex_img1/01/es1_6.JPG");
-  QPixmap def("/home/alice/Desktop/ex_img1/01/es1_1.JPG");
+  //ISTRUZIONI ESERCIZIO 1
+  istr1_1 = "Porta il braccio a sinistra";
+  istr3_1 = "Porta il braccio in posizione centrale";
+  istr5_1 = "Porta il braccio a destra";
+
+  //ISTRUZIONI ESERCIZIO 3
+  istr1_3 = "Porta la mano in posizione di Rest";
+  istr2_3 = "Afferra l'oggetto dalla posizione centrale";
+  istr3_3 = "Porta l'oggetto a sinistra";
+  istr4_3 = "Lascia l'oggetto, quindi ritorna in Rest";
+  istr5_3= "Afferra l'oggetto";
+
+  istr6_3 = "Porta l'oggetto a destra";
+  istr7_3 = "Lascia l'oggetto e ritorna in Rest";
+  istr8_3="Afferra l'oggetto";
+  istr9_3 = "Porta l'oggetto in posizione centrale";
+
+  //ISTRUZIONI ESERCIZIO 6
+  istr2_6 = "porta l'oggetto alla bocca";
+
+
+
+  //ISTRUZIONI ESERCIZIO 7
+
+  istr2_7= "Eleva il braccio lateralmente";
+
+
+  QPixmap case99("/home/alice/Desktop/ex_img1/01/wait.jpg"); // ATTESA
+  QPixmap case1_1("/home/alice/Desktop/ex_img1/01/es1_2.JPG");
+  QPixmap case3_1("/home/alice/Desktop/ex_img1/01/es1_4.JPG");
+  QPixmap case5_1("/home/alice/Desktop/ex_img1/01/es1_6.JPG");
+  QPixmap def("/home/alice/Desktop/ex_img1/01/es1_1.JPG"); //POSIZIONE DI REST
+
+  QPixmap case1_3("/home/alice/Desktop/ex_img1/03/es3_1.JPG");
+  QPixmap case2_3("/home/alice/Desktop/ex_img1/03/es3_2.JPG");
+  QPixmap case3_3("/home/alice/Desktop/ex_img1/03/es3_3.JPG");
+  QPixmap case4_3("/home/alice/Desktop/ex_img1/03/es3_4.JPG");
+  QPixmap case5_3("/home/alice/Desktop/ex_img1/03/es3_5.JPG");
+  QPixmap case6_3("/home/alice/Desktop/ex_img1/03/es3_6.JPG");
+  QPixmap case7_3("/home/alice/Desktop/ex_img1/03/es3_7.JPG");
+  QPixmap case8_3("/home/alice/Desktop/ex_img1/03/es3_8.JPG");
+  QPixmap case9_3("/home/alice/Desktop/ex_img1/03/es3_9.JPG");
+
+  QPixmap def_6("/home/alice/Desktop/ex_img1/06/es6_1.JPG");
+  QPixmap case2_6("/home/alice/Desktop/ex_img1/06/es6_2.JPG");
+
+  QPixmap def_7("/home/alice/Desktop/ex_img1/07/es7_1.JPG");
+  QPixmap case2_7("/home/alice/Desktop/ex_img1/07/es7_2.JPG");
+
+
+
   /**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI FUNZIONE NUOVA             *********************/
   switch (dati::command_exercise_pp) {
-
+//ESERCIZIO REACHING NEL PIANO SENZA OGGETTI
   case 1 :
     qDebug()<< dati::command_task_pp;
     switch (dati::command_task_pp) {
@@ -2794,17 +2854,17 @@ void paginaprincipale::next_img() {
       break;
 
     case 1:
-      ui->label_img->setPixmap(case1);
+      ui->label_img->setPixmap(case1_1);
       qDebug()<< "case1";
       break;
 
     case 3:
-      ui->label_img->setPixmap(case3);
+      ui->label_img->setPixmap(case3_1);
       qDebug()<< "case3";
       break;
 
     case 5:
-      ui->label_img->setPixmap(case5);
+      ui->label_img->setPixmap(case5_1);
       qDebug()<< "case5";
       break;
 
@@ -2816,6 +2876,105 @@ void paginaprincipale::next_img() {
 
     }   // end switch task
     break; //break exer 1
+
+
+    // ESERCIZIO REACHING NEL PIANO CON OGGETTI
+  case 3:
+    qDebug()<< dati::command_task_pp;
+    switch(dati::command_task_pp) {
+    case 99:
+      ui->label_img->setPixmap(case99);
+      qDebug()<< "case99";
+      break;
+
+    case 1:
+      ui->label_img->setPixmap(case1_3);
+      qDebug()<< "case1_3";
+      break;
+
+    case 2:
+      ui->label_img->setPixmap(case2_3);
+      qDebug()<< "case2_3";
+      break;
+
+    case 3:
+      ui->label_img->setPixmap(case3_3);
+      qDebug()<< "case3_3";
+      break;
+
+    case 5:
+      ui->label_img->setPixmap(case5_3);
+      qDebug()<< "case5_3";
+      break;
+
+    case 6:
+      ui->label_img->setPixmap(case6_3);
+      qDebug()<< "case6_3";
+      break;
+
+    case 8:
+      ui->label_img->setPixmap(case8_3);
+      qDebug()<< "case8_3";
+      break;
+
+    case 9:
+      ui->label_img->setPixmap(case9_3);
+      qDebug()<< "case9_3";
+      break;
+
+    default:
+      ui->label_img->setPixmap(def);
+      qDebug()<< "casedef";
+      break;
+    }
+    break;
+
+    // ESERICZIO MANO ALLA BOCCA CON OGGETTO
+  case 6:
+    qDebug()<< dati::command_task_pp;
+    switch(dati::command_task_pp) {
+
+    case 99:
+      ui->label_img->setPixmap(case99);
+      qDebug()<< "case99";
+      break;
+
+
+    case 1:
+      ui->label_img->setPixmap(case2_6);
+      qDebug()<< "case2_6";
+      break;
+
+    default:
+      ui->label_img->setPixmap(def_6);
+      qDebug()<< "casedef";
+      break;
+
+
+    }
+    break;
+
+    // ELEVAZIONE LATERALE CON OGGETTO
+  case 7 :
+    qDebug()<< dati::command_task_pp;
+    switch(dati::command_task_pp) {
+    case 99:
+      ui->label_img->setPixmap(case99);
+      qDebug()<< "case99";
+      break;
+
+    case 1:
+      ui->label_img->setPixmap(case2_7);
+      qDebug()<< "case2_7";
+      break;
+
+    default:
+      ui->label_img->setPixmap(def_7);
+      qDebug()<< "casedef";
+      break;
+
+    }
+    break;
 
   } // end switch exer
 
@@ -3099,73 +3258,73 @@ void paginaprincipale::on_pushButton_2_clicked()
 
 void paginaprincipale::on_pushButton_add_clicked()
 
-{ if(dati::flag == 0) {
-  dati::flag++;}
-  if(dati::flag == 1) {
+{ if(dati::flag_ex == 0) {
+  dati::flag_ex++;}
+  if(dati::flag_ex == 1) {
     ui->checkBox_ex2->setChecked(true);
 
-    dati::flag++;
-     qDebug()<<dati::flag;
+    dati::flag_ex++;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag==2) {
+  else if (dati::flag_ex==2) {
     ui->checkBox_ex3->setChecked(true);
-    dati::flag++;
-     qDebug()<<dati::flag;
+    dati::flag_ex++;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag==3) {
+  else if (dati::flag_ex==3) {
     ui->checkBox_ex4->setChecked(true);
-    dati::flag++;
-     qDebug()<<dati::flag;
+    dati::flag_ex++;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag==4) {
+  else if (dati::flag_ex==4) {
     ui->checkBox_ex5->setChecked(true);
-    dati::flag++;
-     qDebug()<<dati::flag;
+    dati::flag_ex++;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag==5) {
+  else if (dati::flag_ex==5) {
     ui->checkBox_ex6->setChecked(true);
-    dati::flag++;
-     qDebug()<<dati::flag;
+    dati::flag_ex++;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag==6) {
+  else if (dati::flag_ex==6) {
     ui->checkBox_7->setChecked(true);
-    dati::flag++;
-     qDebug()<<dati::flag;
+   // dati::flag_ex++;
+     qDebug()<<dati::flag_ex;
   }
 
 }
 
 void paginaprincipale::on_pushButton_remove_clicked()
-{ if(dati::flag == 6){
+{ if(dati::flag_ex == 6){
     ui->checkBox_7->setChecked(false);
-    dati::flag--;
-    qDebug()<<dati::flag;
+    dati::flag_ex--;
+    qDebug()<<dati::flag_ex;
 
   }
-  else if (dati::flag ==5) {
+  else if (dati::flag_ex ==5) {
     ui->checkBox_ex6->setChecked(false);
-    dati::flag--;
-     qDebug()<<dati::flag;
+    dati::flag_ex--;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag ==4) {
+  else if (dati::flag_ex ==4) {
     ui->checkBox_ex5->setChecked(false);
-    dati::flag--;
-     qDebug()<<dati::flag;
+    dati::flag_ex--;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag ==3) {
+  else if (dati::flag_ex ==3) {
     ui->checkBox_ex4->setChecked(false);
-    dati::flag--;
-     qDebug()<<dati::flag;
+    dati::flag_ex--;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag ==2) {
+  else if (dati::flag_ex ==2) {
     ui->checkBox_ex3->setChecked(false);
-    dati::flag--;
-     qDebug()<<dati::flag;
+    dati::flag_ex--;
+     qDebug()<<dati::flag_ex;
   }
-  else if (dati::flag ==1) {
+  else if (dati::flag_ex ==1) {
     ui->checkBox_ex2->setChecked(false);
-    dati::flag--;
-     qDebug()<<dati::flag;
+    dati::flag_ex--;
+     qDebug()<<dati::flag_ex;
   }
 
 }

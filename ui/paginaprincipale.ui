@@ -113,7 +113,7 @@
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_3">
             <layout class="QGridLayout" name="gridLayout_4">
@@ -244,7 +244,7 @@ background-color: rgb(157, 241, 161);</string>
                 </font>
                </property>
                <property name="text">
-                <string>Modifica Dati Utente</string>
+                <string>Modifica Dati Terapista</string>
                </property>
               </widget>
              </item>
@@ -700,7 +700,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>9</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -2706,8 +2706,8 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
           <widget class="QLabel" name="label_img">
            <property name="geometry">
             <rect>
-             <x>320</x>
-             <y>50</y>
+             <x>380</x>
+             <y>80</y>
              <width>631</width>
              <height>471</height>
             </rect>
@@ -2722,8 +2722,8 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
           <widget class="QPushButton" name="pushButton_next">
            <property name="geometry">
             <rect>
-             <x>530</x>
-             <y>540</y>
+             <x>590</x>
+             <y>570</y>
              <width>211</width>
              <height>31</height>
             </rect>
@@ -2777,6 +2777,25 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
            </property>
            <property name="text">
             <string>Termina Terapia</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_istr_ex">
+           <property name="geometry">
+            <rect>
+             <x>230</x>
+             <y>10</y>
+             <width>891</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>16</pointsize>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </widget>
