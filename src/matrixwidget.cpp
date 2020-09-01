@@ -18,8 +18,10 @@
 
 int8_t dati::command_matrix, dati::command_old_matrix=1;
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
-{
+{ if(dati::command_old_matrix==7){
   LoadData();
+  qDebug()<<"dati caricati";
+  }
   /**********************       DICHIARO NODO                           *********************/
     ros::NodeHandle n;
 
@@ -38,6 +40,10 @@ void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_comman
     if((dati::command_old_matrix) != (dati::command_matrix)) {
       dati::command_old_matrix=dati::command_matrix;
 qDebug()<< "matrix";
+if(dati::command_old_matrix==7){
+  LoadData();
+  qDebug()<<"dati caricati";
+  }
       if(dati::command_old_matrix == 8) { //SALVO PARAMETRI DA ROSPARAMETERS
 qDebug()<< "callback_matrix, command_old 8";
         n.getParam("/point1/mat_coordinates", point1);
@@ -79,7 +85,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   int yindex = p.y()/ bh;
   qDebug() <<yindex +1 <<" "<< xindex +1;
   //get the data point (check se ind non è fuori dalla griglia)
-  DataPoint &dp = Data[14-yindex][xindex +1];
+  DataPoint &dp = Data[Y-yindex][xindex+1 ];
 
   //zero non selezionabile
   if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
@@ -88,11 +94,11 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
      if(selCount>2) return;
      dp.DrawColor = Qt::blue;
      dp.isSelected = true;
-     position.append(QPoint(14-yindex,xindex+1));
-     auto i1 = position.indexOf(QPoint(14-yindex,xindex+1));
+     position.append(QPoint(xindex+1,16-yindex));
+     auto i1 = position.indexOf(QPoint(xindex+1,16-yindex));
   //   if(dati::command_old == 9) {
 if(std::count(point1.begin(), point1.end(), zero_point1)) {
-  point1 = {(14-yindex),(xindex+1)};
+  point1 = {(xindex+1),(16-yindex)};
   n.setParam("/point1/mat_coordinates", point1);
   qDebug()<< "riempio point1";
   qDebug()<< point1;
@@ -105,7 +111,7 @@ if(std::count(point1.begin(), point1.end(), zero_point1)) {
 }
 
 else if (std::count(point2.begin(), point2.end(), zero_point2)) {
-   point2 = {(14-yindex),(xindex+1)};
+   point2 = {(xindex+1),(16-yindex)};
    n.setParam("/point2/mat_coordinates", point2);
    qDebug()<< "riempio point2";
    qDebug()<< point2;
@@ -118,7 +124,7 @@ else if (std::count(point2.begin(), point2.end(), zero_point2)) {
 }
 
 else if (std::count(point3.begin(), point3.end(), zero_point3)) {
- point3 = {(14-yindex),(xindex+1)};
+ point3 = {(xindex+1),(16-yindex)};
  n.setParam("/point3/mat_coordinates", point3);
  qDebug()<< "riempio point3";
  qDebug()<< point3;
@@ -146,9 +152,9 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
     dp.DrawColor = Qt::green;
     dp.isSelected = false;
     selCount--;
-    auto i1 = position.indexOf(QPoint(14-yindex,xindex+1));
+    auto i1 = position.indexOf(QPoint((xindex+1),(16-yindex)));
     std::vector<int> deselezione;
-    deselezione = {14-yindex, xindex+1};
+    deselezione = {(xindex+1),(16-yindex)};
     QPoint deletedFromVector = position[i1];
     position.remove(i1);
     if(point1 == deselezione) {
@@ -294,7 +300,7 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
      for (int xi = 0; xi < max_x-1; ++xi) {
 // for (int xi =14; xi >=1; --xi) {
         for (int yi = 0; yi < max_y -1; ++yi) {
-          int new_x= 14-xi;
+          int new_x= Y-xi;
                   p.setBrush(QBrush (Data[new_x][yi+1].DrawColor));
            QRect cellRect(yi*bw,xi*bh, bw,bh);
              p.drawRect( cellRect )  ;
@@ -304,51 +310,89 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
 
 }
 void MatrixWidget::LoadData()
-{// QFile file("/home/alice/Desktop/Punti_pad.CSV");
- // QFile file("/home/alice/catkin_ws/src/agree_gui/resources/Punti_tappetino.csv");
-  QFile file("/home/alice/Desktop/Punti_tappetino.csv");
-  if(!file.open(QFile::ReadOnly | QFile::Text))
-  {
-    qDebug()<< "FIle not exist";
+{ qDebug()<< dati::lato;
+  // LATO DESTRO
+if(dati::lato=="1"){
+    qDebug() <<"matrice lato destro";
+     QFile file("/home/alice/Desktop/Point_boolean_rigth.CSV");
+     if(!file.open(QFile::ReadOnly | QFile::Text))
+     {
+       qDebug()<< "FIle not exist";
 
 
-  }
-  else {
-    QTextStream in(&file);
-    while (!in.atEnd())
-    {
-      QString line = in.readLine();
-      QStringList list = line.split(";");
-      int x = list.at(0).toInt(); //mi riferisco alla prima colonna
-      int y = list.at(1).toInt(); // alla seconda
-      bool value = list.at(2).toInt(); // ai valori presenti nella 3 (bool)
+     }
+     else {
+       QTextStream in(&file);
+       while (!in.atEnd())
+       {
+         QString line = in.readLine();
+         QStringList list = line.split(";");
+         int x = list.at(1).toInt(); //mi riferisco alla prima colonna
+         int y = list.at(0).toInt(); // alla seconda
+         bool value = list.at(2).toInt(); // ai valori presenti nella 3 (bool)
 
 
 
-      if(x<max_x && y<max_y) {
-        Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
-        Data[x][y].isSelected = false;
-        if (Data[x][y].value ==0)
-          Data[x][y].DrawColor = Qt::lightGray;
+         if(x<max_x && y<max_y) {
+           Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
+           Data[x][y].isSelected = false;
+           if (Data[x][y].value ==0)
+             Data[x][y].DrawColor = Qt::lightGray;
 
-        else{
-          Data[x][y].DrawColor = Qt::green;
-          Data[1][6].DrawColor = Qt::black;
+           else{
+             Data[x][y].DrawColor = Qt::green;
+             Data[1][31].DrawColor = Qt::black;
 
-        }
+           }
 
-      }
-      else
-       qDebug()<< "x or y bigger than matrix!";
-      }
+         }
+         else
+          qDebug()<< "x or y bigger than matrix!";
+         }
 
-  }
-   file.close();
+     }
+      file.close();
 
 }
+  //LATO SINISTRO
+  else if(dati::lato=="0")
+  { QFile file("/home/alice/Desktop/Point_boolean_left.CSV");
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+      qDebug()<< "FIle not exist";
 
-//void MatrixWidget::getpos(){
-//  if (selCount==3)
-//  qDebug()<<position;
 
-//}
+    }
+    else {
+      QTextStream in(&file);
+      while (!in.atEnd())
+      {
+        QString line = in.readLine();
+        QStringList list = line.split(";");
+        int x = list.at(1).toInt(); //mi riferisco alla prima colonna
+        int y = list.at(0).toInt(); // alla seconda
+        bool value = list.at(2).toInt(); // ai valori presenti nella 3 (bool)
+
+
+
+        if(x<max_x && y<max_y) {
+          Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
+          Data[x][y].isSelected = false;
+          if (Data[x][y].value ==0)
+            Data[x][y].DrawColor = Qt::lightGray;
+
+          else{
+            Data[x][y].DrawColor = Qt::green;
+            Data[1][1].DrawColor = Qt::black;
+
+          }
+
+        }
+        else
+         qDebug()<< "x or y bigger than matrix!";
+        }
+
+    }
+     file.close();}
+}
+

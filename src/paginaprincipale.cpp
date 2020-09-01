@@ -65,7 +65,7 @@ int8_t dati::flag_ex=0;
        ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command_pp);
 
        if(dati::command_old_pp ==2) {
-
+         ui->tabWidget->setCurrentWidget(ui->tab);
          QSqlQuery prova;
          prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
          prova.exec();
@@ -108,7 +108,34 @@ int8_t dati::flag_ex=0;
 //     dati::command_exercise_pp = msg_command_pp.exercise;
 //     dati::command_task_pp = msg_command_pp.task;
 }
+   if(dati::command_old_pp == 13){
+     timer_rehab->stop();
+   ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
+   //    //carico la tabella dei parametri cinematici  dei pazienti
+          QSqlQueryModel *model1 = new QSqlQueryModel();
+          QSqlQuery * qry_val = new QSqlQuery(mydb2);
+           qry_val -> prepare("select Intrajoint_coordination, Normalized_jerk, Movement_arrest_period_ratio, Peak_speed_ratio, Acceleration_metric from Valutazioni  where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
+           qry_val -> exec();
+           if(qry_val->exec()) {
+           model1 -> setQuery(*qry_val);
+           ui->tableView_valutazioni->setModel(model1);
+           ui->tableView_valutazioni->resizeColumnsToContents(); }
+           else qDebug()<<qry_val->lastError();
+         //  qDebug() << (model->rowCount());
+       // carico la tabella dei parametri EMG dei pazienti
+           QSqlQueryModel *model2 = new QSqlQueryModel();
+           QSqlQuery * qry_val_emg = new QSqlQuery(mydb2);
+           qry_val_emg -> prepare ("select Per_corretta_attivazione_muscolare, Normalized_EMG_action_level, Indice_co_contrazione, Sinergie_muscolari, Active_movement_Idex from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
+           qry_val_emg-> exec();
+           if(qry_val_emg-> exec()) {
+           model2 -> setQuery(*qry_val_emg);
+           ui->tableView_parametriEMG-> setModel(model2);
+           ui->tableView_parametriEMG-> resizeColumnsToContents();
+
+
+           }}
    }
+
    //   if(dati::command_old == 8) {
 
    //     n.getParam("/point1/mat_coordinates", point1);
@@ -868,6 +895,12 @@ void paginaprincipale::on_pushButton_home_clicked()
       ui->comboBox_ex6->setCurrentIndex(0);
       ui->comboBox_ex7->setCurrentIndex(0);
 
+      dati::status1 = 13;
+
+      std_msgs::Int8 msg_status;
+      msg_status.data = dati::status1;
+      ROS_INFO ("%d", msg_status.data);
+      status_publisher.publish(msg_status);
 
 
 }
@@ -2850,26 +2883,31 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 99:
       ui->label_img->setPixmap(case99);
+      ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
 
     case 1:
       ui->label_img->setPixmap(case1_1);
+      ui->label_istr_ex->setText(istr1_1);
       qDebug()<< "case1";
       break;
 
     case 3:
       ui->label_img->setPixmap(case3_1);
+      ui->label_istr_ex->setText(istr3_1);
       qDebug()<< "case3";
       break;
 
     case 5:
       ui->label_img->setPixmap(case5_1);
+      ui->label_istr_ex->setText(istr5_1);
       qDebug()<< "case5";
       break;
 
     default:
       ui->label_img->setPixmap(def);
+      ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
 
@@ -2884,46 +2922,55 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     switch(dati::command_task_pp) {
     case 99:
       ui->label_img->setPixmap(case99);
+      ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
 
     case 1:
       ui->label_img->setPixmap(case1_3);
+      ui->label_istr_ex->setText(istr1_3);
       qDebug()<< "case1_3";
       break;
 
     case 2:
       ui->label_img->setPixmap(case2_3);
+      ui->label_istr_ex->setText(istr2_3);
       qDebug()<< "case2_3";
       break;
 
     case 3:
       ui->label_img->setPixmap(case3_3);
+      ui->label_istr_ex->setText(istr3_3);
       qDebug()<< "case3_3";
       break;
 
     case 5:
       ui->label_img->setPixmap(case5_3);
+      ui->label_istr_ex->setText(istr5_3);
       qDebug()<< "case5_3";
       break;
 
     case 6:
       ui->label_img->setPixmap(case6_3);
+      ui->label_istr_ex->setText(istr6_3);
       qDebug()<< "case6_3";
       break;
 
     case 8:
       ui->label_img->setPixmap(case8_3);
+      ui->label_istr_ex->setText(istr8_3);
       qDebug()<< "case8_3";
       break;
 
     case 9:
       ui->label_img->setPixmap(case9_3);
+      ui->label_istr_ex->setText(istr9_3);
       qDebug()<< "case9_3";
       break;
 
     default:
       ui->label_img->setPixmap(def);
+      ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
     }
@@ -2936,6 +2983,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 99:
       ui->label_img->setPixmap(case99);
+      ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
 
@@ -2947,6 +2995,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     default:
       ui->label_img->setPixmap(def_6);
+      ui->label_istr_ex->setText(istr_def6);
       qDebug()<< "casedef";
       break;
 
@@ -2960,6 +3009,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     switch(dati::command_task_pp) {
     case 99:
       ui->label_img->setPixmap(case99);
+      ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
 
@@ -2970,6 +3020,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     default:
       ui->label_img->setPixmap(def_7);
+      ui->label_istr_ex->setText(istr_def7);
       qDebug()<< "casedef";
       break;
 
