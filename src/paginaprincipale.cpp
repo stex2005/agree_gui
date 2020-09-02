@@ -2851,10 +2851,11 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
 
   QPixmap case99("/home/alice/Desktop/ex_img1/01/wait.jpg"); // ATTESA
-  QPixmap case1_1("/home/alice/Desktop/ex_img1/01/es1_2.JPG");
-  QPixmap case3_1("/home/alice/Desktop/ex_img1/01/es1_4.JPG");
-  QPixmap case5_1("/home/alice/Desktop/ex_img1/01/es1_6.JPG");
-  QPixmap def("/home/alice/Desktop/ex_img1/01/es1_1.JPG"); //POSIZIONE DI REST
+  QPixmap case1_1("/home/alice/Desktop/ex_img1/es1/es1_2.png");
+  QPixmap case3_1("/home/alice/Desktop/ex_img1/es1/es1_4.png");
+  QPixmap case5_1("/home/alice/Desktop/ex_img1/es1/es1_5.png");
+  QPixmap def("/home/alice/Desktop/ex_img1/es1/es1_1.png"); //POSIZIONE DI REST
+   QPixmap def1("/home/alice/Desktop/ex_img1/01/es1_1.JPG"); //POSIZIONE DI REST
 
   QPixmap case1_3("/home/alice/Desktop/ex_img1/03/es3_1.JPG");
   QPixmap case2_3("/home/alice/Desktop/ex_img1/03/es3_2.JPG");
@@ -2969,7 +2970,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       break;
 
     default:
-      ui->label_img->setPixmap(def);
+      ui->label_img->setPixmap(def1);
       ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;

@@ -700,7 +700,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>8</number>
+          <number>9</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -2796,7 +2796,7 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
            </property>
            <property name="font">
             <font>
-             <pointsize>16</pointsize>
+             <pointsize>23</pointsize>
              <italic>true</italic>
             </font>
            </property>
