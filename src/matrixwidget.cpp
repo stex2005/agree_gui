@@ -45,13 +45,24 @@ if(dati::command_old_matrix==7){
   qDebug()<<"dati caricati";
   }
       if(dati::command_old_matrix == 8) { //SALVO PARAMETRI DA ROSPARAMETERS
+
 qDebug()<< "callback_matrix, command_old 8";
+point0 = {15,3};
+n.setParam("/point0/mat_coordinates", point0);
+
         n.getParam("/point1/mat_coordinates", point1);
         n.getParam("/point2/mat_coordinates", point2);
         n.getParam ("/point3/mat_coordinates", point3);
+
         qDebug()<< point1;
         qDebug()<< point2;
         qDebug()<<point3;
+        // qui devo ricolorare i punti
+        //if(!(point1.at(0)==0 && point1.at(1)==0) && ) {
+
+      //}
+
+
         dati::status1 = 8;
 //?
             std_msgs::Int8 msg;
@@ -87,6 +98,9 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   //get the data point (check se ind non è fuori dalla griglia)
   DataPoint &dp = Data[Y-yindex][xindex+1 ];
 
+  //MANDO COORDINATE DEL PUNTO DI REST
+  point0 = {15,3};
+  n.setParam("/point0/mat_coordinates", point0);
   //zero non selezionabile
   if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
   if(dp.isSelected == false)
@@ -99,7 +113,9 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   //   if(dati::command_old == 9) {
 if(std::count(point1.begin(), point1.end(), zero_point1)) {
   point1 = {(xindex+1),(16-yindex)};
+
   n.setParam("/point1/mat_coordinates", point1);
+
   qDebug()<< "riempio point1";
   qDebug()<< point1;
   dati::status1 = 9;
@@ -112,7 +128,9 @@ if(std::count(point1.begin(), point1.end(), zero_point1)) {
 
 else if (std::count(point2.begin(), point2.end(), zero_point2)) {
    point2 = {(xindex+1),(16-yindex)};
+
    n.setParam("/point2/mat_coordinates", point2);
+
    qDebug()<< "riempio point2";
    qDebug()<< point2;
    dati::status1 = 9;
@@ -307,6 +325,22 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
         //    p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
          }
      }
+     if(dati::command_old_matrix==8) {
+     if(selCount==1) {
+        Data[point1.at(0)][point1.at(1)].DrawColor= Qt::blue;
+     }
+     else if(selCount==2) {
+        Data[point1.at(0)][point1.at(1)].DrawColor= Qt::blue;
+        Data[point2.at(0)][point2.at(1)].DrawColor= Qt::blue;
+     }
+     else if(selCount==3) {
+       Data[point1.at(0)][point1.at(1)].DrawColor= Qt::blue;
+       Data[point2.at(0)][point2.at(1)].DrawColor= Qt::blue;
+       Data[point3.at(0)][point3.at(1)].DrawColor= Qt::blue;
+
+     }
+     }
+
 
 }
 void MatrixWidget::LoadData()
@@ -341,7 +375,7 @@ if(dati::lato=="1"){
 
            else{
              Data[x][y].DrawColor = Qt::green;
-             Data[1][31].DrawColor = Qt::black;
+             Data[1][14].DrawColor = Qt::black;
 
            }
 
@@ -383,7 +417,7 @@ if(dati::lato=="1"){
 
           else{
             Data[x][y].DrawColor = Qt::green;
-            Data[1][1].DrawColor = Qt::black;
+            Data[1][14].DrawColor = Qt::black;
 
           }
 

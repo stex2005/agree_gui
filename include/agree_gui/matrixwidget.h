@@ -42,6 +42,8 @@ public:
 
 
  /***************          DEFINISCO ROS PARAMETERS          ******************/
+ std::vector<int> point0;
+ int zero_point0 = 0;
  std::vector<int> point1;
   int zero_point1 = 0;
  std::vector<int> point2;

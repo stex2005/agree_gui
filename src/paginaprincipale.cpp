@@ -7,6 +7,7 @@
 #include "../include/agree_gui/qnode.hpp"
 #include <QMessageBox>
 #include <QFloat16>
+#include <QMovie>
 
 int flag;
 int prova;
@@ -2851,21 +2852,23 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
 
   QPixmap case99("/home/alice/Desktop/ex_img1/01/wait.jpg"); // ATTESA
-  QPixmap case1_1("/home/alice/Desktop/ex_img1/es1/es1_2.png");
-  QPixmap case3_1("/home/alice/Desktop/ex_img1/es1/es1_4.png");
-  QPixmap case5_1("/home/alice/Desktop/ex_img1/es1/es1_5.png");
-  QPixmap def("/home/alice/Desktop/ex_img1/es1/es1_1.png"); //POSIZIONE DI REST
+  QPixmap case1_1("/home/alice/Desktop/es1_new/es1_2.png");
+  QPixmap case3_1("/home/alice/Desktop/es1_new/es1_3.png");
+  QPixmap case5_1("/home/alice/Desktop/es1_new/es1_6.png");
+  QPixmap def("/home/alice/Desktop/es1_new/es1_rest.png"); //POSIZIONE DI REST
    QPixmap def1("/home/alice/Desktop/ex_img1/01/es1_1.JPG"); //POSIZIONE DI REST
 
-  QPixmap case1_3("/home/alice/Desktop/ex_img1/03/es3_1.JPG");
-  QPixmap case2_3("/home/alice/Desktop/ex_img1/03/es3_2.JPG");
-  QPixmap case3_3("/home/alice/Desktop/ex_img1/03/es3_3.JPG");
-  QPixmap case4_3("/home/alice/Desktop/ex_img1/03/es3_4.JPG");
-  QPixmap case5_3("/home/alice/Desktop/ex_img1/03/es3_5.JPG");
-  QPixmap case6_3("/home/alice/Desktop/ex_img1/03/es3_6.JPG");
-  QPixmap case7_3("/home/alice/Desktop/ex_img1/03/es3_7.JPG");
-  QPixmap case8_3("/home/alice/Desktop/ex_img1/03/es3_8.JPG");
-  QPixmap case9_3("/home/alice/Desktop/ex_img1/03/es3_9.JPG");
+  QPixmap case1_3("/home/alice/Desktop/es3/es3_1.jpg"); //vai in centro prendi oggetto
+  //QMovie* mov2_3 = new QMovie("/home/alice/Desktop/g_es1_3.gif");
+ // QPixmap case2_3("home/alice/Desktop/g_es1_3.gif");
+  QPixmap case2_3("/home/alice/Desktop/es3/es3_2.jpg"); // sx
+  QPixmap case3_3("/home/alice/Desktop/es3/es3_3.jpg"); // rest
+  QPixmap case4_3("/home/alice/Desktop/es3/es3_4.jpg"); // sx
+  QPixmap case5_3("/home/alice/Desktop/es3/es3_5.jpg"); // dx
+  QPixmap case6_3("/home/alice/Desktop/es3/es3_6.jpg"); // rest
+  QPixmap case7_3("/home/alice/Desktop/es3/es3_7.jpg"); // dx
+  QPixmap case8_3("/home/alice/Desktop/es3/es3_8.jpg"); // centro
+  QPixmap case9_3("/home/alice/Desktop/es3/es3_9.jpg"); // rest
 
   QPixmap def_6("/home/alice/Desktop/ex_img1/06/es6_1.JPG");
   QPixmap case2_6("/home/alice/Desktop/ex_img1/06/es6_2.JPG");
@@ -2933,16 +2936,23 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       qDebug()<< "case1_3";
       break;
 
+
     case 2:
       ui->label_img->setPixmap(case2_3);
       ui->label_istr_ex->setText(istr2_3);
       qDebug()<< "case2_3";
       break;
 
-    case 3:
+
+    case 3 :
       ui->label_img->setPixmap(case3_3);
-      ui->label_istr_ex->setText(istr3_3);
-      qDebug()<< "case3_3";
+      ui->label_istr_ex->setText(istr2_3);
+          break;
+
+    case 4:
+      ui->label_img->setPixmap(case4_3);
+      ui->label_istr_ex->setText(istr4_3);
+      qDebug()<< "case4_3";
       break;
 
     case 5:
@@ -2957,10 +2967,16 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       qDebug()<< "case6_3";
       break;
 
+    case 7:
+      ui->label_img->setPixmap(case7_3);
+      ui->label_istr_ex->setText(istr7_3);
+      qDebug()<< "case8_3";
+      break;
+
     case 8:
       ui->label_img->setPixmap(case8_3);
       ui->label_istr_ex->setText(istr8_3);
-      qDebug()<< "case8_3";
+      qDebug()<< "case9_3";
       break;
 
     case 9:
@@ -2991,6 +3007,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 1:
       ui->label_img->setPixmap(case2_6);
+      ui->label_istr_ex->setText(istr2_6);
       qDebug()<< "case2_6";
       break;
 
@@ -3016,6 +3033,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 1:
       ui->label_img->setPixmap(case2_7);
+      ui->label_istr_ex->setText(istr2_7);
       qDebug()<< "case2_7";
       break;
 
@@ -3287,7 +3305,7 @@ if (flag == 4) {
     ui->radioButton_aan->setChecked(true);
 
   }
-  else if(dati::mood_prec == "Anti_g") {
+  else if(dati::mood_prec == "Anti-g") {
     ui->radioButton_ag->setChecked(true);
 
   }
