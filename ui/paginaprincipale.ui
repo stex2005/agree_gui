@@ -2718,6 +2718,14 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
              <height>471</height>
             </rect>
            </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <pointsize>25</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -2728,7 +2736,7 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
           <widget class="QPushButton" name="pushButton_next">
            <property name="geometry">
             <rect>
-             <x>590</x>
+             <x>630</x>
              <y>570</y>
              <width>211</width>
              <height>31</height>
@@ -2802,6 +2810,27 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
            </property>
            <property name="text">
             <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_ok">
+           <property name="geometry">
+            <rect>
+             <x>110</x>
+             <y>570</y>
+             <width>161</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <pointsize>15</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>OK</string>
            </property>
           </widget>
          </widget>

@@ -386,6 +386,8 @@ private slots:
 
  void on_pushButton_remove_clicked();
 
+ void on_pushButton_ok_clicked();
+
 private:
   Ui::paginaprincipale *ui;
 

@@ -109,7 +109,7 @@ int8_t dati::flag_ex=0;
 //     dati::command_exercise_pp = msg_command_pp.exercise;
 //     dati::command_task_pp = msg_command_pp.task;
 }
-   if(dati::command_old_pp == 13){
+   if(dati::command_old_pp == 14){
      timer_rehab->stop();
    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
    //    //carico la tabella dei parametri cinematici  dei pazienti
@@ -896,7 +896,7 @@ void paginaprincipale::on_pushButton_home_clicked()
       ui->comboBox_ex6->setCurrentIndex(0);
       ui->comboBox_ex7->setCurrentIndex(0);
 
-      dati::status1 = 13;
+      dati::status1 = 14;
 
       std_msgs::Int8 msg_status;
       msg_status.data = dati::status1;
@@ -1652,7 +1652,7 @@ ex_obj = {ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7};
 ros::NodeHandle n;
 n.setParam("/exercise/sequence", ex_seq);
 n.setParam("/exercise/repetition", ex_rep);
-n.setParam ("/object", ex_obj);
+n.setParam ("/exercise/objects", ex_obj);
 
 
 
@@ -2818,7 +2818,7 @@ status_publisher.publish(msg);
 /**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI                    *********************/
 void paginaprincipale::next_img() {
   qDebug()<< dati::command_exercise_pp;
-QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7;
+QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7, istr_terap, istr0_3;
   istr99 = "Resta in Attesa di una nuova istruzione";
   istr_def = "Posizione di Rest";
   istr_def6 = "Posizione di Rest";
@@ -2830,18 +2830,20 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
   istr5_1 = "Porta il braccio a destra";
 
   //ISTRUZIONI ESERCIZIO 3
-  istr1_3 = "Porta la mano in posizione di Rest";
-  istr2_3 = "Afferra l'oggetto dalla posizione centrale";
-  istr3_3 = "Porta l'oggetto a sinistra";
-  istr4_3 = "Lascia l'oggetto, quindi ritorna in Rest";
-  istr5_3= "Afferra l'oggetto";
+  istr0_3 = "Attendi che la mano sia posizionata in Rest";
+  istr1_3 = "Afferra l'oggetto dalla posizione centrale";
+  istr2_3 = "Porta l'oggetto a sinistra";
+  istr3_3 = "Lascia l'oggetto, quindi ritorna in Rest";
+  istr4_3 = "Afferra l'oggetto";
+  istr5_3= "Porta l'oggetto a destra";
 
-  istr6_3 = "Porta l'oggetto a destra";
-  istr7_3 = "Lascia l'oggetto e ritorna in Rest";
-  istr8_3="Afferra l'oggetto";
-  istr9_3 = "Porta l'oggetto in posizione centrale";
+  istr6_3 = "Lascia l'oggetto e ritorna in Rest";
+  istr7_3 = "Afferra l'oggetto";
+  istr8_3="Porta l'oggetto in posizione centrale";
+  istr9_3 = "Torna in posizione di Rest";
 
   //ISTRUZIONI ESERCIZIO 6
+  istr_terap = "Terapista, posiziona l'oggetto in posizione di rest ";
   istr2_6 = "porta l'oggetto alla bocca";
 
 
@@ -2870,27 +2872,39 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
   QPixmap case8_3("/home/alice/Desktop/es3/es3_8.jpg"); // centro
   QPixmap case9_3("/home/alice/Desktop/es3/es3_9.jpg"); // rest
 
-  QPixmap def_6("/home/alice/Desktop/ex_img1/06/es6_1.JPG");
-  QPixmap case2_6("/home/alice/Desktop/ex_img1/06/es6_2.JPG");
+  QPixmap def_6("/home/alice/Desktop/es6/es6_1.jpeg");
+  QPixmap case2_6("/home/alice/Desktop/es6/es6_2.jpeg");
 
   QPixmap def_7("/home/alice/Desktop/ex_img1/07/es7_1.JPG");
   QPixmap case2_7("/home/alice/Desktop/ex_img1/07/es7_2.JPG");
+
+  QPixmap feedback_happy("/home/alice/Desktop/smile.jpeg");
 
 
 
   /**********************          SCORRO LE IMMAGINI DEGLI ESERCIZI FUNZIONE NUOVA             *********************/
   switch (dati::command_exercise_pp) {
+
 //ESERCIZIO REACHING NEL PIANO SENZA OGGETTI
+
   case 1 :
     qDebug()<< dati::command_task_pp;
     switch (dati::command_task_pp) {
+
+    case 100: // SCHERMATA ESERCIZIO
+      // mostro foto dell'esercizio 1
+      ui->label_img-> setText("Iniziamo esercizio di reaching \ndei punti. \nPremere OK per iniziare.");
+
+      break;
 
     case 99:
       ui->label_img->setPixmap(case99);
       ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
-
+   case 0:
+      ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+      break;
     case 1:
       ui->label_img->setPixmap(case1_1);
       ui->label_istr_ex->setText(istr1_1);
@@ -2909,11 +2923,17 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       qDebug()<< "case5";
       break;
 
+     case 102: //FEEDBACK
+      ui->label_img->setPixmap(feedback_happy);
+      ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+      break;
+
     default:
       ui->label_img->setPixmap(def);
       ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
+
 
 
     }   // end switch task
@@ -2924,11 +2944,27 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
   case 3:
     qDebug()<< dati::command_task_pp;
     switch(dati::command_task_pp) {
+
+    case 100: // SCHERMATA ESERCIZIO
+      // mostro foto dell'esercizio 1
+      ui->label_img-> setText("Iniziamo esercizio di \nreaching dei punti con oggetto. \nPremere OK per iniziare.");
+
+      break;
+
+    case 0:
+       ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+       break;
+
+    case 101: // POSIZIONAMENTO OGGETTO
+      ui->label_img->setText("Terapista, posiziona l'oggetto \nsul punto del pad illuminato. \nQuindi premi OK");
+      break;
     case 99:
       ui->label_img->setPixmap(case99);
       ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
+
+
 
     case 1:
       ui->label_img->setPixmap(case1_3);
@@ -2985,8 +3021,13 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       qDebug()<< "case9_3";
       break;
 
+    case 102: // FEEDBACK
+     ui->label_img->setPixmap(feedback_happy);
+     ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+     break;
+
     default:
-      ui->label_img->setPixmap(def1);
+      ui->label_img->setPixmap(case1_3);
       ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
@@ -2998,11 +3039,25 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     qDebug()<< dati::command_task_pp;
     switch(dati::command_task_pp) {
 
+    case 100: // SCHERMATA ESERCIZIO
+      // mostro foto dell'esercizio 1
+      ui->label_img-> setText("Iniziamo esercizio \nMano alla bocca con oggetto. \nPremere OK per iniziare.");
+
+      break;
+   case 101: //POSIZIONAMENO OGGETTO
+   ui->label_img-> setText("Terapista aggancia l'oggetto \n alla mano del paziente.\nQuindi premi OK");
+
+      break;
     case 99:
       ui->label_img->setPixmap(case99);
       ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
+
+    case 0:
+       ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+       break;
+
 
 
     case 1:
@@ -3011,11 +3066,24 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       qDebug()<< "case2_6";
       break;
 
+    case 2:
+      ui->label_img->setPixmap(def_6);
+      ui->label_istr_ex->setText(istr_def6);
+      qDebug()<< "case2_6";
+      break;
+
+    case 102: //FEEDBACK
+     ui->label_img->setPixmap(feedback_happy);
+     ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+     break;
+
     default:
       ui->label_img->setPixmap(def_6);
       ui->label_istr_ex->setText(istr_def6);
       qDebug()<< "casedef";
       break;
+
+
 
 
     }
@@ -3036,6 +3104,11 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       ui->label_istr_ex->setText(istr2_7);
       qDebug()<< "case2_7";
       break;
+
+    case 102: //FEEDBACK PAZIENTE
+     ui->label_img->setPixmap(feedback_happy);
+     ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+     break;
 
     default:
       ui->label_img->setPixmap(def_7);
@@ -3395,6 +3468,21 @@ void paginaprincipale::on_pushButton_remove_clicked()
     ui->checkBox_ex2->setChecked(false);
     dati::flag_ex--;
      qDebug()<<dati::flag_ex;
+  }
+
+}
+
+void paginaprincipale::on_pushButton_ok_clicked()
+{
+  if(dati::command_old_pp == 12) {
+    dati::status1=12;
+  msg_status_pp.data = dati::status1;
+  status_publisher.publish(msg_status_pp);
+  }
+  if(dati::command_old_pp ==13) {
+    dati::status1=13;
+  msg_status_pp.data = dati::status1;
+  status_publisher.publish(msg_status_pp);
   }
 
 }
