@@ -2820,30 +2820,30 @@ void paginaprincipale::next_img() {
   qDebug()<< dati::command_exercise_pp;
 QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7, istr_terap, istr0_3;
   istr99 = "Resta in Attesa di una nuova istruzione";
-  istr_def = "Posizione di Rest";
-  istr_def6 = "Posizione di Rest";
-  istr_def7 = "Posizione di Rest";
+  istr_def = "Posizione di Riposo";
+ // istr_def6 = "Posizione di Riposo";
+//  istr_def7 = "Posizione di Riposo";
 
   //ISTRUZIONI ESERCIZIO 1
-  istr1_1 = "Porta il braccio a sinistra";
-  istr3_1 = "Porta il braccio in posizione centrale";
-  istr5_1 = "Porta il braccio a destra";
+  istr1_1 = "Porta il braccio sul punto Rosso";
+  istr3_1 = "Porta il braccio sul punto Rosso";
+  istr5_1 = "Porta il braccio sul punto Rosso";
 
   //ISTRUZIONI ESERCIZIO 3
-  istr0_3 = "Attendi che la mano sia posizionata in Rest";
-  istr1_3 = "Afferra l'oggetto dalla posizione centrale";
-  istr2_3 = "Porta l'oggetto a sinistra";
-  istr3_3 = "Lascia l'oggetto, quindi ritorna in Rest";
-  istr4_3 = "Afferra l'oggetto";
-  istr5_3= "Porta l'oggetto a destra";
+//  istr0_3 = "Attendi che la mano sia posizionata in posizione di riposo";
+//  istr1_3 = "Prendi l'oggetto dalla posizione centrale";
+//  istr2_3 = "Porta l'oggetto a sinistra";
+//  istr3_3 = "Lascia l'oggetto, quindi ritorna in posizione di riposo";
+//  istr4_3 = "Prendi l'oggetto";
+//  istr5_3= "Porta l'oggetto a destra";
 
-  istr6_3 = "Lascia l'oggetto e ritorna in Rest";
-  istr7_3 = "Afferra l'oggetto";
-  istr8_3="Porta l'oggetto in posizione centrale";
-  istr9_3 = "Torna in posizione di Rest";
+//  istr6_3 = "Lascia l'oggetto e ritorna in posizione di riposo";
+//  istr7_3 = "Prendi l'oggetto";
+//  istr8_3="Porta l'oggetto in posizione centrale";
+//  istr9_3 = "Torna in posizione di Rest";
 
   //ISTRUZIONI ESERCIZIO 6
-  istr_terap = "Terapista, posiziona l'oggetto in posizione di rest ";
+  istr_terap = "Terapista, posiziona l'oggetto in posizione di riposo ";
   istr2_6 = "porta l'oggetto alla bocca";
 
 
@@ -2853,32 +2853,56 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
   istr2_7= "Eleva il braccio lateralmente";
 
 
-  QPixmap case99("/home/alice/Desktop/ex_img1/01/wait.jpg"); // ATTESA
+  QPixmap case99("/home/alice/Desktop/wait.jpg"); // ATTESA
+  //QPixmap case99("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/wait.jpg"); // ATTESA
   QPixmap case1_1("/home/alice/Desktop/es1_new/es1_2.png");
+  //QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_2.png");
   QPixmap case3_1("/home/alice/Desktop/es1_new/es1_3.png");
+  //QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_3.png");
   QPixmap case5_1("/home/alice/Desktop/es1_new/es1_6.png");
+  //QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_6.png");
   QPixmap def("/home/alice/Desktop/es1_new/es1_rest.png"); //POSIZIONE DI REST
+  //QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_rest.png");
    QPixmap def1("/home/alice/Desktop/ex_img1/01/es1_1.JPG"); //POSIZIONE DI REST
+   //QPixmap def1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/01/es1_1.JPG");
 
-  QPixmap case1_3("/home/alice/Desktop/es3/es3_1.jpg"); //vai in centro prendi oggetto
-  //QMovie* mov2_3 = new QMovie("/home/alice/Desktop/g_es1_3.gif");
- // QPixmap case2_3("home/alice/Desktop/g_es1_3.gif");
-  QPixmap case2_3("/home/alice/Desktop/es3/es3_2.jpg"); // sx
-  QPixmap case3_3("/home/alice/Desktop/es3/es3_3.jpg"); // rest
-  QPixmap case4_3("/home/alice/Desktop/es3/es3_4.jpg"); // sx
-  QPixmap case5_3("/home/alice/Desktop/es3/es3_5.jpg"); // dx
-  QPixmap case6_3("/home/alice/Desktop/es3/es3_6.jpg"); // rest
-  QPixmap case7_3("/home/alice/Desktop/es3/es3_7.jpg"); // dx
-  QPixmap case8_3("/home/alice/Desktop/es3/es3_8.jpg"); // centro
-  QPixmap case9_3("/home/alice/Desktop/es3/es3_9.jpg"); // rest
+
+  QPixmap case1_3("/home/alice/Desktop/new/es3_1.jpg"); //vai in centro prendi oggetto
+  //QPixmap case1_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_1.jpg");
+
+
+  QPixmap case2_3("/home/alice/Desktop/new/es3_2.jpg"); // sx
+  //QPixmap case2_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_2.jpg");
+
+  QPixmap case3_3("/home/alice/Desktop/new/es3_3.jpg"); // rest
+  //QPixmap case3_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_3.jpg");
+
+  QPixmap case4_3("/home/alice/Desktop/new/es3_4.jpg"); // sx
+  //QPixmap case4_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_4.jpg");
+  QPixmap case5_3("/home/alice/Desktop/new/es3_5.jpg"); // dx
+  //QPixmap case5_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_5.jpg");
+  QPixmap case6_3("/home/alice/Desktop/new/es3_6.jpg"); // rest
+  //QPixmap case6_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_6.jpg");
+  QPixmap case7_3("/home/alice/Desktop/new/es3_7.jpg"); // dx
+  //QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_7.jpg");
+  QPixmap case8_3("/home/alice/Desktop/new/es3_8.jpg"); // centro
+  //QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_8.jpg");
+  QPixmap case9_3("/home/alice/Desktop/new/es3_9.jpg"); // rest
+  //QPixmap case9_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_9.jpg");
 
   QPixmap def_6("/home/alice/Desktop/es6/es6_1.jpeg");
+  //QPixmap def_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es6/es6_1.jpeg");
   QPixmap case2_6("/home/alice/Desktop/es6/es6_2.jpeg");
+  //QPixmap case2_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es6/es6_2.jpeg");
 
   QPixmap def_7("/home/alice/Desktop/ex_img1/07/es7_1.JPG");
+  //QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_1.JPG");
   QPixmap case2_7("/home/alice/Desktop/ex_img1/07/es7_2.JPG");
+  //QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_2.JPG");
+
 
   QPixmap feedback_happy("/home/alice/Desktop/smile.jpeg");
+  //QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
 
 
 
@@ -2893,7 +2917,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
-      ui->label_img-> setText("Iniziamo esercizio di reaching \ndei punti. \nPremere OK per iniziare.");
+      ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento dei punti. \nPremere OK per iniziare.");
 
       break;
 
@@ -2903,7 +2927,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       qDebug()<< "case99";
       break;
    case 0:
-      ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+      ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
       break;
     case 1:
       ui->label_img->setPixmap(case1_1);
@@ -2947,7 +2971,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
-      ui->label_img-> setText("Iniziamo esercizio di \nreaching dei punti con oggetto. \nPremere OK per iniziare.");
+      ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento punti con oggetto. \nPremere OK per iniziare.");
 
       break;
 
@@ -2968,56 +2992,56 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 1:
       ui->label_img->setPixmap(case1_3);
-      ui->label_istr_ex->setText(istr1_3);
+     // ui->label_istr_ex->setText(istr1_3);
       qDebug()<< "case1_3";
       break;
 
 
     case 2:
       ui->label_img->setPixmap(case2_3);
-      ui->label_istr_ex->setText(istr2_3);
+     // ui->label_istr_ex->setText(istr2_3);
       qDebug()<< "case2_3";
       break;
 
 
     case 3 :
       ui->label_img->setPixmap(case3_3);
-      ui->label_istr_ex->setText(istr2_3);
+     // ui->label_istr_ex->setText(istr3_3);
           break;
 
     case 4:
       ui->label_img->setPixmap(case4_3);
-      ui->label_istr_ex->setText(istr4_3);
+      //ui->label_istr_ex->setText(istr4_3);
       qDebug()<< "case4_3";
       break;
 
     case 5:
       ui->label_img->setPixmap(case5_3);
-      ui->label_istr_ex->setText(istr5_3);
+      //ui->label_istr_ex->setText(istr5_3);
       qDebug()<< "case5_3";
       break;
 
     case 6:
       ui->label_img->setPixmap(case6_3);
-      ui->label_istr_ex->setText(istr6_3);
+      //ui->label_istr_ex->setText(istr6_3);
       qDebug()<< "case6_3";
       break;
 
     case 7:
       ui->label_img->setPixmap(case7_3);
-      ui->label_istr_ex->setText(istr7_3);
+      //ui->label_istr_ex->setText(istr7_3);
       qDebug()<< "case8_3";
       break;
 
     case 8:
       ui->label_img->setPixmap(case8_3);
-      ui->label_istr_ex->setText(istr8_3);
+      //ui->label_istr_ex->setText(istr8_3);
       qDebug()<< "case9_3";
       break;
 
     case 9:
       ui->label_img->setPixmap(case9_3);
-      ui->label_istr_ex->setText(istr9_3);
+      //ui->label_istr_ex->setText(istr9_3);
       qDebug()<< "case9_3";
       break;
 
@@ -3028,7 +3052,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     default:
       ui->label_img->setPixmap(case1_3);
-      ui->label_istr_ex->setText(istr_def);
+    //  ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
     }
