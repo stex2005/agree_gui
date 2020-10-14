@@ -76,7 +76,7 @@ mydb.setPassword("ali");
      query.first();
      dati::count= query.value(0).toString();
 
-    // qDebug()<< dati::count;
+
    }
 
 /**********************       CONNETTO LOGIN CON PAGINAPRINCIPALE                  *********************/
@@ -92,25 +92,7 @@ login::~login()
 {
   delete ui;
 }
-//void login::cambia_status(){
-//  if((dati::command_old) != (dati::command)) {
-//    dati::command_old=dati::command;
-//    ROS_INFO("I heard: %d Log Page", dati::command);
 
-//    if (dati::command_old == 2) {
-
-//      this->hide();
-////      ROS_INFO("HIDED");
-//     Paginaprincipale = new paginaprincipale();
-
-////      ROS_INFO("OPEN PAGINAPRINCIPALE");
-//      connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
-////      ROS_INFO("CONNECT PAGINA PRINCIPALE");
-//      Paginaprincipale -> show();
-////      ROS_INFO("SHOW PAGINA PRINCIPALE");
-//   }
-//  }
-//}
 void login::callback_log(const agree_gui::agree_gui_command msg_command) {
   dati::command_login = msg_command.mode;
 //cambia_status();
@@ -121,14 +103,7 @@ void login::callback_log(const agree_gui::agree_gui_command msg_command) {
     if (dati::command_old_login == 2) {
 
       this->hide();
-//      ROS_INFO("HIDED");
-//     Paginaprincipale = new paginaprincipale();
 
-//      ROS_INFO("OPEN PAGINAPRINCIPALE");
-//      connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
-//      ROS_INFO("CONNECT PAGINA PRINCIPALE");
-//      Paginaprincipale -> show();
-//      ROS_INFO("SHOW PAGINA PRINCIPALE");
    }
   }
 }
@@ -173,7 +148,7 @@ void login::on_pushButton_accedi_clicked()
              while(query.next()){
                  dati::profilo = query.value(0).toInt();
              }
-    // qDebug () << dati::profilo;
+
 
      if (dati::profilo == 1){
        dati::status1 =1;
@@ -181,11 +156,7 @@ void login::on_pushButton_accedi_clicked()
        ROS_INFO ("Push button ################# %d", msg_status.data);
        status_publisher.publish(msg_status);
 
-//       if (dati::command == 2) {
-//         this->hide();
-//         Paginaprincipale = new paginaprincipale();
-//         Paginaprincipale->show();
-//       }
+
 
 
 
@@ -297,11 +268,7 @@ if (dati::password == Conferma) {
          msg.data = dati::status1;
          ROS_INFO ("sbagliato? %d", msg.data);
          status_publisher.publish(msg);
-//         ss_log1_new << "ho effettuato il  nuovo login per lo scenario I" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-//         msg.data = ss_log1_new.str();
-//       status_publisher.publish(msg);
-//       ROS_INFO_STREAM(msg);
-         //mydb.close();
+
         }
         else if(dati::profilo == 3) {
 

@@ -700,7 +700,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>9</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -1121,25 +1121,20 @@ background-color: rgb(157, 241, 161);</string>
           <attribute name="title">
            <string>Inizializzazione </string>
           </attribute>
-          <widget class="QLabel" name="label_18">
+          <widget class="QLabel" name="label_wait">
            <property name="geometry">
             <rect>
-             <x>300</x>
-             <y>180</y>
-             <width>791</width>
-             <height>101</height>
+             <x>40</x>
+             <y>30</y>
+             <width>1421</width>
+             <height>571</height>
             </rect>
            </property>
-           <property name="font">
-            <font>
-             <family>OpenSymbol</family>
-             <pointsize>20</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;E' in corso l'Inizializzazione di AGREE. Attendere...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
           </widget>
          </widget>
@@ -2618,8 +2613,8 @@ background-color: rgb(157, 241, 161);</string>
           <widget class="QLabel" name="label_28">
            <property name="geometry">
             <rect>
-             <x>80</x>
-             <y>80</y>
+             <x>170</x>
+             <y>10</y>
              <width>1151</width>
              <height>321</height>
             </rect>
@@ -2637,11 +2632,19 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
           <widget class="QPushButton" name="pushButton_2">
            <property name="geometry">
             <rect>
-             <x>460</x>
-             <y>520</y>
-             <width>291</width>
-             <height>25</height>
+             <x>530</x>
+             <y>420</y>
+             <width>391</width>
+             <height>101</height>
             </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
            </property>
            <property name="text">
             <string>Fatto</string>
@@ -2658,23 +2661,23 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
              <widget class="QLabel" name="label_20">
               <property name="geometry">
                <rect>
-                <x>210</x>
-                <y>20</y>
+                <x>20</x>
+                <y>10</y>
                 <width>1381</width>
                 <height>141</height>
                </rect>
               </property>
               <property name="font">
                <font>
-                <family>OpenSymbol</family>
-                <pointsize>20</pointsize>
+                <family>Ubuntu</family>
+                <pointsize>25</pointsize>
                 <weight>50</weight>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
               </property>
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Selezionare 3 punti nella zona Verde con un click del mouse. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Per deselezionare cliccare nuovamente sul punto desiderato. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Ad operazione ultimata premere Salva&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Selezionare 3 punti nella zona Verde con un click del mouse. &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Per deselezionare cliccare nuovamente sul punto desiderato. &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Ad operazione ultimata premere Salva&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="textFormat">
                <enum>Qt::AutoText</enum>
@@ -2831,6 +2834,74 @@ dopo aver verificato la comodità del paziente premi il tasto Fatto</string>
            </property>
            <property name="text">
             <string>OK</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_EX">
+           <property name="geometry">
+            <rect>
+             <x>1220</x>
+             <y>60</y>
+             <width>131</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <pointsize>15</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>ESERCIZIO</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_REP">
+           <property name="geometry">
+            <rect>
+             <x>1220</x>
+             <y>100</y>
+             <width>151</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Sans</family>
+             <pointsize>15</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>RIPETIZIONE</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_31">
+           <property name="geometry">
+            <rect>
+             <x>1370</x>
+             <y>60</y>
+             <width>101</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TOT/TAT</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_32">
+           <property name="geometry">
+            <rect>
+             <x>1370</x>
+             <y>100</y>
+             <width>101</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TOT/TAT</string>
            </property>
           </widget>
          </widget>

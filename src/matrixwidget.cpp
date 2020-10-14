@@ -57,7 +57,12 @@ n.setParam("/point0/mat_coordinates", point0);
         qDebug()<< point1;
         qDebug()<< point2;
         qDebug()<<point3;
+        qDebug()<<selCount;
         // qui devo ricolorare i punti
+
+
+
+
         //if(!(point1.at(0)==0 && point1.at(1)==0) && ) {
 
       //}
@@ -72,12 +77,31 @@ n.setParam("/point0/mat_coordinates", point0);
 
       }
       if(dati::command_old_matrix == 9) {
+        if(selCount==1)
+        {
+          Data[point1.at(1)][point1.at(0)].DrawColor = Qt::blue;
+          qDebug()<< "cisiamoooo";
+
+        }
+        else if (selCount==2) {
+          Data[point1.at(1)][point1.at(0)].DrawColor = Qt::blue;
+          Data[point2.at(1)][point2.at(0)].DrawColor = Qt::blue;
+          qDebug()<< "cisiamoooo2";
+        }
+        else if (selCount ==3) {
+          Data[point1.at(1)][point1.at(0)].DrawColor = Qt::blue;
+          Data[point2.at(1)][point2.at(0)].DrawColor = Qt::blue;
+          Data[point3.at(1)][point3.at(0)].DrawColor = Qt::blue;
+          qDebug()<< "cisiamoooo3";
+
+        }
 //        n.setParam("/point1/mat_coordinates", point1);
 //        n.setParam("/point2/mat_coordinates", point2);
 //        n.setParam("/point3/mat_coordinates", point3);
         qDebug()<< point1;
         qDebug()<< point2;
         qDebug()<<point3;
+
 
       }
     }
@@ -325,21 +349,7 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
         //    p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
          }
      }
-     if(dati::command_old_matrix==8) {
-     if(selCount==1) {
-        Data[point1.at(0)][point1.at(1)].DrawColor= Qt::blue;
-     }
-     else if(selCount==2) {
-        Data[point1.at(0)][point1.at(1)].DrawColor= Qt::blue;
-        Data[point2.at(0)][point2.at(1)].DrawColor= Qt::blue;
-     }
-     else if(selCount==3) {
-       Data[point1.at(0)][point1.at(1)].DrawColor= Qt::blue;
-       Data[point2.at(0)][point2.at(1)].DrawColor= Qt::blue;
-       Data[point3.at(0)][point3.at(1)].DrawColor= Qt::blue;
 
-     }
-     }
 
 
 }
@@ -376,6 +386,24 @@ if(dati::lato=="1"){
            else{
              Data[x][y].DrawColor = Qt::green;
              Data[1][14].DrawColor = Qt::black;
+             if(dati::command_old_matrix==9){
+               qDebug()<<"dati old matrix 9";
+             if(selCount==1)
+             {
+               Data[point1.at(0)][point1.at(1)].DrawColor = Qt::blue;
+             }
+             else if (selCount==2) {
+               Data[point1.at(0)][point1.at(1)].DrawColor = Qt::blue;
+               Data[point2.at(0)][point2.at(1)].DrawColor = Qt::blue;
+             }
+             else if (selCount ==3) {
+               Data[point1.at(0)][point1.at(1)].DrawColor = Qt::blue;
+               Data[point2.at(0)][point2.at(1)].DrawColor = Qt::blue;
+               Data[point3.at(0)][point3.at(1)].DrawColor = Qt::blue;
+
+             }
+}
+
 
            }
 

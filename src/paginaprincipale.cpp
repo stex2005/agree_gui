@@ -197,8 +197,6 @@ connect(ui->comboBox_ex6, SIGNAL (currentTextChanged(QString)), this, SLOT(enabl
 connect(ui->comboBox_ex7, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
 
 //connect(ui->lineEdit_ex1, SIGNAL(TextChanged(QString)),this, SLOT(update_tempo_terapia(QString)));
-
-
 connect(ui->lineEdit_ex1, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
 connect(ui->lineEdit_ex2, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
 connect(ui->lineEdit_ex3, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
@@ -269,6 +267,9 @@ connect(timer_feedback, SIGNAL(timeout()), this, SLOT(show_feed()));
     QPixmap pic11("/home/alice/catkin_ws/src/agree_gui/resources/images/img/ROM/polso.png");
     ui->label_16->setPixmap(pic11);
 
+    QPixmap pic12("/home/alice/Desktop/init_agree4.png");
+    ui->label_wait->setPixmap(pic12);
+
 // setto icone
    ui->pushButton_cerca_3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Zoom.png"));
    ui->pushButton_elencoPazienti->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Database.png"));
@@ -304,14 +305,6 @@ ui->label_date->setText(data.toString());
 
 
   QSqlDatabase mydb2 = QSqlDatabase::database();
-
-
-
-
-
-
-
-
 }
 
 paginaprincipale::~paginaprincipale()
@@ -393,7 +386,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
        QMessageBox::warning(this,tr("Attenzione"), tr("Inserire Nome e Cognome del paziente!"));
      }
    }
-// se esiste già non è eseguo la  query
+// se esiste già non  eseguo la  query
       else if (cont==1)
       {
         QMessageBox ::critical(this,tr("Errore"),tr("Attenzione: Paziente già presente nel database"));
@@ -461,16 +454,7 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
     {
       dati::NomeP = qry7.value(0).toString();
       dati::CognomeP = qry7.value(1).toString();
-//      QMessageBox msgBox;
-//      msgBox.setText("The document has been modified.");
-//      msgBox.setInformativeText("Do you want to save your changes?");
-//      msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-//      msgBox.setDefaultButton(QMessageBox::Save);
-//      int ret = msgBox.exec();
-//      QMessageBox risposta(QMessageBox::Question ,tr("Conferma"), tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No,this);
-//      QAbstractButton* pButtonYes =    risposta.setButtonText(QMessageBox::Yes, tr("Conferma"));
-//      QAbstractButton* pButtonNo =     risposta.setButtonText(QMessageBox::No, tr("No"));
-    //      if (risposta.exec()==QMessageBox::Yes)
+
       QMessageBox risposta;
       risposta.setText(tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP));
       QAbstractButton* pButtonYes = risposta.addButton(tr("Conferma"), QMessageBox::YesRole);
@@ -576,10 +560,6 @@ void paginaprincipale::on_pushButton_utente_clicked()
            dati::count_act= prova1.value(0).toString();
            qDebug()<< dati::count_act;
       }
-
-
-
-
 }
 
 /**********************       SALVO DATI UTENTE NUOVI                       *********************/
@@ -632,7 +612,7 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
   {
     QMessageBox ::critical(this,tr("Errore"),tr("bo3"));
   }
-   // QString text = (("Utente: %1 %2 ").arg(dati::Nome) .arg(dati::Cognome));
+
     ui->label_status->setText(QString("Utente: %1 %2").arg(dati::Nome) .arg(dati::Cognome));
 }
 
@@ -656,15 +636,9 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
       QAbstractButton* pButtonNo =  risposta.addButton(tr("No"), QMessageBox::NoRole);
       risposta.exec();
       if(risposta.clickedButton()==pButtonYes)
-     // QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Conferma"), tr("Si è scelto di iniziare la sessione di terapia del paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP), QMessageBox::Yes | QMessageBox::No);
-     // if (risposta==QMessageBox::Yes)
-      {
-//        dati::status1 = 3;
 
-//               std_msgs::Int8 msg;
-//               msg.data = dati::status1;
-//               ROS_INFO ("%d", msg.data);
-//               status_publisher.publish(msg);
+      {
+
         QSqlQuery selezione; // selezioni l'ultima riga salvata con questo codice id
         selezione.prepare ("select *  from Parametri_Paziente where Codice_ID = '"+dati::ind+"' order by Data_acquisizione desc limit 1");
         if (selezione.exec())
@@ -824,13 +798,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
                   else {
                     ui->checkBox_MAP_2->setChecked(false);
                   }
-//                  if(!(dati::l_oi_p==0))
-//                  {
-//                    ui->checkBox_oi_2->setChecked(true);
-//                  }
-//                  else {
-//                    ui->checkBox_oi_2->setChecked(false);
-//                  }
+
 
        }
        ui->tabWidget->setCurrentWidget(ui->tab_2);
@@ -1014,8 +982,7 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
     }
     else {
     QSqlQuery qry9;
-  // qry9.prepare("insert into Parametri_Paziente (Codice_ID, UsernameDOC, Data_acquisizione, ROM1_min, ROM1_max, ROM2_min, ROM2_max, ROM3_min, ROM3_max, ROM4_min, ROM4_max, ROM5_min, ROM5_max) values('"+dati::ind+"', '"+dati::username+"', '"+dati::data1+"','"+FESm1+"', '"+FESM1+"', '"+AASm1+"', '"+AASM1+"', '"+RIESm1+"', '"+RIESM1+"', '"+Gm1+"', '"+GM1+"', '"+Pm1+"', '"+PM1+"') ");
-    qry9.prepare("update Parametri_Paziente set ROM1_min = '"+FESm1+"', ROM1_max= '"+FESM1+"', ROM2_min= '"+AASm1+"', ROM2_max= '"+AASM1+"', ROM3_min= '"+RIESm1+"', ROM3_max= '"+RIESM1+"', ROM4_min= '"+Gm1+"', ROM4_max= '"+GM1+"', ROM5_min = '"+Pm1+"', ROM5_max= '"+PM1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+     qry9.prepare("update Parametri_Paziente set ROM1_min = '"+FESm1+"', ROM1_max= '"+FESM1+"', ROM2_min= '"+AASm1+"', ROM2_max= '"+AASM1+"', ROM3_min= '"+RIESm1+"', ROM3_max= '"+RIESM1+"', ROM4_min= '"+Gm1+"', ROM4_max= '"+GM1+"', ROM5_min = '"+Pm1+"', ROM5_max= '"+PM1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
     qry9.exec();
     if (qry9.exec())
         {
@@ -1632,11 +1599,7 @@ selezione.exec();
 if (selezione.exec())
 {
   QMessageBox ::information(this,tr("Salvato"),tr("Set di esercizi salvati"));
-  // mando messaggio che ho salvato esercizi
-//  ss3 << "ho salvato il set di esercizi  " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-//  msg.data = ss3.str();
-//status_publisher.publish(msg);
-//ROS_INFO_STREAM(msg);
+
 
  /******************       AGGIORNO TOPIC STATUS : FINISHED EXERCISE SEQUENCE                 ***********************/
 //std_msgs::Int8 msg_status;
@@ -1653,10 +1616,6 @@ ros::NodeHandle n;
 n.setParam("/exercise/sequence", ex_seq);
 n.setParam("/exercise/repetition", ex_rep);
 n.setParam ("/exercise/objects", ex_obj);
-
-
-
-
 
 }
 else {
@@ -1899,12 +1858,6 @@ void paginaprincipale::on_pushButton_controllo_clicked()
         {
          mode = 2;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva con Trigger"));
-//         ss << "ho salvato la configurazione " ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-//         msg.data = ss.str();
-//       chatter_publisher.publish(msg);
-
-
-
 
        }
        else {
@@ -1924,10 +1877,6 @@ void paginaprincipale::on_pushButton_controllo_clicked()
          mode = 1;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva"));
 
-
-
-
-
        }
        else {
           QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -1944,10 +1893,6 @@ void paginaprincipale::on_pushButton_controllo_clicked()
         {
          mode = 3;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Assisted As Needed"));
-
-
-
-
 
        }
        else {
@@ -1966,9 +1911,6 @@ void paginaprincipale::on_pushButton_controllo_clicked()
          mode = 4;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Anti Gravitario"));
 
-
-
-
        }
        else {
           QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -1986,10 +1928,6 @@ void paginaprincipale::on_pushButton_controllo_clicked()
          mode = 5;
          QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Challenging"));
 
-
-
-
-
        }
        else {
           QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -2005,22 +1943,12 @@ void paginaprincipale::on_pushButton_controllo_clicked()
          r5 = ui->lineEdit_ex5->placeholderText();
          r6 = ui->lineEdit_ex6->placeholderText();
          r7= ui->lineEdit_ex7->placeholderText();
-//         ui->lineEdit_ex1->setText(r1);
-//         ui->lineEdit_ex2->setText(r2);
-//         ui->lineEdit_ex3->setText(r3);
-//         ui->lineEdit_ex4->setText(r4);
-//         ui->lineEdit_ex5->setText(r5);
-//         ui->lineEdit_ex6->setText(r6);
-//         ui->lineEdit_ex7->setText(r7);
+
 
 
          ros::NodeHandle n;
          n.setParam ("/exercise/mode", mode);
-// modalità
-//    ss1 << "ho salvato la configurazione" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-//    msg.data = ss1.str();
-//  status_publisher.publish(msg);
-//  ROS_INFO_STREAM(msg);
+
 
 
                      if (flag==4) {
@@ -2972,19 +2900,22 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
       ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento punti con oggetto. \nPremere OK per iniziare.");
-
+       ui->pushButton_ok->setEnabled(false);
       break;
 
     case 0:
        ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+        ui->pushButton_ok->setEnabled(true);
        break;
 
     case 101: // POSIZIONAMENTO OGGETTO
       ui->label_img->setText("Terapista, posiziona l'oggetto \nsul punto del pad illuminato. \nQuindi premi OK");
+       ui->pushButton_ok->setEnabled(false);
       break;
     case 99:
       ui->label_img->setPixmap(case99);
       ui->label_istr_ex->setText(istr99);
+       ui->pushButton_ok->setEnabled(true);
       qDebug()<< "case99";
       break;
 
@@ -2992,6 +2923,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 1:
       ui->label_img->setPixmap(case1_3);
+       ui->pushButton_ok->setEnabled(true);
      // ui->label_istr_ex->setText(istr1_3);
       qDebug()<< "case1_3";
       break;
@@ -2999,6 +2931,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 2:
       ui->label_img->setPixmap(case2_3);
+       ui->pushButton_ok->setEnabled(true);
      // ui->label_istr_ex->setText(istr2_3);
       qDebug()<< "case2_3";
       break;
@@ -3006,41 +2939,48 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 3 :
       ui->label_img->setPixmap(case3_3);
+       ui->pushButton_ok->setEnabled(true);
      // ui->label_istr_ex->setText(istr3_3);
           break;
 
     case 4:
       ui->label_img->setPixmap(case4_3);
+       ui->pushButton_ok->setEnabled(true);
       //ui->label_istr_ex->setText(istr4_3);
       qDebug()<< "case4_3";
       break;
 
     case 5:
       ui->label_img->setPixmap(case5_3);
+       ui->pushButton_ok->setEnabled(true);
       //ui->label_istr_ex->setText(istr5_3);
       qDebug()<< "case5_3";
       break;
 
     case 6:
       ui->label_img->setPixmap(case6_3);
+       ui->pushButton_ok->setEnabled(true);
       //ui->label_istr_ex->setText(istr6_3);
       qDebug()<< "case6_3";
       break;
 
     case 7:
       ui->label_img->setPixmap(case7_3);
+       ui->pushButton_ok->setEnabled(true);
       //ui->label_istr_ex->setText(istr7_3);
       qDebug()<< "case8_3";
       break;
 
     case 8:
       ui->label_img->setPixmap(case8_3);
+       ui->pushButton_ok->setEnabled(true);
       //ui->label_istr_ex->setText(istr8_3);
       qDebug()<< "case9_3";
       break;
 
     case 9:
       ui->label_img->setPixmap(case9_3);
+       ui->pushButton_ok->setEnabled(true);
       //ui->label_istr_ex->setText(istr9_3);
       qDebug()<< "case9_3";
       break;
@@ -3048,10 +2988,12 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 102: // FEEDBACK
      ui->label_img->setPixmap(feedback_happy);
      ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+      ui->pushButton_ok->setEnabled(true);
      break;
 
     default:
       ui->label_img->setPixmap(case1_3);
+       ui->pushButton_ok->setEnabled(true);
     //  ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
@@ -3066,10 +3008,11 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
       ui->label_img-> setText("Iniziamo esercizio \nMano alla bocca con oggetto. \nPremere OK per iniziare.");
-
+ ui->pushButton_ok->setEnabled(false);
       break;
    case 101: //POSIZIONAMENO OGGETTO
    ui->label_img-> setText("Terapista aggancia l'oggetto \n alla mano del paziente.\nQuindi premi OK");
+    ui->pushButton_ok->setEnabled(false);
 
       break;
     case 99:
@@ -3080,7 +3023,9 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
 
     case 0:
        ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+        ui->pushButton_ok->setEnabled(true);
        break;
+
 
 
 
@@ -3088,23 +3033,27 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       ui->label_img->setPixmap(case2_6);
       ui->label_istr_ex->setText(istr2_6);
       qDebug()<< "case2_6";
+       ui->pushButton_ok->setEnabled(true);
       break;
 
     case 2:
       ui->label_img->setPixmap(def_6);
       ui->label_istr_ex->setText(istr_def6);
       qDebug()<< "case2_6";
+       ui->pushButton_ok->setEnabled(true);
       break;
 
     case 102: //FEEDBACK
      ui->label_img->setPixmap(feedback_happy);
      ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+      ui->pushButton_ok->setEnabled(true);
      break;
 
     default:
       ui->label_img->setPixmap(def_6);
       ui->label_istr_ex->setText(istr_def6);
       qDebug()<< "casedef";
+       ui->pushButton_ok->setEnabled(true);
       break;
 
 
@@ -3121,22 +3070,26 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
       ui->label_img->setPixmap(case99);
       ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
+       ui->pushButton_ok->setEnabled(true);
       break;
 
     case 1:
       ui->label_img->setPixmap(case2_7);
       ui->label_istr_ex->setText(istr2_7);
+      ui->pushButton_ok->setEnabled(true);
       qDebug()<< "case2_7";
       break;
 
     case 102: //FEEDBACK PAZIENTE
      ui->label_img->setPixmap(feedback_happy);
      ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+      ui->pushButton_ok->setEnabled(true);
      break;
 
     default:
       ui->label_img->setPixmap(def_7);
       ui->label_istr_ex->setText(istr_def7);
+       ui->pushButton_ok->setEnabled(true);
       qDebug()<< "casedef";
       break;
 
