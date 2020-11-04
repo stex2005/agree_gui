@@ -40,6 +40,10 @@ class sc_assistivo : public QDialog
   std::stringstream ss_joy_conf; //CONFIGURAZIONE JOYSTICK
   std::stringstream ss_rom; // CONFIGURAZIONE ROM
 
+  std::vector<float> J_MAX_SC3;         // ROM MAX
+  std::vector<float> J_MIN_SC3;
+      std::vector<float> ARM_LENGTH_SC3;    // LUNGHEZZA BRACCIO
+
   //AGGIUNGI GLI ALTRI MESSAGGI DA INVIARE
 
 
@@ -80,13 +84,11 @@ private slots:
 
   void on_pushButton_gomito_clicked();
 
-  void on_pushButton_indietro_single_joint_clicked();
-
-  void on_pushButton_salva_single_joint_clicked();
-
   void on_pushButton_singoloj_clicked();
 
   void on_pushButton_modifica_2_clicked();
+
+  void callback3(const agree_gui::agree_gui_command msg);
 
 private:
   Ui::sc_assistivo *ui;
@@ -97,6 +99,7 @@ private:
   QTimer *timer3;
   QTimer *timer4;
   ros::Publisher status_publisher;
+  ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
 protected:
   virtual void paintEvent(QPaintEvent *event) override;
 };

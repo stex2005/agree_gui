@@ -4,12 +4,32 @@
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/paginaprincipale.h"
 #include <QMessageBox>
+#include <QFloat16>
 QString dati::patologia;
 int joy;
 int contatore= 0;
 int rett=0;
 
 int dati::controllo_voc, dati::controllo_joy, dati::controllo_gomito;
+int16_t dati::command_old_sc3, dati::command_sc3;
+
+
+//CALLBACK
+void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3) {
+  ros::NodeHandle n;
+  dati::command_sc3 = msg_command_sc3.mode;
+//  dati::command_exercise_sc3 = msg_command_sc3.exercise;
+//  dati::command_task_sc3 = msg_command_sc3.task;
+  if((dati::command_old_sc3) != (dati::command_sc3)) { //|| (dati::command_exercise_old_pp)!= (dati::command_exercise_pp) || (dati::command_task_old_pp)!= (dati::command_task_pp)) {
+    qDebug()<< dati::command_old_sc3;
+    qDebug()<< dati::command_sc3;
+    dati::command_old_sc3=dati::command_sc3;
+//    dati::command_task_old_pp = dati::command_task_pp;
+//    dati::command_exercise_old_pp = dati::command_exercise_pp;
+    ROS_INFO("I heard: %d SCENARIO 3", dati::command_sc3);
+
+  }
+}
 
 
 sc_assistivo::sc_assistivo(QWidget *parent) :
@@ -26,6 +46,22 @@ status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
  timer3 = new QTimer(this);
  timer4 = new QTimer(this);
 
+// IMMAGINI LABEL
+ QPixmap pic1_sc3("/home/alice/catkin_ws/src/agree_gui/resources/images/init.png");
+ ui->label_init_sc3->setPixmap(pic1_sc3);
+
+ //ICONE TASTI
+ ui->pushButton_spegni->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Turn off"));
+ ui->pushButton_skip_sc3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward"));
+ ui->pushButton_home_sc3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Home.png"));
+ ui->pushButton_modifica_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Modify.png"));
+ ui->pushButton_allarme_sc3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Stop sign"));
+
+//DATA
+// QDate data;
+//data= QDate::currentDate();
+//dati::data1= data.toString(Qt::ISODate);
+ui->label_data_sc3->setText(dati::data1);
 
 
   connect(timer,SIGNAL(timeout()), this, SLOT (myfunction()));
@@ -130,32 +166,54 @@ void sc_assistivo::on_pushButton_salva_clicked()
 {
 
   QString   sesso, latodom, lb, la,ROM1_min, ROM1_max, ROM2_min, ROM2_max, ROM3_min, ROM3_max, ROM4_min, ROM4_max, ROM5_min, ROM5_max;
+  qfloat16 ROM1_min_f, ROM1_max_f, ROM2_min_f, ROM2_max_f, ROM3_min_f, ROM3_max_f, ROM4_min_f, ROM4_max_f, ROM5_min_f, ROM5_max_f, lb_f, la_f;
   QString user;
   user = dati::username;
     dati::patologia = ui->lineEdit_patologia->text();
     sesso = ui->comboBox_sesso->currentText();
     latodom = ui->comboBox_latodom->currentText();
     lb = ui->lineEdit_lb->text();
+    lb_f = lb.toFloat();
     la= ui->lineEdit_la->text();
+    la_f = la.toFloat();
     ROM1_min = ui->lineEdit_rom1_min->text();
+    ROM1_min_f= ROM1_min.toFloat();
     ROM1_max = ui->lineEdit_rom1_max->text();
+    ROM1_max_f= ROM1_max.toFloat();
     ROM2_min = ui->lineEdit_rom2_min->text();
+    ROM2_min_f= ROM2_min.toFloat();
     ROM2_max = ui->lineEdit_rom2_max->text();
+    ROM2_max_f= ROM2_max.toFloat();
     ROM3_min = ui->lineEdit_rom3_min->text();
+    ROM3_min_f= ROM3_min.toFloat();
     ROM3_max = ui->lineEdit_rom3_max->text();
+    ROM3_max_f= ROM3_max.toFloat();
     ROM4_min = ui->lineEdit_rom4_min->text();
+    ROM4_min_f= ROM4_min.toFloat();
     ROM4_max = ui->lineEdit_rom4_max->text();
+    ROM4_max_f= ROM4_max.toFloat();
     ROM5_min = ui->lineEdit_rom5_min->text();
+    ROM5_min_f= ROM5_min.toFloat();
     ROM5_max = ui->lineEdit_rom5_max->text();
+    ROM5_max_f= ROM5_max.toFloat();
+
      QSqlQuery prova;
      prova.prepare("update Utenti_ass set Sesso = '"+sesso+"', Patologia = '"+dati::patologia+"', Lato_dominante= '"+latodom+"', Lunghezza_braccio = '"+lb+"', Lunghezza_avambraccio = '"+la+"', uROM1_min= '"+ROM1_min+"', uROM1_max = '"+ROM1_max+"', uROM2_min= '"+ROM2_min+"', uROM2_max = '"+ROM2_max+"', uROM3_min= '"+ROM3_min+"', uROM3_max = '"+ROM3_max+"', uROM4_min= '"+ROM4_min+"', uROM4_max = '"+ROM4_max+"', uROM5_min= '"+ROM5_min+"', uROM5_max = '"+ROM5_max+"' where usernameass = '"+user+"'");
      prova.exec();
      if(prova.exec())
      {     QMessageBox::information(this, tr("Salvato"), tr("Modifiche salvate correttamente"));
-       ss_rom << "ho effettuato la configurazione dei ROM" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-       msg.data = ss_rom.str();
-     status_publisher.publish(msg);
-       ui->stackedWidget->setCurrentWidget(ui->page_2);
+
+       ARM_LENGTH_SC3 = {lb_f, la_f};
+       J_MAX_SC3 = {ROM1_max_f, ROM2_max_f, ROM3_max_f, ROM3_max_f, ROM3_max_f};
+       J_MIN_SC3 = {ROM1_min_f, ROM2_min_f, ROM3_min_f, ROM3_min_f, ROM3_min_f};
+
+
+       ros::NodeHandle n;
+       n.setParam ("/physiological_param/arm_length", ARM_LENGTH_SC3);
+       n.setParam("/physiological_param/ROM_Max", J_MAX_SC3);
+       n.setParam("/physiological_param/ROM_Min", J_MIN_SC3);
+
+       ui->stackedWidget->setCurrentWidget(ui->page_main_menu);
      }
      else { qDebug()<<prova.lastError().text();
 
@@ -166,7 +224,7 @@ void sc_assistivo::on_pushButton_salva_clicked()
 
 void sc_assistivo::on_pushButton_home_clicked()
 {
-   ui->stackedWidget->setCurrentWidget(ui->page_2);
+   ui->stackedWidget->setCurrentWidget(ui->page_main_menu);
 }
 
 void sc_assistivo::on_pushButton_vocale_clicked()
@@ -254,7 +312,7 @@ void sc_assistivo::on_pushButton_salva_2_clicked()
 {
     //mandero i parametri con ros e salverò i dati nel db
      ui->label_istr->setText("Seguire le istruzioni che compariranno a Schermo");
-     ui->stackedWidget->setCurrentWidget(ui->page_2);
+     ui->stackedWidget->setCurrentWidget(ui->page_main_menu);
      joy=2;
      ss_joy_conf << "ho effettuato la configurazione dei ROM" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
      msg.data = ss_joy_conf.str();
@@ -329,62 +387,58 @@ void sc_assistivo::on_pushButton_gomito_clicked()
 
 }
 
-void sc_assistivo::on_pushButton_indietro_single_joint_clicked()
-{
-    ui->stackedWidget->setCurrentWidget(ui->page_2);
-}
 
 
 
-void sc_assistivo::on_pushButton_salva_single_joint_clicked()
-{
-    bool flex_spalla = 0, adbu_add_spall=0, rot_spalla = 0, gomito=0, polso =0;
-    QString single_joint;
+//void sc_assistivo::on_pushButton_salva_single_joint_clicked()
+//{
+//    bool flex_spalla = 0, adbu_add_spall=0, rot_spalla = 0, gomito=0, polso =0;
+//    QString single_joint;
 
-    if(ui->radioButton_flex_est_spalla->isChecked())
-    {
-      flex_spalla=1;
-      single_joint = " Flessione/Estensione della Spalla";
+//    if(ui->radioButton_flex_est_spalla->isChecked())
+//    {
+//      flex_spalla=1;
+//      single_joint = " Flessione/Estensione della Spalla";
 
-    }
-    else if(ui->radioButton_abdu_add_spalla->isChecked()) {
+//    }
+//    else if(ui->radioButton_abdu_add_spalla->isChecked()) {
 
-      adbu_add_spall=1;
-      single_joint= "Adduzione/Abduzione della Spalla";
-    }
-    else if (ui->radioButton_rot_spalla->isChecked()) {
+//      adbu_add_spall=1;
+//      single_joint= "Adduzione/Abduzione della Spalla";
+//    }
+//    else if (ui->radioButton_rot_spalla->isChecked()) {
 
-      rot_spalla=1;
-      single_joint = "Rotazione Interna ed Esterna della Spalla";
-    }
-    else if (ui->radioButton_flex_est_gomito->isChecked()) {
+//      rot_spalla=1;
+//      single_joint = "Rotazione Interna ed Esterna della Spalla";
+//    }
+//    else if (ui->radioButton_flex_est_gomito->isChecked()) {
 
-      gomito=1;
-      single_joint = "Flessione/Estensione del Gomito";
-    }
-    else if (ui->radioButton_polso->isChecked()) {
+//      gomito=1;
+//      single_joint = "Flessione/Estensione del Gomito";
+//    }
+//    else if (ui->radioButton_polso->isChecked()) {
 
-      polso=1;
-      single_joint= "Pronazione/Supinazione del Polso";
-    }
+//      polso=1;
+//      single_joint= "Pronazione/Supinazione del Polso";
+//    }
 
-    QMessageBox messageBox(QMessageBox::Question, tr("Salvataggio Singolo Giunto"), tr("Vuoi attivare solo il giunto per la : %1?").arg(single_joint), QMessageBox::Yes | QMessageBox::No, this);
-        messageBox.setButtonText(QMessageBox::Yes, tr("Conferma"));
-        messageBox.setButtonText(QMessageBox::No, tr("No"));
-           if (messageBox.exec()==QMessageBox::Yes) {
+//    QMessageBox messageBox(QMessageBox::Question, tr("Salvataggio Singolo Giunto"), tr("Vuoi attivare solo il giunto per la : %1?").arg(single_joint), QMessageBox::Yes | QMessageBox::No, this);
+//        messageBox.setButtonText(QMessageBox::Yes, tr("Conferma"));
+//        messageBox.setButtonText(QMessageBox::No, tr("No"));
+//           if (messageBox.exec()==QMessageBox::Yes) {
 
-             ui->stackedWidget->setCurrentWidget(ui->page_2);
-             ss_single_joy << "ho selezionato il controllo del singolo giunto" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-             msg.data = ss_single_joy.str();
-           status_publisher.publish(msg);
-           }
-         else  if(messageBox.exec()==QMessageBox::No) {
-             ui->stackedWidget->setCurrentWidget(ui->page_joint);
+//             ui->stackedWidget->setCurrentWidget(ui->page_2);
+//             ss_single_joy << "ho selezionato il controllo del singolo giunto" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
+//             msg.data = ss_single_joy.str();
+//           status_publisher.publish(msg);
+//           }
+//         else  if(messageBox.exec()==QMessageBox::No) {
+//             ui->stackedWidget->setCurrentWidget(ui->page_joint);
 
-           }
+//           }
 
 
-}
+//}
 
 void sc_assistivo::on_pushButton_singoloj_clicked()
 {

@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include "../include/agree_gui/paginaprincipale.h"
 #include "../include/agree_gui/main_window.hpp"
-#include "../include/agree_gui/sc_assistivo.h"
+
 
 
 /**********************       DICHIARAZIONE VARIABILI GLOBALI                           *********************/
@@ -12,13 +12,15 @@ QString dati::password;
 QString dati::Nome;
 QString dati::Cognome;
 QString dati::Data;
+QString dati::user_devel;
+QString dati::pass_devel;
 int dati::profilo;
 int dati::password_i;
 int flag1;
 QString dati::count;
 QString dati::sigla;
 int dati::nuovo_utente;
-int8_t dati::status1=0, dati::command_login=0, dati::command_old_login = 1;
+int16_t dati::status1=0, dati::command_login=0, dati::command_old_login = 1;
 
 
 
@@ -67,6 +69,9 @@ mydb.setPassword("ali");
   //placeholder text
    ui->lineEdit_username->setPlaceholderText("Username");
    ui->lineEdit_password->setPlaceholderText("Password");
+
+   dati::user_devel= "aaa";
+   dati::pass_devel = "00";
 
    QSqlQuery query;
    query.prepare("select count (*) from Count");
@@ -165,6 +170,7 @@ void login::on_pushButton_accedi_clicked()
      //apro una finestra in caso di scenario 3
      else if(dati::profilo==3){
          this->hide();
+
          Sc_assistivo = new sc_assistivo(this);
          Sc_assistivo -> show();
          dati::nuovo_utente=0;
@@ -174,6 +180,15 @@ void login::on_pushButton_accedi_clicked()
        status_publisher.publish(msg);
        ROS_INFO_STREAM(msg);
 
+       //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
+
+//       dati::status1 =1;
+//       msg_status.data = dati::status1;
+//       ROS_INFO ("Push button ################# %d", msg_status.data);
+//       status_publisher.publish(msg_status);
+       // dati::flag_sc3=
+      // ros::NodeHandle n;
+     // n.setParam
 
 
         }
@@ -185,6 +200,15 @@ void login::on_pushButton_accedi_clicked()
             ui->label_status->setText("username o password non corretti");
 
 }
+    if(dati::username == dati::user_devel && dati::password == dati::pass_devel) {
+      dati::status1 =31;
+      msg_status.data = dati::status1;
+      ROS_INFO ("Push button ################# %d", msg_status.data);
+      status_publisher.publish(msg_status);
+
+
+
+    }
 
     }
 
@@ -281,10 +305,15 @@ if (dati::password == Conferma) {
            Sc_assistivo = new sc_assistivo(this);
                        Sc_assistivo->show();
 
-                       ss_log2_new << "ho effettuato il  nuovo login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-                       msg.data = ss_log2_new.str();
-                     status_publisher.publish(msg);
-                     ROS_INFO_STREAM(msg);
+
+//                       dati::status1 =1;
+//                       msg_status.data = dati::status1;
+//                       ROS_INFO ("Push button ################# %d", msg_status.data);
+//                       status_publisher.publish(msg_status);
+                     //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
+                     // dati::flag_sc3=
+                    // ros::NodeHandle n;
+                   // n.setParam
 
 
           }

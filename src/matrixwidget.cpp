@@ -16,7 +16,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 
-int8_t dati::command_matrix, dati::command_old_matrix=1;
+int16_t dati::command_matrix, dati::command_old_matrix=1;
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 { if(dati::command_old_matrix==7){
   LoadData();
@@ -328,20 +328,21 @@ std::vector<int> point_min;
 void MatrixWidget::paintEvent(QPaintEvent *event)
 {
   QPainter p(this);
-  p.drawRect(0,0, width() -1, height() -1);
+  p.drawRect(0,0, width()-1 , height() -1  );
+  //-1
 
 
    // size of area we have. w = width , h = height , we take 2 pixles for border
-  int w = width() -2;
-  int h = height() - 2;
+  int w = width()-2;
+  int h = height()-2 ;
   //tiro fuori quanto dev essere grande ciascuna cella (divido la dimensione per il numero di celle che voglio avere
    bw = w / max_y; // sono le mie colonne
    bh = h / max_x; // sono le mie righe
      // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
 
-     for (int xi = 0; xi < max_x-1; ++xi) {
+     for (int xi = 1; xi < max_x-1; ++xi) {
 // for (int xi =14; xi >=1; --xi) {
-        for (int yi = 0; yi < max_y -1; ++yi) {
+        for (int yi = 1; yi < max_y -1; ++yi) {
           int new_x= Y-xi;
                   p.setBrush(QBrush (Data[new_x][yi+1].DrawColor));
            QRect cellRect(yi*bw,xi*bh, bw,bh);

@@ -43,11 +43,11 @@ QString dati::num_ex1, dati::num_ex2, dati::num_ex3, dati::num_ex4, dati::num_ex
 
 QString dati::rip1, dati::rip2, dati::rip3, dati::rip4, dati::rip5, dati::rip6, dati::rip7;
 QString dati::next_img;
-//int8_t dati::status1;
-int8_t dati::command_pp = 0, dati::command_old_pp = 1;
+
+int16_t dati::command_pp = 0, dati::command_old_pp = 1;
 int8_t dati::command_exercise_pp = 0, dati::command_task_pp= 0;
 int8_t dati::command_exercise_old_pp, dati::command_task_old_pp;
-int8_t dati::flag_ex=0;
+int8_t dati::flag_ex=0, dati::flag_ex_recap=0;
 
  SignalHelper *helper;
 
@@ -67,6 +67,8 @@ int8_t dati::flag_ex=0;
 
        if(dati::command_old_pp ==2) {
          ui->tabWidget->setCurrentWidget(ui->tab);
+         ui->pushButton_allarme->setVisible(false);
+         // this->showMaximized();
          QSqlQuery prova;
          prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
          prova.exec();
@@ -79,18 +81,24 @@ int8_t dati::flag_ex=0;
          this->show();
        }
    if (dati::command_old_pp ==3) {
-      ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+      ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+      ui->pushButton_allarme->setVisible(false);
 
    }
    if(dati::command_old_pp == 4) {
-     ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+     ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+     ui->pushButton_allarme->setVisible(false);
+
 
    }
    if(dati::command_old_pp == 5) {
-     ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+     ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+     ui->pushButton_allarme->setVisible(false);
    }
    if(dati::command_old_pp == 6){
      ui->tabWidget_2->setCurrentWidget(ui->tab_calibrazione);
+     ui->pushButton_allarme->setVisible(true);
+
 
    }
    if(dati::command_old_pp == 7) {
@@ -99,13 +107,21 @@ int8_t dati::flag_ex=0;
     msg_status_pp.data = dati::status1;
     ROS_INFO ("%d", msg_status_pp.data);
     status_publisher.publish(msg_status_pp);
+    ui->pushButton_allarme->setVisible(true);
    }
 
    if(dati::command_old_pp == 11) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+     ui->stackedWidget_2->setCurrentWidget(ui->page_recap);
+   ui->label_recap->setText(QString("Modalità di controllo: %1").arg(dati::mood));
+
+     //ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+     ui->pushButton_allarme->setVisible(true);
+
    }
    if(dati::command_old_pp ==12){
-
+     ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+     ui->stackedWidget_2->setCurrentWidget(ui->page_sessione);
 //     dati::command_exercise_pp = msg_command_pp.exercise;
 //     dati::command_task_pp = msg_command_pp.task;
 }
@@ -135,7 +151,12 @@ int8_t dati::flag_ex=0;
 
 
            }}
+   if(dati::command_old_pp== 31) {
+
+     ui->tabWidget_2->setCurrentWidget(ui->tab_alarm);
+
    }
+
 
    //   if(dati::command_old == 8) {
 
@@ -158,7 +179,7 @@ int8_t dati::flag_ex=0;
    //   }
  }
 
-
+}
 
 paginaprincipale::paginaprincipale(QWidget *parent) :
 
@@ -172,11 +193,24 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 {
 
 
+
+
   ui->setupUi(this);
+
+
+//  QPixmap bkgnd ("/home/alice/Desktop/AGREE_SFONDO.png");
+//  bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+//  QPalette palette;
+//  palette.setBrush(QPalette::Background, bkgnd);
+//  this->setPalette(palette);
+
+
   ui->tabWidget->setCurrentWidget(ui->tab);
   ui->stackedWidget->setCurrentWidget(ui->page_3);
 //  MatrixWidget * matrix = new MatrixWidget (this);
+
      ui->verticalLayout->addWidget(matrix);
+
      // ho aggiunto questi
      ros::NodeHandle n;
 status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
@@ -195,6 +229,14 @@ connect(ui->comboBox_ex4, SIGNAL (currentTextChanged(QString)), this, SLOT(enabl
 connect(ui->comboBox_ex5, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
 connect(ui->comboBox_ex6, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
 connect(ui->comboBox_ex7, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
+//RECAP
+connect(ui->comboBox_es1, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
+connect(ui->comboBox_es2, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
+connect(ui->comboBox_es3, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
+connect(ui->comboBox_es4, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
+connect(ui->comboBox_es5, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
+connect(ui->comboBox_es6, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
+connect(ui->comboBox_es7, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
 
 //connect(ui->lineEdit_ex1, SIGNAL(TextChanged(QString)),this, SLOT(update_tempo_terapia(QString)));
 connect(ui->lineEdit_ex1, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
@@ -205,6 +247,17 @@ connect(ui->lineEdit_ex5, SIGNAL(textChanged(const QString)),this, SLOT(update_t
 connect(ui->lineEdit_ex6, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
 connect(ui->lineEdit_ex7, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
 
+//RECAP
+connect(ui->lineEdit_rep1, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_recap()));
+connect(ui->lineEdit_rep2, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_recap()));
+connect(ui->lineEdit_rep3, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_recap()));
+connect(ui->lineEdit_rep4, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_recap()));
+connect(ui->lineEdit_rep5, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_recap()));
+connect(ui->lineEdit_rep6, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_recap()));
+connect(ui->lineEdit_rep7, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_recap()));
+
+
+
 connect(ui->checkBox_ex1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_ex2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_ex3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
@@ -212,9 +265,24 @@ connect(ui->checkBox_ex4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex(
 connect(ui->checkBox_ex5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_ex6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
 connect(ui->checkBox_7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+//RECAP
+connect(ui->checkBox_es1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+connect(ui->checkBox_es2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+connect(ui->checkBox_es3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+connect(ui->checkBox_es4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+connect(ui->checkBox_es5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+connect(ui->checkBox_es6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+connect(ui->checkBox_es7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
 
+//controllo unicità checkbox dei lato e dei moduli
+connect(ui->checkBox_destro, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_dx()));
+
+connect(ui->checkBox_sinistro, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_sx()));
+connect(ui->checkBox_spalla, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_spalla()));
+connect(ui->checkBox_gomito, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_gomito()));
+connect(ui->checkBox_polso, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_polso()));
 //timer = new QTimer(this);
-timer_init = new QTimer(this);
+//timer_init = new QTimer(this);
 timer_rehab = new QTimer(this);
 timer_val = new QTimer(this);
 timer_feedback = new QTimer(this);
@@ -223,7 +291,7 @@ ROS_INFO("TIMER");
 //connect(timer, SIGNAL(timeout()),
       //this, SLOT(next_img()));
 
-connect(timer_init,SIGNAL(timeout()), this, SLOT(skip_init()));
+//connect(timer_init,SIGNAL(timeout()), this, SLOT(skip_init()));
 
 connect(timer_rehab, SIGNAL(timeout()),this,SLOT(next_img()));
 
@@ -267,8 +335,17 @@ connect(timer_feedback, SIGNAL(timeout()), this, SLOT(show_feed()));
     QPixmap pic11("/home/alice/catkin_ws/src/agree_gui/resources/images/img/ROM/polso.png");
     ui->label_16->setPixmap(pic11);
 
-    QPixmap pic12("/home/alice/Desktop/init_agree4.png");
+    QPixmap pic12("/home/alice/catkin_ws/src/agree_gui/resources/images/init.png");
     ui->label_wait->setPixmap(pic12);
+
+
+    QPixmap pic13("/home/alice/catkin_ws/src/agree_gui/resources/images/alarm.png");
+    ui->label_allarme_2->setPixmap(pic13);
+
+
+
+    QPixmap pic14("/home/alice/catkin_ws/src/agree_gui/resources/images/cal_pad.png");
+    ui->label_cal_pad->setPixmap(pic14);
 
 // setto icone
    ui->pushButton_cerca_3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Zoom.png"));
@@ -281,6 +358,7 @@ connect(timer_feedback, SIGNAL(timeout()), this, SLOT(show_feed()));
    ui->pushButton_vestizioneAgree->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Movie.png"));
    ui->pushButton_salva->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
    ui->pushButton_salva_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+   ui->pushButton_salva_recap->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
    ui->pushButton_salvamoduli->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
    ui->pushButton_salvaconf->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
    ui->pushButton_controllo->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
@@ -293,11 +371,23 @@ connect(timer_feedback, SIGNAL(timeout()), this, SLOT(show_feed()));
    ui->pushButton_logout->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Turn off"));
    ui->pushButton_go->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward"));
    ui->pushButton_avanti_v->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward"));
-   ui->pushButton->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Stop sign"));
+   ui->pushButton_allarme->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Stop sign"));
    ui->pushButton_add->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add"));
+   ui->pushButton_add_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add"));
    ui->pushButton_remove->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Remove"));
+   ui->pushButton_remove_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Remove"));
+   ui->pushButton_indietro->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Go back.png"));
+   ui->pushButton_esplorarom->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Application.png"));
+   ui->pushButton_next->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Clock.png"));
+   ui->pushButton_ok->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/OK.png"));
+   ui->pushButton_riprendi->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Redo.png"));
+   ui->pushButton_termina->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Abort.png"));
+   ui->pushButton_conferma_recap->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/OK.png"));
+   ui->pushButton_modifica_recap->setIcon(QIcon("/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Modifiy.png"));
 
-  //creo la data
+   ui->label_tut->setText("Seguire le istruzioni per il Montaggio dei moduli selezionati. \nPer Saltare il Tutorial fare click su 'Salta Tutorial' ");
+   ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.Verificare la vestibilità sul Paziente.\nUna volta effettuata la procedura premere Avanti per Continuare.");
+   //creo la data
   QDate data;
 data= QDate::currentDate();
  dati::data1= data.toString(Qt::ISODate);
@@ -306,6 +396,7 @@ ui->label_date->setText(data.toString());
 
   QSqlDatabase mydb2 = QSqlDatabase::database();
 }
+
 
 paginaprincipale::~paginaprincipale()
 {
@@ -340,7 +431,7 @@ void paginaprincipale::on_pushButton_nuovopaziente_clicked()
 void paginaprincipale::on_pushButton_salva_clicked()
 {
 
-    QString Data, Sesso, Patologia, Lato, storiaclinica,Lunghezza_braccio, Lunghezza_avambraccio,sigla;
+    QString Data, Sesso, Patologia, Lato, storiaclinica,Lunghezza_braccio, Lunghezza_avambraccio,sigla, altezza, peso;
     dati::NomeP = ui->lineEdit_nome-> text();
     dati::CognomeP = ui-> lineEdit_cognome -> text();
     Data = ui-> lineEdit_datanascita -> text();
@@ -352,6 +443,8 @@ void paginaprincipale::on_pushButton_salva_clicked()
   //  float Lunghezza_braccio_f = Lunghezza_braccio.toFloat();
     Lunghezza_avambraccio = ui->lineEdit_avambraccio-> text();
    // float Lunghezza_avambraccio_f = Lunghezza_avambraccio.toFloat();
+    altezza = ui-> lineEdit_h-> text();
+    peso = ui->lineEdit_peso->text();
     dati::sigla = "p";
   //   dati::codice_id= dati::NomeP + dati::CognomeP + sigla+dati::count;
  if(flag==1)
@@ -371,7 +464,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
 
   dati::codice_id= dati::NomeP + dati::CognomeP + dati::sigla+dati::count;
     QSqlQuery qry;
-   qry.prepare("insert into Pazienti (Codice_ID, UsernameDOC, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, LunghezzaBraccio, LunghezzaAvambraccio, StoriaClinica) values ('"+dati::codice_id+"', '"+dati::username+"', '"+dati::NomeP+"', '"+dati::CognomeP+"','"+Data+"', '"+Patologia+"', '"+Sesso+"', '"+Lato+"', '"+Lunghezza_braccio+"', '"+Lunghezza_avambraccio+"', '"+storiaclinica+"')" );
+   qry.prepare("insert into Pazienti (Codice_ID, UsernameDOC, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, Altezza, Peso, LunghezzaBraccio, LunghezzaAvambraccio,  StoriaClinica) values ('"+dati::codice_id+"', '"+dati::username+"', '"+dati::NomeP+"', '"+dati::CognomeP+"','"+Data+"', '"+Patologia+"', '"+Sesso+"', '"+Lato+"', '"+altezza+"', '"+peso+"', '"+Lunghezza_braccio+"', '"+Lunghezza_avambraccio+"', '"+storiaclinica+"')" );
    if(qry.exec()) {
 // se lo salvo lo comunico e copio username in tabella count
       QMessageBox ::information(this,tr("Salvataggio"),tr(" Paziente Salvato Correttamente"));
@@ -424,7 +517,7 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
   //carico la tabella dei pazienti
       QSqlQueryModel *model = new QSqlQueryModel();
       QSqlQuery * qry1 = new QSqlQuery(mydb2);
-      qry1 -> prepare("select Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, LunghezzaBraccio, LunghezzaAvambraccio, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"' order by Cognome  asc");
+      qry1 -> prepare("select rowid, Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, LunghezzaBraccio, LunghezzaAvambraccio, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"' order by Cognome  asc");
       qry1 -> exec();
       if(qry1->exec()) {
       model -> setQuery(*qry1);
@@ -629,7 +722,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
     {
       dati::NomeP = qry7.value(0).toString();
       dati::CognomeP = qry7.value(1).toString();
-      ui->label_status2->setText("Paziente: " + qry7.value(0).toString()+ " "+ qry7.value(1).toString());
+      ui->label_status2->setText(qry7.value(0).toString()+ " "+ qry7.value(1).toString());
       QMessageBox risposta;
       risposta.setText(tr("Si è scelto di iniziare la sessione di terapia del paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP));
       QAbstractButton* pButtonYes = risposta.addButton(tr("Conferma"), QMessageBox::YesRole);
@@ -800,6 +893,8 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
                   }
 
 
+
+
        }
        ui->tabWidget->setCurrentWidget(ui->tab_2);
        ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
@@ -819,6 +914,28 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
   }
  // }
+  QString l_b, l_a, h, p;
+  QSqlQuery lunghezza;
+  lunghezza.prepare("select Altezza, Peso, LunghezzaBraccio, LunghezzaAvambraccio from Pazienti where Codice_ID = '"+dati::ind+"' ");
+  lunghezza.exec();
+  while(lunghezza.next()) {
+    h= lunghezza.value(0).toString();
+    p = lunghezza.value(1).toString();
+    l_b = lunghezza.value(2).toString();
+    l_a = lunghezza.value(3).toString();
+
+  }
+
+  upperarm = l_b.toFloat();
+  lowerarm = l_a.toFloat();
+  height = h.toFloat();
+  weight = p.toFloat();
+ARM_LENGTH = {upperarm, lowerarm};
+ros::NodeHandle n;
+ n.setParam ("/physiological_param/arm_length", ARM_LENGTH);
+ n.setParam("/physiological_param/height", height);
+ n.setParam("/physiolgical_param/weight", weight);
+
 }
 
 /**********************       TORNO ALLA HOME E PULISCO TUTTA LA GUI             *********************/
@@ -834,21 +951,21 @@ void paginaprincipale::on_pushButton_home_clicked()
       ui->checkBox_spalla->setChecked(false);
       ui->checkBox_gomito->setChecked(false);
       ui->checkBox_polso->setChecked(false);
-      ui->radioButton_pass->setAutoExclusive(false);
-      ui->radioButton_pass->setChecked(false);
-      ui->radioButton_pass->setAutoExclusive(true);
-       ui->radioButton_ag->setAutoExclusive(false);
-      ui->radioButton_ag->setChecked(false);
-      ui->radioButton_ag->setAutoExclusive(true);
-       ui->radioButton_aan->setAutoExclusive(false);
-      ui->radioButton_aan->setChecked(false);
-      ui->radioButton_aan->setAutoExclusive(true);
-       ui->radioButton_chall->setAutoExclusive(false);
-      ui->radioButton_chall->setChecked(false);
-      ui->radioButton_chall->setAutoExclusive(true);
-       ui->radioButton_trigger->setAutoExclusive(false);
-      ui->radioButton_trigger->setChecked(false);
-      ui->radioButton_trigger->setAutoExclusive(true);
+//      ui->radioButton_pass->setAutoExclusive(false);
+//      ui->radioButton_pass->setChecked(false);
+//      ui->radioButton_pass->setAutoExclusive(true);
+//       ui->radioButton_ag->setAutoExclusive(false);
+//      ui->radioButton_ag->setChecked(false);
+//      ui->radioButton_ag->setAutoExclusive(true);
+//       ui->radioButton_aan->setAutoExclusive(false);
+//      ui->radioButton_aan->setChecked(false);
+//      ui->radioButton_aan->setAutoExclusive(true);
+//       ui->radioButton_chall->setAutoExclusive(false);
+//      ui->radioButton_chall->setChecked(false);
+//      ui->radioButton_chall->setAutoExclusive(true);
+//       ui->radioButton_trigger->setAutoExclusive(false);
+//      ui->radioButton_trigger->setChecked(false);
+//      ui->radioButton_trigger->setAutoExclusive(true);
       ui->checkBox_ex1->setChecked(false);
       ui->checkBox_ex2->setChecked(false);
       ui->checkBox_ex3->setChecked(false);
@@ -895,7 +1012,7 @@ void paginaprincipale::on_pushButton_salta_clicked()
        }
      }
      else if(curTut== sel_tut.size()) {
-       timer_init->start(5000);
+       //timer_init->start(5000);
        ui->tabWidget_2->setCurrentWidget(ui->tab_init);
        ui->label_img_tut->clear();
        ui->label_tut->setText("");
@@ -992,35 +1109,24 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
 
 //pubblico che ho salvato i rom su gui/status
 
-       dati::status1 = 4;
+       dati::status1 = 5;
 
        std_msgs::Int8 msg_status;
        msg_status.data = dati::status1;
        ROS_INFO ("%d", msg_status.data);
        status_publisher.publish(msg_status);
-       QString l_b, l_a;
-       QSqlQuery lunghezza;
-       lunghezza.prepare("select LunghezzaBraccio, LunghezzaAvambraccio from Pazienti where Codice_ID = '"+dati::ind+"' ");
-       lunghezza.exec();
-       while(lunghezza.next()) {
-         l_b = lunghezza.value(0).toString();
-         l_a = lunghezza.value(1).toString();
-       }
 
-       upperarm = l_b.toFloat();
-       lowerarm = l_a.toFloat();
               /***************         SETTO ROS PARAMETERS CON I ROM   ******************/
        J_MAX = {FESM1_f, AASM1_f, RIESM1_f, GM1_f, PM1_f};
        J_MIN = {FESm1_f, AASm1_f, RIESm1_f, Gm1_f, Pm1_f};
-       ARM_LENGTH = {upperarm, lowerarm};
+
 
        ros::NodeHandle n;
 
        n.setParam("/physiological_param/ROM_Max", J_MAX);
        n.setParam("/physiological_param/ROM_Min", J_MIN);
-       n.setParam ("/physiological_param/arm_length", ARM_LENGTH);
 
-         //agree_gui::QNode status << "ho salvato la configurazione dedi rom";
+
        }
        else {
           QMessageBox ::critical(this,tr("Errore"),tr("bo3"));
@@ -1088,6 +1194,191 @@ void paginaprincipale::enable_combo() {
     ui->comboBox_oi_es7->setEnabled(true);
 
   }
+
+}
+void paginaprincipale::enable_combo_recap(){
+  ui->comboBox_ogg1->setEnabled(false);
+  ui->comboBox_ogg2->setEnabled(false);
+  ui->comboBox_ogg3->setEnabled(false);
+  ui->comboBox_ogg4->setEnabled(false);
+  ui->comboBox_ogg5->setEnabled(false);
+  ui->comboBox_ogg6->setEnabled(false);
+  ui->comboBox_ogg7->setEnabled(false);
+
+
+  es2 = "Raggiungimento anteriore di target su un piano con oggetti";
+  es4 = "Raggiungimento anteriore di target su un piano nello spazio con oggetti";
+  es7 = "Mano alla bocca con oggetto";
+
+  qDebug()<< "sono nella funzione enable_combo";
+  if(ui->comboBox_es1->currentText()==es2 || ui->comboBox_es1->currentText()== es4 || ui->comboBox_es1->currentText()== es7) {
+    ui->comboBox_ogg1->setEnabled(true);
+
+  }
+  if(ui->comboBox_es2->currentText()==es2 || ui->comboBox_es2->currentText()== es4 || ui->comboBox_es2->currentText()== es7) {
+    ui->comboBox_ogg2->setEnabled(true);
+
+  }
+  if(ui->comboBox_es3->currentText()==es2 || ui->comboBox_es3->currentText()== es4 || ui->comboBox_es3->currentText()== es7) {
+    ui->comboBox_ogg3->setEnabled(true);
+
+  }
+  if(ui->comboBox_es4->currentText()==es2 || ui->comboBox_es4->currentText()== es4 || ui->comboBox_es4->currentText()== es7) {
+    ui->comboBox_ogg4->setEnabled(true);
+
+  }
+  if(ui->comboBox_es5->currentText()==es2 || ui->comboBox_es5->currentText()== es4 || ui->comboBox_es5->currentText()== es7) {
+    ui->comboBox_ogg5->setEnabled(true);
+
+  }
+  if(ui->comboBox_es6->currentText()==es2 || ui->comboBox_es6->currentText()== es4 || ui->comboBox_es6->currentText()== es7) {
+    ui->comboBox_ogg6->setEnabled(true);
+
+  }
+  if(ui->comboBox_es7->currentText()==es2 || ui->comboBox_es7->currentText()== es4 || ui->comboBox_es7->currentText()== es7) {
+    ui->comboBox_ogg7->setEnabled(true);
+}
+}
+void paginaprincipale::update_tempo_recap(){
+
+    qDebug()<< "sono nella funzione update_tempo_terapia";
+  es1 = "Raggiungimento anteriore di target su un piano senza oggetti";
+  es2 = "Raggiungimento anteriore di target su un piano con oggetti";
+  es3 = "Raggiungimento anteriore di target su un piano nello spazio senza oggetti";
+  es4 = "Raggiungimento anteriore di target su un piano nello spazio con oggetti ";
+  es5 = "Elevazione laterale su un piano frontale";
+  es6 = "Mano alla bocca senza oggetto";
+  es7 = "Mano alla bocca con oggetto";
+
+
+  if (ui->comboBox_es1->currentText()== es1 || ui->comboBox_es1->currentText()==es3 || ui->comboBox_es1->currentText() == es5 || ui->comboBox_es1->currentText()== es6){
+    t_es1 = 1;
+     ripe1 = ui->lineEdit_rep1->text().toInt();
+    //ripe1 = dati::rip1.toInt();
+   t_es1 = t_es1*ripe1;
+   qDebug() << "es 1";
+   qDebug() << t_es1;
+
+  }
+  else if ( ui->comboBox_es1->currentText() == es2 || ui->comboBox_es1->currentText()== es7 || ui->comboBox_es1->currentText()==es4) {
+    t_es1 = 2;
+     ripe1 = ui->lineEdit_rep1->text().toInt();
+    t_es1 = t_es1* ripe1;
+    qDebug() << "es 1";
+    qDebug() << t_es1;
+  }
+  if (ui->comboBox_es2->currentText()== es1 || ui->comboBox_es2->currentText()==es3 || ui->comboBox_es2->currentText() == es5 || ui->comboBox_es2->currentText()== es6){
+    t_es2 = 1;
+ripe2 = ui->lineEdit_rep2->text().toInt();
+   t_es2 = t_es2*ripe2;
+   qDebug() << "es2";
+   qDebug() << t_es2;
+
+  }
+  else if ( ui->comboBox_es2->currentText() == es2 || ui->comboBox_es2->currentText()== es7|| ui->comboBox_es2->currentText()==es4) {
+    t_es2 = 2;
+    ripe2 = ui->lineEdit_rep2->text().toInt();
+    t_es2 = t_es2* ripe2;
+     qDebug() << "es2";
+    qDebug() << t_es2;
+  }
+  if (ui->comboBox_es3->currentText()== es1 || ui->comboBox_es3->currentText()==es3 || ui->comboBox_es3->currentText() == es5 || ui->comboBox_es3->currentText()== es6){
+    t_es3 = 1;
+ripe3 = ui->lineEdit_rep3->text().toInt();
+   t_es3 = t_es3*ripe3;
+    qDebug() << "es3";
+   qDebug() << t_es3;
+
+  }
+  else if ( ui->comboBox_es3->currentText() == es2 || ui->comboBox_es3->currentText()== es7 || ui->comboBox_es3->currentText()==es4) {
+    t_es3 = 2;
+    ripe3 = ui->lineEdit_rep3->text().toInt();
+    t_es3 = t_es3* ripe3;
+     qDebug() << "es3";
+    qDebug() << t_es3;
+  }
+  if (ui->comboBox_es4->currentText()== es1 || ui->comboBox_es4->currentText()==es3 || ui->comboBox_es4->currentText() == es5 || ui->comboBox_es4->currentText()== es6){
+    t_es4 = 1;
+ripe4 = ui->lineEdit_rep4->text().toInt();
+   t_es4 = t_es4*ripe4;
+
+  }
+  else if ( ui->comboBox_es4->currentText() == es2 || ui->comboBox_es4->currentText()== es7 || ui->comboBox_es4->currentText()==es4) {
+    t_es4 = 2;
+    ripe4 = ui->lineEdit_rep4->text().toInt();
+    t_es4 = t_es4* ripe4;
+  }
+  if (ui->comboBox_es5->currentText()== es1 || ui->comboBox_es5->currentText()==es3 || ui->comboBox_es5->currentText() == es5 || ui->comboBox_es5->currentText()== es6){
+    t_es5 = 1;
+ripe5 = ui->lineEdit_rep5->text().toInt();
+   t_es5 = t_es5*ripe5;
+
+  }
+  else if ( ui->comboBox_es5->currentText() == es2 || ui->comboBox_es5->currentText()== es7 || ui->comboBox_es5->currentText()==es4) {
+    t_es5 = 2;
+    ripe5 = ui->lineEdit_rep5->text().toInt();
+    t_es5 = t_es5* ripe5;
+  }
+
+  if (ui->comboBox_es6->currentText()== es1 || ui->comboBox_es6->currentText()==es3 || ui->comboBox_es6->currentText() == es5 || ui->comboBox_es6->currentText()== es6){
+    t_es6 = 1;
+ripe6 = ui->lineEdit_rep6->text().toInt();
+   t_es6 = t_es6*ripe6;
+
+  }
+  else if ( ui->comboBox_es6->currentText() == es2 || ui->comboBox_es6->currentText()== es7 || ui->comboBox_es6->currentText()==es4) {
+    t_es6 = 2;
+    ripe6 = ui->lineEdit_rep6->text().toInt();
+    t_es6 = t_es6* ripe6;
+  }
+
+  if (ui->comboBox_es7->currentText()== es1 || ui->comboBox_es7->currentText()==es3 || ui->comboBox_es7->currentText() == es5 || ui->comboBox_es7->currentText()== es6){
+    t_es7 = 1;
+ripe7 = ui->lineEdit_rep7->text().toInt();
+   t_es7 = t_es7*ripe7;
+
+  }
+  else if ( ui->comboBox_es7->currentText() == es2 || ui->comboBox_es7->currentText()== es7 || ui->comboBox_es7->currentText()==es4) {
+    t_es7 = 2;
+    ripe7 = ui->lineEdit_rep7->text().toInt();
+    t_es7 = t_es7* ripe7;
+  }
+  if(ui->checkBox_es1->isChecked()) {
+    temp_tot = t_es1;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_es2->isChecked()) {
+    temp_tot += t_es2;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_es3->isChecked()) {
+    temp_tot += t_es3;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_es4->isChecked()) {
+    temp_tot += t_es4;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_es5->isChecked()) {
+    temp_tot += t_es5;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_es6->isChecked()) {
+    temp_tot += t_es6;
+    temp_string = QString::number(temp_tot);
+  }
+  if(ui->checkBox_es7->isChecked()) {
+    temp_tot += t_es7;
+    temp_string = QString::number(temp_tot);
+  }
+
+
+ qDebug()<< temp_tot;
+ qDebug()<< temp_string;
+
+ QString test = QString("Tempo Stimato per la Terapia : %1 minuti").arg(temp_string);
+
+ ui->label_tempo_recap->setText(test);
 
 }
 
@@ -1198,30 +1489,37 @@ ripe7 = ui->lineEdit_ex7->text().toInt();
   }
   if(ui->checkBox_ex1->isChecked()) {
     temp_tot = t_es1;
+    ui->label_t_es1->setText(QString::number(t_es1));
     temp_string = QString::number(temp_tot);
   }
   if(ui->checkBox_ex2->isChecked()) {
     temp_tot += t_es2;
+    ui->label_t_es2->setText(QString::number(t_es2));
     temp_string = QString::number(temp_tot);
   }
   if(ui->checkBox_ex3->isChecked()) {
     temp_tot += t_es3;
+    ui->label_t_es3->setText(QString::number(t_es3));
     temp_string = QString::number(temp_tot);
   }
   if(ui->checkBox_ex4->isChecked()) {
     temp_tot += t_es4;
+    ui->label_t_es4->setText(QString::number(t_es4));
     temp_string = QString::number(temp_tot);
   }
   if(ui->checkBox_ex5->isChecked()) {
     temp_tot += t_es5;
+    ui->label_t_es5->setText(QString::number(t_es5));
     temp_string = QString::number(temp_tot);
   }
   if(ui->checkBox_ex6->isChecked()) {
     temp_tot += t_es6;
+    ui->label_t_es6->setText(QString::number(t_es6));
     temp_string = QString::number(temp_tot);
   }
   if(ui->checkBox_7->isChecked()) {
     temp_tot += t_es7;
+    ui->label_t_es7->setText(QString::number(t_es7));
     temp_string = QString::number(temp_tot);
   }
 
@@ -1268,24 +1566,97 @@ void paginaprincipale::enable_combo_ex() {
   }
 
 }
+//RECAP
+void paginaprincipale::enable_combo_ex_recap() {
+  ui->comboBox_es1->setEnabled(false);
+  ui->comboBox_es2->setEnabled(false);
+  ui->comboBox_es3->setEnabled(false);
+  ui->comboBox_es4->setEnabled(false);
+  ui->comboBox_es5->setEnabled(false);
+  ui->comboBox_es6->setEnabled(false);
+  ui->comboBox_es7->setEnabled(false);
+
+  if(ui->checkBox_es1->isChecked() ) {
+    ui->comboBox_es1->setEnabled(true);
+  }
+  if(ui->checkBox_es2->isChecked() ) {
+    ui->comboBox_es2->setEnabled(true);
+  }
+  if(ui->checkBox_es3->isChecked()) {
+    ui->comboBox_es3->setEnabled(true);
+  }
+  if(ui->checkBox_es4->isChecked() ) {
+    ui->comboBox_es4->setEnabled(true);
+  }
+  if(ui->checkBox_es5->isChecked() ) {
+    ui->comboBox_es5->setEnabled(true);
+  }
+  if(ui->checkBox_es6->isChecked()) {
+    ui->comboBox_es6->setEnabled(true);
+  }
+  if(ui->checkBox_es7->isChecked()) {
+    ui->comboBox_es7->setEnabled(true);
+  }
+}
+
+
+void paginaprincipale::enable_checkbox_moduli_sx() {
+  if(ui->checkBox_sinistro->isChecked()) {
+    ui->checkBox_destro->setChecked(false);
+  }}
+  void paginaprincipale::enable_checkbox_moduli_dx() {
+  if (ui->checkBox_destro->isChecked()) {
+    ui->checkBox_sinistro->setChecked(false);
+  }
+  }
+  void paginaprincipale::enable_checkbox_moduli_spalla() {
+  if (ui->checkBox_spalla->isChecked()) {
+    ui->checkBox_gomito->setChecked(false);
+    ui->checkBox_polso->setChecked(false);
+  }
+  }
+  void paginaprincipale::enable_checkbox_moduli_gomito() {
+  if (ui->checkBox_gomito->isChecked()) {
+    ui->checkBox_spalla->setChecked(false);
+    ui->checkBox_polso->setChecked(false);
+  }
+  }
+  void paginaprincipale::enable_checkbox_moduli_polso() {
+  if (ui->checkBox_polso->isChecked()) {
+    ui->checkBox_gomito->setChecked(false);
+    ui->checkBox_spalla->setChecked(false);
+  }
+  }
+
 
 /**********************       SALVO ESERCIZI                       *********************/
 void paginaprincipale::on_pushButton_salvaex_clicked()
-{    QString bicchiere, forchetta, libro;
+{  ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+  QString bicchiere, forchetta, libro;
      bicchiere = "Bicchiere";
      forchetta = "Forchetta";
      libro = "Libro";
 
  if(ui->checkBox_ex1->isChecked())
  {  check_ex1=1;
+
    dati::ex1 = ui->comboBox_ex1->currentText();
+   ui->label_es1_recap->setText(dati::ex1);
+
+
 
    dati::rip1= ui->lineEdit_ex1->text();
+   ui->label_es1_rip_recap->setText(dati::rip1);
+
+   ui->checkBox_es1->setChecked(true);
+   ui->comboBox_es1->setCurrentText(dati::ex1);
+   ui->lineEdit_rep1->setText(dati::rip1);
+
    rep1 = dati::rip1.toInt();
    if(ui->comboBox_oi_es1->isEnabled()) {
-   if(ui->comboBox_oi_es1->currentText()== bicchiere ) {oggetto_es1= "1"; ros_ogg1=1;}
-   else if (ui->comboBox_oi_es1->currentText()==forchetta) {oggetto_es1= "2"; ros_ogg1=2;}
-   else if(ui->comboBox_oi_es1 ->currentText()==libro) {oggetto_es1= "3"; ros_ogg1=3;} }
+   if(ui->comboBox_oi_es1->currentText()== bicchiere ) { ui->comboBox_ogg1->setCurrentText("bicchiere"); oggetto_es1= "1"; ros_ogg1=1; ui->label_oi1_recap->setText(bicchiere);}
+   else if (ui->comboBox_oi_es1->currentText()==forchetta) {ui->comboBox_ogg1->setCurrentText("forchetta"); oggetto_es1= "2"; ros_ogg1=2; ui->label_oi1_recap->setText(forchetta);}
+   else if(ui->comboBox_oi_es1 ->currentText()==libro) {ui->comboBox_ogg1->setCurrentText("libro"); oggetto_es1= "3"; ros_ogg1=3; ui->label_oi1_recap->setText(libro);} }
    else if (!(ui->comboBox_oi_es1->isEnabled())) {
      oggetto_es1="0";
      ros_ogg1 = 0;
@@ -1330,13 +1701,21 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
  if(ui->checkBox_ex2->isChecked())
  {
    dati::ex2 = ui->comboBox_ex2->currentText();
+    ui->label_es2_recap->setText(dati::ex2);
+
 
    dati::rip2= ui->lineEdit_ex2->text();
+   ui->label_es2_ripe_recap->setText(dati::rip2);
+
+   ui->checkBox_es2->setChecked(true);
+   ui->comboBox_es2->setCurrentText(dati::ex2);
+   ui->lineEdit_rep2->setText(dati::rip2);
+
    rep2 = dati::rip2.toInt();
    if(ui->comboBox_oi_es2->isEnabled()) {
-   if(ui->comboBox_oi_es2->currentText()== bicchiere ) {oggetto_es2= "1"; ros_ogg2=1;}
-   else if (ui->comboBox_oi_es2->currentText()==forchetta) {oggetto_es2 = "2"; ros_ogg2= 2;}
-   else if(ui->comboBox_oi_es2 ->currentText()==libro) {oggetto_es2= "3"; ros_ogg2= 3;} }
+   if(ui->comboBox_oi_es2->currentText()== bicchiere ) { ui->comboBox_ogg2->setCurrentText("bicchiere"); oggetto_es2= "1"; ros_ogg2=1; ui->label_oi2_recap->setText(bicchiere);}
+   else if (ui->comboBox_oi_es2->currentText()==forchetta) { ui->comboBox_ogg2->setCurrentText("forchetta");oggetto_es2 = "2"; ros_ogg2= 2; ui->label_oi2_recap->setText(forchetta);}
+   else if(ui->comboBox_oi_es2 ->currentText()==libro) {ui->comboBox_ogg2->setCurrentText("libro"); oggetto_es2= "3"; ros_ogg2= 3; ui->label_oi2_recap->setText(libro);} }
    else if (!(ui->comboBox_oi_es2->isEnabled())) {
      oggetto_es2 = "0";
      ros_ogg2 = 0;
@@ -1374,13 +1753,21 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
  if(ui->checkBox_ex3->isChecked())
  {
    dati::ex3 = ui->comboBox_ex3->currentText();
+    ui->label_es3_recap->setText(dati::ex3);
+
 
    dati::rip3= ui->lineEdit_ex3->text();
+   ui->label_es3_ripe_recap->setText(dati::rip3);
+
+   ui->checkBox_es3->setChecked(true);
+   ui->comboBox_es3->setCurrentText(dati::ex3);
+   ui->lineEdit_rep3->setText(dati::rip3);
+
    rep3 = dati::rip3.toInt();
    if(ui->comboBox_oi_es3->isEnabled()) {
-   if(ui->comboBox_oi_es3->currentText()== bicchiere ) {oggetto_es3= "1"; ros_ogg3=1;}
-   else if (ui->comboBox_oi_es3->currentText()==forchetta) {oggetto_es3= "2"; ros_ogg3=3;}
-   else if(ui->comboBox_oi_es3 ->currentText()==libro) {oggetto_es3= "3"; ros_ogg3=3;} }
+   if(ui->comboBox_oi_es3->currentText()== bicchiere ) { ui->comboBox_ogg3->setCurrentText("bicchiere"); oggetto_es3= "1"; ros_ogg3=1; ui->label_oi3_recap->setText(bicchiere);}
+   else if (ui->comboBox_oi_es3->currentText()==forchetta) {  ui->comboBox_ogg3->setCurrentText("forchetta"); oggetto_es3= "2"; ros_ogg3=2; ui->label_oi3_recap->setText(forchetta);}
+   else if(ui->comboBox_oi_es3 ->currentText()==libro) { ui->comboBox_ogg3->setCurrentText("libro"); oggetto_es3= "3"; ros_ogg3=3; ui->label_oi3_recap->setText(libro);} }
    else if(!(ui->comboBox_oi_es3->isEnabled())) {
      oggetto_es3 = "0";
      ros_ogg3 = 0;
@@ -1417,13 +1804,21 @@ if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt
 if(ui->checkBox_ex4->isChecked())
 {
   dati::ex4 = ui->comboBox_ex4->currentText();
+   ui->label_es4_recap->setText(dati::ex4);
+
 
   dati::rip4= ui->lineEdit_ex4->text();
+  ui->label_es4_ripe_recap->setText(dati::rip4);
+
+  ui->checkBox_es4->setChecked(true);
+  ui->comboBox_es4->setCurrentText(dati::ex4);
+  ui->lineEdit_rep4->setText(dati::rip4);
+
   rep4 = dati::rip4.toInt();
   if(ui->comboBox_oi_es4->isEnabled()) {
-  if(ui->comboBox_oi_es4->currentText()== bicchiere ) {oggetto_es4= "1"; ros_ogg4=1;}
-  else if (ui->comboBox_oi_es4->currentText()==forchetta) {oggetto_es4= "2"; ros_ogg4=3;}
-  else if(ui->comboBox_oi_es4 ->currentText()==libro) {oggetto_es4= "3"; ros_ogg4=3;} }
+  if(ui->comboBox_oi_es4->currentText()== bicchiere ) {ui->comboBox_ogg4->setCurrentText("bicchiere"); oggetto_es4= "1"; ros_ogg4=1; ui->label_oi4_recap->setText(bicchiere);}
+  else if (ui->comboBox_oi_es4->currentText()==forchetta) {ui->comboBox_ogg4->setCurrentText("forchetta"); oggetto_es4= "2"; ros_ogg4=2; ui->label_oi4_recap->setText(forchetta);}
+  else if(ui->comboBox_oi_es4 ->currentText()==libro) {ui->comboBox_ogg4->setCurrentText("libro"); oggetto_es4= "3"; ros_ogg4=3; ui->label_oi4_recap->setText(libro);} }
   else if (!(ui->comboBox_oi_es4->isEnabled())) {
     oggetto_es4 = "0";
     ros_ogg4 = 0;
@@ -1461,13 +1856,21 @@ if(ui->checkBox_ex4->isChecked())
 if(ui->checkBox_ex5->isChecked())
 {
   dati::ex5 = ui->comboBox_ex5->currentText();
+   ui->label_es5_recap->setText(dati::ex5);
+
 
   dati::rip5= ui->lineEdit_ex5->text();
+  ui->label_5_ripe_recap->setText(dati::rip5);
+
+  ui->checkBox_es5->setChecked(true);
+  ui->comboBox_es5->setCurrentText(dati::ex5);
+  ui->lineEdit_rep5->setText(dati::rip5);
+
   rep5 = dati::rip5.toInt();
   if(ui->comboBox_oi_es5->isEnabled()) {
-  if(ui->comboBox_oi_es5->currentText()== bicchiere ) {oggetto_es5= "1"; ros_ogg5=1;}
-  else if (ui->comboBox_oi_es5->currentText()==forchetta) {oggetto_es5= "2"; ros_ogg5=2;}
-  else if(ui->comboBox_oi_es5->currentText()==libro) {oggetto_es5= "3"; ros_ogg5=3;} }
+  if(ui->comboBox_oi_es5->currentText()== bicchiere ) {ui->comboBox_ogg5->setCurrentText("bicchiere"); oggetto_es5= "1"; ros_ogg5=1; ui->label_oi5_recap->setText(bicchiere);}
+  else if (ui->comboBox_oi_es5->currentText()==forchetta) {ui->comboBox_ogg5->setCurrentText("forchetta"); oggetto_es5= "2"; ros_ogg5=2; ui->label_oi5_recap->setText(forchetta);}
+  else if(ui->comboBox_oi_es5->currentText()==libro) {ui->comboBox_ogg5->setCurrentText("libro"); oggetto_es5= "3"; ros_ogg5=3;ui->label_oi5_recap->setText(libro);} }
   else if (!(ui->comboBox_oi_es5->isEnabled())) {
     oggetto_es5 = "0";
     ros_ogg5 = 0;
@@ -1506,13 +1909,20 @@ if(ui->checkBox_ex5->isChecked())
 if(ui->checkBox_ex6->isChecked())
 {
   dati::ex6 = ui->comboBox_ex6->currentText();
+   ui->label_es6_recap->setText(dati::ex6);
 
   dati::rip6= ui->lineEdit_ex6->text();
+  ui->label_es6_ripe_recap->setText(dati::rip6);
+
+  ui->checkBox_es6->setChecked(true);
+  ui->comboBox_es6->setCurrentText(dati::ex6);
+  ui->lineEdit_rep6->setText(dati::rip6);
+
   rep6 = dati::rip6.toInt();
   if(ui->comboBox_oi_es6->isEnabled()) {
-  if(ui->comboBox_oi_es6->currentText()== bicchiere ) {oggetto_es6= "1"; ros_ogg6=1;}
-  else if (ui->comboBox_oi_es6->currentText()==forchetta) {oggetto_es6= "2"; ros_ogg6=2;}
-  else if(ui->comboBox_oi_es6 ->currentText()==libro) {oggetto_es6= "3"; ros_ogg6=3;} }
+  if(ui->comboBox_oi_es6->currentText()== bicchiere ) {ui->comboBox_ogg6->setCurrentText("bicchiere"); oggetto_es6= "1"; ros_ogg6=1; ui->label_oi6_recap->setText(bicchiere);}
+  else if (ui->comboBox_oi_es6->currentText()==forchetta) {ui->comboBox_ogg6->setCurrentText("forchetta"); oggetto_es6= "2"; ros_ogg6=2;ui->label_oi6_recap->setText(forchetta);}
+  else if(ui->comboBox_oi_es6 ->currentText()==libro) {ui->comboBox_ogg6->setCurrentText("libro"); oggetto_es6= "3"; ros_ogg6=3;ui->label_oi6_recap->setText(libro);} }
   else if(!(ui->comboBox_oi_es6->isEnabled()))  {
     oggetto_es6 = "0";
     ros_ogg6 = 0;
@@ -1551,13 +1961,21 @@ if(ui->checkBox_ex6->isChecked())
 if(ui->checkBox_7->isChecked())
 {
   dati::ex7 = ui->comboBox_ex7->currentText();
+   ui->label_es7_recap->setText(dati::ex7);
+
 
   dati::rip7= ui->lineEdit_ex7->text();
+  ui->label_7_ripe_recap->setText(dati::rip7);
+
+  ui->checkBox_es7->setChecked(true);
+  ui->comboBox_es7->setCurrentText(dati::ex7);
+  ui->lineEdit_rep7->setText(dati::rip7);
+
   rep7 = dati::rip7.toInt();
   if(ui->comboBox_oi_es7->isEnabled()) {
-  if(ui->comboBox_oi_es7->currentText()== bicchiere ) {oggetto_es7= "1"; ros_ogg7=1;}
-  else if (ui->comboBox_oi_es7->currentText()==forchetta) {oggetto_es7= "2"; ros_ogg7=2;}
-  else if(ui->comboBox_oi_es7 ->currentText()==libro) {oggetto_es7= "3"; ros_ogg7=3;} }
+  if(ui->comboBox_oi_es7->currentText()== bicchiere ) {ui->comboBox_ogg7->setCurrentText("bicchiere"); oggetto_es7= "1"; ros_ogg7=1; ui->label_oi7_recap->setText(bicchiere);}
+  else if (ui->comboBox_oi_es7->currentText()==forchetta) {ui->comboBox_ogg7->setCurrentText("forchetta"); oggetto_es7= "2"; ros_ogg7=2; ui->label_oi7_recap->setText(forchetta);}
+  else if(ui->comboBox_oi_es7 ->currentText()==libro) {ui->comboBox_ogg7->setCurrentText("libro"); oggetto_es7= "3"; ros_ogg7=3; ui->label_oi7_recap->setText(libro);} }
   else if(!(ui->comboBox_oi_es7 ->isEnabled())) {
     oggetto_es7 = "0";
     ros_ogg7 = 0;
@@ -1603,7 +2021,7 @@ if (selezione.exec())
 
  /******************       AGGIORNO TOPIC STATUS : FINISHED EXERCISE SEQUENCE                 ***********************/
 //std_msgs::Int8 msg_status;
-  dati::status1 = 5;
+  dati::status1 = 3;
 msg_status_pp.data = dati::status1;
 ROS_INFO ("%d", msg_status_pp.data);
 status_publisher.publish(msg_status_pp);
@@ -1843,415 +2261,9 @@ while(esercizi.next())
 //           qDebug()<< "fatto";
 //         }
 //         else qDebug()<< ins_val.lastError();
-}
 
-/**********************       SALVO MODALITÀ DI CONTROLLO                       *********************/
-void paginaprincipale::on_pushButton_controllo_clicked()
-{
 
-  if(ui->radioButton_trigger->isChecked()) {
-    dati::mood = "Trigger";
-    QSqlQuery modalita;
-    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modalita.exec();
-        if (modalita.exec())
-        {
-         mode = 2;
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva con Trigger"));
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
-        }
-
-  }
-
-  if (ui->radioButton_pass->isChecked())
-  {
-    dati::mood = "Mobilizzazione Passiva";
-    QSqlQuery modalita;
-    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modalita.exec();
-        if (modalita.exec())
-        {
-         mode = 1;
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva"));
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
-        }
-    }
-
-  if(ui->radioButton_aan->isChecked())
-  {
-    dati::mood = "Assisted as needed";
-    QSqlQuery modalita;
-    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modalita.exec();
-        if (modalita.exec())
-        {
-         mode = 3;
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Assisted As Needed"));
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
-        }
-  }
-
-  if (ui->radioButton_ag->isChecked())
-  {
-    dati::mood = "Anti-g";
-    QSqlQuery modalita;
-    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modalita.exec();
-        if (modalita.exec())
-        {
-         mode = 4;
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Anti Gravitario"));
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
-        }
-  }
-
-  if (ui->radioButton_chall->isChecked())
-  {
-    dati::mood = "Challenging";
-    QSqlQuery modalita;
-    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    modalita.exec();
-        if (modalita.exec())
-        {
-         mode = 5;
-         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Challenging"));
-
-       }
-       else {
-          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
-        }
-  }
-
-
-         QString r1, r2,r3,r4,r5,r6,r7;
-         r1 = ui->lineEdit_ex1->placeholderText();
-         r2 = ui->lineEdit_ex2->placeholderText();
-         r3 = ui->lineEdit_ex3->placeholderText();
-         r4 = ui->lineEdit_ex4->placeholderText();
-         r5 = ui->lineEdit_ex5->placeholderText();
-         r6 = ui->lineEdit_ex6->placeholderText();
-         r7= ui->lineEdit_ex7->placeholderText();
-
-
-
-         ros::NodeHandle n;
-         n.setParam ("/exercise/mode", mode);
-
-
-
-                     if (flag==4) {
-                        ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
-
-                       qDebug()<< "qui";
-                      if(!(dati::lex1==0))
-                      {
-                        ui->checkBox_ex1->setChecked(true);
-                        dati::flag_ex=0;
-                        QSqlQuery selezione1;
-                        selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
-                        selezione1.exec();
-                        if (selezione1.exec()) {
-
-                          while(selezione1.next())
-                        { ui->comboBox_ex1->setCurrentText(selezione1.value(0).toString());
-                            QString ex1;
-                            ex1 = selezione1.value(0).toString();
-                            qDebug()<< ex1;
-
-                            }
-
-
-
-                        r1 = dati::rip1_prec;
-                        ui->lineEdit_ex1->setText(r1);
-                        qDebug()<< r1;
-                        if(dati::ogg1_prec =="1") {
-                          ui->comboBox_oi_es1->setCurrentText("Bicchiere");
-                        }
-                        else if(dati::ogg1_prec == "2") {
-                          ui->comboBox_oi_es1->setCurrentText("Forchetta");
-                        }
-                        else if(dati::ogg1_prec == "3") {
-                          ui->comboBox_oi_es1->setCurrentText("Libro");
-                        }
-
-
-                        }
-
-                          }
-                      else {
-                        ui->checkBox_ex1->setChecked(false);
-                      }
-                      if(!(dati::lex2==0))
-                      {
-                        ui->checkBox_ex2->setChecked(true);
-                        dati::flag_ex = 1;
-                        QSqlQuery selezione2;
-                        selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
-                        selezione2.exec();
-                        if (selezione2.exec()) {
-
-                          while(selezione2.next())
-                        { ui->comboBox_ex2->setCurrentText(selezione2.value(0).toString());
-                            QString ex2;
-                            ex2 = selezione2.value(0).toString();
-                            qDebug()<< ex2;
-                            }
-
-
-                        r2 = dati::rip2_prec;
-                        ui->lineEdit_ex2->setText(r2);
-                        qDebug()<<r2;
-                        if(dati::ogg2_prec =="1") {
-                          ui->comboBox_oi_es2->setCurrentText("Bicchiere");
-                        }
-                        else if(dati::ogg2_prec == "2") {
-                          ui->comboBox_oi_es2->setCurrentText("Forchetta");
-                        }
-                        else if(dati::ogg2_prec == "3") {
-                          ui->comboBox_oi_es2->setCurrentText("Libro");
-                        }
-
-                      }
-                      }
-                      else {
-                        ui->checkBox_ex2->setChecked(false);
-                      }
-
-                      if(!(dati::lex3==0))
-                      {
-                        ui->checkBox_ex3->setChecked(true);
-                        dati::flag_ex=2;
-                        QSqlQuery selezione3;
-                        selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
-                        selezione3.exec();
-                        if (selezione3.exec()) {
-
-                          while(selezione3.next())
-                        { ui->comboBox_ex3->setCurrentText(selezione3.value(0).toString());
-                            QString ex3;
-                            ex3 = selezione3.value(0).toString();
-                            qDebug()<< ex3;
-                            }
-
-
-                        r3 = dati::rip3_prec;
-                        qDebug()<<r3;
-                        if(dati::ogg3_prec =="1") {
-                          ui->comboBox_oi_es3->setCurrentText("Bicchiere");
-                        }
-                        else if(dati::ogg3_prec == "2") {
-                          ui->comboBox_oi_es3->setCurrentText("Forchetta");
-                        }
-                        else if(dati::ogg3_prec == "3") {
-                          ui->comboBox_oi_es3->setCurrentText("Libro");
-                        }
-
-
-                       ui->lineEdit_ex3->setText(r3);
-
-                      }
-                      }
-                      else {
-                        ui->checkBox_ex3->setChecked(false);
-                      }
-                      if(!(dati::lex4==0))
-                      {
-                        ui->checkBox_ex4->setChecked(true);
-                        dati::flag_ex=3;
-                        QSqlQuery selezione4;
-                        selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
-                        selezione4.exec();
-                        if (selezione4.exec()){
-
-                          while(selezione4.next())
-                        { ui->comboBox_ex4->setCurrentText(selezione4.value(0).toString());
-                            QString ex4;
-                            ex4 = selezione4.value(0).toString();
-                            qDebug()<< ex4;
-                            }
-
-
-                        r4 = dati::rip4_prec;
-                        ui->lineEdit_ex4->setText(r4);
-                        qDebug()<< r4;
-                        if(dati::ogg4_prec =="1") {
-                          ui->comboBox_oi_es4->setCurrentText("Bicchiere");
-                        }
-                        else if(dati::ogg4_prec == "2") {
-                          ui->comboBox_oi_es4->setCurrentText("Forchetta");
-                        }
-                        else if(dati::ogg4_prec == "3") {
-                          ui->comboBox_oi_es4->setCurrentText("Libro");
-                        }
-
-
-                      }
-                      }
-                      else {
-                        ui->checkBox_ex4->setChecked(false);
-                      }
-                      if(!(dati::lex5==0))
-                      {
-                        ui->checkBox_ex5->setChecked(true);
-                        dati::flag_ex=4;
-                        QSqlQuery selezione5;
-                        selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
-                        selezione5.exec();
-                        if (selezione5.exec()) {
-
-                          while(selezione5.next())
-                        { ui->comboBox_ex5->setCurrentText(selezione5.value(0).toString());
-                            QString ex5;
-                            ex5 = selezione5.value(0).toString();
-                            qDebug()<< ex5;
-                            }
-
-
-                        r5 = dati::rip5_prec;
-                        ui->lineEdit_ex5->setText(r5);
-                        qDebug()<< r5;
-                        if(dati::ogg5_prec =="1") {
-                          ui->comboBox_oi_es5->setCurrentText("Bicchiere");
-                        }
-                        else if(dati::ogg5_prec == "2") {
-                          ui->comboBox_oi_es5->setCurrentText("Forchetta");
-                        }
-                        else if(dati::ogg5_prec == "3") {
-                          ui->comboBox_oi_es5->setCurrentText("Libro");
-                        }
-
-
-                      }
-                      }
-                      else {
-                        ui->checkBox_ex5->setChecked(false);
-                      }
-                      if(!(dati::lex6==0))
-                      {
-                        ui->checkBox_ex6->setChecked(true);
-                        dati::flag_ex=5;
-                        QSqlQuery selezione6;
-                        selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
-                        selezione6.exec();
-                        if (selezione6.exec()){
-
-                          while(selezione6.next())
-                        { ui->comboBox_ex6->setCurrentText(selezione6.value(0).toString());
-                            QString ex6;
-                            ex6 = selezione6.value(0).toString();
-                            qDebug()<< ex6;
-
-                            }
-
-                        r6 = dati::rip6_prec;
-                       ui->lineEdit_ex6->setText(r6);
-                       qDebug()<< r6;
-                       if(dati::ogg6_prec =="1") {
-                         ui->comboBox_oi_es6->setCurrentText("Bicchiere");
-                       }
-                       else if(dati::ogg6_prec == "2") {
-                         ui->comboBox_oi_es6->setCurrentText("Forchetta");
-                       }
-                       else if(dati::ogg6_prec == "3") {
-                         ui->comboBox_oi_es6->setCurrentText("Libro");
-                       }
-
-
-                      }
-                      }
-                      else {
-                        ui->checkBox_ex6->setChecked(false);
-                      }
-                      if(!(dati::lex7==0))
-                      {
-                        ui->checkBox_7->setChecked(true);
-                        dati::flag_ex=6;
-                        QSqlQuery selezione7;
-                        selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
-                        selezione7.exec();
-                        if (selezione7.exec()) {
-
-                          while(selezione7.next())
-                        { ui->comboBox_ex7->setCurrentText(selezione7.value(0).toString());
-                            QString ex7;
-                            ex7 = selezione7.value(0).toString();
-                            qDebug()<< ex7;
-
-                            }
-
-
-
-                        r7 = dati::rip7_prec;
-                        ui->lineEdit_ex7->setText(r7);
-                        qDebug()<< r7;
-                        if(dati::ogg7_prec =="1") {
-                          ui->comboBox_oi_es7->setCurrentText("Bicchiere");
-                        }
-                        else if(dati::ogg7_prec == "2") {
-                          ui->comboBox_oi_es7->setCurrentText("Forchetta");
-                        }
-                        else if(dati::ogg7_prec == "3") {
-                          ui->comboBox_oi_es7->setCurrentText("Libro");
-                        }
-
-
-
-                      }
-                      }
-                      else {
-                        ui->checkBox_7->setChecked(false);
-                      }
-                      qDebug()<<r1;
-                      qDebug()<< r2;
-                      qDebug()<< r3;
-                      qDebug()<< r4;
-                      qDebug()<< r5;
-                      qDebug()<< r6;
-                      qDebug()<< r7;
-                      ui->lineEdit_ex1->setText(r1);
-                      ui->lineEdit_ex2->setText(r2);
-                      ui->lineEdit_ex3->setText(r3);
-                      ui->lineEdit_ex4->setText(r4);
-                      ui->lineEdit_ex5->setText(r5);
-                      ui->lineEdit_ex6->setText(r6);
-                      ui->lineEdit_ex7->setText(r7);
-                     }
-
-                     else {
-                       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
-                       qDebug()<< "fino qui ok";
-                     r1 = ui->lineEdit_ex1->placeholderText();
-                     r2 = ui->lineEdit_ex2->placeholderText();
-                     r3 = ui->lineEdit_ex3->placeholderText();
-                     r4 = ui->lineEdit_ex4->placeholderText();
-                     r5 = ui->lineEdit_ex5->placeholderText();
-                     r6 = ui->lineEdit_ex6->placeholderText();
-                     r7= ui->lineEdit_ex7->placeholderText();
-                     ui->lineEdit_ex1->setText(r1);
-                     ui->lineEdit_ex2->setText(r2);
-                     ui->lineEdit_ex3->setText(r3);
-                     ui->lineEdit_ex4->setText(r4);
-                     ui->lineEdit_ex5->setText(r5);
-                     ui->lineEdit_ex6->setText(r6);
-                     ui->lineEdit_ex7->setText(r7);
-                     }
-
-      enable_combo();
-      update_tempo_terapia();
-      enable_combo_ex();
+/**********************       INSERISCO VALUTAZIONI FITTIZIE                      *********************/
       QSqlQuery ins_val;
          ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
 
@@ -2355,12 +2367,549 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 
 
 qDebug()<< rand1;
-
-if (dati::flag_ex ==0 ){
-  ui->checkBox_ex1->setChecked(true);
-  dati::flag_ex++;
 }
 
+/**********************       SALVO MODALITÀ DI CONTROLLO                       *********************/
+void paginaprincipale::on_pushButton_controllo_clicked()
+{
+
+//  if(ui->radioButton_trigger->isChecked()) {
+//    dati::mood = "Trigger";
+//    ui->pushButton_es_libero->setVisible(false);
+//    QSqlQuery modalita;
+//    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    modalita.exec();
+//        if (modalita.exec())
+//        {
+//         mode = 2;
+//         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva con Trigger"));
+
+//       }
+//       else {
+//          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+//        }
+
+ // }
+
+//  if (ui->radioButton_pass->isChecked())
+//  {
+//    dati::mood = "Mobilizzazione Passiva";
+//    ui->pushButton_es_libero->setVisible(false);
+//    QSqlQuery modalita;
+//    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    modalita.exec();
+//        if (modalita.exec())
+//        {
+//         mode = 1;
+//         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva"));
+
+//       }
+//       else {
+//          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+//        }
+//    }
+
+//  if(ui->radioButton_aan->isChecked())
+//  {
+//    dati::mood = "Assisted as needed";
+//    ui->pushButton_es_libero->setVisible(false);
+//    QSqlQuery modalita;
+//    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    modalita.exec();
+//        if (modalita.exec())
+//        {
+//         mode = 3;
+//         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Assisted As Needed"));
+
+//       }
+//       else {
+//          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+//        }
+//  }
+
+//  if (ui->radioButton_ag->isChecked())
+//  {
+//    dati::mood = "Anti-g";
+//    ui->pushButton_es_libero->setVisible(true);
+//    QSqlQuery modalita;
+//    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    modalita.exec();
+//        if (modalita.exec())
+//        {
+//         mode = 4;
+//         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Anti Gravitario"));
+
+//       }
+//       else {
+//          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+//        }
+//  }
+
+//  if (ui->radioButton_chall->isChecked())
+//  {
+//    dati::mood = "Challenging";
+//    ui->pushButton_es_libero->setVisible(false);
+//    QSqlQuery modalita;
+//    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    modalita.exec();
+//        if (modalita.exec())
+//        {
+//         mode = 5;
+//         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Challenging"));
+
+//       }
+//       else {
+//          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+//        }
+
+//  }
+
+//  if (ui->radioButton_trasp->isChecked())
+//  {
+//    dati::mood = "trasparente";
+//    ui->pushButton_es_libero->setVisible(true);
+//    QSqlQuery modalita;
+//    modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    modalita.exec();
+//        if (modalita.exec())
+//        {
+//         mode = 6;
+
+//         QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Challenging"));
+
+//       }
+//       else {
+//          QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+//        }
+//  }
+
+
+
+//         QString r1, r2,r3,r4,r5,r6,r7;
+//         r1 = ui->lineEdit_ex1->placeholderText();
+//         r2 = ui->lineEdit_ex2->placeholderText();
+//         r3 = ui->lineEdit_ex3->placeholderText();
+//         r4 = ui->lineEdit_ex4->placeholderText();
+//         r5 = ui->lineEdit_ex5->placeholderText();
+//         r6 = ui->lineEdit_ex6->placeholderText();
+//         r7= ui->lineEdit_ex7->placeholderText();
+
+
+
+//         ros::NodeHandle n;
+//         n.setParam ("/exercise/mode", mode);
+
+
+
+//                     if (flag==4) {
+//                        ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+
+//                       qDebug()<< "qui";
+//                      if(!(dati::lex1==0))
+//                      {
+//                        ui->checkBox_ex1->setChecked(true);
+//                        dati::flag_ex=0;
+//                        QSqlQuery selezione1;
+//                        selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
+//                        selezione1.exec();
+//                        if (selezione1.exec()) {
+
+//                          while(selezione1.next())
+//                        { ui->comboBox_ex1->setCurrentText(selezione1.value(0).toString());
+//                            QString ex1;
+//                            ex1 = selezione1.value(0).toString();
+//                            qDebug()<< ex1;
+
+//                            }
+
+
+
+//                        r1 = dati::rip1_prec;
+//                        ui->lineEdit_ex1->setText(r1);
+//                        qDebug()<< r1;
+//                        if(dati::ogg1_prec =="1") {
+//                          ui->comboBox_oi_es1->setCurrentText("Bicchiere");
+//                        }
+//                        else if(dati::ogg1_prec == "2") {
+//                          ui->comboBox_oi_es1->setCurrentText("Forchetta");
+//                        }
+//                        else if(dati::ogg1_prec == "3") {
+//                          ui->comboBox_oi_es1->setCurrentText("Libro");
+//                        }
+
+
+//                        }
+
+//                          }
+//                      else {
+//                        ui->checkBox_ex1->setChecked(false);
+//                      }
+//                      if(!(dati::lex2==0))
+//                      {
+//                        ui->checkBox_ex2->setChecked(true);
+//                        dati::flag_ex = 1;
+//                        QSqlQuery selezione2;
+//                        selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
+//                        selezione2.exec();
+//                        if (selezione2.exec()) {
+
+//                          while(selezione2.next())
+//                        { ui->comboBox_ex2->setCurrentText(selezione2.value(0).toString());
+//                            QString ex2;
+//                            ex2 = selezione2.value(0).toString();
+//                            qDebug()<< ex2;
+//                            }
+
+
+//                        r2 = dati::rip2_prec;
+//                        ui->lineEdit_ex2->setText(r2);
+//                        qDebug()<<r2;
+//                        if(dati::ogg2_prec =="1") {
+//                          ui->comboBox_oi_es2->setCurrentText("Bicchiere");
+//                        }
+//                        else if(dati::ogg2_prec == "2") {
+//                          ui->comboBox_oi_es2->setCurrentText("Forchetta");
+//                        }
+//                        else if(dati::ogg2_prec == "3") {
+//                          ui->comboBox_oi_es2->setCurrentText("Libro");
+//                        }
+
+//                      }
+//                      }
+//                      else {
+//                        ui->checkBox_ex2->setChecked(false);
+//                      }
+
+//                      if(!(dati::lex3==0))
+//                      {
+//                        ui->checkBox_ex3->setChecked(true);
+//                        dati::flag_ex=2;
+//                        QSqlQuery selezione3;
+//                        selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
+//                        selezione3.exec();
+//                        if (selezione3.exec()) {
+
+//                          while(selezione3.next())
+//                        { ui->comboBox_ex3->setCurrentText(selezione3.value(0).toString());
+//                            QString ex3;
+//                            ex3 = selezione3.value(0).toString();
+//                            qDebug()<< ex3;
+//                            }
+
+
+//                        r3 = dati::rip3_prec;
+//                        qDebug()<<r3;
+//                        if(dati::ogg3_prec =="1") {
+//                          ui->comboBox_oi_es3->setCurrentText("Bicchiere");
+//                        }
+//                        else if(dati::ogg3_prec == "2") {
+//                          ui->comboBox_oi_es3->setCurrentText("Forchetta");
+//                        }
+//                        else if(dati::ogg3_prec == "3") {
+//                          ui->comboBox_oi_es3->setCurrentText("Libro");
+//                        }
+
+
+//                       ui->lineEdit_ex3->setText(r3);
+
+//                      }
+//                      }
+//                      else {
+//                        ui->checkBox_ex3->setChecked(false);
+//                      }
+//                      if(!(dati::lex4==0))
+//                      {
+//                        ui->checkBox_ex4->setChecked(true);
+//                        dati::flag_ex=3;
+//                        QSqlQuery selezione4;
+//                        selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
+//                        selezione4.exec();
+//                        if (selezione4.exec()){
+
+//                          while(selezione4.next())
+//                        { ui->comboBox_ex4->setCurrentText(selezione4.value(0).toString());
+//                            QString ex4;
+//                            ex4 = selezione4.value(0).toString();
+//                            qDebug()<< ex4;
+//                            }
+
+
+//                        r4 = dati::rip4_prec;
+//                        ui->lineEdit_ex4->setText(r4);
+//                        qDebug()<< r4;
+//                        if(dati::ogg4_prec =="1") {
+//                          ui->comboBox_oi_es4->setCurrentText("Bicchiere");
+//                        }
+//                        else if(dati::ogg4_prec == "2") {
+//                          ui->comboBox_oi_es4->setCurrentText("Forchetta");
+//                        }
+//                        else if(dati::ogg4_prec == "3") {
+//                          ui->comboBox_oi_es4->setCurrentText("Libro");
+//                        }
+
+
+//                      }
+//                      }
+//                      else {
+//                        ui->checkBox_ex4->setChecked(false);
+//                      }
+//                      if(!(dati::lex5==0))
+//                      {
+//                        ui->checkBox_ex5->setChecked(true);
+//                        dati::flag_ex=4;
+//                        QSqlQuery selezione5;
+//                        selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
+//                        selezione5.exec();
+//                        if (selezione5.exec()) {
+
+//                          while(selezione5.next())
+//                        { ui->comboBox_ex5->setCurrentText(selezione5.value(0).toString());
+//                            QString ex5;
+//                            ex5 = selezione5.value(0).toString();
+//                            qDebug()<< ex5;
+//                            }
+
+
+//                        r5 = dati::rip5_prec;
+//                        ui->lineEdit_ex5->setText(r5);
+//                        qDebug()<< r5;
+//                        if(dati::ogg5_prec =="1") {
+//                          ui->comboBox_oi_es5->setCurrentText("Bicchiere");
+//                        }
+//                        else if(dati::ogg5_prec == "2") {
+//                          ui->comboBox_oi_es5->setCurrentText("Forchetta");
+//                        }
+//                        else if(dati::ogg5_prec == "3") {
+//                          ui->comboBox_oi_es5->setCurrentText("Libro");
+//                        }
+
+
+//                      }
+//                      }
+//                      else {
+//                        ui->checkBox_ex5->setChecked(false);
+//                      }
+//                      if(!(dati::lex6==0))
+//                      {
+//                        ui->checkBox_ex6->setChecked(true);
+//                        dati::flag_ex=5;
+//                        QSqlQuery selezione6;
+//                        selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
+//                        selezione6.exec();
+//                        if (selezione6.exec()){
+
+//                          while(selezione6.next())
+//                        { ui->comboBox_ex6->setCurrentText(selezione6.value(0).toString());
+//                            QString ex6;
+//                            ex6 = selezione6.value(0).toString();
+//                            qDebug()<< ex6;
+
+//                            }
+
+//                        r6 = dati::rip6_prec;
+//                       ui->lineEdit_ex6->setText(r6);
+//                       qDebug()<< r6;
+//                       if(dati::ogg6_prec =="1") {
+//                         ui->comboBox_oi_es6->setCurrentText("Bicchiere");
+//                       }
+//                       else if(dati::ogg6_prec == "2") {
+//                         ui->comboBox_oi_es6->setCurrentText("Forchetta");
+//                       }
+//                       else if(dati::ogg6_prec == "3") {
+//                         ui->comboBox_oi_es6->setCurrentText("Libro");
+//                       }
+
+
+//                      }
+//                      }
+//                      else {
+//                        ui->checkBox_ex6->setChecked(false);
+//                      }
+//                      if(!(dati::lex7==0))
+//                      {
+//                        ui->checkBox_7->setChecked(true);
+//                        dati::flag_ex=6;
+//                        QSqlQuery selezione7;
+//                        selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
+//                        selezione7.exec();
+//                        if (selezione7.exec()) {
+
+//                          while(selezione7.next())
+//                        { ui->comboBox_ex7->setCurrentText(selezione7.value(0).toString());
+//                            QString ex7;
+//                            ex7 = selezione7.value(0).toString();
+//                            qDebug()<< ex7;
+
+//                            }
+
+
+
+//                        r7 = dati::rip7_prec;
+//                        ui->lineEdit_ex7->setText(r7);
+//                        qDebug()<< r7;
+//                        if(dati::ogg7_prec =="1") {
+//                          ui->comboBox_oi_es7->setCurrentText("Bicchiere");
+//                        }
+//                        else if(dati::ogg7_prec == "2") {
+//                          ui->comboBox_oi_es7->setCurrentText("Forchetta");
+//                        }
+//                        else if(dati::ogg7_prec == "3") {
+//                          ui->comboBox_oi_es7->setCurrentText("Libro");
+//                        }
+
+
+
+//                      }
+//                      }
+//                      else {
+//                        ui->checkBox_7->setChecked(false);
+//                      }
+//                      qDebug()<<r1;
+//                      qDebug()<< r2;
+//                      qDebug()<< r3;
+//                      qDebug()<< r4;
+//                      qDebug()<< r5;
+//                      qDebug()<< r6;
+//                      qDebug()<< r7;
+//                      ui->lineEdit_ex1->setText(r1);
+//                      ui->lineEdit_ex2->setText(r2);
+//                      ui->lineEdit_ex3->setText(r3);
+//                      ui->lineEdit_ex4->setText(r4);
+//                      ui->lineEdit_ex5->setText(r5);
+//                      ui->lineEdit_ex6->setText(r6);
+//                      ui->lineEdit_ex7->setText(r7);
+//                     } //qui finisce il flag 4
+
+//                     else {
+//                       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+//                       qDebug()<< "fino qui ok";
+//                     r1 = ui->lineEdit_ex1->placeholderText();
+//                     r2 = ui->lineEdit_ex2->placeholderText();
+//                     r3 = ui->lineEdit_ex3->placeholderText();
+//                     r4 = ui->lineEdit_ex4->placeholderText();
+//                     r5 = ui->lineEdit_ex5->placeholderText();
+//                     r6 = ui->lineEdit_ex6->placeholderText();
+//                     r7= ui->lineEdit_ex7->placeholderText();
+//                     ui->lineEdit_ex1->setText(r1);
+//                     ui->lineEdit_ex2->setText(r2);
+//                     ui->lineEdit_ex3->setText(r3);
+//                     ui->lineEdit_ex4->setText(r4);
+//                     ui->lineEdit_ex5->setText(r5);
+//                     ui->lineEdit_ex6->setText(r6);
+//                     ui->lineEdit_ex7->setText(r7);
+//                     }
+
+//      enable_combo();
+//      update_tempo_terapia();
+//      enable_combo_ex();
+//      QSqlQuery ins_val;
+//         ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
+
+//               if (ins_val.exec()) {
+//                 qDebug()<< "fatto";
+//               }
+//               else qDebug()<< ins_val.lastError();
+//      rand1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString rands1 = QString::number(rand1);
+//      rand2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString rands2 = QString::number(rand2);
+//      rand3= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//       QString rands3 = QString::number(rand3);
+//      rand4= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString rands4 = QString::number(rand4);
+//      rand5= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString rands5 = QString::number(rand5);
+//      rand10 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString rands10 = QString::number(rand10);
+//      arr7_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs7_1 = QString::number(arr7_1);
+//      arr7_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs7_2 = QString::number(arr7_2);
+//      arr7_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs7_3 = QString::number(arr7_3);
+//      arr7_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs7_4 = QString::number(arr7_4);
+//      arr7_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs7_5 = QString::number(arr7_5);
+//      val.append(arr7_1);
+//      val.append(arr7_2);
+//      val.append(arr7_3);
+//      val.append(arr7_4);
+//      val.append(arr7_5);
+//      vals << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5;
+//      QString valss = vals.join(",");
+
+//      arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs9_1 = QString::number(arr9_1);
+//      arr9_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs9_2 = QString::number(arr9_2);
+//      arr9_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs9_3 = QString::number(arr9_3);
+//      arr9_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs9_4 = QString::number(arr9_4);
+//      arr9_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//      QString arrs9_5 = QString::number(arr9_5);
+//      val2.append(arr9_1);
+//      val2.append(arr9_2);
+//      val2.append(arr9_3);
+//      val2.append(arr9_4);
+//      val2.append(arr9_5);
+//      vals2 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+//      QString valss2 = vals2.join(",");
+//      val8.append(arr7_1);
+//      val8.append(arr7_2);
+//      val8.append(arr7_3);
+//      val8.append(arr7_4);
+//      val8.append(arr7_5);
+//      val8.append(arr9_1);
+//      val8.append(arr9_2);
+//      val8.append(arr9_3);
+//      val8.append(arr9_4);
+//      val8.append(arr9_5);
+//      vals8 << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+//      QString valss8 = vals8.join(",");
+//      qDebug() << val;
+//      qDebug() << val2;
+//      qDebug ()<< val8;
+//      //creo la matrice fittizia 5x19
+
+
+
+
+
+
+
+//      if (dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging") {
+//        QSqlQuery val_data;
+//        val_data.prepare ("update Valutazioni set Intrajoint_coordination = '"+rands1+"', Normalized_jerk = '"+rands2+"', Movement_arrest_period_ratio ='"+rands3+"', Peak_speed_ratio = '"+rands4+"', Acceleration_metric = '"+rands5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+
+//       if( val_data.exec()) qDebug() << "fattoo";
+//       else qDebug()<< val_data.lastError();
+
+//      }
+//      if (dati::mood == "Assisted as needed") {
+//       QSqlQuery val_data1;
+//       val_data1.prepare("update Valutazioni set Active_movement_Idex = '"+rands10+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//       val_data1.exec();
+//      }
+//      if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
+//       QSqlQuery val_data2;
+//       val_data2.prepare("update Valutazioni set Per_corretta_attivazione_muscolare = '"+valss+"', Normalized_EMG_action_level = '"+valss8+"', Indice_co_contrazione = '"+valss2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+//       val_data2.exec();
+//      }
+//      if (dati::mood == "Trigger") {
+//       //matrice
+//      }
+
+
+
+
+//qDebug()<< rand1;
+
+//if (dati::flag_ex ==0 ){
+//  ui->checkBox_ex1->setChecked(true);
+//  dati::flag_ex++;
+//}
 
 
 
@@ -2383,9 +2932,12 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
   if(ui->checkBox_sinistro->isChecked())
   {dati::lato="0" ;
+
   }
  if(ui->checkBox_destro->isChecked())
  { dati::lato = "1";
+
+
 
  }
 //if(ui->checkBox_spalla->isChecked())
@@ -2407,8 +2959,9 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
   }
 
-  if (ui->checkBox_polso->isChecked())
-  { dati::modulo_spalla = "1";
+  if (ui->checkBox_polso->isChecked())  {
+
+    dati::modulo_spalla = "1";
     dati::modulo_polso= "1";
     dati::modulo_gomito = "1";
     dati::oi = "1";
@@ -2481,6 +3034,643 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
    qDebug()<< moduli.lastError();
  }
 }
+  QString r1, r2,r3,r4,r5,r6,r7;
+  r1 = ui->lineEdit_ex1->placeholderText();
+  r2 = ui->lineEdit_ex2->placeholderText();
+  r3 = ui->lineEdit_ex3->placeholderText();
+  r4 = ui->lineEdit_ex4->placeholderText();
+  r5 = ui->lineEdit_ex5->placeholderText();
+  r6 = ui->lineEdit_ex6->placeholderText();
+  r7= ui->lineEdit_ex7->placeholderText();
+
+
+
+
+
+
+
+//              if (flag==4) {
+//                 ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+
+//                qDebug()<< "qui";
+//               if(!(dati::lex1==0))
+//               {
+//                 ui->checkBox_ex1->setChecked(true);
+//                 dati::flag_ex=0;
+//                 QSqlQuery selezione1;
+//                 selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
+//                 selezione1.exec();
+//                 if (selezione1.exec()) {
+
+//                   while(selezione1.next())
+//                 { ui->comboBox_ex1->setCurrentText(selezione1.value(0).toString());
+//                     QString ex1;
+//                     ex1 = selezione1.value(0).toString();
+//                     qDebug()<< ex1;
+
+//                     }
+
+
+
+//                 r1 = dati::rip1_prec;
+//                 ui->lineEdit_ex1->setText(r1);
+//                 qDebug()<< r1;
+//                 if(dati::ogg1_prec =="1") {
+//                   ui->comboBox_oi_es1->setCurrentText("Bicchiere");
+//                 }
+//                 else if(dati::ogg1_prec == "2") {
+//                   ui->comboBox_oi_es1->setCurrentText("Forchetta");
+//                 }
+//                 else if(dati::ogg1_prec == "3") {
+//                   ui->comboBox_oi_es1->setCurrentText("Libro");
+//                 }
+
+
+//                 }
+
+//                   }
+//               else {
+//                 ui->checkBox_ex1->setChecked(false);
+//               }
+//               if(!(dati::lex2==0))
+//               {
+//                 ui->checkBox_ex2->setChecked(true);
+//                 dati::flag_ex = 1;
+//                 QSqlQuery selezione2;
+//                 selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
+//                 selezione2.exec();
+//                 if (selezione2.exec()) {
+
+//                   while(selezione2.next())
+//                 { ui->comboBox_ex2->setCurrentText(selezione2.value(0).toString());
+//                     QString ex2;
+//                     ex2 = selezione2.value(0).toString();
+//                     qDebug()<< ex2;
+//                     }
+
+
+//                 r2 = dati::rip2_prec;
+//                 ui->lineEdit_ex2->setText(r2);
+//                 qDebug()<<r2;
+//                 if(dati::ogg2_prec =="1") {
+//                   ui->comboBox_oi_es2->setCurrentText("Bicchiere");
+//                 }
+//                 else if(dati::ogg2_prec == "2") {
+//                   ui->comboBox_oi_es2->setCurrentText("Forchetta");
+//                 }
+//                 else if(dati::ogg2_prec == "3") {
+//                   ui->comboBox_oi_es2->setCurrentText("Libro");
+//                 }
+
+//               }
+//               }
+//               else {
+//                 ui->checkBox_ex2->setChecked(false);
+//               }
+
+//               if(!(dati::lex3==0))
+//               {
+//                 ui->checkBox_ex3->setChecked(true);
+//                 dati::flag_ex=2;
+//                 QSqlQuery selezione3;
+//                 selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
+//                 selezione3.exec();
+//                 if (selezione3.exec()) {
+
+//                   while(selezione3.next())
+//                 { ui->comboBox_ex3->setCurrentText(selezione3.value(0).toString());
+//                     QString ex3;
+//                     ex3 = selezione3.value(0).toString();
+//                     qDebug()<< ex3;
+//                     }
+
+
+//                 r3 = dati::rip3_prec;
+//                 qDebug()<<r3;
+//                 if(dati::ogg3_prec =="1") {
+//                   ui->comboBox_oi_es3->setCurrentText("Bicchiere");
+//                 }
+//                 else if(dati::ogg3_prec == "2") {
+//                   ui->comboBox_oi_es3->setCurrentText("Forchetta");
+//                 }
+//                 else if(dati::ogg3_prec == "3") {
+//                   ui->comboBox_oi_es3->setCurrentText("Libro");
+//                 }
+
+
+//                ui->lineEdit_ex3->setText(r3);
+
+//               }
+//               }
+//               else {
+//                 ui->checkBox_ex3->setChecked(false);
+//               }
+//               if(!(dati::lex4==0))
+//               {
+//                 ui->checkBox_ex4->setChecked(true);
+//                 dati::flag_ex=3;
+//                 QSqlQuery selezione4;
+//                 selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
+//                 selezione4.exec();
+//                 if (selezione4.exec()){
+
+//                   while(selezione4.next())
+//                 { ui->comboBox_ex4->setCurrentText(selezione4.value(0).toString());
+//                     QString ex4;
+//                     ex4 = selezione4.value(0).toString();
+//                     qDebug()<< ex4;
+//                     }
+
+
+//                 r4 = dati::rip4_prec;
+//                 ui->lineEdit_ex4->setText(r4);
+//                 qDebug()<< r4;
+//                 if(dati::ogg4_prec =="1") {
+//                   ui->comboBox_oi_es4->setCurrentText("Bicchiere");
+//                 }
+//                 else if(dati::ogg4_prec == "2") {
+//                   ui->comboBox_oi_es4->setCurrentText("Forchetta");
+//                 }
+//                 else if(dati::ogg4_prec == "3") {
+//                   ui->comboBox_oi_es4->setCurrentText("Libro");
+//                 }
+
+
+//               }
+//               }
+//               else {
+//                 ui->checkBox_ex4->setChecked(false);
+//               }
+//               if(!(dati::lex5==0))
+//               {
+//                 ui->checkBox_ex5->setChecked(true);
+//                 dati::flag_ex=4;
+//                 QSqlQuery selezione5;
+//                 selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
+//                 selezione5.exec();
+//                 if (selezione5.exec()) {
+
+//                   while(selezione5.next())
+//                 { ui->comboBox_ex5->setCurrentText(selezione5.value(0).toString());
+//                     QString ex5;
+//                     ex5 = selezione5.value(0).toString();
+//                     qDebug()<< ex5;
+//                     }
+
+
+//                 r5 = dati::rip5_prec;
+//                 ui->lineEdit_ex5->setText(r5);
+//                 qDebug()<< r5;
+//                 if(dati::ogg5_prec =="1") {
+//                   ui->comboBox_oi_es5->setCurrentText("Bicchiere");
+//                 }
+//                 else if(dati::ogg5_prec == "2") {
+//                   ui->comboBox_oi_es5->setCurrentText("Forchetta");
+//                 }
+//                 else if(dati::ogg5_prec == "3") {
+//                   ui->comboBox_oi_es5->setCurrentText("Libro");
+//                 }
+
+
+//               }
+//               }
+//               else {
+//                 ui->checkBox_ex5->setChecked(false);
+//               }
+//               if(!(dati::lex6==0))
+//               {
+//                 ui->checkBox_ex6->setChecked(true);
+//                 dati::flag_ex=5;
+//                 QSqlQuery selezione6;
+//                 selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
+//                 selezione6.exec();
+//                 if (selezione6.exec()){
+
+//                   while(selezione6.next())
+//                 { ui->comboBox_ex6->setCurrentText(selezione6.value(0).toString());
+//                     QString ex6;
+//                     ex6 = selezione6.value(0).toString();
+//                     qDebug()<< ex6;
+
+//                     }
+
+//                 r6 = dati::rip6_prec;
+//                ui->lineEdit_ex6->setText(r6);
+//                qDebug()<< r6;
+//                if(dati::ogg6_prec =="1") {
+//                  ui->comboBox_oi_es6->setCurrentText("Bicchiere");
+//                }
+//                else if(dati::ogg6_prec == "2") {
+//                  ui->comboBox_oi_es6->setCurrentText("Forchetta");
+//                }
+//                else if(dati::ogg6_prec == "3") {
+//                  ui->comboBox_oi_es6->setCurrentText("Libro");
+//                }
+
+
+//               }
+//               }
+//               else {
+//                 ui->checkBox_ex6->setChecked(false);
+//               }
+//               if(!(dati::lex7==0))
+//               {
+//                 ui->checkBox_7->setChecked(true);
+//                 dati::flag_ex=6;
+//                 QSqlQuery selezione7;
+//                 selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
+//                 selezione7.exec();
+//                 if (selezione7.exec()) {
+
+//                   while(selezione7.next())
+//                 { ui->comboBox_ex7->setCurrentText(selezione7.value(0).toString());
+//                     QString ex7;
+//                     ex7 = selezione7.value(0).toString();
+//                     qDebug()<< ex7;
+
+//                     }
+
+
+
+//                 r7 = dati::rip7_prec;
+//                 ui->lineEdit_ex7->setText(r7);
+//                 qDebug()<< r7;
+//                 if(dati::ogg7_prec =="1") {
+//                   ui->comboBox_oi_es7->setCurrentText("Bicchiere");
+//                 }
+//                 else if(dati::ogg7_prec == "2") {
+//                   ui->comboBox_oi_es7->setCurrentText("Forchetta");
+//                 }
+//                 else if(dati::ogg7_prec == "3") {
+//                   ui->comboBox_oi_es7->setCurrentText("Libro");
+//                 }
+
+
+
+//               }
+//               }
+//               else {
+//                 ui->checkBox_7->setChecked(false);
+//               }
+//               qDebug()<<r1;
+//               qDebug()<< r2;
+//               qDebug()<< r3;
+//               qDebug()<< r4;
+//               qDebug()<< r5;
+//               qDebug()<< r6;
+//               qDebug()<< r7;
+//               ui->lineEdit_ex1->setText(r1);
+//               ui->lineEdit_ex2->setText(r2);
+//               ui->lineEdit_ex3->setText(r3);
+//               ui->lineEdit_ex4->setText(r4);
+//               ui->lineEdit_ex5->setText(r5);
+//               ui->lineEdit_ex6->setText(r6);
+//               ui->lineEdit_ex7->setText(r7);
+//              } //qui finisce il flag 4
+
+//              else {
+//                ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+//                qDebug()<< "fino qui ok";
+//              r1 = ui->lineEdit_ex1->placeholderText();
+//              r2 = ui->lineEdit_ex2->placeholderText();
+//              r3 = ui->lineEdit_ex3->placeholderText();
+//              r4 = ui->lineEdit_ex4->placeholderText();
+//              r5 = ui->lineEdit_ex5->placeholderText();
+//              r6 = ui->lineEdit_ex6->placeholderText();
+//              r7= ui->lineEdit_ex7->placeholderText();
+//              ui->lineEdit_ex1->setText(r1);
+//              ui->lineEdit_ex2->setText(r2);
+//              ui->lineEdit_ex3->setText(r3);
+//              ui->lineEdit_ex4->setText(r4);
+//              ui->lineEdit_ex5->setText(r5);
+//              ui->lineEdit_ex6->setText(r6);
+//              ui->lineEdit_ex7->setText(r7);
+//              }
+
+enable_combo();
+enable_combo_recap();
+update_tempo_terapia();
+update_tempo_recap();
+enable_combo_ex();
+enable_combo_ex_recap();
+  if (flag == 4) {
+    ui->label_recap_controllo->setText(QString("Modalità di controllo utilizzata nella scorsa sessione : %1").arg(dati::mood_prec));
+
+
+
+    qDebug()<< "qui";
+               if(!(dati::lex1==0))
+               {
+                 ui->checkBox_ex1->setChecked(true);
+                 dati::flag_ex=0;
+                 QSqlQuery selezione1;
+                 selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
+                 selezione1.exec();
+                 if (selezione1.exec()) {
+
+                   while(selezione1.next())
+                 { ui->comboBox_ex1->setCurrentText(selezione1.value(0).toString());
+                     QString ex1;
+                     ex1 = selezione1.value(0).toString();
+                     qDebug()<< ex1;
+
+                     }
+
+
+
+                 r1 = dati::rip1_prec;
+                 ui->lineEdit_ex1->setText(r1);
+                 qDebug()<< r1;
+                 if(dati::ogg1_prec =="1") {
+                   ui->comboBox_oi_es1->setCurrentText("Bicchiere");
+                 }
+                 else if(dati::ogg1_prec == "2") {
+                   ui->comboBox_oi_es1->setCurrentText("Forchetta");
+                 }
+                 else if(dati::ogg1_prec == "3") {
+                   ui->comboBox_oi_es1->setCurrentText("Libro");
+                 }
+
+
+                 }
+
+                   }
+               else {
+                 ui->checkBox_ex1->setChecked(false);
+               }
+               if(!(dati::lex2==0))
+               {
+                 ui->checkBox_ex2->setChecked(true);
+                 dati::flag_ex = 1;
+                 QSqlQuery selezione2;
+                 selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
+                 selezione2.exec();
+                 if (selezione2.exec()) {
+
+                   while(selezione2.next())
+                 { ui->comboBox_ex2->setCurrentText(selezione2.value(0).toString());
+                     QString ex2;
+                     ex2 = selezione2.value(0).toString();
+                     qDebug()<< ex2;
+                     }
+
+
+                 r2 = dati::rip2_prec;
+                 ui->lineEdit_ex2->setText(r2);
+                 qDebug()<<r2;
+                 if(dati::ogg2_prec =="1") {
+                   ui->comboBox_oi_es2->setCurrentText("Bicchiere");
+                 }
+                 else if(dati::ogg2_prec == "2") {
+                   ui->comboBox_oi_es2->setCurrentText("Forchetta");
+                 }
+                 else if(dati::ogg2_prec == "3") {
+                   ui->comboBox_oi_es2->setCurrentText("Libro");
+                 }
+
+               }
+               }
+               else {
+                 ui->checkBox_ex2->setChecked(false);
+               }
+
+               if(!(dati::lex3==0))
+               {
+                 ui->checkBox_ex3->setChecked(true);
+                 dati::flag_ex=2;
+                 QSqlQuery selezione3;
+                 selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
+                 selezione3.exec();
+                 if (selezione3.exec()) {
+
+                   while(selezione3.next())
+                 { ui->comboBox_ex3->setCurrentText(selezione3.value(0).toString());
+                     QString ex3;
+                     ex3 = selezione3.value(0).toString();
+                     qDebug()<< ex3;
+                     }
+
+
+                 r3 = dati::rip3_prec;
+                 qDebug()<<r3;
+                 if(dati::ogg3_prec =="1") {
+                   ui->comboBox_oi_es3->setCurrentText("Bicchiere");
+                 }
+                 else if(dati::ogg3_prec == "2") {
+                   ui->comboBox_oi_es3->setCurrentText("Forchetta");
+                 }
+                 else if(dati::ogg3_prec == "3") {
+                   ui->comboBox_oi_es3->setCurrentText("Libro");
+                 }
+
+
+                ui->lineEdit_ex3->setText(r3);
+
+               }
+               }
+               else {
+                 ui->checkBox_ex3->setChecked(false);
+               }
+               if(!(dati::lex4==0))
+               {
+                 ui->checkBox_ex4->setChecked(true);
+                 dati::flag_ex=3;
+                 QSqlQuery selezione4;
+                 selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
+                 selezione4.exec();
+                 if (selezione4.exec()){
+
+                   while(selezione4.next())
+                 { ui->comboBox_ex4->setCurrentText(selezione4.value(0).toString());
+                     QString ex4;
+                     ex4 = selezione4.value(0).toString();
+                     qDebug()<< ex4;
+                     }
+
+
+                 r4 = dati::rip4_prec;
+                 ui->lineEdit_ex4->setText(r4);
+                 qDebug()<< r4;
+                 if(dati::ogg4_prec =="1") {
+                   ui->comboBox_oi_es4->setCurrentText("Bicchiere");
+                 }
+                 else if(dati::ogg4_prec == "2") {
+                   ui->comboBox_oi_es4->setCurrentText("Forchetta");
+                 }
+                 else if(dati::ogg4_prec == "3") {
+                   ui->comboBox_oi_es4->setCurrentText("Libro");
+                 }
+
+
+               }
+               }
+               else {
+                 ui->checkBox_ex4->setChecked(false);
+               }
+               if(!(dati::lex5==0))
+               {
+                 ui->checkBox_ex5->setChecked(true);
+                 dati::flag_ex=4;
+                 QSqlQuery selezione5;
+                 selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
+                 selezione5.exec();
+                 if (selezione5.exec()) {
+
+                   while(selezione5.next())
+                 { ui->comboBox_ex5->setCurrentText(selezione5.value(0).toString());
+                     QString ex5;
+                     ex5 = selezione5.value(0).toString();
+                     qDebug()<< ex5;
+                     }
+
+
+                 r5 = dati::rip5_prec;
+                 ui->lineEdit_ex5->setText(r5);
+                 qDebug()<< r5;
+                 if(dati::ogg5_prec =="1") {
+                   ui->comboBox_oi_es5->setCurrentText("Bicchiere");
+                 }
+                 else if(dati::ogg5_prec == "2") {
+                   ui->comboBox_oi_es5->setCurrentText("Forchetta");
+                 }
+                 else if(dati::ogg5_prec == "3") {
+                   ui->comboBox_oi_es5->setCurrentText("Libro");
+                 }
+
+
+               }
+               }
+               else {
+                 ui->checkBox_ex5->setChecked(false);
+               }
+               if(!(dati::lex6==0))
+               {
+                 ui->checkBox_ex6->setChecked(true);
+                 dati::flag_ex=5;
+                 QSqlQuery selezione6;
+                 selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
+                 selezione6.exec();
+                 if (selezione6.exec()){
+
+                   while(selezione6.next())
+                 { ui->comboBox_ex6->setCurrentText(selezione6.value(0).toString());
+                     QString ex6;
+                     ex6 = selezione6.value(0).toString();
+                     qDebug()<< ex6;
+
+                     }
+
+                 r6 = dati::rip6_prec;
+                ui->lineEdit_ex6->setText(r6);
+                qDebug()<< r6;
+                if(dati::ogg6_prec =="1") {
+                  ui->comboBox_oi_es6->setCurrentText("Bicchiere");
+                }
+                else if(dati::ogg6_prec == "2") {
+                  ui->comboBox_oi_es6->setCurrentText("Forchetta");
+                }
+                else if(dati::ogg6_prec == "3") {
+                  ui->comboBox_oi_es6->setCurrentText("Libro");
+                }
+
+
+               }
+               }
+               else {
+                 ui->checkBox_ex6->setChecked(false);
+               }
+               if(!(dati::lex7==0))
+               {
+                 ui->checkBox_7->setChecked(true);
+                 dati::flag_ex=6;
+                 QSqlQuery selezione7;
+                 selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
+                 selezione7.exec();
+                 if (selezione7.exec()) {
+
+                   while(selezione7.next())
+                 { ui->comboBox_ex7->setCurrentText(selezione7.value(0).toString());
+                     QString ex7;
+                     ex7 = selezione7.value(0).toString();
+                     qDebug()<< ex7;
+
+                     }
+
+
+
+                 r7 = dati::rip7_prec;
+                 ui->lineEdit_ex7->setText(r7);
+                 qDebug()<< r7;
+                 if(dati::ogg7_prec =="1") {
+                   ui->comboBox_oi_es7->setCurrentText("Bicchiere");
+                 }
+                 else if(dati::ogg7_prec == "2") {
+                   ui->comboBox_oi_es7->setCurrentText("Forchetta");
+                 }
+                 else if(dati::ogg7_prec == "3") {
+                   ui->comboBox_oi_es7->setCurrentText("Libro");
+                 }
+
+
+
+               }
+               }
+               else {
+                 ui->checkBox_7->setChecked(false);
+               }
+               qDebug()<<r1;
+               qDebug()<< r2;
+               qDebug()<< r3;
+               qDebug()<< r4;
+               qDebug()<< r5;
+               qDebug()<< r6;
+               qDebug()<< r7;
+               ui->lineEdit_ex1->setText(r1);
+               ui->lineEdit_ex2->setText(r2);
+               ui->lineEdit_ex3->setText(r3);
+               ui->lineEdit_ex4->setText(r4);
+               ui->lineEdit_ex5->setText(r5);
+               ui->lineEdit_ex6->setText(r6);
+               ui->lineEdit_ex7->setText(r7);
+
+
+
+//    if (dati::mood_prec == "Mobilizzazione Passiva"){
+//      ui->radioButton_pass->setChecked(true);
+//    }
+//    else if (dati::mood_prec == "Trigger") {
+//      ui->radioButton_trigger->setChecked(true);
+//    }
+//    else if(dati::mood_prec == "Assisted as needed") {
+//      ui->radioButton_aan->setChecked(true);
+
+//    }
+//    else if(dati::mood_prec == "Anti-g") {
+//      ui->radioButton_ag->setChecked(true);
+
+//    }
+//    else if(dati::mood_prec == "Challenging") {
+//      ui->radioButton_chall->setChecked(true);
+//    }
+  }
+                else {
+                  ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+                  qDebug()<< "fino qui ok";
+                r1 = ui->lineEdit_ex1->placeholderText();
+                r2 = ui->lineEdit_ex2->placeholderText();
+                r3 = ui->lineEdit_ex3->placeholderText();
+                r4 = ui->lineEdit_ex4->placeholderText();
+                r5 = ui->lineEdit_ex5->placeholderText();
+                r6 = ui->lineEdit_ex6->placeholderText();
+                r7= ui->lineEdit_ex7->placeholderText();
+                ui->lineEdit_ex1->setText(r1);
+                ui->lineEdit_ex2->setText(r2);
+                ui->lineEdit_ex3->setText(r3);
+                ui->lineEdit_ex4->setText(r4);
+                ui->lineEdit_ex5->setText(r5);
+                ui->lineEdit_ex6->setText(r6);
+                ui->lineEdit_ex7->setText(r7);
+                }
   //  if (flag==6)
 // {
 //     ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
@@ -2586,6 +3776,11 @@ QStringList istr_vest1 = {"Individuare e definire una posizione confortevole dde
 
 
 }
+
+
+
+
+
 }
 /***************         SETTO ROS PARAMETERS CON I MODULI   ******************/
 ros::NodeHandle n;
@@ -2673,6 +3868,7 @@ status_publisher.publish(msg);
 /**********************       INIZIO TERAPIA                       *********************/
 void paginaprincipale::on_pushButton_next_clicked()
 { //qDebug()<<sel_ex;
+  ui->pushButton_next->setVisible(false);
 timer_rehab->start(20);
 dati::status1 = 11;
 
@@ -3254,13 +4450,19 @@ void paginaprincipale::on_pushButton_indietro_2_clicked()
 /**********************       SALTO TUTORIAL MONTAGGIO  *********************/
 void paginaprincipale::on_pushButton_prosegui_clicked()
 {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_init);
-    timer_init->start(5000);
+    //ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+  //  timer_init->start(5000);
+    dati::status1 = 2;
+
+       std_msgs::Int8 msg;
+       msg.data = dati::status1;
+       ROS_INFO ("%d", msg.data);
+       status_publisher.publish(msg);
 }
 
 /**********************       SALTO TUTORIAL VESTIZIONE  *********************/
 void paginaprincipale::on_pushButton_go_clicked()
-{  dati::status1 = 3;
+{  dati::status1 = 4;
 
    std_msgs::Int8 msg;
    msg.data = dati::status1;
@@ -3271,12 +4473,17 @@ void paginaprincipale::on_pushButton_go_clicked()
 }
 
 /**********************       INTERROMPO TERAPIA  *********************/
-void paginaprincipale::on_pushButton_clicked()
+void paginaprincipale::on_pushButton_allarme_clicked()
 {   //timer->stop();
     timer_rehab->stop();
-    ui->tabWidget->setCurrentWidget(ui->tab);
-    ui->stackedWidget->setCurrentWidget(ui->page_3);
+//    ui->tabWidget->setCurrentWidget(ui->tab);
+//    ui->stackedWidget->setCurrentWidget(ui->page_3);
+    dati::status1 = 30;
 
+       std_msgs::Int8 msg;
+       msg.data = dati::status1;
+       ROS_INFO ("%d", msg.data);
+       status_publisher.publish(msg);
 }
 
 /**********************       SCORRO AVANTI IMMAGINI TUTORIAL VESTIZIONE  *********************/
@@ -3337,32 +4544,32 @@ void paginaprincipale::on_pushButton_logout_clicked()
 }
 
 void paginaprincipale::skip_init(){
-  timer_init->stop();
-  //ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
-  dati::status1 =2;
-  msg_status_pp.data = dati::status1;
-  ROS_INFO ("%d", msg_status_pp.data);
-  status_publisher.publish(msg_status_pp);
+  //timer_init->stop();
+  ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
+//  dati::status1 =2;
+//  msg_status_pp.data = dati::status1;
+//  ROS_INFO ("%d", msg_status_pp.data);
+//  status_publisher.publish(msg_status_pp);
 
-if (flag == 4) {
-  if (dati::mood_prec == "Mobilizzazione Passiva"){
-    ui->radioButton_pass->setChecked(true);
-  }
-  else if (dati::mood_prec == "Trigger") {
-    ui->radioButton_trigger->setChecked(true);
-  }
-  else if(dati::mood_prec == "Assisted as needed") {
-    ui->radioButton_aan->setChecked(true);
+//if (flag == 4) {
+//  if (dati::mood_prec == "Mobilizzazione Passiva"){
+//    ui->radioButton_pass->setChecked(true);
+//  }
+//  else if (dati::mood_prec == "Trigger") {
+//    ui->radioButton_trigger->setChecked(true);
+//  }
+//  else if(dati::mood_prec == "Assisted as needed") {
+//    ui->radioButton_aan->setChecked(true);
 
-  }
-  else if(dati::mood_prec == "Anti-g") {
-    ui->radioButton_ag->setChecked(true);
+//  }
+//  else if(dati::mood_prec == "Anti-g") {
+//    ui->radioButton_ag->setChecked(true);
 
-  }
-  else if(dati::mood_prec == "Challenging") {
-    ui->radioButton_chall->setChecked(true);
-  }
-}
+//  }
+//  else if(dati::mood_prec == "Challenging") {
+//    ui->radioButton_chall->setChecked(true);
+//  }
+//}
 //ui->stackedWidget->setCurrentWidget(ui->page_3);
 }
 
@@ -3462,4 +4669,1028 @@ void paginaprincipale::on_pushButton_ok_clicked()
   status_publisher.publish(msg_status_pp);
   }
 
+}
+
+void paginaprincipale::on_pushButton_indietro_clicked()
+{
+    dati::status1=20;
+    msg_status_pp.data = dati::status1;
+    status_publisher.publish(msg_status_pp);
+
+}
+
+void paginaprincipale::on_pushButton_esplorarom_clicked()
+{
+  dati::status1=50;
+  msg_status_pp.data = dati::status1;
+  status_publisher.publish(msg_status_pp);
+}
+
+void paginaprincipale::on_pushButton_riprendi_clicked()
+{
+  dati::status1=31;
+  msg_status_pp.data = dati::status1;
+  status_publisher.publish(msg_status_pp);
+   ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+
+
+}
+
+void paginaprincipale::on_pushButton_termina_clicked()
+{
+  dati::status1=32;
+  msg_status_pp.data = dati::status1;
+  status_publisher.publish(msg_status_pp);
+}
+
+void paginaprincipale::on_pushButton_conferma_recap_clicked()
+{
+    ui->stackedWidget_2->setCurrentWidget(ui->page_sessione);
+}
+
+
+
+
+
+void paginaprincipale::on_pushButton_4_clicked()
+{
+  dati::mood = "Trigger";
+  ui->comboBox_mode->setCurrentText("Mobilizzazione passiva con trigger");
+  ui->pushButton_es_libero->setVisible(false);
+  QSqlQuery modalita;
+  modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+  modalita.exec();
+      if (modalita.exec())
+      {
+       mode = 2;
+       QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva con Trigger"));
+       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+     }
+     else {
+        QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+      }
+      if (dati::flag_ex ==0 ){
+        ui->checkBox_ex1->setChecked(true);
+        dati::flag_ex++;
+      }
+}
+
+void paginaprincipale::on_pushButton_pass_clicked()
+{
+  dati::mood = "Mobilizzazione Passiva";
+  ui->comboBox_mode->setCurrentText("Mobilizzazione passiva");
+  ui->pushButton_es_libero->setVisible(false);
+  QSqlQuery modalita;
+  modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+  modalita.exec();
+      if (modalita.exec())
+      {
+       mode = 1;
+       QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva"));
+       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+       ros::NodeHandle n;
+       n.setParam ("/exercise/mode", mode);
+     }
+     else {
+        QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+      }
+      ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
+      if (dati::flag_ex ==0 ){
+        ui->checkBox_ex1->setChecked(true);
+        dati::flag_ex++;
+      }
+}
+
+void paginaprincipale::on_pushButton_asan_clicked()
+{
+  dati::mood = "Assisted as needed";
+  ui->comboBox_mode->setCurrentText("Mobilizzazione con assistenza se necessario");
+  ui->pushButton_es_libero->setVisible(false);
+  QSqlQuery modalita;
+  modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+  modalita.exec();
+      if (modalita.exec())
+      {
+       mode = 3;
+       QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Assisted As Needed"));
+       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+       ros::NodeHandle n;
+       n.setParam ("/exercise/mode", mode);
+     }
+     else {
+        QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+      }
+      ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
+      if (dati::flag_ex ==0 ){
+        ui->checkBox_ex1->setChecked(true);
+        dati::flag_ex++;
+      }
+}
+
+void paginaprincipale::on_pushButton_antig_clicked()
+{
+  dati::mood = "Anti-g";
+  ui->comboBox_mode->setCurrentText("Mobilizzazione antigravitaria");
+  ui->pushButton_es_libero->setVisible(true);
+  QSqlQuery modalita;
+  modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+  modalita.exec();
+      if (modalita.exec())
+      {
+       mode = 4;
+       QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Anti Gravitario"));
+       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+       ros::NodeHandle n;
+       n.setParam ("/exercise/mode", mode);
+     }
+     else {
+        QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+      }
+      ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
+      if (dati::flag_ex ==0 ){
+        ui->checkBox_ex1->setChecked(true);
+        dati::flag_ex++;
+      }
+}
+
+void paginaprincipale::on_pushButton_challening_clicked()
+{
+  dati::mood = "Challenging";
+  ui->comboBox_mode->setCurrentText("Mobilizzazione con resistenza");
+  ui->pushButton_es_libero->setVisible(false);
+  QSqlQuery modalita;
+  modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+  modalita.exec();
+      if (modalita.exec())
+      {
+       mode = 5;
+       QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Challenging"));
+       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+       ros::NodeHandle n;
+       n.setParam ("/exercise/mode", mode);
+     }
+     else {
+        QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+      }
+      ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
+      if (dati::flag_ex ==0 ){
+        ui->checkBox_ex1->setChecked(true);
+        dati::flag_ex++;
+      }
+}
+
+void paginaprincipale::on_pushButton_trasp_clicked()
+{
+  dati::mood = "trasparente";
+  ui->comboBox_mode->setCurrentText("Mobilizzazione con trasparenza");
+  ui->pushButton_es_libero->setVisible(true);
+  QSqlQuery modalita;
+  modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+  modalita.exec();
+      if (modalita.exec())
+      {
+       mode = 6;
+       ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+       ros::NodeHandle n;
+       n.setParam ("/exercise/mode", mode);
+       QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Challenging"));
+
+     }
+     else {
+        QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
+      }
+      ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
+      if (dati::flag_ex ==0 ){
+        ui->checkBox_ex1->setChecked(true);
+        dati::flag_ex++;
+      }
+}
+
+void paginaprincipale::on_pushButton_modifica_recap_clicked()
+{
+  ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+  ui->stackedWidget_2->setCurrentWidget(ui->modifica_recap);
+}
+
+void paginaprincipale::on_pushButton_add_2_clicked()
+{
+  if(dati::flag_ex_recap == 0) {
+    dati::flag_ex_recap++;}
+    if(dati::flag_ex_recap == 1) {
+      ui->checkBox_es2->setChecked(true);
+
+      dati::flag_ex_recap++;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap==2) {
+      ui->checkBox_es3->setChecked(true);
+      dati::flag_ex_recap++;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap==3) {
+      ui->checkBox_es4->setChecked(true);
+      dati::flag_ex_recap++;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap==4) {
+      ui->checkBox_es5->setChecked(true);
+      dati::flag_ex_recap++;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap==5) {
+      ui->checkBox_es6->setChecked(true);
+      dati::flag_ex_recap++;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap==6) {
+      ui->checkBox_es7->setChecked(true);
+     // dati::flag_ex++;
+       qDebug()<<dati::flag_ex_recap;
+    }
+}
+
+void paginaprincipale::on_pushButton_remove_2_clicked()
+{
+  if(dati::flag_ex_recap == 6){
+      ui->checkBox_es7->setChecked(false);
+      dati::flag_ex_recap--;
+      qDebug()<<dati::flag_ex_recap;
+
+    }
+    else if (dati::flag_ex_recap ==5) {
+      ui->checkBox_es6->setChecked(false);
+      dati::flag_ex_recap--;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap ==4) {
+      ui->checkBox_es5->setChecked(false);
+      dati::flag_ex_recap--;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap ==3) {
+      ui->checkBox_es4->setChecked(false);
+      dati::flag_ex_recap--;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap ==2) {
+      ui->checkBox_es3->setChecked(false);
+      dati::flag_ex_recap--;
+       qDebug()<<dati::flag_ex_recap;
+    }
+    else if (dati::flag_ex_recap ==1) {
+      ui->checkBox_es2->setChecked(false);
+      dati::flag_ex_recap--;
+       qDebug()<<dati::flag_ex_recap;
+    }
+}
+
+void paginaprincipale::on_pushButton_salva_recap_clicked()
+{
+  QString bicchiere, forchetta, libro;
+     bicchiere = "Bicchiere";
+     forchetta = "Forchetta";
+     libro = "Libro";
+
+ if(ui->checkBox_es1->isChecked())
+ {  check_ex1=1;
+
+   dati::ex1 = ui->comboBox_es1->currentText();
+
+
+
+
+
+   dati::rip1= ui->lineEdit_rep1->text();
+
+
+
+
+   rep1 = dati::rip1.toInt();
+   if(ui->comboBox_ogg1->isEnabled()) {
+   if(ui->comboBox_ogg1->currentText()== bicchiere ) {  oggetto_es1= "1"; ros_ogg1=1; ui->label_oi1_recap->setText(bicchiere);}
+   else if (ui->comboBox_ogg1->currentText()==forchetta) { oggetto_es1= "2"; ros_ogg1=2; ui->label_oi1_recap->setText(forchetta);}
+   else if(ui->comboBox_ogg1 ->currentText()==libro) {ui->comboBox_ogg1->setCurrentText("libro"); oggetto_es1= "3"; ros_ogg1=3; ui->label_oi1_recap->setText(libro);} }
+   else if (!(ui->comboBox_ogg1->isEnabled())) {
+     oggetto_es1="0";
+     ros_ogg1 = 0;
+   }
+   qDebug()<< oggetto_es1;
+   QSqlQuery selezione1;
+   selezione1.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex1+"'");
+   selezione1.exec();
+   if (selezione1.exec()) {
+     while(selezione1.next())
+     {
+     dati::num_ex1 = selezione1.value(0).toString();
+     exe1 = dati::num_ex1.toInt();
+
+       }
+     if(dati::rip1.toInt()< 30) {
+//     QSqlQuery es1;
+//     es1.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"' , rip1 = '"+dati::rip1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//     es1.exec();
+//     if(es1.exec())
+//     {
+//       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//     }
+//     else {
+//       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//     }
+     }
+     else if(dati::rip1.toInt()>30)
+     {
+       QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni del primo esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+
+
+          }
+   }
+
+if(!(dati::num_ex1.toInt()==2 || dati::num_ex1.toInt()==4 || dati::num_ex1.toInt()==7) ) {
+
+  ui->comboBox_oi_es1->setEnabled(false);
+}
+
+ }
+ if(ui->checkBox_ex2->isChecked())
+ {
+   dati::ex2 = ui->comboBox_ex2->currentText();
+
+
+
+   dati::rip2= ui->lineEdit_ex2->text();
+
+
+
+
+   rep2 = dati::rip2.toInt();
+   if(ui->comboBox_ogg2->isEnabled()) {
+   if(ui->comboBox_ogg2->currentText()== bicchiere ) {  oggetto_es2= "1"; ros_ogg2=1; ui->label_oi2_recap->setText(bicchiere);}
+   else if (ui->comboBox_ogg2->currentText()==forchetta) { oggetto_es2 = "2"; ros_ogg2= 2; ui->label_oi2_recap->setText(forchetta);}
+   else if(ui->comboBox_ogg2 ->currentText()==libro) {oggetto_es2= "3"; ros_ogg2= 3; ui->label_oi2_recap->setText(libro);} }
+   else if (!(ui->comboBox_ogg2->isEnabled())) {
+     oggetto_es2 = "0";
+     ros_ogg2 = 0;
+   }
+   QSqlQuery selezione2;
+   selezione2.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex2+"'");
+   selezione2.exec();
+   if (selezione2.exec()) {
+     while(selezione2.next())
+     {
+     dati::num_ex2 = selezione2.value(0).toString();
+     exe2 = dati::num_ex2.toInt();
+
+
+       }
+     if(dati::rip2.toInt()<30) {
+//     QSqlQuery es2;
+//     es2.prepare("update Parametri_Paziente set ex2 = '"+dati::num_ex2+"' , rip2 = '"+dati::rip2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//     es2.exec();
+//     if(es2.exec())
+//     {
+//       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//     }
+//     else {
+//       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//     }
+     }
+     else if (dati::rip2.toInt()>30)
+     {
+       QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+     }
+   }
+
+ }
+ if(ui->checkBox_es3->isChecked())
+ {
+   dati::ex3 = ui->comboBox_es3->currentText();
+
+
+
+   dati::rip3= ui->lineEdit_rep3->text();
+
+
+
+
+   rep3 = dati::rip3.toInt();
+   if(ui->comboBox_ogg3->isEnabled()) {
+   if(ui->comboBox_ogg3->currentText()== bicchiere ) { oggetto_es3= "1"; ros_ogg3=1; ui->label_oi3_recap->setText(bicchiere);}
+   else if (ui->comboBox_ogg3->currentText()==forchetta) { oggetto_es3= "2"; ros_ogg3=2; ui->label_oi3_recap->setText(forchetta);}
+   else if(ui->comboBox_ogg3 ->currentText()==libro) {  oggetto_es3= "3"; ros_ogg3=3; ui->label_oi3_recap->setText(libro);} }
+   else if(!(ui->comboBox_ogg3->isEnabled())) {
+     oggetto_es3 = "0";
+     ros_ogg3 = 0;
+   }
+   QSqlQuery selezione3;
+   selezione3.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex3+"'");
+   selezione3.exec();
+   if (selezione3.exec()) {
+     while(selezione3.next())
+     {
+     dati::num_ex3 = selezione3.value(0).toString();
+     exe3 = dati::num_ex3.toInt();
+
+
+       }
+     if(dati::rip3.toInt()<30) {
+//     QSqlQuery es3;
+//     es3.prepare("update Parametri_Paziente set ex3 = '"+dati::num_ex3+"' , rip3 = '"+dati::rip3+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//     es3.exec();
+//     if(es3.exec())
+//     {
+//       QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//     }
+//     else {
+//       QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//     }
+     }
+     else if (dati::rip3.toInt()>30) {
+       QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+     }
+   }
+
+ }
+if(ui->checkBox_es4->isChecked())
+{
+  dati::ex4 = ui->comboBox_es4->currentText();
+
+
+
+  dati::rip4= ui->lineEdit_rep4->text();
+
+
+  rep4 = dati::rip4.toInt();
+  if(ui->comboBox_ogg4->isEnabled()) {
+  if(ui->comboBox_ogg4->currentText()== bicchiere ) {oggetto_es4= "1"; ros_ogg4=1; ui->label_oi4_recap->setText(bicchiere);}
+  else if (ui->comboBox_ogg4->currentText()==forchetta) { oggetto_es4= "2"; ros_ogg4=2; ui->label_oi4_recap->setText(forchetta);}
+  else if(ui->comboBox_ogg4 ->currentText()==libro) { oggetto_es4= "3"; ros_ogg4=3; ui->label_oi4_recap->setText(libro);} }
+  else if (!(ui->comboBox_ogg4->isEnabled())) {
+    oggetto_es4 = "0";
+    ros_ogg4 = 0;
+  }
+  QSqlQuery selezione4;
+  selezione4.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex4+"'");
+  selezione4.exec();
+  if (selezione4.exec()) {
+    while(selezione4.next())
+    {
+    dati::num_ex4 = selezione4.value(0).toString();
+    exe4 = dati::num_ex4.toInt();
+
+
+      }
+    if (dati::rip4.toInt()<30) {
+//    QSqlQuery es4;
+//    es4.prepare("update Parametri_Paziente set ex4 = '"+dati::num_ex4+"' , rip4 = '"+dati::rip4+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es4.exec();
+//    if(es4.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
+    }
+    else if (dati::rip4.toInt()>30)
+    {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
+  }
+
+}
+if(ui->checkBox_es5->isChecked())
+{
+  dati::ex5 = ui->comboBox_es5->currentText();
+
+
+
+  dati::rip5= ui->lineEdit_rep5->text();
+
+
+
+
+  rep5 = dati::rip5.toInt();
+  if(ui->comboBox_ogg5->isEnabled()) {
+  if(ui->comboBox_ogg5->currentText()== bicchiere ) { oggetto_es5= "1"; ros_ogg5=1; ui->label_oi5_recap->setText(bicchiere);}
+  else if (ui->comboBox_ogg5->currentText()==forchetta) { oggetto_es5= "2"; ros_ogg5=2; ui->label_oi5_recap->setText(forchetta);}
+  else if(ui->comboBox_ogg5->currentText()==libro) { oggetto_es5= "3"; ros_ogg5=3;ui->label_oi5_recap->setText(libro);} }
+  else if (!(ui->comboBox_ogg5->isEnabled())) {
+    oggetto_es5 = "0";
+    ros_ogg5 = 0;
+
+  }
+  QSqlQuery selezione5;
+  selezione5.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex5+"'");
+  selezione5.exec();
+  if (selezione5.exec()) {
+    while(selezione5.next())
+    {
+    dati::num_ex5 = selezione5.value(0).toString();
+    exe5 = dati::num_ex5.toInt();
+
+
+      }
+    if(dati::rip5.toInt()<30) {
+//    QSqlQuery es5;
+//    es5.prepare("update Parametri_Paziente set ex5 = '"+dati::num_ex5+"' , rip5 = '"+dati::rip5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es5.exec();
+//    if(es5.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
+    }
+    else if(dati::rip5.toInt()>30) {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
+
+  }
+
+}
+if(ui->checkBox_es6->isChecked())
+{
+  dati::ex6 = ui->comboBox_es6->currentText();
+
+
+  dati::rip6= ui->lineEdit_rep6->text();
+
+
+
+
+  rep6 = dati::rip6.toInt();
+  if(ui->comboBox_ogg6->isEnabled()) {
+  if(ui->comboBox_ogg6->currentText()== bicchiere ) { oggetto_es6= "1"; ros_ogg6=1; ui->label_oi6_recap->setText(bicchiere);}
+  else if (ui->comboBox_ogg6->currentText()==forchetta) { oggetto_es6= "2"; ros_ogg6=2;ui->label_oi6_recap->setText(forchetta);}
+  else if(ui->comboBox_ogg6 ->currentText()==libro) { oggetto_es6= "3"; ros_ogg6=3;ui->label_oi6_recap->setText(libro);} }
+  else if(!(ui->comboBox_ogg6->isEnabled()))  {
+    oggetto_es6 = "0";
+    ros_ogg6 = 0;
+  }
+  QSqlQuery selezione6;
+  selezione6.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex6+"'");
+  selezione6.exec();
+  if (selezione6.exec()) {
+    while(selezione6.next())
+    {
+    dati::num_ex6 = selezione6.value(0).toString();
+    exe6 = dati::num_ex6.toInt();
+
+
+      }
+    if(dati::rip6.toInt()<30) {
+//    QSqlQuery es6;
+//    es6.prepare("update Parametri_Paziente set ex6 = '"+dati::num_ex6+"' , rip6 = '"+dati::rip6+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es6.exec();
+//    if(es6.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
+    }
+    else if(dati::rip6.toInt()>30)
+    {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
+  }
+
+
+}
+if(ui->checkBox_es7->isChecked())
+{
+  dati::ex7 = ui->comboBox_es7->currentText();
+
+
+
+  dati::rip7= ui->lineEdit_ex7->text();
+
+
+
+
+  rep7 = dati::rip7.toInt();
+  if(ui->comboBox_ogg7->isEnabled()) {
+  if(ui->comboBox_ogg7->currentText()== bicchiere ) { oggetto_es7= "1"; ros_ogg7=1; ui->label_oi7_recap->setText(bicchiere);}
+  else if (ui->comboBox_ogg7->currentText()==forchetta) { oggetto_es7= "2"; ros_ogg7=2; ui->label_oi7_recap->setText(forchetta);}
+  else if(ui->comboBox_ogg7 ->currentText()==libro) { oggetto_es7= "3"; ros_ogg7=3; ui->label_oi7_recap->setText(libro);} }
+  else if(!(ui->comboBox_ogg7 ->isEnabled())) {
+    oggetto_es7 = "0";
+    ros_ogg7 = 0;
+  }
+  QSqlQuery selezione7;
+  selezione7.prepare("select Num_ex from Esercizi where Ex = '"+dati::ex7+"'");
+  selezione7.exec();
+  if (selezione7.exec()) {
+    while(selezione7.next())
+    {
+    dati::num_ex7 = selezione7.value(0).toString();
+    exe7 = dati::num_ex7.toInt();
+
+
+      }
+    if(dati::rip7.toInt()<30) {
+//    QSqlQuery es7;
+//    es7.prepare("update Parametri_Paziente set ex7 = '"+dati::num_ex7+"' , rip7 = '"+dati::rip7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    es7.exec();
+//    if(es7.exec())
+//    {
+//      QMessageBox ::information(this,tr("Salvato"),tr("esercizio salvato"));
+//    }
+//    else {
+//      QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+//    }
+    }
+    else if(dati::rip7.toInt()>30)
+    {
+      QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni dell'esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
+    }
+  }
+
+}
+qDebug()<< dati::ind;
+QSqlQuery selezione;
+selezione.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"', rip1 = '"+dati::rip1+"', ogg_es1 = '"+oggetto_es1+"', ex2 = '"+dati::num_ex2+"', rip2 = '"+dati::rip2+"',ogg_es2 = '"+oggetto_es2+"', ex3 = '"+dati::num_ex3+"', rip3 = '"+dati::rip3+"', ogg_es3 = '"+oggetto_es3+"',ex4 = '"+dati::num_ex4+"', rip4 = '"+dati::rip4+"', ogg_es4 = '"+oggetto_es4+"',ex5 = '"+dati::num_ex5+"', rip5 = '"+dati::rip5+"',ogg_es5 = '"+oggetto_es5+"',ex6 = '"+dati::num_ex6+"', rip6 = '"+dati::rip6+"', ogg_es6 = '"+oggetto_es6+"',ex7 = '"+dati::num_ex7+"', rip7 = '"+dati::rip7+"', ogg_es7 = '"+oggetto_es7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+selezione.exec();
+if (selezione.exec())
+{
+  QMessageBox ::information(this,tr("Salvato"),tr("Set di esercizi salvati"));
+
+
+ /******************       AGGIORNO TOPIC STATUS : FINISHED EXERCISE SEQUENCE                 ***********************/
+//std_msgs::Int8 msg_status;
+  //  dati::status1 = 3;
+  //msg_status_pp.data = dati::status1;
+  //ROS_INFO ("%d", msg_status_pp.data);
+  //status_publisher.publish(msg_status_pp);
+
+ /******************         AGGIORNO ROS PARAMETERS : EXERCISE SEQUENCE                      ***********************/
+ex_seq = {exe1, exe2, exe3, exe4, exe5, exe6, exe7};
+ex_rep = {rep1, rep2, rep3, rep4, rep5, rep6, rep7};
+ex_obj = {ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7};
+ros::NodeHandle n;
+n.setParam("/exercise/sequence", ex_seq);
+n.setParam("/exercise/repetition", ex_rep);
+n.setParam ("/exercise/objects", ex_obj);
+
+}
+else {
+  QMessageBox ::critical(this,tr("Errore"),tr("errore"));
+  qDebug()<< selezione.lastError();
+}
+
+QSqlQuery esercizi;
+esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1");
+if(esercizi.exec()){
+while(esercizi.next())
+{ ExInfo cur;
+  QString EX1 = esercizi.value(0).toString();
+  int RIP1 = esercizi.value(1).toInt();
+
+  if ( ! EX1.isEmpty() ){
+  // FILL IT
+  cur.EX = EX1; // fill it
+  cur.REP = RIP1;
+  cur.images = GetImages(EX1);
+  ExInfoMap[EX1] = cur; //  add it
+  qDebug()<<cur.images.size();
+  sel_ex.append(EX1);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+  }
+  else {
+   QString es = "01";
+   QString es2 = "02";
+   QString es3 = "03";
+   QString es4 = "04";
+   if(ExInfoMap.find(es) !=ExInfoMap.end() || (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+  // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+
+   }
+   //else ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+  }
+
+  QString EX2 = esercizi.value(2).toString();
+  int RIP2 = esercizi.value(3).toInt();
+  if(!EX2.isEmpty()) {
+  // FILL IT
+  cur.EX = EX2; // fill it
+  cur.REP = RIP2;
+  cur.images = GetImages(EX2);  // use ID to get images  /////////////////////////////////////////////// IMAGES
+  ExInfoMap[EX2] = cur; //  add it
+  sel_ex.append(EX2);
+  qDebug()<< "sel:" << sel_ex;
+          qDebug()<< " size:" << sel_ex.size();
+
+  }
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+   // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
+
+  QString EX3 = esercizi.value(4).toString();
+  int RIP3 = esercizi.value(5).toInt();
+  if(!EX3.isEmpty()) {
+  // FILL IT
+  cur.EX = EX3; // fill it
+  cur.REP = RIP3;
+   cur.images = GetImages(EX3);
+  ExInfoMap[EX3] = cur; //  add it
+   sel_ex.append(EX3);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
+  }
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+   // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
+  QString EX4 = esercizi.value(6).toString();
+  int RIP4 = esercizi.value(7).toInt();
+  if(!EX4.isEmpty()) {
+  // FILL IT
+  cur.EX = EX4; // fill it
+  cur.REP = RIP4;
+  cur.images = GetImages(EX4);
+  ExInfoMap[EX4] = cur; //  add it
+   sel_ex.append(EX4);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
+
+
+
+  }
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else  {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
+  QString EX5 = esercizi.value(8).toString();
+  int RIP5 = esercizi.value(9).toInt();
+  if(!EX5.isEmpty()){
+  // FILL IT
+  cur.EX = EX5; // fill it
+  cur.REP = RIP5;
+   cur.images = GetImages(EX5);
+  ExInfoMap[EX5] = cur; //  add it
+   sel_ex.append(EX5);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
+
+
+
+  }
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+   // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
+  QString EX6 = esercizi.value(10).toString();
+  int RIP6 = esercizi.value(11).toInt();
+  if(!EX6.isEmpty()) {
+  // FILL IT
+  cur.EX = EX6; // fill it
+  cur.REP = RIP6;
+  cur.images = GetImages(EX6);
+  ExInfoMap[EX6] = cur; //  add it
+   sel_ex.append(EX6);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
+
+
+
+  }
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
+  QString EX7 = esercizi.value(12).toString();
+  int RIP7 = esercizi.value(13).toInt();
+  if(!EX7.isEmpty()) {
+  // FILL IT
+  cur.EX = EX7; // fill it
+  cur.REP = RIP7;
+  cur.images = GetImages(EX7);
+  ExInfoMap[EX7] = cur; //  add it
+   sel_ex.append(EX7);
+   qDebug()<< "sel:" << sel_ex;
+           qDebug()<< " size:" << sel_ex.size();
+
+
+  }
+  else {
+
+    QString es = "01";
+    QString es2 = "02";
+    QString es3 = "03";
+    QString es4 = "04";
+    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
+    //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
+    std::cout<< "Key found";
+
+
+    }
+    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    std::cout<< "key not found";}
+  }
+}
+
+}
+//QSqlQuery ins_val;
+//   ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
+
+//         if (ins_val.exec()) {
+//           qDebug()<< "fatto";
+//         }
+//         else qDebug()<< ins_val.lastError();
+
+
+/**********************       INSERISCO VALUTAZIONI FITTIZIE                      *********************/
+      QSqlQuery ins_val;
+         ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
+
+               if (ins_val.exec()) {
+                 qDebug()<< "fatto";
+               }
+               else qDebug()<< ins_val.lastError();
+      rand1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands1 = QString::number(rand1);
+      rand2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands2 = QString::number(rand2);
+      rand3= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+       QString rands3 = QString::number(rand3);
+      rand4= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands4 = QString::number(rand4);
+      rand5= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands5 = QString::number(rand5);
+      rand10 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString rands10 = QString::number(rand10);
+      arr7_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_1 = QString::number(arr7_1);
+      arr7_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_2 = QString::number(arr7_2);
+      arr7_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_3 = QString::number(arr7_3);
+      arr7_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_4 = QString::number(arr7_4);
+      arr7_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs7_5 = QString::number(arr7_5);
+      val.append(arr7_1);
+      val.append(arr7_2);
+      val.append(arr7_3);
+      val.append(arr7_4);
+      val.append(arr7_5);
+      vals << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5;
+      QString valss = vals.join(",");
+
+      arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_1 = QString::number(arr9_1);
+      arr9_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_2 = QString::number(arr9_2);
+      arr9_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_3 = QString::number(arr9_3);
+      arr9_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_4 = QString::number(arr9_4);
+      arr9_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      QString arrs9_5 = QString::number(arr9_5);
+      val2.append(arr9_1);
+      val2.append(arr9_2);
+      val2.append(arr9_3);
+      val2.append(arr9_4);
+      val2.append(arr9_5);
+      vals2 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+      QString valss2 = vals2.join(",");
+      val8.append(arr7_1);
+      val8.append(arr7_2);
+      val8.append(arr7_3);
+      val8.append(arr7_4);
+      val8.append(arr7_5);
+      val8.append(arr9_1);
+      val8.append(arr9_2);
+      val8.append(arr9_3);
+      val8.append(arr9_4);
+      val8.append(arr9_5);
+      vals8 << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+      QString valss8 = vals8.join(",");
+      qDebug() << val;
+      qDebug() << val2;
+      qDebug ()<< val8;
+      //creo la matrice fittizia 5x19
+
+
+
+
+
+
+
+      if (dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging") {
+        QSqlQuery val_data;
+        val_data.prepare ("update Valutazioni set Intrajoint_coordination = '"+rands1+"', Normalized_jerk = '"+rands2+"', Movement_arrest_period_ratio ='"+rands3+"', Peak_speed_ratio = '"+rands4+"', Acceleration_metric = '"+rands5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+
+       if( val_data.exec()) qDebug() << "fattoo";
+       else qDebug()<< val_data.lastError();
+
+      }
+      if (dati::mood == "Assisted as needed") {
+       QSqlQuery val_data1;
+       val_data1.prepare("update Valutazioni set Active_movement_Idex = '"+rands10+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+       val_data1.exec();
+      }
+      if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
+       QSqlQuery val_data2;
+       val_data2.prepare("update Valutazioni set Per_corretta_attivazione_muscolare = '"+valss+"', Normalized_EMG_action_level = '"+valss8+"', Indice_co_contrazione = '"+valss2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+       val_data2.exec();
+      }
+      if (dati::mood == "Trigger") {
+       //matrice
+      }
+
+
+      ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+      ui->stackedWidget_2->setCurrentWidget(ui->page_sessione);
+
+qDebug()<< rand1;
+}
+
+void paginaprincipale::on_pushButton_3_clicked()
+{
+  dati::status1 = 15;
+
+     std_msgs::Int8 msg;
+     msg.data = dati::status1;
+     ROS_INFO ("%d", msg.data);
+     status_publisher.publish(msg);
+     QMessageBox ::information(this,tr("PAUSA"),tr("L'esercizio è stato messo in pausa. Se vuoi riprendere la terapia premi il tasto RIPRENDI. L'esercizio ricomincerà dalla prima ripetizione."));
+
+
+     QMessageBox riprendi;
+     riprendi.setText(tr("L'esercizio è stato messo in pausa. Se vuoi riprendere la terapia premi il tasto RIPRENDI. L'esercizio ricomincerà dalla prima ripetizione."));
+     QAbstractButton* pButtonYes = riprendi.addButton(tr("RIPRENDI"), QMessageBox::YesRole);
+     //QAbstractButton* pButtonNo =  risposta.addButton(tr("No"), QMessageBox::NoRole);
+     riprendi.exec();
+     if(riprendi.clickedButton()==pButtonYes) {
+       dati::status1 = 11;
+
+          std_msgs::Int8 msg;
+          msg.data = dati::status1;
+          ROS_INFO ("%d", msg.data);
+          status_publisher.publish(msg);
+     }
 }

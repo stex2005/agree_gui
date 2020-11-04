@@ -27,6 +27,7 @@
 #include <string>
 #include <std_msgs/String.h>
 #include<std_msgs/Int8.h>
+#include<std_msgs/Int16.h>
 #include <sstream>
 #include <string>
 #include <QThread>
@@ -155,7 +156,7 @@ class paginaprincipale : public QDialog
     std::stringstream ss4; //TAPPETINO
     std::stringstream ss5; //CHECK TAPPETINO
 
-    std_msgs::Int8 msg_status_pp;
+    std_msgs::Int16 msg_status_pp;
 
     // STRING LIST PER ASSOCIARE LO USER
     QStringList associa_user;
@@ -183,7 +184,7 @@ class paginaprincipale : public QDialog
     std::vector<bool> active_modules; //MODULI ATTIVI
     std::vector<float> J_MAX;         // ROM MAX
     std::vector<float> J_MIN;         // ROM MIN
-    float upperarm, lowerarm;
+    float upperarm, lowerarm, height, weight;
     std::vector<float> ARM_LENGTH;    // LUNGHEZZA BRACCIO
     uint8_t mode;
     int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
@@ -288,17 +289,30 @@ private slots:
 
   void on_pushButton_home_clicked();
 
-/**********************         DISABILITÀ COMBO OGGETTI     *********************/
+/**********************         DISABILITA COMBO OGGETTI     *********************/
 
   void enable_combo();
+  void enable_combo_recap();
 
 /**********************         CALCOLA TEMPO TERAPIA        *********************/
 
   void update_tempo_terapia();
+  void update_tempo_recap();
+
+
 
 /**********************         DISABILITÀ COMBO ESERCIZI    *********************/
 
   void enable_combo_ex();
+  void enable_combo_ex_recap();
+
+  /**********************         DISABILITÀ CHECKBOX MODULI   *********************/
+
+    void enable_checkbox_moduli_sx();
+    void enable_checkbox_moduli_dx();
+    void enable_checkbox_moduli_spalla();
+    void enable_checkbox_moduli_gomito();
+    void enable_checkbox_moduli_polso();
 
 /**********************               ESERCIZI               *********************/
 
@@ -370,7 +384,7 @@ private slots:
 
 /**********************       INTERROMPI TERAPIA             *********************/
 
- void on_pushButton_clicked();
+ void on_pushButton_allarme_clicked();
 
 /**********************       AVANTI  TUTORIAL VESTIZIONE      *********************/
 
@@ -387,6 +401,43 @@ private slots:
  void on_pushButton_remove_clicked();
 
  void on_pushButton_ok_clicked();
+
+
+ void on_pushButton_indietro_clicked();
+
+ void on_pushButton_esplorarom_clicked();
+
+ void on_pushButton_riprendi_clicked();
+
+ void on_pushButton_termina_clicked();
+
+ void on_pushButton_conferma_recap_clicked();
+
+
+
+
+
+ void on_pushButton_4_clicked();
+
+ void on_pushButton_pass_clicked();
+
+ void on_pushButton_asan_clicked();
+
+ void on_pushButton_antig_clicked();
+
+ void on_pushButton_challening_clicked();
+
+ void on_pushButton_trasp_clicked();
+
+ void on_pushButton_modifica_recap_clicked();
+
+ void on_pushButton_add_2_clicked();
+
+ void on_pushButton_remove_2_clicked();
+
+ void on_pushButton_salva_recap_clicked();
+
+ void on_pushButton_3_clicked();
 
 private:
   Ui::paginaprincipale *ui;
