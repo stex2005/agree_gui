@@ -161,7 +161,7 @@
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page_3">
             <layout class="QGridLayout" name="gridLayout_4">
@@ -746,7 +746,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>9</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -3175,12 +3175,12 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
            <item row="1" column="1">
             <widget class="QStackedWidget" name="stackedWidget_2">
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_sessione">
               <layout class="QGridLayout" name="gridLayout_23">
-               <item row="5" column="1">
-                <widget class="QPushButton" name="pushButton_3">
+               <item row="7" column="2">
+                <widget class="QPushButton" name="pushButton_ok">
                  <property name="font">
                   <font>
                    <family>Sans</family>
@@ -3190,31 +3190,22 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   </font>
                  </property>
                  <property name="text">
-                  <string>Pausa</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1">
-                <widget class="QPushButton" name="pushButton_next">
-                 <property name="font">
-                  <font>
-                   <family>Sans</family>
-                   <pointsize>15</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Inizia Terapia</string>
+                  <string>OK</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0" colspan="2">
                 <widget class="QLabel" name="label_istr_ex">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>100</height>
+                  </size>
+                 </property>
                  <property name="maximumSize">
                   <size>
                    <width>1100</width>
-                   <height>50</height>
+                   <height>100</height>
                   </size>
                  </property>
                  <property name="font">
@@ -3233,8 +3224,21 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  </property>
                 </widget>
                </item>
-               <item row="7" column="1">
-                <widget class="QPushButton" name="pushButton_ok">
+               <item row="2" column="2">
+                <widget class="QProgressBar" name="progressBar">
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>50</height>
+                  </size>
+                 </property>
+                 <property name="value">
+                  <number>24</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="2">
+                <widget class="QPushButton" name="pushButton_next">
                  <property name="font">
                   <font>
                    <family>Sans</family>
@@ -3244,16 +3248,37 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   </font>
                  </property>
                  <property name="text">
-                  <string>OK</string>
+                  <string>Inizia Terapia</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0" colspan="2">
+               <item row="3" column="2">
+                <widget class="QPushButton" name="pushButton_3">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Pausa</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" rowspan="2" colspan="2">
                 <widget class="QLabel" name="label_img">
+                 <property name="minimumSize">
+                  <size>
+                   <width>800</width>
+                   <height>400</height>
+                  </size>
+                 </property>
                  <property name="maximumSize">
                   <size>
-                   <width>1100</width>
-                   <height>393</height>
+                   <width>800</width>
+                   <height>350</height>
                   </size>
                  </property>
                  <property name="font">

@@ -9,6 +9,7 @@
 #include <QFloat16>
 #include <QMovie>
 
+
 int flag;
 int prova;
 QString dati::codice_id;
@@ -65,7 +66,7 @@ int8_t dati::flag_ex=0, dati::flag_ex_recap=0;
        dati::command_exercise_old_pp = dati::command_exercise_pp;
        ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command_pp);
 
-       if(dati::command_old_pp ==2) {
+       if(dati::command_old_pp ==1002) {
          ui->tabWidget->setCurrentWidget(ui->tab);
          ui->pushButton_allarme->setVisible(false);
          // this->showMaximized();
@@ -80,37 +81,37 @@ int8_t dati::flag_ex=0, dati::flag_ex_recap=0;
          else qDebug()<< prova.lastError();
          this->show();
        }
-   if (dati::command_old_pp ==3) {
+   if (dati::command_old_pp ==1003) {
       ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
       ui->pushButton_allarme->setVisible(false);
 
    }
-   if(dati::command_old_pp == 4) {
+   if(dati::command_old_pp == 1004) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
      ui->pushButton_allarme->setVisible(false);
 
 
    }
-   if(dati::command_old_pp == 5) {
+   if(dati::command_old_pp == 1005) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
      ui->pushButton_allarme->setVisible(false);
    }
-   if(dati::command_old_pp == 6){
+   if(dati::command_old_pp == 1006){
      ui->tabWidget_2->setCurrentWidget(ui->tab_calibrazione);
      ui->pushButton_allarme->setVisible(true);
 
 
    }
-   if(dati::command_old_pp == 7) {
+   if(dati::command_old_pp == 1007) {
       ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-      dati::status1 = 7;
+      dati::status1 = 1007;
     msg_status_pp.data = dati::status1;
     ROS_INFO ("%d", msg_status_pp.data);
     status_publisher.publish(msg_status_pp);
     ui->pushButton_allarme->setVisible(true);
    }
 
-   if(dati::command_old_pp == 11) {
+   if(dati::command_old_pp == 1011) {
      ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
      ui->stackedWidget_2->setCurrentWidget(ui->page_recap);
    ui->label_recap->setText(QString("Modalità di controllo: %1").arg(dati::mood));
@@ -119,13 +120,13 @@ int8_t dati::flag_ex=0, dati::flag_ex_recap=0;
      ui->pushButton_allarme->setVisible(true);
 
    }
-   if(dati::command_old_pp ==12){
+   if(dati::command_old_pp ==1012){
      ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
      ui->stackedWidget_2->setCurrentWidget(ui->page_sessione);
 //     dati::command_exercise_pp = msg_command_pp.exercise;
 //     dati::command_task_pp = msg_command_pp.task;
 }
-   if(dati::command_old_pp == 14){
+   if(dati::command_old_pp == 1014){
      timer_rehab->stop();
    ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
    //    //carico la tabella dei parametri cinematici  dei pazienti
@@ -151,7 +152,7 @@ int8_t dati::flag_ex=0, dati::flag_ex_recap=0;
 
 
            }}
-   if(dati::command_old_pp== 31) {
+   if(dati::command_old_pp== 1031) {
 
      ui->tabWidget_2->setCurrentWidget(ui->tab_alarm);
 
@@ -213,7 +214,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
      // ho aggiunto questi
      ros::NodeHandle n;
-status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
+status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
 //definisco topic
 
 //definisco topic da cui faccio subscribe
@@ -597,9 +598,11 @@ void paginaprincipale::on_pushButton_modifica_clicked()
         ui->comboBox_sesso->setCurrentText(qry5.value(6).toString());
         ui->lineEdit_patologia ->setText(qry5.value(5).toString());
         ui->comboBox_latodominante->setCurrentText(qry5.value(7).toString());
-        ui->lineEdit_storiaclinica ->setText(qry5.value(10).toString());
-        ui->lineEdit_braccio->setText(qry5.value(8).toString());
-        ui->lineEdit_avambraccio->setText(qry5.value(9).toString());
+        ui->lineEdit_h->setText(qry5.value(8).toString());
+        ui->lineEdit_peso->setText(qry5.value(9).toString());
+        ui->lineEdit_storiaclinica ->setText(qry5.value(12).toString());
+        ui->lineEdit_braccio->setText(qry5.value(10).toString());
+        ui->lineEdit_avambraccio->setText(qry5.value(11).toString());
             QSqlQuery prova1;
          prova1.prepare("select cont from Count where username = '"+dati::ind+"'");
          prova1.exec();
@@ -981,9 +984,9 @@ void paginaprincipale::on_pushButton_home_clicked()
       ui->comboBox_ex6->setCurrentIndex(0);
       ui->comboBox_ex7->setCurrentIndex(0);
 
-      dati::status1 = 14;
+      dati::status1 = 1014;
 
-      std_msgs::Int8 msg_status;
+      std_msgs::Int16 msg_status;
       msg_status.data = dati::status1;
       ROS_INFO ("%d", msg_status.data);
       status_publisher.publish(msg_status);
@@ -1109,9 +1112,9 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
 
 //pubblico che ho salvato i rom su gui/status
 
-       dati::status1 = 5;
+       dati::status1 = 1005;
 
-       std_msgs::Int8 msg_status;
+       std_msgs::Int16 msg_status;
        msg_status.data = dati::status1;
        ROS_INFO ("%d", msg_status.data);
        status_publisher.publish(msg_status);
@@ -2021,7 +2024,7 @@ if (selezione.exec())
 
  /******************       AGGIORNO TOPIC STATUS : FINISHED EXERCISE SEQUENCE                 ***********************/
 //std_msgs::Int8 msg_status;
-  dati::status1 = 3;
+  dati::status1 = 1003;
 msg_status_pp.data = dati::status1;
 ROS_INFO ("%d", msg_status_pp.data);
 status_publisher.publish(msg_status_pp);
@@ -3855,9 +3858,9 @@ QVector<QPoint> mylocalList =matrix->getPosition();
 //status_publisher.publish(msg);
 //ROS_INFO_STREAM(msg);
 //ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-dati::status1 = 10;
+dati::status1 = 1010;
 
-std_msgs::Int8 msg;
+std_msgs::Int16 msg;
 msg.data = dati::status1;
 ROS_INFO ("%d", msg.data);
 status_publisher.publish(msg);
@@ -3870,9 +3873,9 @@ void paginaprincipale::on_pushButton_next_clicked()
 { //qDebug()<<sel_ex;
   ui->pushButton_next->setVisible(false);
 timer_rehab->start(20);
-dati::status1 = 11;
+dati::status1 = 1011;
 
-std_msgs::Int8 msg;
+std_msgs::Int16 msg;
 msg.data = dati::status1;
 ROS_INFO ("%d", msg.data);
 status_publisher.publish(msg);
@@ -3945,7 +3948,7 @@ void paginaprincipale::next_img() {
 QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7, istr_terap, istr0_3;
   istr99 = "Resta in Attesa di una nuova istruzione";
   istr_def = "Posizione di Riposo";
- // istr_def6 = "Posizione di Riposo";
+  istr_def6 = "Posizione di Riposo";
 //  istr_def7 = "Posizione di Riposo";
 
   //ISTRUZIONI ESERCIZIO 1
@@ -4120,7 +4123,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 1:
       ui->label_img->setPixmap(case1_3);
        ui->pushButton_ok->setEnabled(true);
-     // ui->label_istr_ex->setText(istr1_3);
+      ui->label_istr_ex->setText("");
       qDebug()<< "case1_3";
       break;
 
@@ -4128,6 +4131,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 2:
       ui->label_img->setPixmap(case2_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
      // ui->label_istr_ex->setText(istr2_3);
       qDebug()<< "case2_3";
       break;
@@ -4136,12 +4140,14 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 3 :
       ui->label_img->setPixmap(case3_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
      // ui->label_istr_ex->setText(istr3_3);
           break;
 
     case 4:
       ui->label_img->setPixmap(case4_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr4_3);
       qDebug()<< "case4_3";
       break;
@@ -4149,6 +4155,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 5:
       ui->label_img->setPixmap(case5_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr5_3);
       qDebug()<< "case5_3";
       break;
@@ -4156,6 +4163,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 6:
       ui->label_img->setPixmap(case6_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr6_3);
       qDebug()<< "case6_3";
       break;
@@ -4163,6 +4171,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 7:
       ui->label_img->setPixmap(case7_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr7_3);
       qDebug()<< "case8_3";
       break;
@@ -4170,6 +4179,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 8:
       ui->label_img->setPixmap(case8_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr8_3);
       qDebug()<< "case9_3";
       break;
@@ -4177,6 +4187,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     case 9:
       ui->label_img->setPixmap(case9_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr9_3);
       qDebug()<< "case9_3";
       break;
@@ -4190,6 +4201,7 @@ QString istr99, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, 
     default:
       ui->label_img->setPixmap(case1_3);
        ui->pushButton_ok->setEnabled(true);
+       ui->label_istr_ex->setText("");
     //  ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
@@ -4452,9 +4464,9 @@ void paginaprincipale::on_pushButton_prosegui_clicked()
 {
     //ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
   //  timer_init->start(5000);
-    dati::status1 = 2;
+    dati::status1 = 1002;
 
-       std_msgs::Int8 msg;
+       std_msgs::Int16 msg;
        msg.data = dati::status1;
        ROS_INFO ("%d", msg.data);
        status_publisher.publish(msg);
@@ -4462,9 +4474,9 @@ void paginaprincipale::on_pushButton_prosegui_clicked()
 
 /**********************       SALTO TUTORIAL VESTIZIONE  *********************/
 void paginaprincipale::on_pushButton_go_clicked()
-{  dati::status1 = 4;
+{  dati::status1 = 1004;
 
-   std_msgs::Int8 msg;
+   std_msgs::Int16 msg;
    msg.data = dati::status1;
    ROS_INFO ("%d", msg.data);
    status_publisher.publish(msg);
@@ -4478,9 +4490,9 @@ void paginaprincipale::on_pushButton_allarme_clicked()
     timer_rehab->stop();
 //    ui->tabWidget->setCurrentWidget(ui->tab);
 //    ui->stackedWidget->setCurrentWidget(ui->page_3);
-    dati::status1 = 30;
+    dati::status1 = 1030;
 
-       std_msgs::Int8 msg;
+       std_msgs::Int16 msg;
        msg.data = dati::status1;
        ROS_INFO ("%d", msg.data);
        status_publisher.publish(msg);
@@ -4509,7 +4521,7 @@ void paginaprincipale::on_pushButton_avanti_v_clicked()
       }
       else if(curTut== sel_tut.size()) {
        // timer_init->start(5000);
-        if(dati::command_pp == 4) {
+        if(dati::command_pp == 1004) {
         ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
         }
         ui->label_img_vest->clear();
@@ -4575,9 +4587,9 @@ void paginaprincipale::skip_init(){
 
 void paginaprincipale::on_pushButton_2_clicked()
 {
-  dati::status1 = 6;
+  dati::status1 = 1006;
 
-     std_msgs::Int8 msg;
+     std_msgs::Int16 msg;
      msg.data = dati::status1;
      ROS_INFO ("%d", msg.data);
      status_publisher.publish(msg);
@@ -4658,13 +4670,13 @@ void paginaprincipale::on_pushButton_remove_clicked()
 
 void paginaprincipale::on_pushButton_ok_clicked()
 {
-  if(dati::command_old_pp == 12) {
-    dati::status1=12;
+  if(dati::command_old_pp == 1012) {
+    dati::status1=1012;
   msg_status_pp.data = dati::status1;
   status_publisher.publish(msg_status_pp);
   }
-  if(dati::command_old_pp ==13) {
-    dati::status1=13;
+  if(dati::command_old_pp ==1013) {
+    dati::status1=1013;
   msg_status_pp.data = dati::status1;
   status_publisher.publish(msg_status_pp);
   }
@@ -4673,7 +4685,7 @@ void paginaprincipale::on_pushButton_ok_clicked()
 
 void paginaprincipale::on_pushButton_indietro_clicked()
 {
-    dati::status1=20;
+    dati::status1=1020;
     msg_status_pp.data = dati::status1;
     status_publisher.publish(msg_status_pp);
 
@@ -4681,14 +4693,14 @@ void paginaprincipale::on_pushButton_indietro_clicked()
 
 void paginaprincipale::on_pushButton_esplorarom_clicked()
 {
-  dati::status1=50;
+  dati::status1=1050;
   msg_status_pp.data = dati::status1;
   status_publisher.publish(msg_status_pp);
 }
 
 void paginaprincipale::on_pushButton_riprendi_clicked()
 {
-  dati::status1=31;
+  dati::status1=1031;
   msg_status_pp.data = dati::status1;
   status_publisher.publish(msg_status_pp);
    ui->tabWidget_2->setCurrentWidget(ui->tab_init);
@@ -4698,7 +4710,7 @@ void paginaprincipale::on_pushButton_riprendi_clicked()
 
 void paginaprincipale::on_pushButton_termina_clicked()
 {
-  dati::status1=32;
+  dati::status1=1032;
   msg_status_pp.data = dati::status1;
   status_publisher.publish(msg_status_pp);
 }
@@ -5671,9 +5683,9 @@ qDebug()<< rand1;
 
 void paginaprincipale::on_pushButton_3_clicked()
 {
-  dati::status1 = 15;
+  dati::status1 = 1015;
 
-     std_msgs::Int8 msg;
+     std_msgs::Int16 msg;
      msg.data = dati::status1;
      ROS_INFO ("%d", msg.data);
      status_publisher.publish(msg);
@@ -5686,9 +5698,9 @@ void paginaprincipale::on_pushButton_3_clicked()
      //QAbstractButton* pButtonNo =  risposta.addButton(tr("No"), QMessageBox::NoRole);
      riprendi.exec();
      if(riprendi.clickedButton()==pButtonYes) {
-       dati::status1 = 11;
+       dati::status1 = 1011;
 
-          std_msgs::Int8 msg;
+          std_msgs::Int16 msg;
           msg.data = dati::status1;
           ROS_INFO ("%d", msg.data);
           status_publisher.publish(msg);

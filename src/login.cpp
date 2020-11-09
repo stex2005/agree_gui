@@ -3,6 +3,8 @@
 #include <QMessageBox>
 #include "../include/agree_gui/paginaprincipale.h"
 #include "../include/agree_gui/main_window.hpp"
+#include "../include/agree_gui/sc_assistivo.h"
+
 
 
 
@@ -20,7 +22,7 @@ int flag1;
 QString dati::count;
 QString dati::sigla;
 int dati::nuovo_utente;
-int16_t dati::status1=0, dati::command_login=0, dati::command_old_login = 1;
+int16_t dati::status1=0, dati::command_login=0, dati::command_old_login = 1, dati::flag_sc;
 
 
 
@@ -44,7 +46,7 @@ login::login(QWidget *parent) :
   ros::NodeHandle n;
 
 /**********************       CREO TOPIC                          *********************/
-status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
+status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
 command_subscriber = n.subscribe("/gui/command", 1000, &login::callback_log, this); //creo il topic a cui faccio il subscribe
 
 
@@ -91,6 +93,12 @@ mydb.setPassword("ali");
    qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
 
 
+   /**********************       CONNETTO LOGIN CON SC_ASSISTIVO                  *********************/
+      Sc_assistivo = new sc_assistivo();
+
+      connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
+      qDebug()<< "conn:" << connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
+
 }
 
 login::~login()
@@ -105,11 +113,16 @@ void login::callback_log(const agree_gui::agree_gui_command msg_command) {
     dati::command_old_login=dati::command_login;
    ROS_INFO("I heard: %d Log Page", dati::command_login);
 
-    if (dati::command_old_login == 2) {
+    if (dati::command_old_login == 1002) {
 
       this->hide();
 
    }
+    if(dati::command_old_login == 3002) {
+      this ->hide();
+//      Sc_assistivo = new sc_assistivo();
+//                  Sc_assistivo->show();
+    }
   }
 }
 /**********************       MOSTRA LA FINESTRA DI LOGIN                             ********************/
@@ -118,6 +131,11 @@ void login::showlogin() {
   qDebug()<<"sono in prova slot";
 }
 
+/**********************       MOSTRA LA FINESTRA DI LOGIN                             ********************/
+void login::showlogin_sc3() {
+  show();
+  qDebug()<<"sono in prova slot sc3";
+}
 /**********************       FUNZIONE ACCEDI                                         ********************/
 
 void login::on_pushButton_accedi_clicked()
@@ -156,10 +174,13 @@ void login::on_pushButton_accedi_clicked()
 
 
      if (dati::profilo == 1){
-       dati::status1 =1;
+       dati::status1 =1000;
        msg_status.data = dati::status1;
        ROS_INFO ("Push button ################# %d", msg_status.data);
        status_publisher.publish(msg_status);
+       dati::flag_sc= 1;
+      ros::NodeHandle n;
+     n.setParam("scenario", dati::flag_sc);
 
 
 
@@ -169,26 +190,19 @@ void login::on_pushButton_accedi_clicked()
         }
      //apro una finestra in caso di scenario 3
      else if(dati::profilo==3){
-         this->hide();
 
-         Sc_assistivo = new sc_assistivo(this);
-         Sc_assistivo -> show();
-         dati::nuovo_utente=0;
 
-         ss_log2 << "ho effettuato il login per lo scenario II" ; // al posto di questa devo leggere qnode.variabile da dove l'ho modificata
-         msg.data = ss_log2.str();
-       status_publisher.publish(msg);
-       ROS_INFO_STREAM(msg);
+
 
        //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
 
-//       dati::status1 =1;
-//       msg_status.data = dati::status1;
-//       ROS_INFO ("Push button ################# %d", msg_status.data);
-//       status_publisher.publish(msg_status);
-       // dati::flag_sc3=
-      // ros::NodeHandle n;
-     // n.setParam
+       dati::status1 =3001;
+       msg_status.data = dati::status1;
+       ROS_INFO ("Push button ################# %d", msg_status.data);
+       status_publisher.publish(msg_status);
+        dati::flag_sc= 3;
+       ros::NodeHandle n;
+      n.setParam("scenario", dati::flag_sc);
 
 
         }
@@ -201,10 +215,10 @@ void login::on_pushButton_accedi_clicked()
 
 }
     if(dati::username == dati::user_devel && dati::password == dati::pass_devel) {
-      dati::status1 =31;
-      msg_status.data = dati::status1;
-      ROS_INFO ("Push button ################# %d", msg_status.data);
-      status_publisher.publish(msg_status);
+//      dati::status1 =31;
+//      msg_status.data = dati::status1;
+//      ROS_INFO ("Push button ################# %d", msg_status.data);
+//      status_publisher.publish(msg_status);
 
 
 
@@ -279,19 +293,22 @@ if (dati::password == Conferma) {
 
  //capire come mai non si aprono più le finestre interessate
          if (dati::profilo == 1){
-           dati::status1 = 1;
+           dati::status1 = 1000;
 
 
 
          Paginaprincipale  = new paginaprincipale(this);
          connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
          Paginaprincipale->show();
-         dati::status1 = 1;
 
-         std_msgs::Int8 msg;
+
+         std_msgs::Int16 msg;
          msg.data = dati::status1;
          ROS_INFO ("sbagliato? %d", msg.data);
          status_publisher.publish(msg);
+         dati::flag_sc= 1;
+        ros::NodeHandle n;
+       n.setParam("scenario", dati::flag_sc);
 
         }
         else if(dati::profilo == 3) {
@@ -302,8 +319,8 @@ if (dati::password == Conferma) {
           }
        else {
 
-           Sc_assistivo = new sc_assistivo(this);
-                       Sc_assistivo->show();
+//           Sc_assistivo = new sc_assistivo(this);
+//                       Sc_assistivo->show();
 
 
 //                       dati::status1 =1;
@@ -311,9 +328,9 @@ if (dati::password == Conferma) {
 //                       ROS_INFO ("Push button ################# %d", msg_status.data);
 //                       status_publisher.publish(msg_status);
                      //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
-                     // dati::flag_sc3=
-                    // ros::NodeHandle n;
-                   // n.setParam
+                      dati::flag_sc=3;
+                     ros::NodeHandle n;
+                    n.setParam("scenario", dati::flag_sc);
 
 
           }

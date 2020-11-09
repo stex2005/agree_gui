@@ -5,6 +5,8 @@
 #include <ros/ros.h>
 #include <ros/network.h>
 #include<std_msgs/Int8.h>
+
+#include<std_msgs/Int16.h>
 #include "agree_gui/agree_gui_command.h"
 
 

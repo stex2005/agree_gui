@@ -15,7 +15,9 @@ find_package(
     REQUIRED COMPONENTS
     roscpp
     std_msgs
-    message_generation)
+    message_generation
+
+ )
 
 
 add_message_files(
@@ -52,6 +54,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 #SET(CMAKE_AUTOUIC ON)
 
+
+
 find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Sql)
 
 ##############################################################################
@@ -72,6 +76,8 @@ include_directories(
     ${Qt5Widgets_INCLUDE_DIRS}
     ${Qt5PrintSupport_INCLUDE_DIRS}
     ${Qt5Sql_INCLUDE_DIRS}
+
+
     )
 
 ##############################################################################
@@ -105,6 +111,9 @@ target_link_libraries(agree_gui ${QT_LIBRARIES} ${catkin_LIBRARIES}
     Qt5::Widgets
     Qt5::PrintSupport
     Qt5::Sql
+
+
+
     )
 install(TARGETS agree_gui RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 

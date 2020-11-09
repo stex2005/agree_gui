@@ -18,7 +18,7 @@
 
 int16_t dati::command_matrix, dati::command_old_matrix=1;
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
-{ if(dati::command_old_matrix==7){
+{ if(dati::command_old_matrix==1007){
   LoadData();
   qDebug()<<"dati caricati";
   }
@@ -26,7 +26,7 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
     ros::NodeHandle n;
 
   /**********************       CREO TOPIC                          *********************/
-  status_publisher = n.advertise<std_msgs::Int8>("/gui/status", 1000);
+  status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
    command_subscriber = n.subscribe("/gui/command", 1000, &MatrixWidget::callback_matrix, this);
 
 }
@@ -40,11 +40,11 @@ void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_comman
     if((dati::command_old_matrix) != (dati::command_matrix)) {
       dati::command_old_matrix=dati::command_matrix;
 qDebug()<< "matrix";
-if(dati::command_old_matrix==7){
+if(dati::command_old_matrix==1007){
   LoadData();
   qDebug()<<"dati caricati";
   }
-      if(dati::command_old_matrix == 8) { //SALVO PARAMETRI DA ROSPARAMETERS
+      if(dati::command_old_matrix == 1008) { //SALVO PARAMETRI DA ROSPARAMETERS
 
 qDebug()<< "callback_matrix, command_old 8";
 point0 = {15,3};
@@ -70,13 +70,13 @@ n.setParam("/point0/mat_coordinates", point0);
 
         dati::status1 = 8;
 //?
-            std_msgs::Int8 msg;
+            std_msgs::Int16 msg;
             msg.data = dati::status1;
             ROS_INFO ("%d", msg.data);
             status_publisher.publish(msg);
 
       }
-      if(dati::command_old_matrix == 9) {
+      if(dati::command_old_matrix == 1009) {
         if(selCount==1)
         {
           Data[point1.at(1)][point1.at(0)].DrawColor = Qt::blue;
@@ -113,7 +113,7 @@ QVector<QPoint> MatrixWidget::getPosition() const
 }
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
 { ros::NodeHandle n;
-  if(dati::command_old_matrix == 9){
+  if(dati::command_old_matrix == 1009){
   QPoint p= event->pos(); //dove clicco
 
   int xindex = p.x()/ bw;
@@ -143,7 +143,7 @@ if(std::count(point1.begin(), point1.end(), zero_point1)) {
   qDebug()<< "riempio point1";
   qDebug()<< point1;
   dati::status1 = 9;
-           std_msgs::Int8 msg;
+           std_msgs::Int16 msg;
            msg.data = dati::status1;
            ROS_INFO ("%d", msg.data);
            status_publisher.publish(msg);
@@ -158,7 +158,7 @@ else if (std::count(point2.begin(), point2.end(), zero_point2)) {
    qDebug()<< "riempio point2";
    qDebug()<< point2;
    dati::status1 = 9;
-            std_msgs::Int8 msg;
+            std_msgs::Int16 msg;
             msg.data = dati::status1;
             ROS_INFO ("%d", msg.data);
             status_publisher.publish(msg);
@@ -171,7 +171,7 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
  qDebug()<< "riempio point3";
  qDebug()<< point3;
  dati::status1 = 9;
-          std_msgs::Int8 msg;
+          std_msgs::Int16 msg;
           msg.data = dati::status1;
           ROS_INFO ("%d", msg.data);
           status_publisher.publish(msg);
@@ -203,7 +203,7 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
       point1 = {0,0};
       n.setParam("/point1/mat_coordinates", point1);
       dati::status1 = 9;
-               std_msgs::Int8 msg;
+               std_msgs::Int16 msg;
                msg.data = dati::status1;
                ROS_INFO ("%d", msg.data);
                status_publisher.publish(msg);
@@ -213,7 +213,7 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
       point2 = {0,0};
       n.setParam("/point2/mat_coordinates", point2);
       dati::status1 = 9;
-               std_msgs::Int8 msg;
+               std_msgs::Int16 msg;
                msg.data = dati::status1;
                ROS_INFO ("%d", msg.data);
                status_publisher.publish(msg);
@@ -222,7 +222,7 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
       point3 = {0,0};
       n.setParam("/point3/mat_coordinates", point3);
       dati::status1 = 9;
-               std_msgs::Int8 msg;
+               std_msgs::Int16 msg;
                msg.data = dati::status1;
                ROS_INFO ("%d", msg.data);
                status_publisher.publish(msg);
@@ -387,7 +387,7 @@ if(dati::lato=="1"){
            else{
              Data[x][y].DrawColor = Qt::green;
              Data[1][14].DrawColor = Qt::black;
-             if(dati::command_old_matrix==9){
+             if(dati::command_old_matrix==1009){
                qDebug()<<"dati old matrix 9";
              if(selCount==1)
              {

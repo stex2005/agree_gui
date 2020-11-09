@@ -1,17 +1,28 @@
+registration_antenna_point:
+  - 0.0
+  - 0.0
+  - 0.0
+
 registration_matrix:
   - 0.0
   - 0.0
   - 0.0
 
 active_modules:
-  - false   # SPALLA
-  - false   # GOMITO
-  - false   # POLSO
-  - false   # MAT
-  - false   # RF SYSTEM
-  - false   # EMG/EEG
-  - false   # MAP
+  - true   # SPALLA 0
+  - true   # GOMITO 1
+  - true   # POLSO 2
+  - true   # MAT 3
+  - false   # RF SYSTEM 4
+  - false   # EMG/EEG 5
+  - false   # MAP 6
+  - false   # JOYSTICK 7
+  - false   # VOCAL 8
+  - false   # IK ONLINE
 
-current_exercise: 0
+side: false #FALSE = sx, TRUE = dx
+
+scenario: 0
+
 
 

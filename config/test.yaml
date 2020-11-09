@@ -1,0 +1,62 @@
+matlab:
+
+    point0:
+        mat_coordinate:
+            x: 15
+            y: 4
+        configuration:
+            J1: -1.171373690918464
+            J2: -0.754708563269354
+            J3: 1.919862177193763
+            J4: -1.506713815168618
+            J5: 0.0
+
+    point1:
+        mat_coordinate:
+            x: 18
+            y: 5
+        configuration:
+            J1: 0.0
+            J2: 0.0
+            J3: 0.0
+            J4: 0.0
+            J5: 0.0
+
+    point2:
+        mat_coordinate:
+            x: 14
+            y: 9
+        configuration:
+            J1: 0.0
+            J2: 0.0
+            J3: 0.0
+            J4: 0.0
+            J5: 0.0
+
+    point3:
+        mat_coordinate:
+            x: 6
+            y: 8
+        configuration:
+            J1: 0.0
+            J2: 0.0
+            J3: 0.0
+            J4: 0.0
+            J5: 0.0
+
+    rom_max:
+        J1 : -15.0
+        J2 : -10.0
+        J3 : 110.0
+        J4 : -5.0
+        J5 : 70.0
+
+    rom_min:
+        J1 : -125.0
+        J2 : -135.0
+        J3 : 0.0
+        J4 : -135.0
+        J5 : -90.0
+
+
+

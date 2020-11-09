@@ -1,28 +1,32 @@
-exercise/sequence:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+exercise:
 
-exercise/repetition:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+    sequence:
+      - 1
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
 
-exercise/objects:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+    repetition:
+          - 2
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
 
-exercise/mode: 0
+    objects:
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+
+    mode: 1
+
+    current_exercise: 0
