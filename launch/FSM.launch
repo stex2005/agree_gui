@@ -6,6 +6,7 @@
         <rosparam file="$(find agree_gui)/config/exercise.yaml" />
         <rosparam file="$(find agree_gui)/config/general.yaml" />
         <rosparam file="$(find agree_gui)/config/physiological_param.yaml" />
+        <rosparam file="$(find agree_gui)/config/test..yaml" />
 
 </launch>
 

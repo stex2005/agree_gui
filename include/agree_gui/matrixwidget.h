@@ -53,6 +53,7 @@ public:
  std::vector<int> point3;
   int zero_point3 = 0;
 std::vector<int> points;
+int  point1x,point1y,point2x,point2y,point3x,point3y;
 
 
  QVector<QPoint> getPosition() const;

@@ -6,6 +6,7 @@
 #include "../include/agree_gui/qnode.hpp"
 #include <QMessageBox>
 #include <QFloat16>
+
 QString dati::patologia;
 int joy;
 int contatore= 0;
@@ -76,14 +77,17 @@ sc_assistivo::~sc_assistivo()
 }
 
 void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3) {
+  QFont font1, font2;
+  font1.setPointSize(19);
+  font1.setBold(true);
+  font2.setPointSize(16);
+  font2.setBold(true);
   ros::NodeHandle n;
   dati::command_sc3 = msg_command_sc3.mode;
   qDebug()<< "SONO NELLA CALLBACK SC3";
   dati::command_istr_sc3 = msg_command_sc3.exercise;
   dati::command_sec_sc3 = msg_command_sc3.task;
-  QFont font1, font2;
-  font1.setPointSize(19);
-  font2.setPointSize(16);
+
   if((dati::command_old_sc3) != (dati::command_sc3) || (dati::command_istr_sc3_old)!= (dati::command_istr_sc3) || (dati::command_sec_sc3_old)!= (dati::command_sec_sc3)) {
     qDebug()<< dati::command_old_sc3;
     qDebug()<< dati::command_sc3;
@@ -93,7 +97,7 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
     ROS_INFO("I heard: %d SCENARIO 3", dati::command_sc3);
 
     if(dati::command_old_sc3 ==3002) {
-      qDebug() << "sono nel ciclo ma non faccio un cazzooo";
+
       ui->stackedWidget->setCurrentWidget(ui->page_config);
       ui->pushButton_allarme_sc3->setVisible(false);
       // this->showMaximized();
@@ -108,6 +112,33 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
         } }
       else qDebug()<< prova_sc3.lastError();
       this->show();
+
+      QSqlQuery dati_agg_sc3;
+      dati_agg_sc3.prepare("select Patologia,Lato_dominante, Lunghezza_braccio, Lunghezza_avambraccio, altezza,peso, uROM1_min, uROM1_max, uROM2_min, uROM2_max, uROM3_min, uROM4_min, uROM4_max, uROM5_min, uROM5_max from Utenti_ass where usernameass = '"+dati::username+"' order by data desc limit 1");
+      dati_agg_sc3.exec();
+      if(dati_agg_sc3.exec()){
+
+      while(dati_agg_sc3.next()){
+        qDebug()<<"sono entrato in wail";
+        ui->lineEdit_patologia->setText(dati_agg_sc3.value(0).toString());
+        ui->lineEdit_lb->setText(dati_agg_sc3.value(1).toString());
+        ui->lineEdit_la->setText(dati_agg_sc3.value(2).toString());
+        ui->lineEdit_h->setText(dati_agg_sc3.value(3).toString());
+        ui->lineEdit_w->setText(dati_agg_sc3.value(4).toString());
+        ui->lineEdit_rom1_min->setText(dati_agg_sc3.value(5).toString());
+        ui->lineEdit_rom1_max->setText(dati_agg_sc3.value(6).toString());
+        ui->lineEdit_rom2_min->setText(dati_agg_sc3.value(7).toString());
+        ui->lineEdit_rom2_max->setText(dati_agg_sc3.value(8).toString());
+        ui->lineEdit_rom3_min->setText(dati_agg_sc3.value(9).toString());
+        ui->lineEdit_rom3_max->setText(dati_agg_sc3.value(10).toString());
+        ui->lineEdit_rom4_min->setText(dati_agg_sc3.value(11).toString());
+        ui->lineEdit_rom4_max->setText(dati_agg_sc3.value(12).toString());
+        ui->lineEdit_rom5_min->setText(dati_agg_sc3.value(13).toString());
+        ui->lineEdit_rom5_max->setText(dati_agg_sc3.value(14).toString());
+      }
+
+}
+        else qDebug()<< dati_agg_sc3.lastError();
     }
     // INIZIALIZZAZIONE
     if (dati::command_old_sc3 == 3003) {
@@ -261,9 +292,8 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
       ui->stackedWidget->setCurrentWidget(ui->page_rest_pos_sc3);
     }
     if(dati::command_old_sc3==3010){
-      QFont font1, font2;
-      font1.setPointSize(19);
-      font2.setPointSize(16);
+        QFont font = ui->pushButton_GIU->font();
+
       dati::status1 = 3010;
 
       std_msgs::Int16 msg_status;
@@ -390,6 +420,8 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
         ui->pushButton_joy->setStyleSheet("background-color : green");
       }
     }
+
+    //CONTROLLO CON JOYSTICK
     if(dati::command_old_sc3==3011) {
       ui->stackedWidget->setCurrentWidget(ui->page_sessione_sc3);
       if(dati::command_istr_sc3_old==1) {
@@ -405,20 +437,252 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
         ui->pushButton_z_teta_JOY->setFont(font1);
       }
     }
+    //RECALL POSITION
     if(dati::command_old_sc3==3012) {
       ui->stackedWidget->setCurrentWidget(ui->page_recallpos);
+      if (dati::command_istr_sc3_old==0) {
+        ui->pushButton_indietro->setStyleSheet("background-color : green");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==1) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : green");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==2) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : green");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==3) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : green");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==4) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : green");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==5) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : green");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==6) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : green");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==07) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : green");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==8) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : green");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==9) {
+        ui->pushButton_indietro->setStyleSheet("background-color :white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : green");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==10) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : green");
+        ui->pushButton_pos10->setStyleSheet("background-color : white");
+      }
+      if (dati::command_istr_sc3_old==11) {
+        ui->pushButton_indietro->setStyleSheet("background-color : white");
+        ui->pushButton_recall_rest->setStyleSheet("background-color : white");
+        ui->pushButton_pos1->setStyleSheet("background-color : white");
+        ui->pushButton_pos2->setStyleSheet("background-color : white");
+        ui->pushButton_pos3->setStyleSheet("background-color : white");
+        ui->pushButton_pos4->setStyleSheet("background-color : white");
+        ui->pushButton_pos5->setStyleSheet("background-color : white");
+        ui->pushButton_pos6->setStyleSheet("background-color : white");
+        ui->pushButton_pos7->setStyleSheet("background-color : white");
+        ui->pushButton_pos8->setStyleSheet("background-color : white");
+        ui->pushButton_pos9->setStyleSheet("background-color : white");
+        ui->pushButton_pos10->setStyleSheet("background-color : green");
+      }
     }
+      //SALVA POSIZIONE
     if(dati::command_old_sc3==3013) {
-  //SALVA POSIZIONE
+
     }
+       //CONTROLLO VOCALE
     if(dati::command_old_sc3==3014) {
-   //CONTROLLO VOCALE
+
     }
+    //CONTROLLO SINGOLO GIUNTO
     if(dati::command_old_sc3==3015) {
       ui->stackedWidget->setCurrentWidget(ui->page_joint);
+      if(dati::command_istr_sc3_old==0) {
+        ui->pushButton_indietroj->setStyleSheet("background-color : green");
+        ui->pushButton_indietroj->setFont(font1);
+
+      }
+      if(dati::command_istr_sc3_old==1) {
+        ui->pushButton_indietroj->setStyleSheet("background-color : white");
+        ui->pushButton_j1->setStyleSheet("background-color : green");
+        ui->pushButton_indietroj->setFont(font2);
+        ui->pushButton_j1->setFont(font1);
+        if(dati::command_sec_sc3_old==1) {
+           ui->pushButton_j1->setStyleSheet("background-color : blue");
+        }
+
+
+      }
+      if(dati::command_istr_sc3_old==2) {
+        ui->pushButton_j1->setStyleSheet("background-color : white");
+        ui->pushButton_j2->setStyleSheet("background-color : green");
+        ui->pushButton_j1->setFont(font2);
+        ui->pushButton_j2->setFont(font1);
+        if(dati::command_sec_sc3_old==1) {
+           ui->pushButton_j2->setStyleSheet("background-color : blue");
+        }
+
+      }
+      if(dati::command_istr_sc3_old==3) {
+        ui->pushButton_j2->setStyleSheet("background-color : white");
+        ui->pushButton_j3->setStyleSheet("background-color : green");
+        ui->pushButton_j2->setFont(font2);
+        ui->pushButton_j3->setFont(font1);
+
+        if(dati::command_sec_sc3_old==1) {
+           ui->pushButton_j3->setStyleSheet("background-color : blue");
+        }
+
+      }
+      if(dati::command_istr_sc3_old==4) {
+        ui->pushButton_j3->setStyleSheet("background-color : white");
+        ui->pushButton_j4->setStyleSheet("background-color : green");
+        ui->pushButton_j3->setFont(font2);
+        ui->pushButton_j4->setFont(font1);
+
+        if(dati::command_sec_sc3_old==1) {
+           ui->pushButton_j4->setStyleSheet("background-color : blue");
+        }
+
+      }
+      if(dati::command_istr_sc3_old==5) {
+        ui->pushButton_j4->setStyleSheet("background-color : white");
+        ui->pushButton_j5->setStyleSheet("background-color : green");
+        ui->pushButton_j4->setFont(font2);
+        ui->pushButton_j5->setFont(font1);
+        if(dati::command_sec_sc3_old==5) {
+           ui->pushButton_j1->setStyleSheet("background-color : blue");
+        }
+
+      }
+
     }
     if(dati::command_old_sc3==3016) {
       ui->stackedWidget->setCurrentWidget(ui->page_rot_gomito);
+
     }
     if(dati::command_old_sc3==3017) {
       ui->stackedWidget->setCurrentWidget(ui->page_rot_gomito);
@@ -520,9 +784,9 @@ void sc_assistivo::on_pushButton_salva_clicked()
 
 
   QSqlQuery prova;
-  prova.prepare("insert into Utenti_ass(usernameass, Sesso,Patologia,Lato_dominante, Lunghezza_braccio, Lunghezza_avambraccio, altezza, peso, data) values ('"+sesso+"', '"+dati::patologia+"', '"+latodom+"', '"+lb+"', '"+la+"', '"+h_sc3+"', '"+w_sc3+"', '"+dati::data1+"')");
-  //prova.prepare("update Utenti_ass set Sesso = '"+sesso+"', Patologia = '"+dati::patologia+"', Lato_dominante= '"+latodom+"', Lunghezza_braccio = '"+lb+"', Lunghezza_avambraccio = '"+la+"', altezza = '"+h_sc3+"', peso = '"+w_sc3+"' where usernameass = '"+user+"'");
-  prova.exec();
+  prova.prepare("insert into Utenti_ass(usernameass, Sesso,Patologia,Lato_dominante, Lunghezza_braccio, Lunghezza_avambraccio, altezza, peso, data) values ('"+dati::username+"','"+sesso+"', '"+dati::patologia+"', '"+latodom+"', '"+lb+"', '"+la+"', '"+h_sc3+"', '"+w_sc3+"', '"+dati::data1+"')");
+  //prova.prepare("update Utenti_ass set Sesso = '"+sesso+"', Patologia = '"+dati::patologia+"', Lato_dominante= '"+latodom+"', Lunghezza_braccio = '"+lb+"', Lunghezza_avambraccio = '"+la+"', altezza = '"+h_sc3+"', peso = '"+w_sc3+"' where usernameass = '"+user+"' and data = '"+dati::data1+"'");
+
   if(prova.exec())
   {     QMessageBox::information(this, tr("Salvato"), tr("Modifiche salvate correttamente"));
 
@@ -735,8 +999,8 @@ void sc_assistivo::on_pushButton_salva_rom_sc3_clicked()
   ROM5_max_f= ROM5_max.toFloat();
 
   QSqlQuery prova;
-  prova.prepare("update Utenti_ass set uROM1_min= '"+ROM1_min+"', uROM1_max = '"+ROM1_max+"', uROM2_min= '"+ROM2_min+"', uROM2_max = '"+ROM2_max+"', uROM3_min= '"+ROM3_min+"', uROM3_max = '"+ROM3_max+"', uROM4_min= '"+ROM4_min+"', uROM4_max = '"+ROM4_max+"', uROM5_min= '"+ROM5_min+"', uROM5_max = '"+ROM5_max+"' where usernameass = '"+user+"' desc limit 1" );;
-  prova.exec();
+  prova.prepare("update Utenti_ass set uROM1_min= '"+ROM1_min+"', uROM1_max = '"+ROM1_max+"', uROM2_min= '"+ROM2_min+"', uROM2_max = '"+ROM2_max+"', uROM3_min= '"+ROM3_min+"', uROM3_max = '"+ROM3_max+"', uROM4_min= '"+ROM4_min+"', uROM4_max = '"+ROM4_max+"', uROM5_min= '"+ROM5_min+"', uROM5_max = '"+ROM5_max+"' where usernameass = '"+user+"' and data = '"+dati::data1+"'" );
+
   if(prova.exec())
   {     QMessageBox::information(this, tr("Salvato"), tr("Modifiche salvate correttamente"));
 

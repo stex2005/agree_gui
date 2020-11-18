@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1228</width>
-    <height>724</height>
+    <width>1555</width>
+    <height>857</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="2">
-    <widget class="QPushButton" name="pushButton_spegni">
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_allarme_sc3">
      <property name="font">
       <font>
        <family>Sans</family>
@@ -25,7 +25,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Log Out</string>
+      <string>Allarme</string>
      </property>
     </widget>
    </item>
@@ -41,8 +41,8 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="pushButton_allarme_sc3">
+   <item row="2" column="2">
+    <widget class="QPushButton" name="pushButton_spegni">
      <property name="font">
       <font>
        <family>Sans</family>
@@ -52,7 +52,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Allarme</string>
+      <string>Log Out</string>
      </property>
     </widget>
    </item>
@@ -83,7 +83,7 @@
       </font>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>13</number>
      </property>
      <widget class="QWidget" name="page_config">
       <widget class="QLabel" name="label_la">
@@ -346,6 +346,9 @@
          <height>32</height>
         </rect>
        </property>
+       <property name="placeholderText">
+        <string>35</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_rom3_max">
        <property name="geometry">
@@ -355,6 +358,12 @@
          <width>193</width>
          <height>32</height>
         </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>-90</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_rom1_max">
@@ -366,6 +375,9 @@
          <height>32</height>
         </rect>
        </property>
+       <property name="placeholderText">
+        <string>45</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_rom1_min">
        <property name="geometry">
@@ -375,6 +387,9 @@
          <width>193</width>
          <height>32</height>
         </rect>
+       </property>
+       <property name="placeholderText">
+        <string>-80</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_rom2_min">
@@ -386,6 +401,9 @@
          <height>32</height>
         </rect>
        </property>
+       <property name="placeholderText">
+        <string>-75</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_rom3_min">
        <property name="geometry">
@@ -395,6 +413,9 @@
          <width>193</width>
          <height>32</height>
         </rect>
+       </property>
+       <property name="placeholderText">
+        <string>-20</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_31">
@@ -500,6 +521,9 @@
          <height>32</height>
         </rect>
        </property>
+       <property name="placeholderText">
+        <string>-20</string>
+       </property>
       </widget>
       <widget class="QLabel" name="label_rom4_2">
        <property name="geometry">
@@ -543,6 +567,12 @@
          <width>193</width>
          <height>32</height>
         </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>0</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton_salva_rom_sc3">
@@ -609,6 +639,9 @@
          <height>32</height>
         </rect>
        </property>
+       <property name="placeholderText">
+        <string>135</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_rom5_max">
        <property name="geometry">
@@ -618,6 +651,12 @@
          <width>193</width>
          <height>32</height>
         </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>180</string>
        </property>
       </widget>
      </widget>
@@ -684,8 +723,8 @@
       <widget class="QPushButton" name="pushButton_configura_joy_sc3">
        <property name="geometry">
         <rect>
-         <x>210</x>
-         <y>570</y>
+         <x>200</x>
+         <y>690</y>
          <width>261</width>
          <height>31</height>
         </rect>
@@ -705,8 +744,8 @@
       <widget class="QPushButton" name="pushButton_salta_joy">
        <property name="geometry">
         <rect>
-         <x>708</x>
-         <y>574</y>
+         <x>1200</x>
+         <y>700</y>
          <width>261</width>
          <height>31</height>
         </rect>
@@ -726,16 +765,16 @@
       <widget class="QLabel" name="label_14">
        <property name="geometry">
         <rect>
-         <x>140</x>
-         <y>110</y>
-         <width>911</width>
+         <x>180</x>
+         <y>120</y>
+         <width>1181</width>
          <height>381</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Ubuntu</family>
-         <pointsize>19</pointsize>
+         <pointsize>25</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -753,10 +792,10 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QLabel" name="label_init_sc3">
        <property name="geometry">
         <rect>
-         <x>9</x>
-         <y>9</y>
-         <width>1141</width>
-         <height>531</height>
+         <x>70</x>
+         <y>20</y>
+         <width>1431</width>
+         <height>711</height>
         </rect>
        </property>
        <property name="text">
@@ -773,8 +812,8 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
         <rect>
          <x>80</x>
          <y>50</y>
-         <width>1071</width>
-         <height>381</height>
+         <width>1371</width>
+         <height>591</height>
         </rect>
        </property>
        <property name="text">
@@ -784,8 +823,8 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QPushButton" name="pushButton_skip_sc3">
        <property name="geometry">
         <rect>
-         <x>480</x>
-         <y>530</y>
+         <x>670</x>
+         <y>680</y>
          <width>251</width>
          <height>51</height>
         </rect>
@@ -809,7 +848,7 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
         <widget class="QGroupBox" name="groupBox_2">
          <property name="font">
           <font>
-           <family>OpenSymbol</family>
+           <family>Sans</family>
            <pointsize>15</pointsize>
            <weight>75</weight>
            <bold>true</bold>
@@ -819,26 +858,7 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
           <string>SESSIONE UTILIZZO </string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_joystick">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Controllo Joystick</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QPushButton" name="pushButton_recallPos">
             <property name="minimumSize">
              <size>
@@ -852,13 +872,18 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
               <height>60</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
+            </property>
             <property name="text">
              <string>Richiama Posizione</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="pushButton_salvapos">
+          <item row="6" column="0">
+           <widget class="QPushButton" name="pushButton_singoloj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -871,12 +896,41 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
               <height>60</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Salva Posizione</string>
+             <string>Controllo Singolo Giunto</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="8" column="0">
+           <widget class="QPushButton" name="pushButton_joy">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Riconfigura Joystick</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
            <widget class="QPushButton" name="pushButton_gomito">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -896,12 +950,65 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
               <height>50</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
+            </property>
             <property name="text">
              <string>Controllo  Rotazione Gomito</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
+          <item row="3" column="0">
+           <widget class="QPushButton" name="pushButton_salvapos">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Salva Posizione</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pushButton_joystick">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Controllo Joystick</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
            <widget class="QPushButton" name="pushButton_vocale">
             <property name="minimumSize">
              <size>
@@ -915,46 +1022,32 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
               <height>60</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
+            </property>
             <property name="text">
              <string>Controllo Vocale</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
-           <widget class="QPushButton" name="pushButton_singoloj">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>60</height>
-             </size>
-            </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_5">
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
-              <height>60</height>
+              <width>1168</width>
+              <height>80</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Sans</family>
+             </font>
             </property>
             <property name="text">
-             <string>Controllo Singolo Giunto</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QPushButton" name="pushButton_joy">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Riconfigura Joystick</string>
+             <string>Spostati con il joystick sulla funzione che desideri utilizzare. 
+Premi 1CLICK per selezionarla.</string>
             </property>
            </widget>
           </item>
@@ -967,11 +1060,23 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QPushButton" name="pushButton_XY_JOY">
        <property name="geometry">
         <rect>
-         <x>230</x>
-         <y>360</y>
-         <width>311</width>
-         <height>191</height>
+         <x>310</x>
+         <y>490</y>
+         <width>351</width>
+         <height>251</height>
         </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>351</width>
+         <height>251</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>351</width>
+         <height>251</height>
+        </size>
        </property>
        <property name="font">
         <font>
@@ -983,17 +1088,30 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
        </property>
        <property name="text">
         <string>SINISTRA/DESTRA 
+
  AVANTI/INDIETRO</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton_z_teta_JOY">
        <property name="geometry">
         <rect>
-         <x>670</x>
-         <y>360</y>
-         <width>301</width>
-         <height>191</height>
+         <x>970</x>
+         <y>490</y>
+         <width>351</width>
+         <height>251</height>
         </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>351</width>
+         <height>251</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>351</width>
+         <height>251</height>
+        </size>
        </property>
        <property name="font">
         <font>
@@ -1005,22 +1123,23 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
        </property>
        <property name="text">
         <string>SU/GIU
+
  PRONO-SUPINAZIONE POLSO</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_16">
        <property name="geometry">
         <rect>
-         <x>370</x>
-         <y>30</y>
-         <width>421</width>
+         <x>470</x>
+         <y>90</y>
+         <width>581</width>
          <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>DejaVu Sans</family>
-         <pointsize>19</pointsize>
+         <pointsize>25</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1032,15 +1151,15 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QLabel" name="label_17">
        <property name="geometry">
         <rect>
-         <x>80</x>
-         <y>90</y>
-         <width>1091</width>
+         <x>100</x>
+         <y>200</y>
+         <width>1421</width>
          <height>231</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>19</pointsize>
+         <pointsize>25</pointsize>
         </font>
        </property>
        <property name="text">
@@ -1058,7 +1177,7 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QLabel" name="label_joy_sec">
        <property name="geometry">
         <rect>
-         <x>440</x>
+         <x>620</x>
          <y>10</y>
          <width>381</width>
          <height>51</height>
@@ -1079,8 +1198,8 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QPushButton" name="pushButton_SX">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>280</y>
+         <x>400</x>
+         <y>320</y>
          <width>231</width>
          <height>171</height>
         </rect>
@@ -1100,8 +1219,8 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QPushButton" name="pushButton_SU">
        <property name="geometry">
         <rect>
-         <x>520</x>
-         <y>110</y>
+         <x>740</x>
+         <y>130</y>
          <width>231</width>
          <height>171</height>
         </rect>
@@ -1121,8 +1240,8 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QPushButton" name="pushButton_GIU">
        <property name="geometry">
         <rect>
-         <x>520</x>
-         <y>450</y>
+         <x>740</x>
+         <y>560</y>
          <width>231</width>
          <height>171</height>
         </rect>
@@ -1142,7 +1261,7 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QLabel" name="label_istr">
        <property name="geometry">
         <rect>
-         <x>140</x>
+         <x>310</x>
          <y>50</y>
          <width>1031</width>
          <height>71</height>
@@ -1155,8 +1274,8 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QPushButton" name="pushButton_DX">
        <property name="geometry">
         <rect>
-         <x>860</x>
-         <y>280</y>
+         <x>1080</x>
+         <y>320</y>
          <width>231</width>
          <height>171</height>
         </rect>
@@ -1178,16 +1297,16 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QLabel" name="label_joy_sec_2">
        <property name="geometry">
         <rect>
-         <x>400</x>
-         <y>10</y>
-         <width>381</width>
+         <x>460</x>
+         <y>100</y>
+         <width>511</width>
          <height>51</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Sans</family>
-         <pointsize>19</pointsize>
+         <family>DejaVu Sans</family>
+         <pointsize>25</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1199,11 +1318,16 @@ Se premi salta Configurazione verrai reindirizzato alla pagina principale </stri
       <widget class="QLabel" name="label_istr_2">
        <property name="geometry">
         <rect>
-         <x>300</x>
-         <y>80</y>
-         <width>611</width>
+         <x>340</x>
+         <y>180</y>
+         <width>901</width>
          <height>311</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>25</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Hai terminato la procedura di configuazione del joystick. 
@@ -1216,8 +1340,8 @@ Se la vuoi rifare premi il tasto RIFAI</string>
       <widget class="QPushButton" name="pushButton_end_conf_joy">
        <property name="geometry">
         <rect>
-         <x>800</x>
-         <y>490</y>
+         <x>1190</x>
+         <y>680</y>
          <width>211</width>
          <height>51</height>
         </rect>
@@ -1229,10 +1353,10 @@ Se la vuoi rifare premi il tasto RIFAI</string>
       <widget class="QPushButton" name="pushButton_rifo_joy">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>470</y>
-         <width>141</width>
-         <height>61</height>
+         <x>250</x>
+         <y>670</y>
+         <width>291</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="text">
@@ -1244,10 +1368,10 @@ Se la vuoi rifare premi il tasto RIFAI</string>
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
         <rect>
-         <x>430</x>
-         <y>580</y>
-         <width>361</width>
-         <height>31</height>
+         <x>550</x>
+         <y>670</y>
+         <width>451</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
@@ -1280,14 +1404,14 @@ Se la vuoi rifare premi il tasto RIFAI</string>
         <rect>
          <x>380</x>
          <y>50</y>
-         <width>471</width>
-         <height>31</height>
+         <width>751</width>
+         <height>71</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>DejaVu Sans</family>
-         <pointsize>19</pointsize>
+         <pointsize>25</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1299,15 +1423,15 @@ Se la vuoi rifare premi il tasto RIFAI</string>
       <widget class="QLabel" name="label_15">
        <property name="geometry">
         <rect>
-         <x>150</x>
-         <y>110</y>
-         <width>971</width>
-         <height>381</height>
+         <x>230</x>
+         <y>180</y>
+         <width>1221</width>
+         <height>431</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>19</pointsize>
+         <pointsize>25</pointsize>
         </font>
        </property>
        <property name="text">
@@ -1326,8 +1450,8 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
       <widget class="QPushButton" name="pushButton_recall_rest">
        <property name="geometry">
         <rect>
-         <x>476</x>
-         <y>261</y>
+         <x>626</x>
+         <y>369</y>
          <width>300</width>
          <height>50</height>
         </rect>
@@ -1351,16 +1475,16 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
       <widget class="QLabel" name="label_recall_pos">
        <property name="geometry">
         <rect>
-         <x>410</x>
-         <y>30</y>
-         <width>381</width>
+         <x>550</x>
+         <y>10</y>
+         <width>521</width>
          <height>51</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Sans</family>
-         <pointsize>19</pointsize>
+         <family>DejaVu Sans</family>
+         <pointsize>25</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1385,10 +1509,10 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>320</x>
-         <y>330</y>
-         <width>612</width>
-         <height>278</height>
+         <x>140</x>
+         <y>440</y>
+         <width>1271</width>
+         <height>311</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -1397,12 +1521,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
           <item>
            <widget class="QPushButton" name="pushButton_pos1">
             <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
              <size>
               <width>300</width>
               <height>50</height>
@@ -1421,12 +1539,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
               <height>50</height>
              </size>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
             <property name="text">
              <string/>
             </property>
@@ -1440,12 +1552,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
               <height>50</height>
              </size>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
             <property name="text">
              <string/>
             </property>
@@ -1454,12 +1560,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
           <item>
            <widget class="QPushButton" name="pushButton_pos4">
             <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
              <size>
               <width>300</width>
               <height>50</height>
@@ -1495,12 +1595,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
               <height>50</height>
              </size>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
             <property name="text">
              <string/>
             </property>
@@ -1509,12 +1603,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
           <item>
            <widget class="QPushButton" name="pushButton_pos7">
             <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
              <size>
               <width>300</width>
               <height>50</height>
@@ -1533,12 +1621,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
               <height>50</height>
              </size>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
             <property name="text">
              <string/>
             </property>
@@ -1547,12 +1629,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
           <item>
            <widget class="QPushButton" name="pushButton_pos9">
             <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
              <size>
               <width>300</width>
               <height>50</height>
@@ -1571,12 +1647,6 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
               <height>50</height>
              </size>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>300</width>
-              <height>50</height>
-             </size>
-            </property>
             <property name="text">
              <string/>
             </property>
@@ -1590,10 +1660,15 @@ La posizione potrà essere modificata in qualsiasi momento durante l'utilizzo</s
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>90</y>
-         <width>801</width>
-         <height>151</height>
+         <y>30</y>
+         <width>1231</width>
+         <height>271</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>25</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Quella che vedi è la lista delle posizioni salvate per la sessione corrente. 
@@ -1603,13 +1678,38 @@ Seleziona con il  joystick la posizione in cui desideri spostarti con  AGREE.
 Clicca due volte il  joystick per tornare alla home</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="pushButton_indietro">
+       <property name="geometry">
+        <rect>
+         <x>626</x>
+         <y>309</y>
+         <width>300</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>300</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Indietro</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="page_joint">
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
-          <string>Singolo Giunto</string>
+          <string/>
          </property>
          <widget class="QLabel" name="label_joint">
           <property name="geometry">
@@ -1637,11 +1737,31 @@ Clicca una sola volta l'etichetta del giunto che vuoi controllare </string>
            <rect>
             <x>10</x>
             <y>140</y>
-            <width>421</width>
-            <height>451</height>
+            <width>621</width>
+            <height>601</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QPushButton" name="pushButton_indietroj">
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Indietro</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <spacer name="verticalSpacer_13">
              <property name="orientation">
@@ -1678,8 +1798,8 @@ Clicca una sola volta l'etichetta del giunto che vuoi controllare </string>
              </property>
              <property name="font">
               <font>
-               <family>Sans</family>
-               <pointsize>15</pointsize>
+               <family>DejaVu Sans</family>
+               <pointsize>16</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1725,8 +1845,8 @@ Clicca una sola volta l'etichetta del giunto che vuoi controllare </string>
              </property>
              <property name="font">
               <font>
-               <family>Sans</family>
-               <pointsize>15</pointsize>
+               <family>DejaVu Sans</family>
+               <pointsize>16</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1772,8 +1892,8 @@ Clicca una sola volta l'etichetta del giunto che vuoi controllare </string>
              </property>
              <property name="font">
               <font>
-               <family>Sans</family>
-               <pointsize>15</pointsize>
+               <family>DejaVu Sans</family>
+               <pointsize>16</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1819,8 +1939,8 @@ Clicca una sola volta l'etichetta del giunto che vuoi controllare </string>
              </property>
              <property name="font">
               <font>
-               <family>Sans</family>
-               <pointsize>15</pointsize>
+               <family>DejaVu Sans</family>
+               <pointsize>16</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1866,8 +1986,8 @@ Clicca una sola volta l'etichetta del giunto che vuoi controllare </string>
              </property>
              <property name="font">
               <font>
-               <family>Sans</family>
-               <pointsize>15</pointsize>
+               <family>DejaVu Sans</family>
+               <pointsize>16</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>

@@ -166,6 +166,8 @@ class paginaprincipale : public QDialog
 
     bool check_ex1;
 
+    int flag, prova;
+
     /*****************************************************************************
 
     ***************         DICHIARO VARIABILI ROS PARAMETERS   ******************
@@ -187,7 +189,7 @@ class paginaprincipale : public QDialog
     std::vector<bool> active_modules; //MODULI ATTIVI
     std::vector<float> J_MAX;         // ROM MAX
     std::vector<float> J_MIN;         // ROM MIN
-    float upperarm, lowerarm, height, weight;
+    float upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param;
     std::vector<float> ARM_LENGTH;    // LUNGHEZZA BRACCIO
     uint8_t mode;
     int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
@@ -195,6 +197,7 @@ class paginaprincipale : public QDialog
     int rep1=0, rep2=0, rep3=0, rep4=0, rep5=0, rep6=0, rep7=0;
     std::vector<int> ex_rep;
     std::vector<int> ex_obj;
+
 
      std::vector<int> point1;
 
@@ -384,7 +387,12 @@ private slots:
 /**********************   FUNZIONE PER MOSTRARE FEEDBACK PAZIENTE     *************/
 
  void show_feed();
+/**********************   FUNZIONE PER SETTARE ROSPARAM     *************/
 
+ void set_comp_param();
+ /**********************   FUNZIONE PER SETTARE ROSPARAM DALLA SESSIONE     *************/
+
+  void set_comp_param_ses();
 /**********************       INTERROMPI TERAPIA             *********************/
 
  void on_pushButton_allarme_clicked();
@@ -442,6 +450,12 @@ private slots:
 
  void on_pushButton_3_clicked();
 
+ void on_pushButton_salva_exo_param_clicked();
+
+ void on_pushButton_salva_comp_clicked();
+
+ void on_pushButton_clicked();
+
 private:
   Ui::paginaprincipale *ui;
 
@@ -463,6 +477,7 @@ private:
   QTimer *timer_rehab; // TIMER PER IMMAGINI REHAB
   QTimer *timer_val;   // TIMER PER MOSTRARE VALUTAZIONE
   QTimer *timer_feedback; // TIMER PER FEEDBACK AL PAZIENTE
+  QTimer *timer_comp; //TIMER PER INVIARE LA COMPENSAZIONE NEI ROSPARAM
 };
 
 

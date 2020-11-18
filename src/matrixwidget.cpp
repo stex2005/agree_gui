@@ -139,6 +139,8 @@ if(std::count(point1.begin(), point1.end(), zero_point1)) {
   point1 = {(xindex+1),(16-yindex)};
 
   n.setParam("/point1/mat_coordinates", point1);
+  n.setParam("matlab/point1/x", point1x);
+  n.setParam("matlab/point1/y", point1y);
 
   qDebug()<< "riempio point1";
   qDebug()<< point1;
@@ -154,6 +156,8 @@ else if (std::count(point2.begin(), point2.end(), zero_point2)) {
    point2 = {(xindex+1),(16-yindex)};
 
    n.setParam("/point2/mat_coordinates", point2);
+   n.setParam("matlab/point2/x", point2x);
+   n.setParam("matlab/point2/y", point2y);
 
    qDebug()<< "riempio point2";
    qDebug()<< point2;
@@ -175,6 +179,8 @@ else if (std::count(point3.begin(), point3.end(), zero_point3)) {
           msg.data = dati::status1;
           ROS_INFO ("%d", msg.data);
           status_publisher.publish(msg);
+          n.setParam("matlab/point3/x", point3x);
+          n.setParam("matlab/point3/y", point3y);
 
 }
 
