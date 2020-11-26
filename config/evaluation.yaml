@@ -1,0 +1,25 @@
+evaluation:
+
+    Output: 0
+
+    rest_energy:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+
+    Code_ID_patient: 'codice_id_paziente'
+
+    Patient_Name: 'Name'
+
+    Patient_Surname: 'Surname'
+
+    Flag_start_eval: false
+
+    Flag_end_eval: false
+
+    Path_pdf: 'name_pdf'
+
+
+

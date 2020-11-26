@@ -17,94 +17,100 @@
 #include <QMouseEvent>
 
 int16_t dati::command_matrix, dati::command_old_matrix=1;
+bool dati::selcount_mat=0;
+
+MatrixXd openData(string fileToOpen);
+
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 { if(dati::command_old_matrix==1007){
-  LoadData();
-  qDebug()<<"dati caricati";
+    LoadData();
+    qDebug()<<"dati caricati";
   }
   /**********************       DICHIARO NODO                           *********************/
-    ros::NodeHandle n;
+  ros::NodeHandle n;
 
   /**********************       CREO TOPIC                          *********************/
   status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
-   command_subscriber = n.subscribe("/gui/command", 1000, &MatrixWidget::callback_matrix, this);
+  command_subscriber = n.subscribe("/gui/command", 1000, &MatrixWidget::callback_matrix, this);
 
 }
- /**********************       FUNZIONE DI CALLBACK                    *********************/
+/**********************       FUNZIONE DI CALLBACK                    *********************/
 void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_command_matrix) {
-   ros::NodeHandle n;
-   //dati::command_old_matrix = 1;
-   dati::command_matrix = msg_command_matrix.mode;
-     ROS_INFO("I heard: %d MATRIX WIDGET, %d %d", dati::command_matrix, msg_command_matrix.exercise, msg_command_matrix.task);
+  ros::NodeHandle n;
+  //dati::command_old_matrix = 1;
+  dati::command_matrix = msg_command_matrix.mode;
+  ROS_INFO("I heard: %d MATRIX WIDGET, %d %d", dati::command_matrix, msg_command_matrix.exercise, msg_command_matrix.task);
 
-    if((dati::command_old_matrix) != (dati::command_matrix)) {
-      dati::command_old_matrix=dati::command_matrix;
-qDebug()<< "matrix";
-if(dati::command_old_matrix==1007){
-  LoadData();
-  qDebug()<<"dati caricati";
-  }
-      if(dati::command_old_matrix == 1008) { //SALVO PARAMETRI DA ROSPARAMETERS
+  if((dati::command_old_matrix) != (dati::command_matrix)) {
+    dati::command_old_matrix=dati::command_matrix;
+    qDebug()<< "matrix";
+    if(dati::command_old_matrix==1007){
+      LoadData();
+      qDebug()<<"dati caricati";
+    }
+    if(dati::command_old_matrix == 1008) { //SALVO PARAMETRI DA ROSPARAMETERS
 
-qDebug()<< "callback_matrix, command_old 8";
-point0 = {15,3};
-n.setParam("/point0/mat_coordinates", point0);
+      qDebug()<< "callback_matrix, command_old 8";
+      //point0 = {15,3};
+      n.setParam("/point0/mat_coordinates", point0);
 
-        n.getParam("/point1/mat_coordinates", point1);
-        n.getParam("/point2/mat_coordinates", point2);
-        n.getParam ("/point3/mat_coordinates", point3);
+      n.getParam("/point1/mat_coordinates", point1);
+      n.getParam("/point2/mat_coordinates", point2);
+      n.getParam ("/point3/mat_coordinates", point3);
 
-        qDebug()<< point1;
-        qDebug()<< point2;
-        qDebug()<<point3;
-        qDebug()<<selCount;
-        // qui devo ricolorare i punti
-
-
+      qDebug()<< point1;
+      qDebug()<< point2;
+      qDebug()<<point3;
+      qDebug()<<selCount;
+      // qui devo ricolorare i punti
 
 
-        //if(!(point1.at(0)==0 && point1.at(1)==0) && ) {
+
+
+      //if(!(point1.at(0)==0 && point1.at(1)==0) && ) {
 
       //}
 
 
-        dati::status1 = 8;
-//?
-            std_msgs::Int16 msg;
-            msg.data = dati::status1;
-            ROS_INFO ("%d", msg.data);
-            status_publisher.publish(msg);
+      dati::status1 = 1008;
+      //?
+      std_msgs::Int16 msg;
+      msg.data = dati::status1;
+      ROS_INFO ("%d", msg.data);
+      status_publisher.publish(msg);
 
-      }
-      if(dati::command_old_matrix == 1009) {
-        if(selCount==1)
-        {
-          Data[point1.at(1)][point1.at(0)].DrawColor = Qt::blue;
-          qDebug()<< "cisiamoooo";
-
-        }
-        else if (selCount==2) {
-          Data[point1.at(1)][point1.at(0)].DrawColor = Qt::blue;
-          Data[point2.at(1)][point2.at(0)].DrawColor = Qt::blue;
-          qDebug()<< "cisiamoooo2";
-        }
-        else if (selCount ==3) {
-          Data[point1.at(1)][point1.at(0)].DrawColor = Qt::blue;
-          Data[point2.at(1)][point2.at(0)].DrawColor = Qt::blue;
-          Data[point3.at(1)][point3.at(0)].DrawColor = Qt::blue;
-          qDebug()<< "cisiamoooo3";
-
-        }
-//        n.setParam("/point1/mat_coordinates", point1);
-//        n.setParam("/point2/mat_coordinates", point2);
-//        n.setParam("/point3/mat_coordinates", point3);
-        qDebug()<< point1;
-        qDebug()<< point2;
-        qDebug()<<point3;
-
-
-      }
     }
+    if(dati::command_old_matrix == 1009) {
+      if(selCount==1)
+      {
+        Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
+        qDebug()<< "cisiamoooo";
+
+      }
+      else if (selCount==2) {
+        Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
+        Data[point2.at(1)][point2.at(0)].DrawColor = Qt::red;
+        qDebug()<< "cisiamoooo2";
+      }
+      else if (selCount ==3) {
+        Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
+        Data[point2.at(1)][point2.at(0)].DrawColor = Qt::red;
+        Data[point3.at(1)][point3.at(0)].DrawColor = Qt::red;
+        dati::selcount_mat=1;
+
+        qDebug()<< "cisiamoooo3";
+
+      }
+      //        n.setParam("/point1/mat_coordinates", point1);
+      //        n.setParam("/point2/mat_coordinates", point2);
+      //        n.setParam("/point3/mat_coordinates", point3);
+      qDebug()<< point1;
+      qDebug()<< point2;
+      qDebug()<<point3;
+
+
+    }
+  }
 
 }
 QVector<QPoint> MatrixWidget::getPosition() const
@@ -114,220 +120,139 @@ QVector<QPoint> MatrixWidget::getPosition() const
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
 { ros::NodeHandle n;
   if(dati::command_old_matrix == 1009){
-  QPoint p= event->pos(); //dove clicco
+    QPoint p= event->pos(); //dove clicco
 
-  int xindex = p.x()/ bw;
-  int yindex = p.y()/ bh;
-  qDebug() <<yindex +1 <<" "<< xindex +1;
-  //get the data point (check se ind non è fuori dalla griglia)
-  DataPoint &dp = Data[Y-yindex][xindex+1 ];
+    int xindex = p.x()/ bw;
+    int yindex = p.y()/ bh;
+    qDebug() <<  yindex +1 <<" "<< xindex +1;
+    cout << "X "<<15- yindex <<" "<< "Y" << xindex+1 <<endl;
+    //get the data point (check se ind non è fuori dalla griglia)
+    DataPoint &dp = Data[15-(yindex)][xindex+1 ];
 
-  //MANDO COORDINATE DEL PUNTO DI REST
-  point0 = {15,3};
-  n.setParam("/point0/mat_coordinates", point0);
-  //zero non selezionabile
-  if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
-  if(dp.isSelected == false)
-  {
-     if(selCount>2) return;
-     dp.DrawColor = Qt::blue;
-     dp.isSelected = true;
-     position.append(QPoint(xindex+1,16-yindex));
-     auto i1 = position.indexOf(QPoint(xindex+1,16-yindex));
-  //   if(dati::command_old == 9) {
-if(std::count(point1.begin(), point1.end(), zero_point1)) {
-  point1 = {(xindex+1),(16-yindex)};
+    //MANDO COORDINATE DEL PUNTO DI REST
+    point0 = {15,4};
+    n.setParam("/point0/mat_coordinates", point0);
+    Data[15][4].DrawColor=Qt::black;
+    //zero non selezionabile
+    if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
+    if(dp.isSelected == false)
+    {
+      if(selCount>2) return;
+      dp.DrawColor = Qt::red;
+      dp.isSelected = true;
+      position.append(QPoint(xindex+1,15-yindex));
+      // auto i1 = position.indexOf(QPoint(xindex+1,15-yindex));
+      //   if(dati::command_old == 9) {
+      if(std::count(point1.begin(), point1.end(), zero_point1)) {
+        point1 = {(xindex+1),(15-yindex)};
+        point1x = point1.at(0);
+        point1y = point1.at(1);
+        n.setParam("/point1/mat_coordinates", point1);
+        n.setParam("matlab/point1/x", point1x);
+        n.setParam("matlab/point1/y", point1y);
 
-  n.setParam("/point1/mat_coordinates", point1);
-  n.setParam("matlab/point1/x", point1x);
-  n.setParam("matlab/point1/y", point1y);
+        qDebug()<< "riempio point1";
+        qDebug()<< point1;
+        dati::status1 = 1009;
+        std_msgs::Int16 msg;
+        msg.data = dati::status1;
+        ROS_INFO ("%d", msg.data);
+        status_publisher.publish(msg);
 
-  qDebug()<< "riempio point1";
-  qDebug()<< point1;
-  dati::status1 = 9;
-           std_msgs::Int16 msg;
-           msg.data = dati::status1;
-           ROS_INFO ("%d", msg.data);
-           status_publisher.publish(msg);
+      }
 
-}
+      else if (std::count(point2.begin(), point2.end(), zero_point2)) {
+        point2 = {(xindex+1),(15-yindex)};
+        point2x = point2.at(0);
+        point2y = point2.at(1);
 
-else if (std::count(point2.begin(), point2.end(), zero_point2)) {
-   point2 = {(xindex+1),(16-yindex)};
+        n.setParam("/point2/mat_coordinates", point2);
+        n.setParam("matlab/point2/x", point2x);
+        n.setParam("matlab/point2/y", point2y);
 
-   n.setParam("/point2/mat_coordinates", point2);
-   n.setParam("matlab/point2/x", point2x);
-   n.setParam("matlab/point2/y", point2y);
+        qDebug()<< "riempio point2";
+        qDebug()<< point2;
+        dati::status1 = 1009;
+        std_msgs::Int16 msg;
+        msg.data = dati::status1;
+        ROS_INFO ("%d", msg.data);
+        status_publisher.publish(msg);
 
-   qDebug()<< "riempio point2";
-   qDebug()<< point2;
-   dati::status1 = 9;
-            std_msgs::Int16 msg;
-            msg.data = dati::status1;
-            ROS_INFO ("%d", msg.data);
-            status_publisher.publish(msg);
+      }
 
-}
+      else if (std::count(point3.begin(), point3.end(), zero_point3)) {
+        point3 = {(xindex+1),(15-yindex)};
+        point3x = point3.at(0);
+        point3y = point3.at(1);
+        n.setParam("/point3/mat_coordinates", point3);
+        qDebug()<< "riempio point3";
+        qDebug()<< point3;
+        dati::status1 = 1009;
+        std_msgs::Int16 msg;
+        msg.data = dati::status1;
+        ROS_INFO ("%d", msg.data);
+        status_publisher.publish(msg);
+        n.setParam("matlab/point3/x", point3x);
+        n.setParam("matlab/point3/y", point3y);
 
-else if (std::count(point3.begin(), point3.end(), zero_point3)) {
- point3 = {(xindex+1),(16-yindex)};
- n.setParam("/point3/mat_coordinates", point3);
- qDebug()<< "riempio point3";
- qDebug()<< point3;
- dati::status1 = 9;
-          std_msgs::Int16 msg;
-          msg.data = dati::status1;
-          ROS_INFO ("%d", msg.data);
-          status_publisher.publish(msg);
-          n.setParam("matlab/point3/x", point3x);
-          n.setParam("matlab/point3/y", point3y);
+      }
 
-}
+      //   }
+      //     dati::status1 = 9;
 
-  //   }
-//     dati::status1 = 9;
-
-//         std_msgs::Int8 msg;
-//         msg.data = dati::status1;
-//         ROS_INFO ("%d", msg.data);
-//         status_publisher.publish(msg);
-  // position.append(QPoint(yindex+1,xindex+1));
+      //         std_msgs::Int8 msg;
+      //         msg.data = dati::status1;
+      //         ROS_INFO ("%d", msg.data);
+      //         status_publisher.publish(msg);
+      // position.append(QPoint(yindex+1,xindex+1));
 
 
-     selCount++;
-  }
-  else {
-    dp.DrawColor = Qt::green;
-    dp.isSelected = false;
-    selCount--;
-    auto i1 = position.indexOf(QPoint((xindex+1),(16-yindex)));
-    std::vector<int> deselezione;
-    deselezione = {(xindex+1),(16-yindex)};
-    QPoint deletedFromVector = position[i1];
-    position.remove(i1);
-    if(point1 == deselezione) {
-      point1 = {0,0};
-      n.setParam("/point1/mat_coordinates", point1);
-      dati::status1 = 9;
-               std_msgs::Int16 msg;
-               msg.data = dati::status1;
-               ROS_INFO ("%d", msg.data);
-               status_publisher.publish(msg);
-
+      selCount++;
     }
-    else if (point2 == deselezione) {
-      point2 = {0,0};
-      n.setParam("/point2/mat_coordinates", point2);
-      dati::status1 = 9;
-               std_msgs::Int16 msg;
-               msg.data = dati::status1;
-               ROS_INFO ("%d", msg.data);
-               status_publisher.publish(msg);
+    else {
+      dp.DrawColor = Qt::green;
+      dp.isSelected = false;
+      selCount--;
+      auto i1 = position.indexOf(QPoint((xindex+1),(15-yindex)));
+      std::vector<int> deselezione;
+      deselezione = {(xindex+1),(15-yindex)};
+      //QPoint deletedFromVector = position[i1];
+      position.remove(i1);
+      if(point1 == deselezione) {
+        point1 = {0,0};
+        n.setParam("/point1/mat_coordinates", point1);
+        dati::status1 = 1009;
+        std_msgs::Int16 msg;
+        msg.data = dati::status1;
+        ROS_INFO ("%d", msg.data);
+        status_publisher.publish(msg);
+
+      }
+      else if (point2 == deselezione) {
+        point2 = {0,0};
+        n.setParam("/point2/mat_coordinates", point2);
+        dati::status1 = 1009;
+        std_msgs::Int16 msg;
+        msg.data = dati::status1;
+        ROS_INFO ("%d", msg.data);
+        status_publisher.publish(msg);
+      }
+      else if (point3 == deselezione){
+        point3 = {0,0};
+        n.setParam("/point3/mat_coordinates", point3);
+        dati::status1 = 1009;
+        std_msgs::Int16 msg;
+        msg.data = dati::status1;
+        ROS_INFO ("%d", msg.data);
+        status_publisher.publish(msg);
+      }
     }
-    else if (point3 == deselezione){
-      point3 = {0,0};
-      n.setParam("/point3/mat_coordinates", point3);
-      dati::status1 = 9;
-               std_msgs::Int16 msg;
-               msg.data = dati::status1;
-               ROS_INFO ("%d", msg.data);
-               status_publisher.publish(msg);
-    }
-   }
-  update(); //aggiorna la griglia
+    update(); //aggiorna la griglia
 
 
-if (selCount==3)
-qDebug()<<position;
-std::vector<int> point_min;
-
-
-
-//// devo ordinare i punti selezionati
-//if(point1[1]<point2[1] && point1[1]< point3[1]) {
-//  point_min = point1;
-//  if (point2[1]< point3[1]) {
-//    //point1 , point2 , point 3
-//    point1 = point_min;
-//    point2= point2;
-//    point3 = point3;
-//    if(dati::command_old == 9){
-//      n.setParam("point1/mat_cooridnates", point1);
-//      n.setParam("point2/mat_cooridnates", point2);
-//      n.setParam("point3/mat_cooridnates", point3);
-//    }
-//  }
-//  else {
-//    // point1, point3, point2
-//    point1 = point_min;
-//    point2 = point3;
-//    point3 = point2;
-//    if(dati::command_old == 9){
-//      n.setParam("point1/mat_cooridnates", point1);
-//      n.setParam("point2/mat_cooridnates", point2);
-//      n.setParam("point3/mat_cooridnates", point3);
-//    }
-//  }
-
-//}
-//else if (point2[1]< point1[1] && point2[1]< point3[2]) {
-//  point_min = point2;
-//  if (point1[1]< point3[1]){
-//    // point2, point1, point3
-//    point1 = point_min;
-//    point2 = point1;
-//    point3 = point3;
-//    if(dati::command_old == 9){
-//      n.setParam("point1/mat_cooridnates", point1);
-//      n.setParam("point2/mat_cooridnates", point2);
-//      n.setParam("point3/mat_cooridnates", point3);
-//    }
-
-//  }
-//  else if (point3[1]< point1[1]){
-//    // point2, point3, point1
-//    point1 = point_min;
-//    point2 = point3;
-//    point3 = point1;
-//    if(dati::command_old == 9){
-//      n.setParam("point1/mat_cooridnates", point1);
-//      n.setParam("point2/mat_cooridnates", point2);
-//      n.setParam("point3/mat_cooridnates", point3);
-//    }
-//  }
-
-//}
-//else if (point3[1]< point1[1] && point3[1]< point2[1]) {
-//  point_min = point3;
-//  if(point1[1]<point2[1]) {
-//     point1 = point_min;
-//    point2 = point1;
-//    point3 = point2;
-//    if(dati::command_old == 9){
-//      n.setParam("point1/mat_cooridnates", point1);
-//      n.setParam("point2/mat_cooridnates", point2);
-//      n.setParam("point3/mat_cooridnates", point3);
-//    }
-//  }
-//  else if (point2[1]< point1[1]) {
-//    point1 = point_min;
-//    point2 = point2;
-//    point3 = point1;
-//    if(dati::command_old == 9){
-//      n.setParam("point1/mat_cooridnates", point1);
-//      n.setParam("point2/mat_cooridnates", point2);
-//      n.setParam("point3/mat_cooridnates", point3);
-//    }
-
-//  }
-//}
-
-//   QFile file_1("/home/alice/catkin_ws/src/agree_gui/resources/posizioni.txt");
-//   file_1.open(QIODevice::WriteOnly);
-//   QDataStream out(&file_1);
-//   out << position ;
-//   file_1.close();
-
+    if (selCount==3)
+      qDebug()<<position;
+    std::vector<int> point_min;
 
   }
 }
@@ -338,130 +263,188 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
   //-1
 
 
-   // size of area we have. w = width , h = height , we take 2 pixles for border
+  // size of area we have. w = width , h = height , we take 2 pixles for border
   int w = width()-2;
   int h = height()-2 ;
   //tiro fuori quanto dev essere grande ciascuna cella (divido la dimensione per il numero di celle che voglio avere
-   bw = w / max_y; // sono le mie colonne
-   bh = h / max_x; // sono le mie righe
-     // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
+  bw = w / max_y; // sono le mie colonne
+  bh = h / max_x; // sono le mie righe
+  // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
 
-     for (int xi = 1; xi < max_x-1; ++xi) {
-// for (int xi =14; xi >=1; --xi) {
-        for (int yi = 1; yi < max_y -1; ++yi) {
-          int new_x= Y-xi;
-                  p.setBrush(QBrush (Data[new_x][yi+1].DrawColor));
-           QRect cellRect(yi*bw,xi*bh, bw,bh);
-             p.drawRect( cellRect )  ;
-        //    p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
-         }
-     }
+  for (int xi = 0; xi < max_x-1; ++xi) {
+    // for (int xi =14; xi >=1; --xi) {
+    for (int yi = 0; yi < max_y -1; ++yi) {
+      // int new_x= Y-xi;
+      p.setBrush(QBrush (Data[Y-xi][yi+1].DrawColor));
+      QRect cellRect(yi*bw,xi*bh, bw,bh);
+      p.drawRect( cellRect )  ;
+      //    p.drawText(cellRect, QString::number(xi + 1) + "," + QString::number(yi+1) ); // the +1 aswe dont want to use first at 0,0
+    }
+  }
 
 
 
 }
-void MatrixWidget::LoadData()
-{ qDebug()<< dati::lato;
-  // LATO DESTRO
-if(dati::lato=="1"){
-    qDebug() <<"matrice lato destro";
-     QFile file("/home/alice/Desktop/Point_boolean_rigth.CSV");
-     if(!file.open(QFile::ReadOnly | QFile::Text))
-     {
-       qDebug()<< "FIle not exist";
+void MatrixWidget::LoadData(){  
+  cout <<  "Enter Load" << endl;
+  qDebug()<<dati::lato;
+
+  MatrixXd matrix_test;
+  if(dati::lato=="1"){
+    cout <<  "Enter Load right" << endl;
+    matrix_test = openData("/home/alice/Desktop/point_boolean_right.CSV");
+    cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
+    for(int i= 0; i<449;i++){
+
+      int x= matrix_test(i,1);
+      int  y= matrix_test(i,0);
+      cout <<  "ho assegnato righe e colonne"  << endl;
+      if(matrix_test(i,2)){
+
+        Data[x][y].DrawColor= Qt::green;
+        Data[x][y].value=1;
+        cout <<  "VERDE"  << endl;
+      }
+      else if (!matrix_test(i,2)) {
+        Data[x][y].DrawColor= Qt::lightGray;
+        Data[x][y].value=0;
+        cout <<  "GRIGIO"  << endl;
+
+      }
+    } //FOR
+  } //DESTRO
+  if(dati::lato== "0") {
+    cout <<  "Enter Load left" << endl;
+    matrix_test = openData("/home/alice/Desktop/point_boolean_left.CSV");
+    cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
+    for(int i= 0; i<449;i++){
+
+      int x= matrix_test(i,1);
+      int  y= matrix_test(i,0);
+      cout <<  "ho assegnato righe e colonne"  << endl;
+      if(matrix_test(i,2)){
+
+        Data[x][y].DrawColor= Qt::green;
+        Data[15][4].DrawColor = Qt::red;
+        Data[x][y].value=1;
+        cout <<  "VERDE"  << endl;
+      }
+      else if (!matrix_test(i,2)) {
+        Data[x][y].DrawColor= Qt::lightGray;
+        Data[x][y].value=0;
+        cout <<  "GRIGIO"  << endl;
+
+      }
+
+    } //FOR
+  } // SINISTRO
+} //LOAD DATA
 
 
-     }
-     else {
-       QTextStream in(&file);
-       while (!in.atEnd())
-       {
-         QString line = in.readLine();
-         QStringList list = line.split(";");
-         int x = list.at(1).toInt(); //mi riferisco alla prima colonna
-         int y = list.at(0).toInt(); // alla seconda
-         bool value = list.at(2).toInt(); // ai valori presenti nella 3 (bool)
+
+
+// FUNCTIONS READ CSV FILE
+
+MatrixXd openData(string fileToOpen)
+
+{
+
+
+  // the inspiration for creating this function was drawn from here (I did NOT copy and paste the code)
+
+  // https://stackoverflow.com/questions/34247057/how-to-read-csv-file-and-assign-to-eigen-matrix
+
+
+  // the input is the file: "fileToOpen.csv":
+
+  // a,b,c
+
+  // d,e,f
+
+  // This function converts input file data into the Eigen matrix format
 
 
 
-         if(x<max_x && y<max_y) {
-           Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
-           Data[x][y].isSelected = false;
-           if (Data[x][y].value ==0)
-             Data[x][y].DrawColor = Qt::lightGray;
 
-           else{
-             Data[x][y].DrawColor = Qt::green;
-             Data[1][14].DrawColor = Qt::black;
-             if(dati::command_old_matrix==1009){
-               qDebug()<<"dati old matrix 9";
-             if(selCount==1)
-             {
-               Data[point1.at(0)][point1.at(1)].DrawColor = Qt::blue;
-             }
-             else if (selCount==2) {
-               Data[point1.at(0)][point1.at(1)].DrawColor = Qt::blue;
-               Data[point2.at(0)][point2.at(1)].DrawColor = Qt::blue;
-             }
-             else if (selCount ==3) {
-               Data[point1.at(0)][point1.at(1)].DrawColor = Qt::blue;
-               Data[point2.at(0)][point2.at(1)].DrawColor = Qt::blue;
-               Data[point3.at(0)][point3.at(1)].DrawColor = Qt::blue;
+  // the matrix entries are stored in this variable row-wise. For example if we have the matrix:
 
-             }
-}
+  // M=[a b c
+
+  //    d e f]
+
+  // the entries are stored as matrixEntries=[a,b,c,d,e,f], that is the variable "matrixEntries" is a row vector
+
+  // later on, this vector is mapped into the Eigen matrix format
 
 
-           }
+  cout << "INFUNCTION" << endl;
 
-         }
-         else
-          qDebug()<< "x or y bigger than matrix!";
-         }
+  vector<double> matrixEntries;
 
-     }
-      file.close();
 
-}
-  //LATO SINISTRO
-  else if(dati::lato=="0")
-  { QFile file("/home/alice/Desktop/Point_boolean_left.CSV");
-    if(!file.open(QFile::ReadOnly | QFile::Text))
+  cout << "VECTOR CREATED" << endl;
+
+
+  // in this object we store the data from the matrix
+
+  ifstream matrixDataFile(fileToOpen);
+
+  cout << "OPEN STREAM" << endl;
+
+
+  // this variable is used to store the row of the matrix that contains commas
+
+  string matrixRowString;
+
+  cout << "CREATE 1ST STRING" << endl;
+
+
+  // this variable is used to store the matrix entry;
+
+  string matrixEntry;
+
+  cout << "CREATED 2ND STRING" << endl;
+
+
+  // this variable is used to track the number of rows
+
+  int matrixRowNumber = 0;
+
+  cout << "mCREATED ROW NUMBER" << endl;
+
+
+
+  while (getline(matrixDataFile, matrixRowString)) // here we read a row by row of matrixDataFile and store every line into the string variable matrixRowString
+
+  {
+
+    stringstream matrixRowStringStream(matrixRowString); //convert matrixRowString that is a string to a stream variable.
+
+
+    while (getline(matrixRowStringStream, matrixEntry, ',')) // here we read pieces of the stream matrixRowStringStream until every comma, and store the resulting character into the matrixEntry
+
     {
-      qDebug()<< "FIle not exist";
 
-
-    }
-    else {
-      QTextStream in(&file);
-      while (!in.atEnd())
-      {
-        QString line = in.readLine();
-        QStringList list = line.split(";");
-        int x = list.at(1).toInt(); //mi riferisco alla prima colonna
-        int y = list.at(0).toInt(); // alla seconda
-        bool value = list.at(2).toInt(); // ai valori presenti nella 3 (bool)
-
-
-
-        if(x<max_x && y<max_y) {
-          Data[x][y].value = value; // e fintanto che scorro il file vado a riempire nelle posizioni che seleziono mentre leggo il file quello che trovo nella 3 colonna
-          Data[x][y].isSelected = false;
-          if (Data[x][y].value ==0)
-            Data[x][y].DrawColor = Qt::lightGray;
-
-          else{
-            Data[x][y].DrawColor = Qt::green;
-            Data[1][14].DrawColor = Qt::black;
-
-          }
-
-        }
-        else
-         qDebug()<< "x or y bigger than matrix!";
-        }
+      matrixEntries.push_back(stod(matrixEntry));   //here we convert the string to double and fill in the row vector storing all the matrix entries
 
     }
-     file.close();}
+
+    matrixRowNumber++; //update the column numbers
+
+  }
+
+
+  cout << "ROW NUMBER" << matrixRowNumber << endl;
+
+  cout << "OUT WHILE" << endl;
+
+
+  // here we convet the vector variable into the matrix and return the resulting object,
+
+  // note that matrixEntries.data() is the pointer to the first memory location at which the entries of the vector matrixEntries are stored;
+
+  return Map<Matrix<double, Dynamic, Dynamic, RowMajor>>(matrixEntries.data(), matrixRowNumber, matrixEntries.size() / matrixRowNumber);
+
+
 }
 

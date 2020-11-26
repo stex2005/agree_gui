@@ -653,8 +653,8 @@ background-color: rgb(157, 241, 161);</string>
       <attribute name="title">
        <string>Riabilitazione</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="1" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout_21">
+       <item>
         <widget class="QLabel" name="label_status2">
          <property name="font">
           <font>
@@ -670,7 +670,7 @@ background-color: rgb(157, 241, 161);</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item>
         <widget class="QTabWidget" name="tabWidget_2">
          <property name="maximumSize">
           <size>
@@ -1021,59 +1021,6 @@ background-color: rgb(157, 241, 161);</string>
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab_emg">
-          <attribute name="title">
-           <string>Posizione EMG </string>
-          </attribute>
-          <widget class="QLabel" name="label_normal_EMG">
-           <property name="geometry">
-            <rect>
-             <x>90</x>
-             <y>190</y>
-             <width>551</width>
-             <height>211</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>normal EMG</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_62">
-           <property name="geometry">
-            <rect>
-             <x>140</x>
-             <y>10</y>
-             <width>1181</width>
-             <height>161</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>19</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Quella che vedi è la procedura per controllare se hai posizionato correttamente l'elettrodo per l'EMG.
-
-Sposta l'ettrodo fin quando non otterrai un tracciato simile alla figura sulla sinistra.
-
-Quindi premi il tasto Prosegui. </string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton">
-           <property name="geometry">
-            <rect>
-             <x>1240</x>
-             <y>550</y>
-             <width>201</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Prosegui</string>
-           </property>
-          </widget>
-         </widget>
          <widget class="QWidget" name="tab_controllo">
           <attribute name="title">
            <string>Controllo</string>
@@ -1081,8 +1028,8 @@ Quindi premi il tasto Prosegui. </string>
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>40</x>
-             <y>220</y>
+             <x>50</x>
+             <y>270</y>
              <width>622</width>
              <height>91</height>
             </rect>
@@ -1130,7 +1077,8 @@ Quindi premi il tasto Prosegui. </string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 119, 119);</string>
+               <string notr="true">
+background-color: rgb(152, 194, 233);</string>
               </property>
               <property name="text">
                <string>Mobilizzazione Passiva 
@@ -1143,8 +1091,8 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 1   </string>
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>810</x>
-             <y>220</y>
+             <x>820</x>
+             <y>270</y>
              <width>609</width>
              <height>89</height>
             </rect>
@@ -1192,7 +1140,8 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 1   </string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 179, 65);</string>
+               <string notr="true">
+background-color: rgb(152, 194, 233);</string>
               </property>
               <property name="text">
                <string>Mobilizzazione in Assenza di peso 
@@ -1203,43 +1152,11 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
             </item>
            </layout>
           </widget>
-          <widget class="QPushButton" name="pushButton_trasp">
-           <property name="geometry">
-            <rect>
-             <x>910</x>
-             <y>330</y>
-             <width>511</width>
-             <height>87</height>
-            </rect>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>537</width>
-             <height>87</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Sans</family>
-             <pointsize>15</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 179, 65);
-background-color: rgb(118, 250, 104);</string>
-           </property>
-           <property name="text">
-            <string>Mobilizzazione con Trasparenza 
- Suggerimento: selezionare se 3.5≤MRC≤4.5   </string>
-           </property>
-          </widget>
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>40</x>
-             <y>330</y>
+             <x>50</x>
+             <y>380</y>
              <width>622</width>
              <height>89</height>
             </rect>
@@ -1290,7 +1207,8 @@ background-color: rgb(118, 250, 104);</string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 119, 119);</string>
+               <string notr="true">
+background-color: rgb(152, 194, 233);</string>
               </property>
               <property name="text">
                <string>Mobilizzazione Passiva con Trigger
@@ -1303,8 +1221,8 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 2   </string>
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>40</x>
-             <y>440</y>
+             <x>50</x>
+             <y>490</y>
              <width>621</width>
              <height>89</height>
             </rect>
@@ -1355,7 +1273,8 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 2   </string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 179, 65);</string>
+               <string notr="true">
+background-color: rgb(152, 194, 233);</string>
               </property>
               <property name="text">
                <string>Mobilizzazione con Assistenza 
@@ -1369,8 +1288,8 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 2   </string>
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>810</x>
-             <y>440</y>
+             <x>820</x>
+             <y>490</y>
              <width>609</width>
              <height>89</height>
             </rect>
@@ -1418,8 +1337,8 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 2   </string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 179, 65);
-background-color: rgb(118, 250, 104);</string>
+               <string notr="true">
+background-color: rgb(152, 194, 233);</string>
               </property>
               <property name="text">
                <string>Mobilizzazione con Resistenza 
@@ -1429,38 +1348,21 @@ Suggerimento: selezionare se MRC &gt; 4.5</string>
             </item>
            </layout>
           </widget>
-          <widget class="QPushButton" name="pushButton_controllo">
+          <widget class="QLabel" name="label_recap_controllo">
            <property name="geometry">
             <rect>
-             <x>1190</x>
-             <y>550</y>
-             <width>80</width>
-             <height>29</height>
+             <x>50</x>
+             <y>150</y>
+             <width>1371</width>
+             <height>91</height>
             </rect>
            </property>
            <property name="font">
             <font>
              <family>Sans</family>
+             <pointsize>19</pointsize>
              <weight>75</weight>
              <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Salva</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_recap_controllo">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>130</y>
-             <width>721</width>
-             <height>61</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>16</pointsize>
             </font>
            </property>
            <property name="text">
@@ -1470,23 +1372,83 @@ Suggerimento: selezionare se MRC &gt; 4.5</string>
           <widget class="QLabel" name="label_30">
            <property name="geometry">
             <rect>
-             <x>40</x>
-             <y>0</y>
-             <width>1431</width>
-             <height>101</height>
+             <x>340</x>
+             <y>-10</y>
+             <width>821</width>
+             <height>171</height>
             </rect>
            </property>
            <property name="font">
             <font>
-             <pointsize>16</pointsize>
+             <pointsize>19</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>Quella che vedi presentata è la selezione della modalità di controllo.  
+            <string>Quella che vedi presentata è la selezione della Modalità di CONTROLLO. 
 Il rosso si riferisce a pazienti con una funzionalità ridotta.
- L'arancione si riferisce a pazienti con una funzionalità intermedia. 
+L'arancione si riferisce a pazienti con una funzionalità intermedia. 
 Il  verde a pazienti con una buona funzionalità </string>
            </property>
+          </widget>
+          <widget class="QWidget" name="layoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>820</x>
+             <y>380</y>
+             <width>632</width>
+             <height>89</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_15">
+            <item>
+             <widget class="QLabel" name="label_trasp">
+              <property name="minimumSize">
+               <size>
+                <width>87</width>
+                <height>87</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="scaledContents">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_trasp">
+              <property name="minimumSize">
+               <size>
+                <width>537</width>
+                <height>87</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>537</width>
+                <height>87</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Sans</family>
+                <pointsize>15</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">
+background-color: rgb(152, 194, 233);</string>
+              </property>
+              <property name="text">
+               <string>Mobilizzazione con Trasparenza 
+ Suggerimento: selezionare se 3.5≤MRC≤4.5   </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
          <widget class="QWidget" name="tab_ex">
@@ -2561,8 +2523,8 @@ Il  verde a pazienti con una buona funzionalità </string>
             <rect>
              <x>9</x>
              <y>9</y>
-             <width>1468</width>
-             <height>588</height>
+             <width>1471</width>
+             <height>571</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -2578,6 +2540,173 @@ Il  verde a pazienti con una buona funzionalità </string>
             <bool>true</bool>
            </property>
           </widget>
+         </widget>
+         <widget class="QWidget" name="tab_emg">
+          <attribute name="title">
+           <string>EMG</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_11">
+           <item row="0" column="0">
+            <widget class="QStackedWidget" name="stackedWidget_3">
+             <property name="currentIndex">
+              <number>2</number>
+             </property>
+             <widget class="QWidget" name="page_check">
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QLabel" name="label_62">
+                   <property name="font">
+                    <font>
+                     <pointsize>19</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Quella che vedi è la procedura per controllare che gli elettrodi siano stati posizionati correttamente. 
+
+Contronta il grafico che appare con l'immagine sulla sinistra.
+
+Se vedi notevoli differenze prova a far aderire meglio l'elettrodo alla cute.
+
+Quando sei soddisfatto del segnale che ricevi premi Prosegui.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_test_matplotlib">
+                   <property name="text">
+                    <string>rqplot</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="text">
+                    <string>prosegui</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="page_posizionaEMG">
+              <layout class="QGridLayout" name="gridLayout_10">
+               <item row="1" column="0">
+                <widget class="QPushButton" name="pushButton_indietro_EMG">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Indietro</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="2">
+                <widget class="QPushButton" name="pushButton_salta_EMG">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Salta Tutorial</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0" colspan="2">
+                <widget class="QLabel" name="label_tutorial_EMG">
+                 <property name="font">
+                  <font>
+                   <pointsize>19</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Quello che vedi è il tutorial per il corretto posizionamento degli elettrodi sul braccio del paziente. 
+
+Segui le istruzioni che compariranno a schermo. 
+
+Clicca su avanti per mostrare l'istruzione successiva. 
+
+ Clicca su indientro se vuoi tornare all'istruzione precedente. 
+
+Premi Salta tutorial se sei in grado di farlo in maniera autonoma</string>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPushButton" name="pushButton_avanti_EMG">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Avanti</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="page_restEMG">
+              <layout class="QVBoxLayout" name="verticalLayout_12">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="QLabel" name="label_63">
+                   <property name="font">
+                    <font>
+                     <pointsize>19</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Quella che vedi è la procedura per acquisire l'energia di riposo. 
+
+Assicurati che il paziente sia in una posizione comoda stabile e che sia totalmente a riposo. 
+
+ Quindi premi Acquisizione Energie di riposo per procedere. 
+
+Al ternine della procedura verrai automaticamente indirizzato al passaggio successivo.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_5">
+                   <property name="font">
+                    <font>
+                     <family>Sans</family>
+                     <pointsize>15</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Acquisizione Energia di riposo</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="tab_vestizione">
           <attribute name="title">
@@ -2646,289 +2775,331 @@ Il  verde a pazienti con una buona funzionalità </string>
           <attribute name="title">
            <string>Parametri AGREE</string>
           </attribute>
-          <widget class="QWidget" name="layoutWidget_2">
-           <property name="geometry">
-            <rect>
-             <x>210</x>
-             <y>390</y>
-             <width>501</width>
-             <height>102</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_9">
-            <item>
-             <widget class="QLabel" name="label_avambraccio_2">
-              <property name="text">
-               <string>Lunghezza Avambraccio (A) (cm) </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_avambraccio"/>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_16">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="layoutWidget_3">
-           <property name="geometry">
-            <rect>
-             <x>210</x>
-             <y>220</y>
-             <width>501</width>
-             <height>148</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_10">
-            <item>
-             <spacer name="verticalSpacer_20">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_braccio_2">
-              <property name="text">
-               <string>Lunghezza Braccio (B) (cm)</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_braccio"/>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_21">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QLabel" name="label_istr_agg_param_exo">
-           <property name="geometry">
-            <rect>
-             <x>40</x>
-             <y>20</y>
-             <width>1431</width>
-             <height>181</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>19</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Quello che vedi è la procedura per combaciare e i parametri fisiologici del paziente con quelli dell'esoscheletro. 
+          <layout class="QGridLayout" name="gridLayout_15">
+           <item row="0" column="0">
+            <widget class="QStackedWidget" name="stackedWidget_4">
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <widget class="QWidget" name="page_param_agree">
+              <layout class="QVBoxLayout" name="verticalLayout_14">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_13">
+                 <item>
+                  <widget class="QLabel" name="label_istr_agg_param_exo">
+                   <property name="font">
+                    <font>
+                     <pointsize>19</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Quella che vedi è la procedura per combaciare e i parametri fisiologici del paziente con quelli dell'esoscheletro. 
 
 Dopo aver controllato la vestibiltà e la comodità del paziente 
 
 Inserisci le misure  di braccio e avambraccio che hai letto sull'esoscheletro quindi premi Salva</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton_salva_exo_param">
-           <property name="geometry">
-            <rect>
-             <x>1210</x>
-             <y>560</y>
-             <width>181</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>DejaVu Sans</family>
-             <pointsize>13</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Salva</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_dimensionebraccio">
-           <property name="geometry">
-            <rect>
-             <x>720</x>
-             <y>210</y>
-             <width>321</width>
-             <height>331</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_comp">
-          <attribute name="title">
-           <string>Compensazione</string>
-          </attribute>
-          <widget class="QLabel" name="label_59">
-           <property name="geometry">
-            <rect>
-             <x>260</x>
-             <y>10</y>
-             <width>1101</width>
-             <height>221</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>19</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Quella che vedi è la procedura per regolare la compensazione del peso del braccio del paziente.
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_6">
+                   <item row="0" column="1">
+                    <layout class="QVBoxLayout" name="verticalLayout_10">
+                     <item>
+                      <spacer name="verticalSpacer_20">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_braccio_2">
+                       <property name="text">
+                        <string>Lunghezza Braccio (B) (cm)</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="lineEdit_braccio"/>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_21">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="1" column="1">
+                    <layout class="QVBoxLayout" name="verticalLayout_9">
+                     <item>
+                      <widget class="QLabel" name="label_avambraccio_2">
+                       <property name="text">
+                        <string>Lunghezza Avambraccio (A) (cm) </string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="lineEdit_avambraccio"/>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_16">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="0" column="2" rowspan="2">
+                    <widget class="QLabel" name="label_dimensionebraccio">
+                     <property name="minimumSize">
+                      <size>
+                       <width>200</width>
+                       <height>300</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <spacer name="horizontalSpacer">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="0" column="3">
+                    <spacer name="horizontalSpacer_7">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_salva_exo_param">
+                   <property name="font">
+                    <font>
+                     <family>DejaVu Sans</family>
+                     <pointsize>13</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Salva</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="page_comp">
+              <layout class="QVBoxLayout" name="verticalLayout_16">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_15">
+                 <item>
+                  <widget class="QLabel" name="label_59">
+                   <property name="font">
+                    <font>
+                     <pointsize>19</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Quella che vedi è la procedura per regolare la compensazione del peso del braccio del paziente.
 
 Sposta lo slider fino a quando l'esoscheltro si ferma. 
 
 Questo indicherà che il peso del braccio è pienamente compensato dall'esoscheletro.
 
  Puoi quindi  procedere con la configurazione della sessione </string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton_salva_comp">
-           <property name="geometry">
-            <rect>
-             <x>1170</x>
-             <y>560</y>
-             <width>271</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>Sans</family>
-             <pointsize>15</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Salva</string>
-           </property>
-          </widget>
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>440</x>
-             <y>250</y>
-             <width>581</width>
-             <height>281</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
-            <item>
-             <widget class="QSlider" name="horizontalSlider_comp">
-              <property name="minimum">
-               <number>75</number>
-              </property>
-              <property name="maximum">
-               <number>125</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_7">
+                   <item>
+                    <widget class="QSlider" name="horizontalSlider_comp">
+                     <property name="minimum">
+                      <number>75</number>
+                     </property>
+                     <property name="maximum">
+                      <number>125</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QProgressBar" name="progressBar_comp">
+                     <property name="minimum">
+                      <number>75</number>
+                     </property>
+                     <property name="maximum">
+                      <number>125</number>
+                     </property>
+                     <property name="value">
+                      <number>74</number>
+                     </property>
+                     <property name="textVisible">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_65">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>50</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>600</width>
+                       <height>50</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Sans</family>
+                       <pointsize>15</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>PERCENTUALE DI COMPENSAZIONE DEL BRACCIO: </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLCDNumber" name="lcdNumber">
+                     <property name="segmentStyle">
+                      <enum>QLCDNumber::Flat</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_salva_comp">
+                   <property name="font">
+                    <font>
+                     <family>Sans</family>
+                     <pointsize>15</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Salva</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </widget>
-            </item>
-            <item>
-             <widget class="QProgressBar" name="progressBar_comp">
-              <property name="minimum">
-               <number>75</number>
-              </property>
-              <property name="maximum">
-               <number>125</number>
-              </property>
-              <property name="value">
-               <number>74</number>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_60">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>600</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Sans</family>
-                <pointsize>15</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>PERCENTUALE DI COMPENSAZIONE DEL BRACCIO: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLCDNumber" name="lcdNumber">
-              <property name="segmentStyle">
-               <enum>QLCDNumber::Flat</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+             <widget class="QWidget" name="page_2"/>
+            </widget>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="tab_parametri">
           <attribute name="title">
            <string>ROM</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_21">
-           <item row="6" column="2">
-            <widget class="QPushButton" name="pushButton_salvaconf">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string> Salva Parametri </string>
-             </property>
-            </widget>
+           <item row="3" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Abdo-Adduzione</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_adduzionespallamin">
+               <property name="placeholderText">
+                <string>-75</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_adduzionespallamax">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>35</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_14">
+               <property name="minimumSize">
+                <size>
+                 <width>221</width>
+                 <height>161</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>221</width>
+                 <height>161</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item row="1" column="1">
             <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -2974,117 +3145,6 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
              </item>
              <item>
               <widget class="QLabel" name="label_6">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Sans</family>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>MAX</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="4" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="label_12">
-               <property name="text">
-                <string>Rotazione Int/Est </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_rotazionespallamin">
-               <property name="placeholderText">
-                <string>-20</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_rotazionespallamax">
-               <property name="placeholderText">
-                <string>90</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_15">
-               <property name="minimumSize">
-                <size>
-                 <width>221</width>
-                 <height>161</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>221</width>
-                 <height>161</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="scaledContents">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QLabel" name="label">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Sans</family>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>SPALLA</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Sans</family>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>MIN</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_3">
                <property name="maximumSize">
                 <size>
                  <width>250</width>
@@ -3152,8 +3212,8 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
              </item>
             </layout>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="label_10">
+           <item row="6" column="2">
+            <widget class="QPushButton" name="pushButton_salvaconf">
              <property name="font">
               <font>
                <family>Sans</family>
@@ -3162,69 +3222,84 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
               </font>
              </property>
              <property name="text">
-              <string>POLSO</string>
+              <string> Salva Parametri </string>
              </property>
             </widget>
            </item>
-           <item row="5" column="2">
-            <widget class="QPushButton" name="pushButton_esplorarom">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_34">
              <property name="font">
               <font>
                <family>Sans</family>
+               <pointsize>15</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
              <property name="text">
-              <string>Esplora ROM</string>
+              <string>ESCURSIONI ANGOLARI </string>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Abdo-Adduzione</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_adduzionespallamin">
-               <property name="placeholderText">
-                <string>-75</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_adduzionespallamax">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>35</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_14">
-               <property name="minimumSize">
-                <size>
-                 <width>221</width>
-                 <height>161</height>
-                </size>
-               </property>
+              <widget class="QLabel" name="label">
                <property name="maximumSize">
                 <size>
-                 <width>221</width>
-                 <height>161</height>
+                 <width>250</width>
+                 <height>50</height>
                 </size>
                </property>
-               <property name="text">
-                <string/>
+               <property name="font">
+                <font>
+                 <family>Sans</family>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
                </property>
-               <property name="scaledContents">
-                <bool>true</bool>
+               <property name="text">
+                <string>SPALLA</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="maximumSize">
+                <size>
+                 <width>250</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Sans</family>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>MIN</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="maximumSize">
+                <size>
+                 <width>250</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Sans</family>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>MAX</string>
                </property>
               </widget>
              </item>
@@ -3277,6 +3352,34 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
              </item>
             </layout>
            </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="label_10">
+             <property name="font">
+              <font>
+               <family>Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>POLSO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QPushButton" name="pushButton_esplorarom">
+             <property name="font">
+              <font>
+               <family>Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Esplora ROM</string>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="1">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
@@ -3324,117 +3427,151 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
              </item>
             </layout>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_34">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <pointsize>15</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>ESCURSIONI ANGOLARI </string>
-             </property>
-            </widget>
+           <item row="4" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>Rotazione Int/Est </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_rotazionespallamin">
+               <property name="placeholderText">
+                <string>-20</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_rotazionespallamax">
+               <property name="placeholderText">
+                <string>90</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_15">
+               <property name="minimumSize">
+                <size>
+                 <width>221</width>
+                 <height>161</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>221</width>
+                 <height>161</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tab_calibrazione">
           <attribute name="title">
-           <string>Calibrazione Pad</string>
+           <string>Calibrazione MAT</string>
           </attribute>
-          <widget class="QWidget" name="layoutWidget">
+          <widget class="QPushButton" name="pushButton_2">
            <property name="geometry">
             <rect>
-             <x>9</x>
-             <y>9</y>
-             <width>1461</width>
-             <height>591</height>
+             <x>670</x>
+             <y>560</y>
+             <width>108</width>
+             <height>32</height>
             </rect>
            </property>
-           <layout class="QGridLayout" name="gridLayout_28">
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>15</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Prosegui</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_cal_pad">
-              <property name="font">
-               <font>
-                <pointsize>25</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="scaledContents">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <property name="font">
+            <font>
+             <family>DejaVu Sans</family>
+             <pointsize>15</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Prosegui</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_cal_pad">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>1451</width>
+             <height>541</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>25</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
           </widget>
          </widget>
          <widget class="QWidget" name="tab_tappetino">
           <attribute name="title">
-           <string>Pad</string>
+           <string>MAT</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <widget class="QWidget" name="widget" native="true">
-             <widget class="QPushButton" name="pushButton_salvatapp">
+             <widget class="QWidget" name="layoutWidget">
               <property name="geometry">
                <rect>
-                <x>610</x>
-                <y>140</y>
-                <width>231</width>
-                <height>32</height>
+                <x>20</x>
+                <y>0</y>
+                <width>1419</width>
+                <height>185</height>
                </rect>
               </property>
-              <property name="font">
-               <font>
-                <family>OpenSymbol</family>
-                <pointsize>15</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Salva</string>
-              </property>
-             </widget>
-             <widget class="QLabel" name="label_29">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>20</y>
-                <width>1451</width>
-                <height>91</height>
-               </rect>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>16</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Quella che vedi è una riproduzione del tappetino di led in dotazione. 
- La zona in verde rappresenta lo spazio esplorabile dal paziente calcolato sulla base dei parametri fisiologici e dei ROM inseriti. 
+              <layout class="QVBoxLayout" name="verticalLayout_17">
+               <item>
+                <widget class="QLabel" name="label_29">
+                 <property name="font">
+                  <font>
+                   <pointsize>19</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Quella che vedi è una riproduzione del tappetino di led in dotazione.
+
+La zona in verde rappresenta lo spazio esplorabile dal paziente calcolato sulla base dei parametri fisiologici e dei ROM inseriti.
+
 Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimento degli esercizi</string>
-              </property>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_salvatapp">
+                 <property name="font">
+                  <font>
+                   <family>OpenSymbol</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Salva</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </widget>
            </item>
@@ -3452,41 +3589,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
              </property>
              <widget class="QWidget" name="page_sessione">
               <layout class="QGridLayout" name="gridLayout_23">
-               <item row="11" column="2">
-                <widget class="QPushButton" name="pushButton_next">
-                 <property name="font">
-                  <font>
-                   <family>Sans</family>
-                   <pointsize>15</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Inizia Terapia</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="2">
-                <widget class="QProgressBar" name="progressBar_th">
-                 <property name="maximumSize">
-                  <size>
-                   <width>300</width>
-                   <height>50</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">selection-color: rgb(138, 226, 52);</string>
-                 </property>
-                 <property name="value">
-                  <number>24</number>
-                 </property>
-                 <property name="textVisible">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="2">
+               <item row="6" column="2">
                 <widget class="QProgressBar" name="progressBar_comp_ses">
                  <property name="maximumSize">
                   <size>
@@ -3499,8 +3602,14 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                    <pointsize>23</pointsize>
                   </font>
                  </property>
+                 <property name="minimum">
+                  <number>75</number>
+                 </property>
+                 <property name="maximum">
+                  <number>125</number>
+                 </property>
                  <property name="value">
-                  <number>24</number>
+                  <number>74</number>
                  </property>
                  <property name="textVisible">
                   <bool>false</bool>
@@ -3508,19 +3617,21 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                 </widget>
                </item>
                <item row="2" column="2">
-                <widget class="QSlider" name="horizontalSlider_comp_ses">
-                 <property name="maximumSize">
-                  <size>
-                   <width>300</width>
-                   <height>16777215</height>
-                  </size>
+                <widget class="QLabel" name="label_61">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
                  </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                 <property name="text">
+                  <string>COMPENSAZIONE AGREE</string>
                  </property>
                 </widget>
                </item>
-               <item row="6" column="2">
+               <item row="11" column="2">
                 <widget class="QLabel" name="label_58">
                  <property name="maximumSize">
                   <size>
@@ -3541,7 +3652,41 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  </property>
                 </widget>
                </item>
-               <item row="8" column="2">
+               <item row="16" column="2">
+                <widget class="QPushButton" name="pushButton_next">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Inizia Terapia</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="2">
+                <widget class="QProgressBar" name="progressBar_th">
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>50</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">selection-color: rgb(138, 226, 52);</string>
+                 </property>
+                 <property name="value">
+                  <number>24</number>
+                 </property>
+                 <property name="textVisible">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="2">
                 <widget class="QPushButton" name="pushButton_3">
                  <property name="font">
                   <font>
@@ -3553,59 +3698,6 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  </property>
                  <property name="text">
                   <string>Pausa</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="12" column="2">
-                <widget class="QPushButton" name="pushButton_ok">
-                 <property name="font">
-                  <font>
-                   <family>Sans</family>
-                   <pointsize>15</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>OK</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="2">
-                <widget class="QLCDNumber" name="lcdNumber_comp_ses">
-                 <property name="maximumSize">
-                  <size>
-                   <width>300</width>
-                   <height>70</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0" rowspan="5" colspan="2">
-                <widget class="QLabel" name="label_img">
-                 <property name="minimumSize">
-                  <size>
-                   <width>800</width>
-                   <height>400</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>800</width>
-                   <height>350</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>23</pointsize>
-                   <italic>true</italic>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="scaledContents">
-                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -3639,8 +3731,27 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  </property>
                 </widget>
                </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="label_61">
+               <item row="5" column="2">
+                <widget class="QSlider" name="horizontalSlider_comp_ses">
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="minimum">
+                  <number>75</number>
+                 </property>
+                 <property name="maximum">
+                  <number>125</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="17" column="2">
+                <widget class="QPushButton" name="pushButton_ok">
                  <property name="font">
                   <font>
                    <family>Sans</family>
@@ -3650,7 +3761,59 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   </font>
                  </property>
                  <property name="text">
-                  <string>COMPENSAZIONE AGREE</string>
+                  <string>OK</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="2">
+                <widget class="QLCDNumber" name="lcdNumber_comp_ses">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>70</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>70</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>21</pointsize>
+                  </font>
+                 </property>
+                 <property name="segmentStyle">
+                  <enum>QLCDNumber::Flat</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="label_img">
+                 <property name="minimumSize">
+                  <size>
+                   <width>800</width>
+                   <height>300</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>800</width>
+                   <height>300</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>23</pointsize>
+                   <italic>true</italic>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -4808,33 +4971,109 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
           <attribute name="title">
            <string>Valutazione</string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_26">
-             <property name="text">
-              <string>Parametri EMG</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_25">
-             <property name="text">
-              <string>Parametri Cinematici</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QTableView" name="tableView_valutazioni"/>
-           </item>
-           <item row="4" column="0">
-            <widget class="QTableView" name="tableView_parametriEMG"/>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_27">
-             <property name="text">
-              <string>Dopo la consultazione dei RIsultati, se si desidera effettuare una nuova sessione con un nuovo Paziente, fare click sul tasto &quot;Home&quot;</string>
-             </property>
-            </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_18">
+             <item>
+              <widget class="QLabel" name="label_27">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>19</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Quella che vedi è la valutazione globale della terapia. Se vuoi visualizzare il dettaglio della valutazione premi su MOSTRA PDF. 
+
+Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi spegnere il dispositivo premi il tasto Logout </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_16">
+               <item>
+                <spacer name="horizontalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_output">
+                 <property name="minimumSize">
+                  <size>
+                   <width>750</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>750</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_13">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_pdf">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DejaVu Sans</family>
+                 <pointsize>15</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Mostra PDF</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -4842,26 +5081,48 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
           <attribute name="title">
            <string>Procedura Emergenza</string>
           </attribute>
+          <widget class="QLabel" name="label_allarme_2">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="geometry">
+            <rect>
+             <x>350</x>
+             <y>20</y>
+             <width>850</width>
+             <height>450</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>850</width>
+             <height>450</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>750</width>
+             <height>300</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>9</x>
-             <y>9</y>
-             <width>1471</width>
-             <height>581</height>
+             <x>280</x>
+             <y>510</y>
+             <width>991</width>
+             <height>72</height>
             </rect>
            </property>
-           <layout class="QGridLayout" name="gridLayout_27">
-            <property name="sizeConstraint">
-             <enum>QLayout::SetNoConstraint</enum>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item row="1" column="0">
+           <layout class="QVBoxLayout" name="verticalLayout_20">
+            <item>
              <widget class="QPushButton" name="pushButton_riprendi">
               <property name="font">
                <font>
@@ -4876,7 +5137,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item>
              <widget class="QPushButton" name="pushButton_termina">
               <property name="font">
                <font>
@@ -4888,16 +5149,6 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
               </property>
               <property name="text">
                <string>Termina terapia</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" colspan="2">
-             <widget class="QLabel" name="label_allarme_2">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="scaledContents">
-               <bool>true</bool>
               </property>
              </widget>
             </item>

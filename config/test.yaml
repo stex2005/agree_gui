@@ -1,5 +1,8 @@
 matlab:
 
+    len_fore: 0.0
+    len_upp:  0.0
+
     point0:
         mat_coordinate:
             x: 15

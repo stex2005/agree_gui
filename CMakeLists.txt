@@ -5,6 +5,20 @@
 cmake_minimum_required(VERSION 2.8.0)
 project(agree_gui)
 
+###########################
+add_compile_options(-std=c++11)
+
+####################
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include_directories(${PYTHONHOME}/include)
+include_directories(${PYTHONHOME}/Lib/site-packages/numpy/core/include)
+link_directories(${PYTHONHOME}/libs)
+
+add_definitions(-DMATPLOTLIBCPP_PYTHON_HEADER=Python.h)
+
+
 ##############################################################################
 # Catkin
 ##############################################################################
@@ -19,12 +33,19 @@ find_package(
 
  )
 
+find_package(PythonLibs 2.7)
+
+find_package(Boost REQUIRED COMPONENTS system)
+
+
+
 
 add_message_files(
     DIRECTORY
     msg
     FILES
     agree_gui_command.msg
+    agree_emg_status.msg
     )
 
 generate_messages(
@@ -37,7 +58,8 @@ catkin_package(
     LIBRARIES agree_gui
     CATKIN_DEPENDS roscpp std_msgs)
 
-include_directories(${catkin_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS})
 # Use this to define what the package will export (e.g. libs, headers).
 # Since the default here is to produce only a binary, we don't worry about
 # exporting anything.
@@ -107,7 +129,16 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 
 add_executable(agree_gui ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP})
 
-target_link_libraries(agree_gui ${QT_LIBRARIES} ${catkin_LIBRARIES}
+
+
+#######
+target_include_directories(agree_gui PRIVATE ${PYTHON_INCLUDE_DIRS})
+get_filename_component(THIS_APP_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+message(STATUS "Example application, ${THIS_APP_NAME}, is ready to build")
+
+
+
+target_link_libraries(agree_gui ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PYTHON_LIBRARIES}
     Qt5::Core
     Qt5::Widgets
     Qt5::PrintSupport
@@ -120,5 +151,10 @@ target_link_libraries(agree_gui ${QT_LIBRARIES} ${catkin_LIBRARIES}
 
     )
 install(TARGETS agree_gui RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+
+################
+#add_subdirectory(include/agree_gui)
+
 
 

@@ -33,12 +33,15 @@
 #include <QThread>
 #include <QStringListModel>
 #include <QTimer>
+#include <vector>
+
 
 
 
 #include "matrixwidget.h"
 #include "qnode.hpp"
 #include "agree_gui/agree_gui_command.h"
+#include "agree_gui/agree_emg_status.h"
 
 //#include "main_window.hpp"
 
@@ -120,6 +123,7 @@ class paginaprincipale : public QDialog
    QVector<QString> sel_ex;
    int curEx=0;
    QString key;
+      std::vector<int> vect;
 
     /**********************         MAPPA MONTAGGIO         *********************/
 
@@ -183,14 +187,18 @@ class paginaprincipale : public QDialog
     bool active_module_RF = 0;
     bool active_module_EEG_EMG = 0;
     bool active_module_MAP = 0;
+    bool active_module_JOYSTICK=0;
+    bool active_module_VOCAL=0;
+    bool active_module_IK_ONLINE=0;
+
 
     /***************          DEFINISCO ROS PARAMETERS          ******************/
 
     std::vector<bool> active_modules; //MODULI ATTIVI
-    std::vector<float> J_MAX;         // ROM MAX
-    std::vector<float> J_MIN;         // ROM MIN
-    float upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param;
-    std::vector<float> ARM_LENGTH;    // LUNGHEZZA BRACCIO
+    std::vector<double> J_MAX;         // ROM MAX
+    std::vector<double> J_MIN;         // ROM MIN
+    double upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param;
+    std::vector<double> ARM_LENGTH;    // LUNGHEZZA BRACCIO
     uint8_t mode;
     int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
     std::vector<int> ex_seq;
@@ -229,16 +237,16 @@ class paginaprincipale : public QDialog
 
     *****************************************************************************/
 
-    float  rand1, rand2, rand3, rand4, rand5, rand6,rand10;
-    float arr7_1, arr7_2,arr7_3,arr7_4,arr7_5;
-    float arr9_1, arr9_2,arr9_3,arr9_4,arr9_5;
-    QVector<float> val;
-    QVector<float> val2;
-    QVector<float> val8;
-    QStringList vals;
-    QStringList vals2;
-    QStringList vals8;
-    int8_t num;
+//    float  rand1, rand2, rand3, rand4, rand5, rand6,rand10;
+//    float arr7_1, arr7_2,arr7_3,arr7_4,arr7_5;
+//    float arr9_1, arr9_2,arr9_3,arr9_4,arr9_5;
+//    QVector<float> val;
+//    QVector<float> val2;
+//    QVector<float> val8;
+//    QStringList vals;
+//    QStringList vals2;
+//    QStringList vals8;
+//    int8_t num;
 
 
 
@@ -346,7 +354,7 @@ private slots:
 
 /**********************       SALVA CONTROLLO                *********************/
 
-  void on_pushButton_controllo_clicked();
+ // void on_pushButton_controllo_clicked();
 
 /**********************       SALVA MODULI                   *********************/
 
@@ -377,6 +385,8 @@ private slots:
 // void callback1(const std_msgs::StringConstPtr& str);
 
  void callback2(const agree_gui::agree_gui_command msg);
+
+ void emg_callback(const agree_gui::agree_emg_status msg);
 
  void skip_init();
 
@@ -456,6 +466,16 @@ private slots:
 
  void on_pushButton_clicked();
 
+ //void plot();
+
+ void on_pushButton_test_matplotlib_clicked();
+
+ void on_pushButton_salta_EMG_clicked();
+
+ void on_pushButton_5_clicked();
+
+ void on_pushButton_pdf_clicked();
+
 private:
   Ui::paginaprincipale *ui;
 
@@ -466,7 +486,10 @@ private:
 
 /**********************       DICHIARO TOPIC                      *********************/
  ros::Publisher status_publisher;
- ros::Subscriber command_subscriber; //creo il topic command  a cui fare il subscribe
+ ros::Subscriber command_subscriber;
+
+ //EMG
+ ros::Subscriber emg_subscriber; //creo il topic command  a cui fare il subscribe
 
   SignalHelper *helper;
  // SignalHelper1 *helper1;

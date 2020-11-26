@@ -1,5 +1,7 @@
 physiological_param:
 
+
+
     ROM_Max:
       - 0.0
       - 0.0
@@ -29,12 +31,6 @@ physiological_param:
     mass_lowerarm: 0.0
 
     mass_hand: 0.0
-
-    cdm_upperarm: 0.0
-
-    cdm_lowerarm: 0.0
-
-    cdm_hand: 0.0
 
     cdm_upperarm: 0.0
 

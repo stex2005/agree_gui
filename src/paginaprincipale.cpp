@@ -8,6 +8,22 @@
 #include <QMessageBox>
 #include <QFloat16>
 #include <QMovie>
+#include <QVBoxLayout>
+#include "../include/agree_gui/matplotlibcpp.h"
+#include <vector>
+#include <fstream>
+#include<QFile>
+#include <QTextStream>
+
+
+
+
+
+#include <cmath>
+
+//matplotlibcpp.use("Qt5Agg")
+
+
 
 //GRAFICO?
 #include <math.h>
@@ -53,9 +69,20 @@ int16_t dati::command_pp = 0, dati::command_old_pp = 1, dati::rep_index, dati::c
 int8_t dati::command_exercise_pp = 0, dati::command_task_pp= 0;
 int8_t dati::command_exercise_old_pp, dati::command_task_old_pp;
 int8_t dati::flag_ex=0, dati::flag_ex_recap=0;
+QString dati::mode_output;
+double dati::emg_vector[5];
+int dati::output_val;
+
+namespace plt = matplotlibcpp;
 
 //SignalHelper *helper;
+void paginaprincipale::emg_callback(const agree_gui::agree_emg_status emg_msg){
 
+  for(int i=0; i<5; i++){
+ dati::emg_vector[i] = emg_msg.check_emg[i];
+
+}
+}
 void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_pp) {
   ros::NodeHandle n;
   //  dati::command_old_pp = 1;
@@ -73,7 +100,7 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
     if(dati::command_old_pp ==1002) {
       ui->tabWidget->setCurrentWidget(ui->tab);
       ui->pushButton_allarme->setVisible(false);
-      // this->showMaximized();
+      this->showMaximized();
       QSqlQuery prova;
       prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
       prova.exec();
@@ -97,7 +124,8 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
 
     }
     if(dati::command_old_pp == 1005) {
-      ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
+      ui->tabWidget_2->setCurrentWidget(ui->tab_exo_param);
+
       ui->pushButton_allarme->setVisible(false);
     }
     if(dati::command_old_pp == 1006){
@@ -113,6 +141,11 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
       ROS_INFO ("%d", msg_status_pp.data);
       status_publisher.publish(msg_status_pp);
       ui->pushButton_allarme->setVisible(true);
+    }
+    if(dati::command_old_pp == 1009) {
+      if(dati::selcount_mat ==1) {
+      ui->pushButton_salvatapp->setEnabled(true);}
+
     }
 
     if(dati::command_old_pp == 1011) {
@@ -142,33 +175,137 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
     if(dati::command_old_pp == 1014){
       timer_rehab->stop();
       ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
-      //    //carico la tabella dei parametri cinematici  dei pazienti
-      QSqlQueryModel *model1 = new QSqlQueryModel();
-      QSqlQuery * qry_val = new QSqlQuery(mydb2);
-      qry_val -> prepare("select Intrajoint_coordination, Normalized_jerk, Movement_arrest_period_ratio, Peak_speed_ratio, Acceleration_metric from Valutazioni  where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
-      qry_val -> exec();
-      if(qry_val->exec()) {
-        model1 -> setQuery(*qry_val);
-        ui->tableView_valutazioni->setModel(model1);
-        ui->tableView_valutazioni->resizeColumnsToContents(); }
-      else qDebug()<<qry_val->lastError();
-      //  qDebug() << (model->rowCount());
-      // carico la tabella dei parametri EMG dei pazienti
-      QSqlQueryModel *model2 = new QSqlQueryModel();
-      QSqlQuery * qry_val_emg = new QSqlQuery(mydb2);
-      qry_val_emg -> prepare ("select Per_corretta_attivazione_muscolare, Normalized_EMG_action_level, Indice_co_contrazione, Sinergie_muscolari, Active_movement_Idex from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
-      qry_val_emg-> exec();
-      if(qry_val_emg-> exec()) {
-        model2 -> setQuery(*qry_val_emg);
-        ui->tableView_parametriEMG-> setModel(model2);
-        ui->tableView_parametriEMG-> resizeColumnsToContents();
+      n.getParam("/evaluation/Output", dati::output_val);
+      int mode_consigliata;
 
-      }}
+      //SAVE THE PDF EVALUATION PATH
+
+      if(dati::output_val == -1) {
+        QPixmap output_neg("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output-1.png");
+        ui->label_output->setPixmap(output_neg);
+        n.getParam("/exercise/mode", mode_consigliata);
+        mode_consigliata = mode_consigliata-1;
+        QString mode_consigliata_db = QString::number(mode_consigliata);
+        QSqlQuery salvaout;
+        salvaout.prepare("update Parametri_Paziente set output='"+mode_consigliata_db+"' where Codice_ID='"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+        salvaout.exec();
+        if (!salvaout.exec()) {
+          qDebug()<<salvaout.lastError();
+        }
+
+      }
+      if(dati::output_val== 0)
+      {
+        QPixmap output0("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output0.png");
+        ui->label_output->setPixmap(output0);
+        n.getParam("/exercise/mode", mode_consigliata);
+        mode_consigliata = mode_consigliata;
+        QString mode_consigliata_db = QString::number(mode_consigliata);
+        QSqlQuery salvaout;
+        salvaout.prepare("update Parametri_Paziente set output='"+mode_consigliata_db+"' where Codice_ID='"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+        salvaout.exec();
+        if (!salvaout.exec()) {
+          qDebug()<<salvaout.lastError();
+        }
+      }
+      if(dati::output_val==1) {
+        QPixmap output1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output1.png");
+        ui->label_output->setPixmap(output1);
+        n.getParam("/exercise/mode", mode_consigliata);
+        mode_consigliata = mode_consigliata+1;
+        QString mode_consigliata_db = QString::number(mode_consigliata);
+        QSqlQuery salvaout;
+        salvaout.prepare("update Parametri_Paziente set output='"+mode_consigliata_db+"' where Codice_ID='"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+        salvaout.exec();
+        if (!salvaout.exec()) {
+          qDebug()<<salvaout.lastError();
+        }
+      }
+
+      //SAVING EVALUATION PDF PATH ON THE DATABASE
+
+      //std::string PatientCode = "gigio01";
+//      std::string dir_val = "/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/";
+//      std::string PatientCode = dati::ind.toUtf8().constData();
+//      std::string format = ".pdf";
+//      std::string filepath = dir_val+ PatientCode + format;
+      std::string filepath;
+      n.getParam("/evaluation/Path_pdf", filepath);
+      QString filepath_db = QString::fromUtf8(filepath.c_str());
+      cout << filepath <<endl;
+      QSqlQuery save_path;
+      save_path.prepare("update set Parametri_Paziente set path_val = '"+filepath_db+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+
+
+
+     // QFileInfo fi( QDir("/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/"), "%s", PatientCode );
+    //  QString path = fi.absoluteFilePath();
+     // QDir dir_val("/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/");
+
+
+      //sprintf(bufferollo,"/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/%s",PatientCode.c_str());
+
+      //    //carico la tabella dei parametri cinematici  dei pazienti
+//      QSqlQueryModel *model1 = new QSqlQueryModel();
+//      QSqlQuery * qry_val = new QSqlQuery(mydb2);
+//      qry_val -> prepare("select Intrajoint_coordination, Normalized_jerk, Movement_arrest_period_ratio, Peak_speed_ratio, Acceleration_metric from Valutazioni  where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
+//      qry_val -> exec();
+//      if(qry_val->exec()) {
+//        model1 -> setQuery(*qry_val);
+//        ui->tableView_valutazioni->setModel(model1);
+//        ui->tableView_valutazioni->resizeColumnsToContents(); }
+//      else qDebug()<<qry_val->lastError();
+//      //  qDebug() << (model->rowCount());
+//      // carico la tabella dei parametri EMG dei pazienti
+//      QSqlQueryModel *model2 = new QSqlQueryModel();
+//      QSqlQuery * qry_val_emg = new QSqlQuery(mydb2);
+//      qry_val_emg -> prepare ("select Per_corretta_attivazione_muscolare, Normalized_EMG_action_level, Indice_co_contrazione, Sinergie_muscolari, Active_movement_Idex from Valutazioni where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1 ");
+//      qry_val_emg-> exec();
+//      if(qry_val_emg-> exec()) {
+//        model2 -> setQuery(*qry_val_emg);
+//        ui->tableView_parametriEMG-> setModel(model2);
+//        ui->tableView_parametriEMG-> resizeColumnsToContents();
+
+//      }
+    }
     if(dati::command_old_pp== 1031) {
 
       ui->tabWidget_2->setCurrentWidget(ui->tab_alarm);
 
     }
+    if(dati::command_old_pp == 1060) {
+      ui->tabWidget_2->setCurrentWidget(ui->tab_emg);
+      ui->stackedWidget_3->setCurrentWidget(ui->page_posizionaEMG);
+
+    }
+    if(dati::command_old_pp == 1061) {
+      ui->tabWidget_2->setCurrentWidget(ui->tab_emg);
+      ui->stackedWidget_3->setCurrentWidget(ui->page_check);
+
+    }
+    if(dati::command_old_pp == 1062) {
+      ui->tabWidget_2->setCurrentWidget(ui->tab_emg);
+      ui->stackedWidget_3->setCurrentWidget(ui->page_restEMG);
+
+    }
+//    if(dati::command_old_pp == 1050) {
+
+//      int i=0;
+
+//         vect.clear();
+
+//      for (i=0; i<10; i++) {
+//          vect.push_back(i);
+
+
+
+//      }
+//      plt::plot(vect);
+
+//              plt::pause(0.05);
+//    plt::show();
+
+//    }
 
 
     //   if(dati::command_old == 8) {
@@ -186,7 +323,7 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
 
     //   }
     //   if(dati::command_old == 9) {
-    //     n.setParam("/point1/mat_coordinates", point1);
+    //     n.("/point1/mat_coordinates", point1);
     //     n.setParam("/point2/mat_coordinates", point2);
     //     n.setParam("/point3/mat_coordinates", point3);
     //   }
@@ -211,6 +348,14 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->setupUi(this);
   ui->progressBar_th->setVisible(false);
 
+  ui->pushButton_salvatapp->setEnabled(false);
+
+
+
+
+
+
+
 
   //  QPixmap bkgnd ("/home/alice/Desktop/AGREE_SFONDO.png");
   //  bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -233,7 +378,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   //definisco topic da cui faccio subscribe
 
   command_subscriber = n.subscribe("/gui/command", 1000, &paginaprincipale::callback2, this); //creo il topic a cui faccio il subscribe
-
+  emg_subscriber = n.subscribe("/agree/emg_status", 1000, &paginaprincipale::emg_callback, this);
 
   //connetto combobox con combo box
   connect(ui->comboBox_ex1, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo()));
@@ -346,8 +491,13 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QPixmap pic5("/home/alice/catkin_ws/src/agree_gui/resources/images/img/modalità/challenging.png");
   ui->label_chall->setPixmap(pic5);
 
+  QPixmap pic_trasp("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/mode_trasparente.png");
+  ui->label_trasp->setPixmap(pic_trasp);
+
   QPixmap pic6("/home/alice/catkin_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
   ui->label_4_dx_3->setPixmap(pic6);
+
+
 
 
   QPixmap pic7("/home/alice/catkin_ws/src/agree_gui/resources/images/img/ROM/flesso-estensionespalla.png");
@@ -394,7 +544,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->pushButton_salva_recap->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
   ui->pushButton_salvamoduli->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
   ui->pushButton_salvaconf->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_controllo->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  //ui->pushButton_controllo->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
   ui->pushButton_salvaex->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
   ui->pushButton_salvatapp->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
   ui->pushButton_salta->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
@@ -418,6 +568,10 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->pushButton_conferma_recap->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/OK.png"));
   ui->pushButton_modifica_recap->setIcon(QIcon("/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Modifiy.png"));
   ui->pushButton_salva_exo_param->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+
+  ui->pushButton_indietro_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Back.png"));
+  ui->pushButton_salta_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
+  ui->pushButton_avanti_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
 
   ui->label_tut->setText("Seguire le istruzioni per il Montaggio dei moduli selezionati. \nPer Saltare il Tutorial fare click su 'Salta Tutorial' ");
   ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.Verificare la vestibilità sul Paziente.\nUna volta effettuata la procedura premere Avanti per Continuare.");
@@ -830,6 +984,28 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             comp_exo = selezione.value(44).toString();
             Lunghezza_a = selezione.value(48).toString();
             Lunghezza_b = selezione.value(49).toString();
+            dati::mode_output = selezione.value(52).toString();
+
+            if(dati::mode_output =="1") {
+              dati::mode_output = "Passiva";
+            }
+            else if(dati::mode_output =="2") {
+              dati::mode_output  = "Trigger";
+            }
+            else if(dati::mode_output =="3") {
+              dati::mode_output  = "Assisted as needed";
+            }
+            else if(dati::mode_output =="4") {
+              dati::mode_output  = "Anti-gravitaria";
+            }
+            else if(dati::mode_output =="5") {
+              dati::mode_output  = "Trasparente";
+            }
+            else if(dati::mode_output =="6") {
+              dati::mode_output  = "Challenging";
+            }
+
+
 
 
             ui->lineEdit_flessospallamin->setText(FESm2);
@@ -944,10 +1120,10 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
               ui->checkBox_eeg_2->setChecked(false);
               ui->checkBox_emg_2->setChecked(false);
             }
-            if(!(dati::mano_prec=="0")) //ho cambiato qui
+            if(dati::mano_prec=="1") //ho cambiato qui
             {
               ui->checkBox_MAP_2->setChecked(true);
-              prova= 5;
+            //  prova= 5;
             }
             else {
               ui->checkBox_MAP_2->setChecked(false);
@@ -987,24 +1163,31 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
   }
 
-  upperarm = l_b.toFloat();
-  lowerarm = l_a.toFloat();
-  height = h.toFloat();
-  weight = p.toFloat();
+  upperarm = l_b.toDouble();
+  lowerarm = l_a.toDouble();
+  height = h.toDouble();
+  weight = p.toDouble();
 
-  UA_m = float(0.028)*weight;
-  LA_m = float(0.016)*weight;
-  H_m = float(0.006)*weight;
+  UA_m = double(0.028)*weight;
+  LA_m = double(0.016)*weight;
+  H_m = double(0.006)*weight;
   //mandali nei ROS param
 
-  ARM_LENGTH = {upperarm, lowerarm};
+
   ros::NodeHandle n;
-  n.setParam ("/physiological_param/arm_length", ARM_LENGTH);
+
   n.setParam("/physiological_param/height", height);
   n.setParam("/physiological_param/weight", weight);
   n.setParam("/physiological_param/mass_upperarm", UA_m);
   n.setParam("/physiological_param/mass_lowerarm", LA_m);
   n.setParam("/physiological_param/mass_hand", H_m);
+  std::string codice_id_paziente, patient_name, patient_surname;
+  codice_id_paziente = dati::ind.toUtf8().constData();
+  patient_name = dati::NomeP.toUtf8().constData();
+  patient_surname = dati::CognomeP.toUtf8().constData();
+  n.setParam("/evaluation/Code_ID_patient", codice_id_paziente);
+    n.setParam("/evaluation/Patient_Name", patient_name);
+      n.setParam("/evaluation/Patient_Surname", patient_surname);
 
   QString ua_m, la_m, h_m;
   ua_m = QString::number(UA_m);
@@ -1016,7 +1199,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
   //  QMessageBox ::information(this,tr("Salvato"),tr("Parametri Salvati"));
 
   }
-  else qDebug()<< masse.lastError();
+  else qDebug()<< "non funzioano le masse";
 
 
 
@@ -1110,8 +1293,8 @@ void paginaprincipale::on_pushButton_salta_clicked()
 void paginaprincipale::on_pushButton_salvaconf_clicked()
 {
   QString FESm1, FESM1, AASm1, AASM1, RIESm1, RIESM1,Gm1, GM1, Pm1,PM1;
-  qfloat16 FESm1_f, FESM1_f, AASm1_f, AASM1_f, RIESm1_f, RIESM1_f,Gm1_f, GM1_f, Pm1_f,PM1_f;
-  qfloat16 FESm1_def, FESM1_def, AASm1_def, AASM1_def, RIESm1_def, RIESM1_def,Gm1_def, GM1_def, Pm1_def,PM1_def;
+  double FESm1_f, FESM1_f, AASm1_f, AASM1_f, RIESm1_f, RIESM1_f,Gm1_f, GM1_f, Pm1_f,PM1_f;
+  double FESm1_def, FESM1_def, AASm1_def, AASM1_def, RIESm1_def, RIESM1_def,Gm1_def, GM1_def, Pm1_def,PM1_def;
   FESm1_def = -80;
   FESM1_def = 45;
   AASm1_def = -75;
@@ -1123,25 +1306,25 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
   Pm1_def = -20;
   PM1_def = 180;
   FESm1= ui->lineEdit_flessospallamin->text();
-  FESm1_f = FESm1.toFloat();
+  FESm1_f = FESm1.toDouble();
   FESM1 = ui->lineEdit_flessospallamax->text();
-  FESM1_f = FESM1.toFloat();
+  FESM1_f = FESM1.toDouble();
   AASm1= ui->lineEdit_adduzionespallamin->text();
-  AASm1_f = AASm1.toFloat();
+  AASm1_f = AASm1.toDouble();
   AASM1 = ui->lineEdit_adduzionespallamax->text();
-  AASM1_f = AASM1.toFloat();
+  AASM1_f = AASM1.toDouble();
   RIESm1= ui->lineEdit_rotazionespallamin->text();
-  RIESm1_f = RIESm1.toFloat();
+  RIESm1_f = RIESm1.toDouble();
   RIESM1 = ui->lineEdit_rotazionespallamax->text();
-  RIESM1_f = RIESM1.toFloat();
+  RIESM1_f = RIESM1.toDouble();
   Gm1= ui->lineEdit_gomitomin->text();
-  Gm1_f =Gm1.toFloat();
+  Gm1_f =Gm1.toDouble();
   GM1 = ui->lineEdit_gomitomax->text();
-  GM1_f = GM1.toFloat();
+  GM1_f = GM1.toDouble();
   Pm1 = ui ->lineEdit_polomin->text();
-  Pm1_f = Pm1.toFloat();
+  Pm1_f = Pm1.toDouble();
   PM1= ui->lineEdit_polsomax->text();
-  PM1_f = PM1.toFloat();
+  PM1_f = PM1.toDouble();
   if(FESm1_f<FESm1_def) {
     QMessageBox ::critical(this,tr("Attenzione"),tr("il range of motion della flesso estensione minima della spalla è fuori dal valore minimo consentito"));
 
@@ -1728,7 +1911,10 @@ void paginaprincipale::enable_checkbox_moduli_polso() {
 
 /**********************       SALVO ESERCIZI                       *********************/
 void paginaprincipale::on_pushButton_salvaex_clicked()
-{  ui->tabWidget_2->setCurrentWidget(ui->tab_init);
+{
+  ros::NodeHandle n;
+
+  ui->tabWidget_2->setCurrentWidget(ui->tab_init);
    QString bicchiere, forchetta, libro;
     bicchiere = "Bicchiere";
      forchetta = "Forchetta";
@@ -1751,6 +1937,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
          rep1 = dati::rip1.toInt();
          if(ui->comboBox_oi_es1->isEnabled()) {
+           //AGGIORNA ROSPARAM MODULI OGGETTI QUI
            if(ui->comboBox_oi_es1->currentText()== bicchiere ) { ui->comboBox_ogg1->setCurrentText("bicchiere"); oggetto_es1= "1"; ros_ogg1=1; ui->label_oi1_recap->setText(bicchiere);}
            else if (ui->comboBox_oi_es1->currentText()==forchetta) {ui->comboBox_ogg1->setCurrentText("forchetta"); oggetto_es1= "2"; ros_ogg1=2; ui->label_oi1_recap->setText(forchetta);}
            else if(ui->comboBox_oi_es1 ->currentText()==libro) {ui->comboBox_ogg1->setCurrentText("libro"); oggetto_es1= "3"; ros_ogg1=3; ui->label_oi1_recap->setText(libro);} }
@@ -1767,6 +1954,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
            {
              dati::num_ex1 = selezione1.value(0).toString();
              exe1 = dati::num_ex1.toInt();
+             if(exe1==3) {
+               active_module_RF=1;
+                     active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+               n.setParam("/active_modules", active_modules);
+
+             }
 
            }
            if(dati::rip1.toInt()< 30) {
@@ -1825,6 +2018,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
            {
              dati::num_ex2 = selezione2.value(0).toString();
              exe2 = dati::num_ex2.toInt();
+             if(exe2==3) {
+               active_module_RF=1;
+                     active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+               n.setParam("/active_modules", active_modules);
+
+             }
 
 
            }
@@ -1877,6 +2076,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
            {
              dati::num_ex3 = selezione3.value(0).toString();
              exe3 = dati::num_ex3.toInt();
+             if(exe3==3) {
+               active_module_RF=1;
+                     active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+               n.setParam("/active_modules", active_modules);
+
+             }
 
 
            }
@@ -1928,6 +2133,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
            {
              dati::num_ex4 = selezione4.value(0).toString();
              exe4 = dati::num_ex4.toInt();
+             if(exe4==3) {
+               active_module_RF=1;
+                     active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+               n.setParam("/active_modules", active_modules);
+
+             }
 
 
            }
@@ -1981,6 +2192,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
            {
              dati::num_ex5 = selezione5.value(0).toString();
              exe5 = dati::num_ex5.toInt();
+             if(exe5==3) {
+               active_module_RF=1;
+                     active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+               n.setParam("/active_modules", active_modules);
+
+             }
 
 
            }
@@ -2032,6 +2249,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
            {
              dati::num_ex6 = selezione6.value(0).toString();
              exe6 = dati::num_ex6.toInt();
+             if(exe6==3) {
+               active_module_RF=1;
+                     active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+               n.setParam("/active_modules", active_modules);
+
+             }
 
 
            }
@@ -2085,6 +2308,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
            {
              dati::num_ex7 = selezione7.value(0).toString();
              exe7 = dati::num_ex7.toInt();
+             if(exe7==3) {
+               active_module_RF=1;
+                     active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+               n.setParam("/active_modules", active_modules);
+
+             }
 
 
            }
@@ -2362,114 +2591,114 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
 
               /**********************       INSERISCO VALUTAZIONI FITTIZIE                      *********************/
-              QSqlQuery ins_val;
-               ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
+//              QSqlQuery ins_val;
+//               ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
 
-                if (ins_val.exec()) {
-                  qDebug()<< "fatto";
-                }
-                else qDebug()<< ins_val.lastError();
-                 rand1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                  QString rands1 = QString::number(rand1);
-                   rand2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                    QString rands2 = QString::number(rand2);
-                     rand3= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                      QString rands3 = QString::number(rand3);
-                       rand4= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                        QString rands4 = QString::number(rand4);
-                         rand5= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                          QString rands5 = QString::number(rand5);
-                           rand10 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                            QString rands10 = QString::number(rand10);
-                             arr7_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                              QString arrs7_1 = QString::number(arr7_1);
-                               arr7_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                QString arrs7_2 = QString::number(arr7_2);
-                                 arr7_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                  QString arrs7_3 = QString::number(arr7_3);
-                                   arr7_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                    QString arrs7_4 = QString::number(arr7_4);
-                                     arr7_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                      QString arrs7_5 = QString::number(arr7_5);
-                                       val.append(arr7_1);
-                                        val.append(arr7_2);
-                                         val.append(arr7_3);
-                                          val.append(arr7_4);
-                                           val.append(arr7_5);
-                                            vals << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5;
-                                             QString valss = vals.join(",");
+//                if (ins_val.exec()) {
+//                  qDebug()<< "fatto";
+//                }
+//                else qDebug()<< ins_val.lastError();
+//                 rand1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                  QString rands1 = QString::number(rand1);
+//                   rand2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                    QString rands2 = QString::number(rand2);
+//                     rand3= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                      QString rands3 = QString::number(rand3);
+//                       rand4= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                        QString rands4 = QString::number(rand4);
+//                         rand5= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                          QString rands5 = QString::number(rand5);
+//                           rand10 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                            QString rands10 = QString::number(rand10);
+//                             arr7_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                              QString arrs7_1 = QString::number(arr7_1);
+//                               arr7_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                QString arrs7_2 = QString::number(arr7_2);
+//                                 arr7_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                  QString arrs7_3 = QString::number(arr7_3);
+//                                   arr7_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                    QString arrs7_4 = QString::number(arr7_4);
+//                                     arr7_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                      QString arrs7_5 = QString::number(arr7_5);
+//                                       val.append(arr7_1);
+//                                        val.append(arr7_2);
+//                                         val.append(arr7_3);
+//                                          val.append(arr7_4);
+//                                           val.append(arr7_5);
+//                                            vals << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5;
+//                                             QString valss = vals.join(",");
 
-                                              arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                               QString arrs9_1 = QString::number(arr9_1);
-                                                arr9_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                                 QString arrs9_2 = QString::number(arr9_2);
-                                                  arr9_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                                   QString arrs9_3 = QString::number(arr9_3);
-                                                    arr9_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                                     QString arrs9_4 = QString::number(arr9_4);
-                                                      arr9_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                                                       QString arrs9_5 = QString::number(arr9_5);
-                                                        val2.append(arr9_1);
-                                                         val2.append(arr9_2);
-                                                          val2.append(arr9_3);
-                                                           val2.append(arr9_4);
-                                                            val2.append(arr9_5);
-                                                             vals2 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
-                                                              QString valss2 = vals2.join(",");
-                                                               val8.append(arr7_1);
-                                                                val8.append(arr7_2);
-                                                                 val8.append(arr7_3);
-                                                                  val8.append(arr7_4);
-                                                                   val8.append(arr7_5);
-                                                                    val8.append(arr9_1);
-                                                                     val8.append(arr9_2);
-                                                                      val8.append(arr9_3);
-                                                                       val8.append(arr9_4);
-                                                                        val8.append(arr9_5);
-                                                                         vals8 << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
-                                                                          QString valss8 = vals8.join(",");
-                                                                           qDebug() << val;
-                                                                            qDebug() << val2;
-                                                                             qDebug ()<< val8;
-                                                                              //creo la matrice fittizia 5x19
-
-
+//                                              arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                               QString arrs9_1 = QString::number(arr9_1);
+//                                                arr9_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                                 QString arrs9_2 = QString::number(arr9_2);
+//                                                  arr9_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                                   QString arrs9_3 = QString::number(arr9_3);
+//                                                    arr9_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                                     QString arrs9_4 = QString::number(arr9_4);
+//                                                      arr9_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//                                                       QString arrs9_5 = QString::number(arr9_5);
+//                                                        val2.append(arr9_1);
+//                                                         val2.append(arr9_2);
+//                                                          val2.append(arr9_3);
+//                                                           val2.append(arr9_4);
+//                                                            val2.append(arr9_5);
+//                                                             vals2 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+//                                                              QString valss2 = vals2.join(",");
+//                                                               val8.append(arr7_1);
+//                                                                val8.append(arr7_2);
+//                                                                 val8.append(arr7_3);
+//                                                                  val8.append(arr7_4);
+//                                                                   val8.append(arr7_5);
+//                                                                    val8.append(arr9_1);
+//                                                                     val8.append(arr9_2);
+//                                                                      val8.append(arr9_3);
+//                                                                       val8.append(arr9_4);
+//                                                                        val8.append(arr9_5);
+//                                                                         vals8 << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+//                                                                          QString valss8 = vals8.join(",");
+//                                                                           qDebug() << val;
+//                                                                            qDebug() << val2;
+//                                                                             qDebug ()<< val8;
+//                                                                              //creo la matrice fittizia 5x19
 
 
 
 
 
-                                                                              if (dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging") {
-                                                                                QSqlQuery val_data;
-                                                                                val_data.prepare ("update Valutazioni set Intrajoint_coordination = '"+rands1+"', Normalized_jerk = '"+rands2+"', Movement_arrest_period_ratio ='"+rands3+"', Peak_speed_ratio = '"+rands4+"', Acceleration_metric = '"+rands5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-
-                                                                                if( val_data.exec()) qDebug() << "fattoo";
-                                                                                else qDebug()<< val_data.lastError();
-
-                                                                              }
-                                                                              if (dati::mood == "Assisted as needed") {
-                                                                                QSqlQuery val_data1;
-                                                                                val_data1.prepare("update Valutazioni set Active_movement_Idex = '"+rands10+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-                                                                                val_data1.exec();
-                                                                              }
-                                                                              if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
-                                                                                QSqlQuery val_data2;
-                                                                                val_data2.prepare("update Valutazioni set Per_corretta_attivazione_muscolare = '"+valss+"', Normalized_EMG_action_level = '"+valss8+"', Indice_co_contrazione = '"+valss2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
-                                                                                val_data2.exec();
-                                                                              }
-                                                                              if (dati::mood == "Trigger") {
-                                                                                //matrice
-                                                                              }
 
 
+//                                                                              if (dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging") {
+//                                                                                QSqlQuery val_data;
+//                                                                                val_data.prepare ("update Valutazioni set Intrajoint_coordination = '"+rands1+"', Normalized_jerk = '"+rands2+"', Movement_arrest_period_ratio ='"+rands3+"', Peak_speed_ratio = '"+rands4+"', Acceleration_metric = '"+rands5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+
+//                                                                                if( val_data.exec()) qDebug() << "fattoo";
+//                                                                                else qDebug()<< val_data.lastError();
+
+//                                                                              }
+//                                                                              if (dati::mood == "Assisted as needed") {
+//                                                                                QSqlQuery val_data1;
+//                                                                                val_data1.prepare("update Valutazioni set Active_movement_Idex = '"+rands10+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//                                                                                val_data1.exec();
+//                                                                              }
+//                                                                              if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
+//                                                                                QSqlQuery val_data2;
+//                                                                                val_data2.prepare("update Valutazioni set Per_corretta_attivazione_muscolare = '"+valss+"', Normalized_EMG_action_level = '"+valss8+"', Indice_co_contrazione = '"+valss2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+//                                                                                val_data2.exec();
+//                                                                              }
+//                                                                              if (dati::mood == "Trigger") {
+//                                                                                //matrice
+//                                                                              }
 
 
-                                                                              qDebug()<< rand1;
+
+
+//                                                                              qDebug()<< rand1;
 }
 
 /**********************       SALVO MODALITÀ DI CONTROLLO                       *********************/
-void paginaprincipale::on_pushButton_controllo_clicked()
-{
+//void paginaprincipale::on_pushButton_controllo_clicked()
+//{
 
   //  if(ui->radioButton_trigger->isChecked()) {
   //    dati::mood = "Trigger";
@@ -3015,7 +3244,7 @@ void paginaprincipale::on_pushButton_controllo_clicked()
 
 
 
-}
+//}
 
 /**********************       SALVO MODULI MECCANICI ED EXTRA                       *********************/
 void paginaprincipale::on_pushButton_salvamoduli_clicked()
@@ -3052,7 +3281,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     dati::oi = "1";
     active_module_spalla = 1;
     active_module_gomito = 1;
-    active_module_RF = 1;
+    active_module_RF = 0;
     active_module_MAT = 1;
 
   }
@@ -3065,7 +3294,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     dati::oi = "1";
     active_module_spalla = 1;
     active_module_gomito = 1;
-    active_module_RF = 1;
+    active_module_RF = 0;
     active_module_MAT = 1;
     active_module_polso = 1;
 
@@ -3086,7 +3315,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
 
   }
-  if(ui->checkBox_MAP_2->isChecked() ||  (prova == 5))
+  if(ui->checkBox_MAP_2->isChecked()) //|| (prova == 5))
   {
 
     if(dati::modulo_polso == "1")
@@ -3126,7 +3355,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     if (moduli.exec())
     { QMessageBox ::information(this,tr("Salvato"),tr("Configurazione dei Moduli Meccanici ed Extra salvata"));
       ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
-      active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP};
+      active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
     }
     else {
       QMessageBox ::critical(this,tr("Errore"),tr("moduli"));
@@ -3453,7 +3682,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   enable_combo_ex();
   enable_combo_ex_recap();
   if (flag == 4) {
-    ui->label_recap_controllo->setText(QString("Modalità di controllo utilizzata nella scorsa sessione : %1").arg(dati::mood_prec));
+    ui->label_recap_controllo->setText(QString("Modalità di controllo utilizzata nella scorsa sessione : %1\n\nModalità di controllo suggerita dalla valutazione della precedente sessione : %2").arg(dati::mood_prec).arg(dati::mode_output));
 
 
 
@@ -4202,22 +4431,22 @@ void paginaprincipale::next_img() {
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
       ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento punti con oggetto. \nPremere OK per iniziare.");
-      ui->pushButton_ok->setEnabled(false);
+      ui->pushButton_ok->setEnabled(true);
       break;
 
     case 0:
       ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
     case 101: // POSIZIONAMENTO OGGETTO
       ui->label_img->setText("Terapista, posiziona l'oggetto \nsul punto del pad illuminato. \nQuindi premi OK");
-      ui->pushButton_ok->setEnabled(false);
+      ui->pushButton_ok->setEnabled(true);
       break;
     case 99:
       ui->label_img->setPixmap(case99);
       ui->label_istr_ex->setText(istr99);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       qDebug()<< "case99";
       break;
 
@@ -4225,7 +4454,7 @@ void paginaprincipale::next_img() {
 
     case 1:
       ui->label_img->setPixmap(case1_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       qDebug()<< "case1_3";
       break;
@@ -4233,7 +4462,7 @@ void paginaprincipale::next_img() {
 
     case 2:
       ui->label_img->setPixmap(case2_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       // ui->label_istr_ex->setText(istr2_3);
       qDebug()<< "case2_3";
@@ -4242,14 +4471,14 @@ void paginaprincipale::next_img() {
 
     case 3 :
       ui->label_img->setPixmap(case3_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       // ui->label_istr_ex->setText(istr3_3);
       break;
 
     case 4:
       ui->label_img->setPixmap(case4_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr4_3);
       qDebug()<< "case4_3";
@@ -4257,7 +4486,7 @@ void paginaprincipale::next_img() {
 
     case 5:
       ui->label_img->setPixmap(case5_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr5_3);
       qDebug()<< "case5_3";
@@ -4265,7 +4494,7 @@ void paginaprincipale::next_img() {
 
     case 6:
       ui->label_img->setPixmap(case6_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr6_3);
       qDebug()<< "case6_3";
@@ -4273,7 +4502,7 @@ void paginaprincipale::next_img() {
 
     case 7:
       ui->label_img->setPixmap(case7_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr7_3);
       qDebug()<< "case8_3";
@@ -4281,7 +4510,7 @@ void paginaprincipale::next_img() {
 
     case 8:
       ui->label_img->setPixmap(case8_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr8_3);
       qDebug()<< "case9_3";
@@ -4289,7 +4518,7 @@ void paginaprincipale::next_img() {
 
     case 9:
       ui->label_img->setPixmap(case9_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       //ui->label_istr_ex->setText(istr9_3);
       qDebug()<< "case9_3";
@@ -4298,12 +4527,12 @@ void paginaprincipale::next_img() {
     case 102: // FEEDBACK
       ui->label_img->setPixmap(feedback_happy);
       ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
     default:
       ui->label_img->setPixmap(case1_3);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       ui->label_istr_ex->setText("");
       //  ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
@@ -4319,11 +4548,11 @@ void paginaprincipale::next_img() {
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
       ui->label_img-> setText("Iniziamo esercizio \nMano alla bocca con oggetto. \nPremere OK per iniziare.");
-      ui->pushButton_ok->setEnabled(false);
+      ui->pushButton_ok->setEnabled(true);
       break;
     case 101: //POSIZIONAMENO OGGETTO
       ui->label_img-> setText("Terapista aggancia l'oggetto \n alla mano del paziente.\nQuindi premi OK");
-      ui->pushButton_ok->setEnabled(false);
+      ui->pushButton_ok->setEnabled(true);
 
       break;
     case 99:
@@ -4334,7 +4563,7 @@ void paginaprincipale::next_img() {
 
     case 0:
       ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
 
@@ -4344,27 +4573,27 @@ void paginaprincipale::next_img() {
       ui->label_img->setPixmap(case2_6);
       ui->label_istr_ex->setText(istr2_6);
       qDebug()<< "case2_6";
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
     case 2:
       ui->label_img->setPixmap(def_6);
       ui->label_istr_ex->setText(istr_def6);
       qDebug()<< "case2_6";
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
     case 102: //FEEDBACK
       ui->label_img->setPixmap(feedback_happy);
       ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
     default:
       ui->label_img->setPixmap(def_6);
       ui->label_istr_ex->setText(istr_def6);
       qDebug()<< "casedef";
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
 
@@ -4381,26 +4610,26 @@ void paginaprincipale::next_img() {
       ui->label_img->setPixmap(case99);
       ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
     case 1:
       ui->label_img->setPixmap(case2_7);
       ui->label_istr_ex->setText(istr2_7);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       qDebug()<< "case2_7";
       break;
 
     case 102: //FEEDBACK PAZIENTE
       ui->label_img->setPixmap(feedback_happy);
       ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       break;
 
     default:
       ui->label_img->setPixmap(def_7);
       ui->label_istr_ex->setText(istr_def7);
-      ui->pushButton_ok->setEnabled(true);
+      ui->pushButton_ok->setEnabled(false);
       qDebug()<< "casedef";
       break;
 
@@ -4567,20 +4796,19 @@ void paginaprincipale::on_pushButton_prosegui_clicked()
 {
   //ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
   //  timer_init->start(5000);
-  if(active_module_EEG_EMG==1)
-  {
-    ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+//  if(active_module_EEG_EMG==1)
+//  {
+//    ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
 
-  }
-  else
-  {
+//  }
+
   dati::status1 = 1002;
 
   std_msgs::Int16 msg;
   msg.data = dati::status1;
   ROS_INFO ("%d", msg.data);
   status_publisher.publish(msg);
-  }
+
 }
 
 /**********************       SALTO TUTORIAL VESTIZIONE  *********************/
@@ -4592,6 +4820,7 @@ void paginaprincipale::on_pushButton_go_clicked()
      ROS_INFO ("%d", msg.data);
       status_publisher.publish(msg);
      ui->tabWidget_2->setCurrentWidget(ui->tab_exo_param);
+      ui->stackedWidget_4->setCurrentWidget(ui->page_param_agree);
 
        //  if(dati::command == 4)
        //    ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
@@ -4847,6 +5076,8 @@ void paginaprincipale::on_pushButton_4_clicked()
     mode = 2;
     QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Mobilizzazione Passiva con Trigger"));
     ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
+    ros::NodeHandle n;
+    n.setParam ("/exercise/mode", mode);
   }
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -4887,13 +5118,15 @@ void paginaprincipale::on_pushButton_asan_clicked()
 {
   dati::mood = "Assisted as needed";
   ui->comboBox_mode->setCurrentText("Mobilizzazione con assistenza se necessario");
+  ui->comboBox_mode->setCurrentText("Mobilizzazione con assistenza se necessario");
   ui->pushButton_es_libero->setVisible(false);
   QSqlQuery modalita;
   modalita.prepare("update Parametri_Paziente set Modalita_utilizzo = '"+dati::mood+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
   modalita.exec();
   if (modalita.exec())
   {
-    mode = 3;
+   // mode = 3;
+    mode=4;
     QMessageBox ::information(this,tr("Salvato"),tr("Configurazione della modalità salvata: Assisted As Needed"));
     ui->tabWidget_2->setCurrentWidget(ui->tab_ex);
     ros::NodeHandle n;
@@ -5692,68 +5925,68 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     qDebug()<< "fatto";
   }
   else qDebug()<< ins_val.lastError();
-  rand1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString rands1 = QString::number(rand1);
-  rand2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString rands2 = QString::number(rand2);
-  rand3= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString rands3 = QString::number(rand3);
-  rand4= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString rands4 = QString::number(rand4);
-  rand5= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString rands5 = QString::number(rand5);
-  rand10 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString rands10 = QString::number(rand10);
-  arr7_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs7_1 = QString::number(arr7_1);
-  arr7_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs7_2 = QString::number(arr7_2);
-  arr7_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs7_3 = QString::number(arr7_3);
-  arr7_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs7_4 = QString::number(arr7_4);
-  arr7_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs7_5 = QString::number(arr7_5);
-  val.append(arr7_1);
-  val.append(arr7_2);
-  val.append(arr7_3);
-  val.append(arr7_4);
-  val.append(arr7_5);
-  vals << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5;
-  QString valss = vals.join(",");
+//  rand1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString rands1 = QString::number(rand1);
+//  rand2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString rands2 = QString::number(rand2);
+//  rand3= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString rands3 = QString::number(rand3);
+//  rand4= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString rands4 = QString::number(rand4);
+//  rand5= static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString rands5 = QString::number(rand5);
+//  rand10 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString rands10 = QString::number(rand10);
+//  arr7_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs7_1 = QString::number(arr7_1);
+//  arr7_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs7_2 = QString::number(arr7_2);
+//  arr7_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs7_3 = QString::number(arr7_3);
+//  arr7_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs7_4 = QString::number(arr7_4);
+//  arr7_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs7_5 = QString::number(arr7_5);
+//  val.append(arr7_1);
+//  val.append(arr7_2);
+//  val.append(arr7_3);
+//  val.append(arr7_4);
+//  val.append(arr7_5);
+//  vals << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5;
+//  QString valss = vals.join(",");
 
-  arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs9_1 = QString::number(arr9_1);
-  arr9_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs9_2 = QString::number(float(arr9_2));
-  arr9_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs9_3 = QString::number(arr9_3);
-  arr9_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs9_4 = QString::number(arr9_4);
-  arr9_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-  QString arrs9_5 = QString::number(arr9_5);
-  val2.append(arr9_1);
-  val2.append(arr9_2);
-  val2.append(arr9_3);
-  val2.append(arr9_4);
-  val2.append(arr9_5);
-  vals2 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
-  QString valss2 = vals2.join(",");
-  val8.append(arr7_1);
-  val8.append(arr7_2);
-  val8.append(arr7_3);
-  val8.append(arr7_4);
-  val8.append(arr7_5);
-  val8.append(arr9_1);
-  val8.append(arr9_2);
-  val8.append(arr9_3);
-  val8.append(arr9_4);
-  val8.append(arr9_5);
-  vals8 << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
-  QString valss8 = vals8.join(",");
-  qDebug() << val;
-  qDebug() << val2;
-  qDebug ()<< val8;
+//  arr9_1 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs9_1 = QString::number(arr9_1);
+//  arr9_2 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs9_2 = QString::number(float(arr9_2));
+//  arr9_3 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs9_3 = QString::number(arr9_3);
+//  arr9_4 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs9_4 = QString::number(arr9_4);
+//  arr9_5 =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//  QString arrs9_5 = QString::number(arr9_5);
+//  val2.append(arr9_1);
+//  val2.append(arr9_2);
+//  val2.append(arr9_3);
+//  val2.append(arr9_4);
+//  val2.append(arr9_5);
+//  vals2 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+//  QString valss2 = vals2.join(",");
+//  val8.append(arr7_1);
+//  val8.append(arr7_2);
+//  val8.append(arr7_3);
+//  val8.append(arr7_4);
+//  val8.append(arr7_5);
+//  val8.append(arr9_1);
+//  val8.append(arr9_2);
+//  val8.append(arr9_3);
+//  val8.append(arr9_4);
+//  val8.append(arr9_5);
+//  vals8 << arrs7_1 << arrs7_2 << arrs7_3 << arrs7_4 << arrs7_5 << arrs9_1 << arrs9_2 << arrs9_3 <<arrs9_4 << arrs9_5;
+//  QString valss8 = vals8.join(",");
+//  qDebug() << val;
+//  qDebug() << val2;
+//  qDebug ()<< val8;
   //creo la matrice fittizia 5x19
 
 
@@ -5762,33 +5995,33 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
 
 
 
-  if (dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging") {
-    QSqlQuery val_data;
-    val_data.prepare ("update Valutazioni set Intrajoint_coordination = '"+rands1+"', Normalized_jerk = '"+rands2+"', Movement_arrest_period_ratio ='"+rands3+"', Peak_speed_ratio = '"+rands4+"', Acceleration_metric = '"+rands5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//  if (dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging") {
+//    QSqlQuery val_data;
+//    val_data.prepare ("update Valutazioni set Intrajoint_coordination = '"+rands1+"', Normalized_jerk = '"+rands2+"', Movement_arrest_period_ratio ='"+rands3+"', Peak_speed_ratio = '"+rands4+"', Acceleration_metric = '"+rands5+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
 
-    if( val_data.exec()) qDebug() << "fattoo";
-    else qDebug()<< val_data.lastError();
+//    if( val_data.exec()) qDebug() << "fattoo";
+//    else qDebug()<< val_data.lastError();
 
-  }
-  if (dati::mood == "Assisted as needed") {
-    QSqlQuery val_data1;
-    val_data1.prepare("update Valutazioni set Active_movement_Idex = '"+rands10+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-    val_data1.exec();
-  }
-  if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
-    QSqlQuery val_data2;
-    val_data2.prepare("update Valutazioni set Per_corretta_attivazione_muscolare = '"+valss+"', Normalized_EMG_action_level = '"+valss8+"', Indice_co_contrazione = '"+valss2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
-    val_data2.exec();
-  }
-  if (dati::mood == "Trigger") {
-    //matrice
-  }
+//  }
+//  if (dati::mood == "Assisted as needed") {
+//    QSqlQuery val_data1;
+//    val_data1.prepare("update Valutazioni set Active_movement_Idex = '"+rands10+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+//    val_data1.exec();
+//  }
+//  if( dati::mood == "Assisted as needed" || dati::mood == "Anti-g" || dati::mood == "Challenging" || dati::mood == "Trigger" || dati::mood == "Mobilizzazione Passiva") {
+//    QSqlQuery val_data2;
+//    val_data2.prepare("update Valutazioni set Per_corretta_attivazione_muscolare = '"+valss+"', Normalized_EMG_action_level = '"+valss8+"', Indice_co_contrazione = '"+valss2+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+//    val_data2.exec();
+//  }
+//  if (dati::mood == "Trigger") {
+//    //matrice
+//  }
 
 
   ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
   ui->stackedWidget_2->setCurrentWidget(ui->page_sessione);
 
-  qDebug()<< rand1;
+ // qDebug()<< rand1;
 }
 
 void paginaprincipale::on_pushButton_3_clicked()
@@ -5823,16 +6056,22 @@ void paginaprincipale::on_pushButton_salva_exo_param_clicked()
   //  float Lunghezza_braccio_f = Lunghezza_braccio.toFloat();
   Lunghezza_avambraccio = ui->lineEdit_avambraccio-> text();
 
-  UA_l = Lunghezza_braccio.toFloat();
-  LA_l = Lunghezza_avambraccio.toFloat();
-  H_l = float(0.108)*height;
-  CdM_UA = float(0.436)*UA_l;
-  CdM_LA = float(0.43)*LA_l;
-  CdM_H = float(0.506)*H_l;
+  UA_l = Lunghezza_braccio.toDouble();
+  LA_l = Lunghezza_avambraccio.toDouble();
+  UA_l =UA_l/100;
+  LA_l=LA_l/100;
+  height = height/100;
+  H_l = double(0.108)*height;
+  CdM_UA = double(0.436)*UA_l;
+  CdM_LA = double(0.43)*LA_l;
+  CdM_H = double(0.506)*H_l;
   ros::NodeHandle n;
-  n.setParam ("/physiological_param/upperarm_length", UA_l);
+  n.setParam("/physiological_param/upperarm_length", UA_l);
   n.setParam("/physiological_param/lowerarm_length", LA_l);
   n.setParam("/physiological_param/hand_length",H_l);
+  n.setParam("/matlab/len_fore", LA_l);
+  n.setParam("/matlab/len_upp", UA_l);
+
 
   n.setParam ("/physiological_param/cdm_upperarm", CdM_UA);
   n.setParam("/physiological_param/cdm_lowerarm", CdM_LA);
@@ -5850,7 +6089,8 @@ void paginaprincipale::on_pushButton_salva_exo_param_clicked()
 
   }
   //timer_comp->start(20);
-  ui->tabWidget_2->setCurrentWidget(ui->tab_comp);
+  ui->stackedWidget_4->setCurrentWidget(ui->page_comp);
+
 
 }
 
@@ -5858,6 +6098,8 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
 {
   int comp;
   comp = ui->progressBar_comp->value();
+  //comp= comp/int(125);
+  qDebug()<<comp;
   ui->lcdNumber_comp_ses->display(comp);
   ui->progressBar_comp_ses->setValue(comp);
   ui->horizontalSlider_comp_ses->setValue(comp);
@@ -5866,16 +6108,18 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
   QString comp_s;
   comp_s = QString::number(comp);
   QSqlQuery comp_exo;
-  comp_exo.prepare("update Parametri_Paziente set compensazione ='"+comp_s+"' where Codice_ID = '"+dati::ind+"' anda Data_acquisizione = '"+dati::data1+"'");
+  comp_exo.prepare("update Parametri_Paziente set compensazione ='"+comp_s+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
   if(comp_exo.exec()){
     QMessageBox ::information(this,tr("Salvataggio"),tr(" Dati Salvati Correttamente"));
+    ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
 
   }
-  else qDebug()<<comp_exo.lastError();
+  else qDebug()<<"non funziona la comp_exo";
 }
 void paginaprincipale::set_comp_param(){
 
   comp_param = ui->progressBar_comp->value();
+  comp_param =comp_param/int(125);
   ros::NodeHandle n;
   n.setParam ("/physiological_param/arm_compensation", comp_param);
 
@@ -5885,27 +6129,93 @@ void paginaprincipale::set_comp_param(){
 void paginaprincipale::set_comp_param_ses(){
 
   comp_param = ui->progressBar_comp_ses->value();
+  comp_param = comp_param/125;
   ros::NodeHandle n;
   n.setParam ("/physiological_param/arm_compensation", comp_param);
   QString comp_s1;
   comp_s1 = QString::number(comp_param);
   QSqlQuery comp_exo_ses;
-  comp_exo_ses.prepare("update Parametri_Paziente set compensazione ='"+comp_s1+"' where Codice_ID = '"+dati::ind+"' anda Data_acquisizione = '"+dati::data1+"'");
+  comp_exo_ses.prepare("update Parametri_Paziente set compensazione ='"+comp_s1+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
   if(comp_exo_ses.exec()){
-    QMessageBox ::information(this,tr("Salvataggio"),tr(" Dati Salvati Correttamente"));
+    //QMessageBox ::information(this,tr("Salvataggio"),tr(" Dati Salvati Correttamente"));
 
   }
-  else qDebug()<<comp_exo_ses.lastError();
+  else qDebug()<<"non funziona la comp_exo_ses";
 
 
 }
 
 void paginaprincipale::on_pushButton_clicked()
 {
-  dati::status1 = 1002;
+  dati::status1 = 1061;
 
   std_msgs::Int16 msg;
   msg.data = dati::status1;
   ROS_INFO ("%d", msg.data);
   status_publisher.publish(msg);
+}
+
+void paginaprincipale::on_pushButton_test_matplotlib_clicked()
+{
+
+system("rqt_plot rqt_plot /emg_eeg_module/status/ref_emg /emg_eeg_module/status/check_emg[0] /emg_eeg_module/status/check_emg[1] /emg_eeg_module/status/check_emg[2] /emg_eeg_module/status/check_emg[3] /emg_eeg_module/status/check_emg[4]");
+
+
+//system("rosrun rqt_plot rqt_plot");
+
+// QVBoxLayout *layout_test = new QVBoxLayout;
+
+// ui->widget_matplot->setLayout(layout_test);
+
+
+//  int i=0;
+//std::vector<int> vect;
+//     vect.clear();
+
+//  for (i=0; i<10; i++) {
+//      vect.push_back(i);
+// plt::plot(vect);
+
+//         plt::pause(0.05);
+
+
+//  }
+//  plt::plot(vect);
+
+//          plt::pause(0.05);
+//plt::show();
+//  std::vector<int> vect1;
+//  vect1= {1,3,2,6,5};
+//  plt::plot(vect1);
+//  plt::save("/home/alice/Desktop/agree_evaluation_pkg/vect1.pdf");
+  //plt::show("/home/alice/catkin_ws/src/agree_gui/test_pdf.pdf");
+
+}
+
+void paginaprincipale::on_pushButton_salta_EMG_clicked()
+{
+  dati::status1 = 1060;
+
+  std_msgs::Int16 msg;
+  msg.data = dati::status1;
+  ROS_INFO ("%d", msg.data);
+  status_publisher.publish(msg);
+}
+
+
+
+void paginaprincipale::on_pushButton_5_clicked()
+{
+  dati::status1 = 1062;
+
+  std_msgs::Int16 msg;
+  msg.data = dati::status1;
+  ROS_INFO ("%d", msg.data);
+  status_publisher.publish(msg);
+}
+
+void paginaprincipale::on_pushButton_pdf_clicked()
+{
+    //system("xdg-open test_pdf.pdf");
+    system ("xdg-open /home/alice/Desktop/evaluationpdf.pdf");
 }

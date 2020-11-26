@@ -8,8 +8,10 @@
 
 #include<std_msgs/Int16.h>
 #include "agree_gui/agree_gui_command.h"
+#include <eigen3/Eigen/Dense>
 
-
+using namespace Eigen;
+using namespace std;
 
 struct DataPoint {
     int x;
@@ -20,9 +22,10 @@ struct DataPoint {
 };
 
 
-const int max_x = 17;
-const int max_y = 32;
-const int Y= 16;
+const int max_x = 16; //17
+const int max_y = 31; //32
+const int Y= 15; //16
+
 
 
 class MatrixWidget : public QWidget

@@ -59,6 +59,7 @@ mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2
 mydb.setHostName("alice");
 mydb.setUserName("alice");
 mydb.setPassword("ali");
+this->showMaximized();
 
   // questo mostra nella prima pagina se il database è connesso
   if (!mydb.open())
