@@ -132,7 +132,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
     //MANDO COORDINATE DEL PUNTO DI REST
     point0 = {15,4};
     n.setParam("/point0/mat_coordinates", point0);
-    Data[15][4].DrawColor=Qt::black;
+    Data[4][15].DrawColor=Qt::black;
     //zero non selezionabile
     if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
     if(dp.isSelected == false)
@@ -325,7 +325,7 @@ void MatrixWidget::LoadData(){
       if(matrix_test(i,2)){
 
         Data[x][y].DrawColor= Qt::green;
-        Data[15][4].DrawColor = Qt::red;
+        Data[4][15].DrawColor = Qt::black;
         Data[x][y].value=1;
         cout <<  "VERDE"  << endl;
       }

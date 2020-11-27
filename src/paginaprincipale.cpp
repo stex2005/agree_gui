@@ -530,6 +530,16 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QPixmap pic15("/home/alice/catkin_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
   ui->label_dimensionebraccio->setPixmap(pic15);
 
+  QPixmap deltoids ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/deltoids.png");
+  ui->label_deltoids->setPixmap(deltoids);
+
+  QPixmap biceps ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/biceps.png");
+  ui->label_biceps->setPixmap(biceps);
+
+  QPixmap triceps ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/triceps.png");
+  ui->label_triceps->setPixmap(triceps);
+
+
   // setto icone
   ui->pushButton_cerca_3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Zoom.png"));
   ui->pushButton_elencoPazienti->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Database.png"));
@@ -569,9 +579,9 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->pushButton_modifica_recap->setIcon(QIcon("/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Modifiy.png"));
   ui->pushButton_salva_exo_param->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
 
-  ui->pushButton_indietro_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Back.png"));
+  //ui->pushButton_indietro_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Back.png"));
   ui->pushButton_salta_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
-  ui->pushButton_avanti_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
+ // ui->pushButton_avanti_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
 
   ui->label_tut->setText("Seguire le istruzioni per il Montaggio dei moduli selezionati. \nPer Saltare il Tutorial fare click su 'Salta Tutorial' ");
   ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.Verificare la vestibilità sul Paziente.\nUna volta effettuata la procedura premere Avanti per Continuare.");
@@ -1915,10 +1925,10 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
   ros::NodeHandle n;
 
   ui->tabWidget_2->setCurrentWidget(ui->tab_init);
-   QString bicchiere, forchetta, libro;
+   QString bicchiere, borraccia, tazza;
     bicchiere = "Bicchiere";
-     forchetta = "Forchetta";
-      libro = "Libro";
+     borraccia = "Borraccia";
+      tazza = "Tazza";
 
        if(ui->checkBox_ex1->isChecked())
        {  check_ex1=1;
@@ -1939,8 +1949,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
          if(ui->comboBox_oi_es1->isEnabled()) {
            //AGGIORNA ROSPARAM MODULI OGGETTI QUI
            if(ui->comboBox_oi_es1->currentText()== bicchiere ) { ui->comboBox_ogg1->setCurrentText("bicchiere"); oggetto_es1= "1"; ros_ogg1=1; ui->label_oi1_recap->setText(bicchiere);}
-           else if (ui->comboBox_oi_es1->currentText()==forchetta) {ui->comboBox_ogg1->setCurrentText("forchetta"); oggetto_es1= "2"; ros_ogg1=2; ui->label_oi1_recap->setText(forchetta);}
-           else if(ui->comboBox_oi_es1 ->currentText()==libro) {ui->comboBox_ogg1->setCurrentText("libro"); oggetto_es1= "3"; ros_ogg1=3; ui->label_oi1_recap->setText(libro);} }
+           else if (ui->comboBox_oi_es1->currentText()==borraccia) {ui->comboBox_ogg1->setCurrentText("borraccia"); oggetto_es1= "2"; ros_ogg1=2; ui->label_oi1_recap->setText(borraccia);}
+           else if(ui->comboBox_oi_es1 ->currentText()==tazza) {ui->comboBox_ogg1->setCurrentText("tazza"); oggetto_es1= "3"; ros_ogg1=3; ui->label_oi1_recap->setText(tazza);} }
          else if (!(ui->comboBox_oi_es1->isEnabled())) {
            oggetto_es1="0";
            ros_ogg1 = 0;
@@ -2004,8 +2014,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
          rep2 = dati::rip2.toInt();
          if(ui->comboBox_oi_es2->isEnabled()) {
            if(ui->comboBox_oi_es2->currentText()== bicchiere ) { ui->comboBox_ogg2->setCurrentText("bicchiere"); oggetto_es2= "1"; ros_ogg2=1; ui->label_oi2_recap->setText(bicchiere);}
-           else if (ui->comboBox_oi_es2->currentText()==forchetta) { ui->comboBox_ogg2->setCurrentText("forchetta");oggetto_es2 = "2"; ros_ogg2= 2; ui->label_oi2_recap->setText(forchetta);}
-           else if(ui->comboBox_oi_es2 ->currentText()==libro) {ui->comboBox_ogg2->setCurrentText("libro"); oggetto_es2= "3"; ros_ogg2= 3; ui->label_oi2_recap->setText(libro);} }
+           else if (ui->comboBox_oi_es2->currentText()==borraccia) { ui->comboBox_ogg2->setCurrentText("borraccia");oggetto_es2 = "2"; ros_ogg2= 2; ui->label_oi2_recap->setText(borraccia);}
+           else if(ui->comboBox_oi_es2 ->currentText()==tazza) {ui->comboBox_ogg2->setCurrentText("tazza"); oggetto_es2= "3"; ros_ogg2= 3; ui->label_oi2_recap->setText(tazza);} }
          else if (!(ui->comboBox_oi_es2->isEnabled())) {
            oggetto_es2 = "0";
            ros_ogg2 = 0;
@@ -2062,8 +2072,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
          rep3 = dati::rip3.toInt();
          if(ui->comboBox_oi_es3->isEnabled()) {
            if(ui->comboBox_oi_es3->currentText()== bicchiere ) { ui->comboBox_ogg3->setCurrentText("bicchiere"); oggetto_es3= "1"; ros_ogg3=1; ui->label_oi3_recap->setText(bicchiere);}
-           else if (ui->comboBox_oi_es3->currentText()==forchetta) {  ui->comboBox_ogg3->setCurrentText("forchetta"); oggetto_es3= "2"; ros_ogg3=2; ui->label_oi3_recap->setText(forchetta);}
-           else if(ui->comboBox_oi_es3 ->currentText()==libro) { ui->comboBox_ogg3->setCurrentText("libro"); oggetto_es3= "3"; ros_ogg3=3; ui->label_oi3_recap->setText(libro);} }
+           else if (ui->comboBox_oi_es3->currentText()==borraccia) {  ui->comboBox_ogg3->setCurrentText("borraccia"); oggetto_es3= "2"; ros_ogg3=2; ui->label_oi3_recap->setText(borraccia);}
+           else if(ui->comboBox_oi_es3 ->currentText()==tazza) { ui->comboBox_ogg3->setCurrentText("tazza"); oggetto_es3= "3"; ros_ogg3=3; ui->label_oi3_recap->setText(tazza);} }
          else if(!(ui->comboBox_oi_es3->isEnabled())) {
            oggetto_es3 = "0";
            ros_ogg3 = 0;
@@ -2119,8 +2129,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
          rep4 = dati::rip4.toInt();
          if(ui->comboBox_oi_es4->isEnabled()) {
            if(ui->comboBox_oi_es4->currentText()== bicchiere ) {ui->comboBox_ogg4->setCurrentText("bicchiere"); oggetto_es4= "1"; ros_ogg4=1; ui->label_oi4_recap->setText(bicchiere);}
-           else if (ui->comboBox_oi_es4->currentText()==forchetta) {ui->comboBox_ogg4->setCurrentText("forchetta"); oggetto_es4= "2"; ros_ogg4=2; ui->label_oi4_recap->setText(forchetta);}
-           else if(ui->comboBox_oi_es4 ->currentText()==libro) {ui->comboBox_ogg4->setCurrentText("libro"); oggetto_es4= "3"; ros_ogg4=3; ui->label_oi4_recap->setText(libro);} }
+           else if (ui->comboBox_oi_es4->currentText()==borraccia) {ui->comboBox_ogg4->setCurrentText("borraccia"); oggetto_es4= "2"; ros_ogg4=2; ui->label_oi4_recap->setText(borraccia);}
+           else if(ui->comboBox_oi_es4 ->currentText()==tazza) {ui->comboBox_ogg4->setCurrentText("tazza"); oggetto_es4= "3"; ros_ogg4=3; ui->label_oi4_recap->setText(tazza);} }
          else if (!(ui->comboBox_oi_es4->isEnabled())) {
            oggetto_es4 = "0";
            ros_ogg4 = 0;
@@ -2177,8 +2187,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
          rep5 = dati::rip5.toInt();
          if(ui->comboBox_oi_es5->isEnabled()) {
            if(ui->comboBox_oi_es5->currentText()== bicchiere ) {ui->comboBox_ogg5->setCurrentText("bicchiere"); oggetto_es5= "1"; ros_ogg5=1; ui->label_oi5_recap->setText(bicchiere);}
-           else if (ui->comboBox_oi_es5->currentText()==forchetta) {ui->comboBox_ogg5->setCurrentText("forchetta"); oggetto_es5= "2"; ros_ogg5=2; ui->label_oi5_recap->setText(forchetta);}
-           else if(ui->comboBox_oi_es5->currentText()==libro) {ui->comboBox_ogg5->setCurrentText("libro"); oggetto_es5= "3"; ros_ogg5=3;ui->label_oi5_recap->setText(libro);} }
+           else if (ui->comboBox_oi_es5->currentText()==borraccia) {ui->comboBox_ogg5->setCurrentText("borraccia"); oggetto_es5= "2"; ros_ogg5=2; ui->label_oi5_recap->setText(borraccia);}
+           else if(ui->comboBox_oi_es5->currentText()==tazza) {ui->comboBox_ogg5->setCurrentText("tazza"); oggetto_es5= "3"; ros_ogg5=3;ui->label_oi5_recap->setText(tazza);} }
          else if (!(ui->comboBox_oi_es5->isEnabled())) {
            oggetto_es5 = "0";
            ros_ogg5 = 0;
@@ -2235,8 +2245,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
          rep6 = dati::rip6.toInt();
          if(ui->comboBox_oi_es6->isEnabled()) {
            if(ui->comboBox_oi_es6->currentText()== bicchiere ) {ui->comboBox_ogg6->setCurrentText("bicchiere"); oggetto_es6= "1"; ros_ogg6=1; ui->label_oi6_recap->setText(bicchiere);}
-           else if (ui->comboBox_oi_es6->currentText()==forchetta) {ui->comboBox_ogg6->setCurrentText("forchetta"); oggetto_es6= "2"; ros_ogg6=2;ui->label_oi6_recap->setText(forchetta);}
-           else if(ui->comboBox_oi_es6 ->currentText()==libro) {ui->comboBox_ogg6->setCurrentText("libro"); oggetto_es6= "3"; ros_ogg6=3;ui->label_oi6_recap->setText(libro);} }
+           else if (ui->comboBox_oi_es6->currentText()==borraccia) {ui->comboBox_ogg6->setCurrentText("borraccia"); oggetto_es6= "2"; ros_ogg6=2;ui->label_oi6_recap->setText(borraccia);}
+           else if(ui->comboBox_oi_es6 ->currentText()==tazza) {ui->comboBox_ogg6->setCurrentText("tazza"); oggetto_es6= "3"; ros_ogg6=3;ui->label_oi6_recap->setText(tazza);} }
          else if(!(ui->comboBox_oi_es6->isEnabled()))  {
            oggetto_es6 = "0";
            ros_ogg6 = 0;
@@ -2294,8 +2304,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
          rep7 = dati::rip7.toInt();
          if(ui->comboBox_oi_es7->isEnabled()) {
            if(ui->comboBox_oi_es7->currentText()== bicchiere ) {ui->comboBox_ogg7->setCurrentText("bicchiere"); oggetto_es7= "1"; ros_ogg7=1; ui->label_oi7_recap->setText(bicchiere);}
-           else if (ui->comboBox_oi_es7->currentText()==forchetta) {ui->comboBox_ogg7->setCurrentText("forchetta"); oggetto_es7= "2"; ros_ogg7=2; ui->label_oi7_recap->setText(forchetta);}
-           else if(ui->comboBox_oi_es7 ->currentText()==libro) {ui->comboBox_ogg7->setCurrentText("libro"); oggetto_es7= "3"; ros_ogg7=3; ui->label_oi7_recap->setText(libro);} }
+           else if (ui->comboBox_oi_es7->currentText()==borraccia) {ui->comboBox_ogg7->setCurrentText("borraccia"); oggetto_es7= "2"; ros_ogg7=2; ui->label_oi7_recap->setText(borraccia);}
+           else if(ui->comboBox_oi_es7 ->currentText()==tazza) {ui->comboBox_ogg7->setCurrentText("tazza"); oggetto_es7= "3"; ros_ogg7=3; ui->label_oi7_recap->setText(tazza);} }
          else if(!(ui->comboBox_oi_es7 ->isEnabled())) {
            oggetto_es7 = "0";
            ros_ogg7 = 0;
@@ -2858,10 +2868,10 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
   //                          ui->comboBox_oi_es1->setCurrentText("Bicchiere");
   //                        }
   //                        else if(dati::ogg1_prec == "2") {
-  //                          ui->comboBox_oi_es1->setCurrentText("Forchetta");
+  //                          ui->comboBox_oi_es1->setCurrentText("borraccia");
   //                        }
   //                        else if(dati::ogg1_prec == "3") {
-  //                          ui->comboBox_oi_es1->setCurrentText("Libro");
+  //                          ui->comboBox_oi_es1->setCurrentText("tazza");
   //                        }
 
 
@@ -3682,7 +3692,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   enable_combo_ex();
   enable_combo_ex_recap();
   if (flag == 4) {
-    ui->label_recap_controllo->setText(QString("Modalità di controllo utilizzata nella scorsa sessione : %1\n\nModalità di controllo suggerita dalla valutazione della precedente sessione : %2").arg(dati::mood_prec).arg(dati::mode_output));
+    ui->label_recap_controllo->setText(QString("Modalità di controllo utilizzata nella scorsa sessione : %1\n").arg(dati::mood_prec));
+    ui->label_suggerimento_output->setText(QString("Modalità di controllo suggerita dalla valutazione della precedente sessione : %1").arg(dati::mode_output));
 
 
 
@@ -3713,10 +3724,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
           ui->comboBox_oi_es1->setCurrentText("Bicchiere");
         }
         else if(dati::ogg1_prec == "2") {
-          ui->comboBox_oi_es1->setCurrentText("Forchetta");
+          ui->comboBox_oi_es1->setCurrentText("Borraccia");
         }
         else if(dati::ogg1_prec == "3") {
-          ui->comboBox_oi_es1->setCurrentText("Libro");
+          ui->comboBox_oi_es1->setCurrentText("Tazza");
         }
 
 
@@ -3750,10 +3761,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
           ui->comboBox_oi_es2->setCurrentText("Bicchiere");
         }
         else if(dati::ogg2_prec == "2") {
-          ui->comboBox_oi_es2->setCurrentText("Forchetta");
+          ui->comboBox_oi_es2->setCurrentText("Borraccia");
         }
         else if(dati::ogg2_prec == "3") {
-          ui->comboBox_oi_es2->setCurrentText("Libro");
+          ui->comboBox_oi_es2->setCurrentText("Tazza");
         }
 
       }
@@ -3785,10 +3796,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
           ui->comboBox_oi_es3->setCurrentText("Bicchiere");
         }
         else if(dati::ogg3_prec == "2") {
-          ui->comboBox_oi_es3->setCurrentText("Forchetta");
+          ui->comboBox_oi_es3->setCurrentText("Borraccia");
         }
         else if(dati::ogg3_prec == "3") {
-          ui->comboBox_oi_es3->setCurrentText("Libro");
+          ui->comboBox_oi_es3->setCurrentText("Tazza");
         }
 
 
@@ -3823,10 +3834,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
           ui->comboBox_oi_es4->setCurrentText("Bicchiere");
         }
         else if(dati::ogg4_prec == "2") {
-          ui->comboBox_oi_es4->setCurrentText("Forchetta");
+          ui->comboBox_oi_es4->setCurrentText("Borraccia");
         }
         else if(dati::ogg4_prec == "3") {
-          ui->comboBox_oi_es4->setCurrentText("Libro");
+          ui->comboBox_oi_es4->setCurrentText("Tazza");
         }
 
 
@@ -3859,10 +3870,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
           ui->comboBox_oi_es5->setCurrentText("Bicchiere");
         }
         else if(dati::ogg5_prec == "2") {
-          ui->comboBox_oi_es5->setCurrentText("Forchetta");
+          ui->comboBox_oi_es5->setCurrentText("Borraccia");
         }
         else if(dati::ogg5_prec == "3") {
-          ui->comboBox_oi_es5->setCurrentText("Libro");
+          ui->comboBox_oi_es5->setCurrentText("Tazza");
         }
 
 
@@ -3895,10 +3906,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
           ui->comboBox_oi_es6->setCurrentText("Bicchiere");
         }
         else if(dati::ogg6_prec == "2") {
-          ui->comboBox_oi_es6->setCurrentText("Forchetta");
+          ui->comboBox_oi_es6->setCurrentText("Borraccia");
         }
         else if(dati::ogg6_prec == "3") {
-          ui->comboBox_oi_es6->setCurrentText("Libro");
+          ui->comboBox_oi_es6->setCurrentText("Tazza");
         }
 
 
@@ -3933,10 +3944,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
           ui->comboBox_oi_es7->setCurrentText("Bicchiere");
         }
         else if(dati::ogg7_prec == "2") {
-          ui->comboBox_oi_es7->setCurrentText("Forchetta");
+          ui->comboBox_oi_es7->setCurrentText("Borraccia");
         }
         else if(dati::ogg7_prec == "3") {
-          ui->comboBox_oi_es7->setCurrentText("Libro");
+          ui->comboBox_oi_es7->setCurrentText("Tazza");
         }
 
 
@@ -4311,56 +4322,65 @@ void paginaprincipale::next_img() {
 
   istr2_7= "Eleva il braccio lateralmente";
 
-
-  QPixmap case99("/home/alice/Desktop/wait.jpg"); // ATTESA
-  //QPixmap case99("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/wait.jpg"); // ATTESA
-  QPixmap case1_1("/home/alice/Desktop/es1_new/es1_2.png");
+//EXER 1 IMAGES
+ // QPixmap case99("/home/alice/Desktop/wait.jpg"); // ATTESA
+  QPixmap case99("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/wait.jpg"); // ATTESA
+  QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es1/es1_2.png.png");
   //QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_2.png");
-  QPixmap case3_1("/home/alice/Desktop/es1_new/es1_3.png");
+  QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es1/es1_2.png");
   //QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_3.png");
-  QPixmap case5_1("/home/alice/Desktop/es1_new/es1_6.png");
+  QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es1/es1_2.png");
   //QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_6.png");
-  QPixmap def("/home/alice/Desktop/es1_new/es1_rest.png"); //POSIZIONE DI REST
+  QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es1/es1_1.png"); //POSIZIONE DI REST
   //QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es1_new/es1_rest.png");
-  QPixmap def1("/home/alice/Desktop/ex_img1/01/es1_1.JPG"); //POSIZIONE DI REST
+ // QPixmap def1("/home/alice/Desktop/ex_img1/01/es1_1.JPG"); //POSIZIONE DI REST
   //QPixmap def1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/01/es1_1.JPG");
 
-
-  QPixmap case1_3("/home/alice/Desktop/new/es3_1.jpg"); //vai in centro prendi oggetto
+//EXER 3 IMAGES
+  QPixmap case1_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_2.png"); //vai in centro prendi oggetto
   //QPixmap case1_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_1.jpg");
 
 
-  QPixmap case2_3("/home/alice/Desktop/new/es3_2.jpg"); // sx
-  //QPixmap case2_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_2.jpg");
+  QPixmap case2_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_3.png"); // sx
+  //QPixmap case2_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_1.png");
 
-  QPixmap case3_3("/home/alice/Desktop/new/es3_3.jpg"); // rest
+  QPixmap case3_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_4.png"); // rest
   //QPixmap case3_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_3.jpg");
 
-  QPixmap case4_3("/home/alice/Desktop/new/es3_4.jpg"); // sx
+  QPixmap case4_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_5.png"); // sx
   //QPixmap case4_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_4.jpg");
-  QPixmap case5_3("/home/alice/Desktop/new/es3_5.jpg"); // dx
+  QPixmap case5_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_6.png"); // dx
   //QPixmap case5_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_5.jpg");
-  QPixmap case6_3("/home/alice/Desktop/new/es3_6.jpg"); // rest
+  QPixmap case6_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_7.png"); // rest
   //QPixmap case6_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_6.jpg");
-  QPixmap case7_3("/home/alice/Desktop/new/es3_7.jpg"); // dx
+  QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_8.png"); // dx
   //QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_7.jpg");
-  QPixmap case8_3("/home/alice/Desktop/new/es3_8.jpg"); // centro
+  QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_9.png.jpg"); // centro
   //QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_8.jpg");
-  QPixmap case9_3("/home/alice/Desktop/new/es3_9.jpg"); // rest
+  QPixmap case9_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es3/es3_10.png"); // rest
   //QPixmap case9_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/new/es3_9.jpg");
 
-  QPixmap def_6("/home/alice/Desktop/es6/es6_1.jpeg");
+
+  //EXER 6 IMAGES
+  QPixmap def_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es6/es6_1.png");
   //QPixmap def_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es6/es6_1.jpeg");
-  QPixmap case2_6("/home/alice/Desktop/es6/es6_2.jpeg");
+  QPixmap case2_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es6/es6_2.png");
   //QPixmap case2_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es6/es6_2.jpeg");
 
-  QPixmap def_7("/home/alice/Desktop/ex_img1/07/es7_1.JPG");
-  //QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_1.JPG");
-  QPixmap case2_7("/home/alice/Desktop/ex_img1/07/es7_2.JPG");
-  //QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_2.JPG");
+  //EXER 5 IMAGES
+  QPixmap def_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es5/es5_1.png");
+  //QPixmap def_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es6/es6_1.jpeg");
+  QPixmap case2_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/es5/es5_2.png");
+  //QPixmap case2_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/es6/es6_2.jpeg");
 
 
-  QPixmap feedback_happy("/home/alice/Desktop/smile.jpeg");
+//  QPixmap def_7("/home/alice/Desktop/ex_img1/07/es7_1.JPG");
+//  //QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_1.JPG");
+//  QPixmap case2_7("/home/alice/Desktop/ex_img1/07/es7_2.JPG");
+//  //QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_2.JPG");
+
+
+  QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
   //QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
 
 
@@ -4382,7 +4402,7 @@ void paginaprincipale::next_img() {
 
     case 99:
       ui->label_img->setPixmap(case99);
-      ui->label_istr_ex->setText(istr99);
+    //  ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
       break;
     case 0:
@@ -4390,19 +4410,19 @@ void paginaprincipale::next_img() {
       break;
     case 1:
       ui->label_img->setPixmap(case1_1);
-      ui->label_istr_ex->setText(istr1_1);
+  //    ui->label_istr_ex->setText(istr1_1);
       qDebug()<< "case1";
       break;
 
     case 3:
       ui->label_img->setPixmap(case3_1);
-      ui->label_istr_ex->setText(istr3_1);
+    //  ui->label_istr_ex->setText(istr3_1);
       qDebug()<< "case3";
       break;
 
     case 5:
       ui->label_img->setPixmap(case5_1);
-      ui->label_istr_ex->setText(istr5_1);
+    //  ui->label_istr_ex->setText(istr5_1);
       qDebug()<< "case5";
       break;
 
@@ -4413,7 +4433,7 @@ void paginaprincipale::next_img() {
 
     default:
       ui->label_img->setPixmap(def);
-      ui->label_istr_ex->setText(istr_def);
+    //  ui->label_istr_ex->setText(istr_def);
       qDebug()<< "casedef";
       break;
 
@@ -4430,17 +4450,17 @@ void paginaprincipale::next_img() {
 
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
-      ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento punti con oggetto. \nPremere OK per iniziare.");
+      ui->label_img-> setText("Iniziamo esercizio di \n\nraggiungimento punti con oggetto. \n\nPremere OK per iniziare.");
       ui->pushButton_ok->setEnabled(true);
       break;
 
     case 0:
-      ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+      ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
       ui->pushButton_ok->setEnabled(false);
       break;
 
     case 101: // POSIZIONAMENTO OGGETTO
-      ui->label_img->setText("Terapista, posiziona l'oggetto \nsul punto del pad illuminato. \nQuindi premi OK");
+      ui->label_img->setText("Terapista, posiziona l'oggetto \n\nsul punto del pad illuminato.\n\nQuindi premi OK");
       ui->pushButton_ok->setEnabled(true);
       break;
     case 99:
@@ -4547,11 +4567,11 @@ void paginaprincipale::next_img() {
 
     case 100: // SCHERMATA ESERCIZIO
       // mostro foto dell'esercizio 1
-      ui->label_img-> setText("Iniziamo esercizio \nMano alla bocca con oggetto. \nPremere OK per iniziare.");
+      ui->label_img-> setText("Iniziamo esercizio\n\nMano alla bocca con oggetto.\n\nPremere OK per iniziare.");
       ui->pushButton_ok->setEnabled(true);
       break;
     case 101: //POSIZIONAMENO OGGETTO
-      ui->label_img-> setText("Terapista aggancia l'oggetto \n alla mano del paziente.\nQuindi premi OK");
+      ui->label_img-> setText("Terapista aggancia l'oggetto \n\n alla mano del paziente.\n\nQuindi premi OK");
       ui->pushButton_ok->setEnabled(true);
 
       break;
@@ -4562,7 +4582,7 @@ void paginaprincipale::next_img() {
       break;
 
     case 0:
-      ui->label_img->setText("Attendi che AGREE\nposizioni la mano in Rest");
+      ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
       ui->pushButton_ok->setEnabled(false);
       break;
 
@@ -4602,39 +4622,100 @@ void paginaprincipale::next_img() {
     }
     break;
 
-    // ELEVAZIONE LATERALE CON OGGETTO
-  case 7 :
+
+    // ESERICZIO MANO ALLA BOCCA SENZA OGGETTO
+  case 5:
     qDebug()<< dati::command_task_pp;
     switch(dati::command_task_pp) {
+
+    case 100: // SCHERMATA ESERCIZIO
+      // mostro foto dell'esercizio 1
+      ui->label_img-> setText("Iniziamo esercizio \n\nMano alla bocca con oggetto.\n\nPremere OK per iniziare.");
+      ui->pushButton_ok->setEnabled(true);
+      break;
+//    case 101: //POSIZIONAMENO OGGETTO
+//      ui->label_img-> setText("Terapista aggancia l'oggetto \n\nalla mano del paziente.\n\nQuindi premi OK");
+//      ui->pushButton_ok->setEnabled(true);
+
+ //     break;
     case 99:
       ui->label_img->setPixmap(case99);
-      ui->label_istr_ex->setText(istr99);
+  //    ui->label_istr_ex->setText(istr99);
       qDebug()<< "case99";
+      break;
+
+    case 0:
+      ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
       ui->pushButton_ok->setEnabled(false);
       break;
+
+
+
 
     case 1:
-      ui->label_img->setPixmap(case2_7);
-      ui->label_istr_ex->setText(istr2_7);
+      ui->label_img->setPixmap(case2_5);
+     // ui->label_istr_ex->setText(istr2_6);
+     // qDebug()<< "case2_6";
       ui->pushButton_ok->setEnabled(false);
-      qDebug()<< "case2_7";
       break;
 
-    case 102: //FEEDBACK PAZIENTE
+    case 2:
+      ui->label_img->setPixmap(def_5);
+      //ui->label_istr_ex->setText(istr_def6);
+    //  qDebug()<< "case2_6";
+      ui->pushButton_ok->setEnabled(false);
+      break;
+
+    case 102: //FEEDBACK
       ui->label_img->setPixmap(feedback_happy);
       ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
       ui->pushButton_ok->setEnabled(false);
       break;
 
     default:
-      ui->label_img->setPixmap(def_7);
-      ui->label_istr_ex->setText(istr_def7);
+      ui->label_img->setPixmap(def_5);
+   //   ui->label_istr_ex->setText(istr_def6);
+  //    qDebug()<< "casedef";
       ui->pushButton_ok->setEnabled(false);
-      qDebug()<< "casedef";
       break;
 
     }
     break;
+
+
+//    // ELEVAZIONE LATERALE CON OGGETTO
+//  case 7 :
+//    qDebug()<< dati::command_task_pp;
+//    switch(dati::command_task_pp) {
+//    case 99:
+//      ui->label_img->setPixmap(case99);
+//      ui->label_istr_ex->setText(istr99);
+//      qDebug()<< "case99";
+//      ui->pushButton_ok->setEnabled(false);
+//      break;
+
+//    case 1:
+//      ui->label_img->setPixmap(case2_7);
+//      ui->label_istr_ex->setText(istr2_7);
+//      ui->pushButton_ok->setEnabled(false);
+//      qDebug()<< "case2_7";
+//      break;
+
+//    case 102: //FEEDBACK PAZIENTE
+//      ui->label_img->setPixmap(feedback_happy);
+//      ui->label_istr_ex->setText("Congratulazioni! Continua Così!");
+//      ui->pushButton_ok->setEnabled(false);
+//      break;
+
+//    default:
+//      ui->label_img->setPixmap(def_7);
+//      ui->label_istr_ex->setText(istr_def7);
+//      ui->pushButton_ok->setEnabled(false);
+//      qDebug()<< "casedef";
+//      break;
+
+//    }
+//   break;
 
   } // end switch exer
 
@@ -4732,7 +4813,7 @@ void paginaprincipale::next_img() {
 /**********************       MOSTRO FEEDBACK DURANTE LA TERAPIA                       *********************/
 void paginaprincipale::show_feed() {
   //ui->label_fine_ex->setText("Congratulazioni hai completato correttamente l'esercizio, continua cosi!");
-  QPixmap smile("/home/alice/Desktop/smile.jpeg");
+  QPixmap smile("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
   ui->label_img->setPixmap(smile);
   timer_feedback->stop();
 }
@@ -5301,10 +5382,10 @@ void paginaprincipale::on_pushButton_remove_2_clicked()
 
 void paginaprincipale::on_pushButton_salva_recap_clicked()
 {
-  QString bicchiere, forchetta, libro;
+  QString bicchiere, borraccia, tazza;
   bicchiere = "Bicchiere";
-  forchetta = "Forchetta";
-  libro = "Libro";
+  borraccia = "Borraccia";
+  tazza = "Tazza";
 
   if(ui->checkBox_es1->isChecked())
   {  check_ex1=1;
@@ -5323,8 +5404,8 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     rep1 = dati::rip1.toInt();
     if(ui->comboBox_ogg1->isEnabled()) {
       if(ui->comboBox_ogg1->currentText()== bicchiere ) {  oggetto_es1= "1"; ros_ogg1=1; ui->label_oi1_recap->setText(bicchiere);}
-      else if (ui->comboBox_ogg1->currentText()==forchetta) { oggetto_es1= "2"; ros_ogg1=2; ui->label_oi1_recap->setText(forchetta);}
-      else if(ui->comboBox_ogg1 ->currentText()==libro) {ui->comboBox_ogg1->setCurrentText("libro"); oggetto_es1= "3"; ros_ogg1=3; ui->label_oi1_recap->setText(libro);} }
+      else if (ui->comboBox_ogg1->currentText()==borraccia) { oggetto_es1= "2"; ros_ogg1=2; ui->label_oi1_recap->setText(borraccia);}
+      else if(ui->comboBox_ogg1 ->currentText()==tazza) {ui->comboBox_ogg1->setCurrentText("tazza"); oggetto_es1= "3"; ros_ogg1=3; ui->label_oi1_recap->setText(tazza);} }
     else if (!(ui->comboBox_ogg1->isEnabled())) {
       oggetto_es1="0";
       ros_ogg1 = 0;
@@ -5380,8 +5461,8 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     rep2 = dati::rip2.toInt();
     if(ui->comboBox_ogg2->isEnabled()) {
       if(ui->comboBox_ogg2->currentText()== bicchiere ) {  oggetto_es2= "1"; ros_ogg2=1; ui->label_oi2_recap->setText(bicchiere);}
-      else if (ui->comboBox_ogg2->currentText()==forchetta) { oggetto_es2 = "2"; ros_ogg2= 2; ui->label_oi2_recap->setText(forchetta);}
-      else if(ui->comboBox_ogg2 ->currentText()==libro) {oggetto_es2= "3"; ros_ogg2= 3; ui->label_oi2_recap->setText(libro);} }
+      else if (ui->comboBox_ogg2->currentText()==borraccia) { oggetto_es2 = "2"; ros_ogg2= 2; ui->label_oi2_recap->setText(borraccia);}
+      else if(ui->comboBox_ogg2 ->currentText()==tazza) {oggetto_es2= "3"; ros_ogg2= 3; ui->label_oi2_recap->setText(tazza);} }
     else if (!(ui->comboBox_ogg2->isEnabled())) {
       oggetto_es2 = "0";
       ros_ogg2 = 0;
@@ -5430,8 +5511,8 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     rep3 = dati::rip3.toInt();
     if(ui->comboBox_ogg3->isEnabled()) {
       if(ui->comboBox_ogg3->currentText()== bicchiere ) { oggetto_es3= "1"; ros_ogg3=1; ui->label_oi3_recap->setText(bicchiere);}
-      else if (ui->comboBox_ogg3->currentText()==forchetta) { oggetto_es3= "2"; ros_ogg3=2; ui->label_oi3_recap->setText(forchetta);}
-      else if(ui->comboBox_ogg3 ->currentText()==libro) {  oggetto_es3= "3"; ros_ogg3=3; ui->label_oi3_recap->setText(libro);} }
+      else if (ui->comboBox_ogg3->currentText()==borraccia) { oggetto_es3= "2"; ros_ogg3=2; ui->label_oi3_recap->setText(borraccia);}
+      else if(ui->comboBox_ogg3 ->currentText()==tazza) {  oggetto_es3= "3"; ros_ogg3=3; ui->label_oi3_recap->setText(tazza);} }
     else if(!(ui->comboBox_ogg3->isEnabled())) {
       oggetto_es3 = "0";
       ros_ogg3 = 0;
@@ -5477,8 +5558,8 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     rep4 = dati::rip4.toInt();
     if(ui->comboBox_ogg4->isEnabled()) {
       if(ui->comboBox_ogg4->currentText()== bicchiere ) {oggetto_es4= "1"; ros_ogg4=1; ui->label_oi4_recap->setText(bicchiere);}
-      else if (ui->comboBox_ogg4->currentText()==forchetta) { oggetto_es4= "2"; ros_ogg4=2; ui->label_oi4_recap->setText(forchetta);}
-      else if(ui->comboBox_ogg4 ->currentText()==libro) { oggetto_es4= "3"; ros_ogg4=3; ui->label_oi4_recap->setText(libro);} }
+      else if (ui->comboBox_ogg4->currentText()==borraccia) { oggetto_es4= "2"; ros_ogg4=2; ui->label_oi4_recap->setText(borraccia);}
+      else if(ui->comboBox_ogg4 ->currentText()==tazza) { oggetto_es4= "3"; ros_ogg4=3; ui->label_oi4_recap->setText(tazza);} }
     else if (!(ui->comboBox_ogg4->isEnabled())) {
       oggetto_es4 = "0";
       ros_ogg4 = 0;
@@ -5527,8 +5608,8 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     rep5 = dati::rip5.toInt();
     if(ui->comboBox_ogg5->isEnabled()) {
       if(ui->comboBox_ogg5->currentText()== bicchiere ) { oggetto_es5= "1"; ros_ogg5=1; ui->label_oi5_recap->setText(bicchiere);}
-      else if (ui->comboBox_ogg5->currentText()==forchetta) { oggetto_es5= "2"; ros_ogg5=2; ui->label_oi5_recap->setText(forchetta);}
-      else if(ui->comboBox_ogg5->currentText()==libro) { oggetto_es5= "3"; ros_ogg5=3;ui->label_oi5_recap->setText(libro);} }
+      else if (ui->comboBox_ogg5->currentText()==borraccia) { oggetto_es5= "2"; ros_ogg5=2; ui->label_oi5_recap->setText(borraccia);}
+      else if(ui->comboBox_ogg5->currentText()==tazza) { oggetto_es5= "3"; ros_ogg5=3;ui->label_oi5_recap->setText(tazza);} }
     else if (!(ui->comboBox_ogg5->isEnabled())) {
       oggetto_es5 = "0";
       ros_ogg5 = 0;
@@ -5577,8 +5658,8 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     rep6 = dati::rip6.toInt();
     if(ui->comboBox_ogg6->isEnabled()) {
       if(ui->comboBox_ogg6->currentText()== bicchiere ) { oggetto_es6= "1"; ros_ogg6=1; ui->label_oi6_recap->setText(bicchiere);}
-      else if (ui->comboBox_ogg6->currentText()==forchetta) { oggetto_es6= "2"; ros_ogg6=2;ui->label_oi6_recap->setText(forchetta);}
-      else if(ui->comboBox_ogg6 ->currentText()==libro) { oggetto_es6= "3"; ros_ogg6=3;ui->label_oi6_recap->setText(libro);} }
+      else if (ui->comboBox_ogg6->currentText()==borraccia) { oggetto_es6= "2"; ros_ogg6=2;ui->label_oi6_recap->setText(borraccia);}
+      else if(ui->comboBox_ogg6 ->currentText()==tazza) { oggetto_es6= "3"; ros_ogg6=3;ui->label_oi6_recap->setText(tazza);} }
     else if(!(ui->comboBox_ogg6->isEnabled()))  {
       oggetto_es6 = "0";
       ros_ogg6 = 0;
@@ -5628,8 +5709,8 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     rep7 = dati::rip7.toInt();
     if(ui->comboBox_ogg7->isEnabled()) {
       if(ui->comboBox_ogg7->currentText()== bicchiere ) { oggetto_es7= "1"; ros_ogg7=1; ui->label_oi7_recap->setText(bicchiere);}
-      else if (ui->comboBox_ogg7->currentText()==forchetta) { oggetto_es7= "2"; ros_ogg7=2; ui->label_oi7_recap->setText(forchetta);}
-      else if(ui->comboBox_ogg7 ->currentText()==libro) { oggetto_es7= "3"; ros_ogg7=3; ui->label_oi7_recap->setText(libro);} }
+      else if (ui->comboBox_ogg7->currentText()==borraccia) { oggetto_es7= "2"; ros_ogg7=2; ui->label_oi7_recap->setText(borraccia);}
+      else if(ui->comboBox_ogg7 ->currentText()==tazza) { oggetto_es7= "3"; ros_ogg7=3; ui->label_oi7_recap->setText(tazza);} }
     else if(!(ui->comboBox_ogg7 ->isEnabled())) {
       oggetto_es7 = "0";
       ros_ogg7 = 0;
@@ -6119,7 +6200,7 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
 void paginaprincipale::set_comp_param(){
 
   comp_param = ui->progressBar_comp->value();
-  comp_param =comp_param/int(125);
+  comp_param =comp_param/int(100);
   ros::NodeHandle n;
   n.setParam ("/physiological_param/arm_compensation", comp_param);
 
@@ -6129,7 +6210,7 @@ void paginaprincipale::set_comp_param(){
 void paginaprincipale::set_comp_param_ses(){
 
   comp_param = ui->progressBar_comp_ses->value();
-  comp_param = comp_param/125;
+  comp_param = comp_param/100;
   ros::NodeHandle n;
   n.setParam ("/physiological_param/arm_compensation", comp_param);
   QString comp_s1;
@@ -6217,5 +6298,5 @@ void paginaprincipale::on_pushButton_5_clicked()
 void paginaprincipale::on_pushButton_pdf_clicked()
 {
     //system("xdg-open test_pdf.pdf");
-    system ("xdg-open /home/alice/Desktop/evaluationpdf.pdf");
+   // system ("xdg-open /home/alice/Desktop/evaluationpdf.pdf");
 }
