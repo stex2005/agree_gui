@@ -476,19 +476,19 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
   // prova immagini
-  QPixmap pic1("/home/alice/catkin_ws/src/agree_gui/resources/images/img/modalità/mob_pass.png");
+  QPixmap pic1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/passivo.png");
   ui->label_pass->setPixmap(pic1);
 
-  QPixmap pic2("/home/alice/catkin_ws/src/agree_gui/resources/images/img/modalità/trigger.png");
+  QPixmap pic2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/trigger.png");
   ui->label_trigger->setPixmap(pic2);
 
-  QPixmap pic3("/home/alice/catkin_ws/src/agree_gui/resources/images/img/modalità/asasn.png");
+  QPixmap pic3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/asan.png");
   ui->label_asasne->setPixmap(pic3);
 
-  QPixmap pic4("/home/alice/catkin_ws/src/agree_gui/resources/images/img/modalità/antg.png");
+  QPixmap pic4("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png");
   ui->label_antig->setPixmap(pic4);
 
-  QPixmap pic5("/home/alice/catkin_ws/src/agree_gui/resources/images/img/modalità/challenging.png");
+  QPixmap pic5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/chall.png");
   ui->label_chall->setPixmap(pic5);
 
   QPixmap pic_trasp("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/mode_trasparente.png");
@@ -515,16 +515,16 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QPixmap pic11("/home/alice/catkin_ws/src/agree_gui/resources/images/img/ROM/polso.png");
   ui->label_16->setPixmap(pic11);
 
-  QPixmap pic12("/home/alice/catkin_ws/src/agree_gui/resources/images/init.png");
+  QPixmap pic12("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/iniz.png");
   ui->label_wait->setPixmap(pic12);
 
 
-  QPixmap pic13("/home/alice/catkin_ws/src/agree_gui/resources/images/alarm.png");
+  QPixmap pic13("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/emergenza.png");
   ui->label_allarme_2->setPixmap(pic13);
 
 
 
-  QPixmap pic14("/home/alice/catkin_ws/src/agree_gui/resources/images/cal_pad.png");
+  QPixmap pic14("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/cal_mat.png");
   ui->label_cal_pad->setPixmap(pic14);
 
   QPixmap pic15("/home/alice/catkin_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
@@ -584,7 +584,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
  // ui->pushButton_avanti_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
 
   ui->label_tut->setText("Seguire le istruzioni per il Montaggio dei moduli selezionati. \nPer Saltare il Tutorial fare click su 'Salta Tutorial' ");
-  ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.Verificare la vestibilità sul Paziente.\nUna volta effettuata la procedura premere Avanti per Continuare.");
+  ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.\n\nVerificare la vestibilità sul Paziente.\n\nUna volta effettuata la procedura premere Avanti per Continuare.");
   //creo la data
   QDate data;
   data= QDate::currentDate();
