@@ -4,6 +4,7 @@
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/paginaprincipale.h"
 #include "../include/agree_gui/qnode.hpp"
+#include "../include/agree_gui/fsm_gui_define.h"
 #include <QMessageBox>
 #include <QFloat16>
 
@@ -96,7 +97,7 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
     dati::command_sec_sc3_old = dati::command_sec_sc3;
     ROS_INFO("I heard: %d SCENARIO 3", dati::command_sc3);
 
-    if(dati::command_old_sc3 ==3002) {
+    if(dati::command_old_sc3 ==SC3_PHYSIOLOGICAL_EDIT) {
 
       ui->stackedWidget->setCurrentWidget(ui->page_config);
       ui->pushButton_allarme_sc3->setVisible(false);
@@ -141,23 +142,23 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
         else qDebug()<< dati_agg_sc3.lastError();
     }
     // INIZIALIZZAZIONE
-    if (dati::command_old_sc3 == 3003) {
+    if (dati::command_old_sc3 == SC3_LAUNCH_NODES) {
       ui->stackedWidget->setCurrentWidget(ui->page_init_sc3);
     }
     // VESTIZIONE
-    if (dati::command_old_sc3 == 3004) {
+    if (dati::command_old_sc3 == SC3_WEARING) {
       ui->stackedWidget->setCurrentWidget(ui->page_vest_sc3);
     }
     // ROM
-    if (dati::command_old_sc3 == 3005) {
+    if (dati::command_old_sc3 == SC3_ROM) {
       ui->stackedWidget->setCurrentWidget(ui->page_ROM_sc3);
     }
     // AVVISO CONFIGURAZIONE JOYSTICK
-    if (dati::command_old_sc3 == 3006) {
+    if (dati::command_old_sc3 == SC3_JOY_CALIBRATION) {
       ui->stackedWidget->setCurrentWidget(ui->page_joystick_conf_confirm);
     }
     // INIZIO CONFIGURAZIONE JOYSTICK
-    if (dati::command_old_sc3 == 3007) {
+    if (dati::command_old_sc3 == SC3_GO_CALIBRATION_WINDOW) {
 
       ui->stackedWidget->setCurrentWidget(ui->page_joy);
       joy=1;
@@ -287,14 +288,14 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
       }
     }
     // SALVATAGGIO POSIZIONE DI REST
-    if (dati::command_old_sc3 == 3009) {
+    if (dati::command_old_sc3 == SC3_SAVE_REST_POS) {
 
       ui->stackedWidget->setCurrentWidget(ui->page_rest_pos_sc3);
     }
-    if(dati::command_old_sc3==3010){
+    if(dati::command_old_sc3==SC3_HOME){
         QFont font = ui->pushButton_GIU->font();
 
-      dati::status1 = 3010;
+      dati::status1 = SC3_HOME;
 
       std_msgs::Int16 msg_status;
       msg_status.data = dati::status1;
@@ -422,7 +423,7 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
     }
 
     //CONTROLLO CON JOYSTICK
-    if(dati::command_old_sc3==3011) {
+    if(dati::command_old_sc3==SC3_MANUAL) {
       ui->stackedWidget->setCurrentWidget(ui->page_sessione_sc3);
       if(dati::command_istr_sc3_old==1) {
         ui->pushButton_XY_JOY->setStyleSheet("background-color : green");
@@ -438,7 +439,7 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
       }
     }
     //RECALL POSITION
-    if(dati::command_old_sc3==3012) {
+    if(dati::command_old_sc3==SC3_RECALL) {
       ui->stackedWidget->setCurrentWidget(ui->page_recallpos);
       if (dati::command_istr_sc3_old==0) {
         ui->pushButton_indietro->setStyleSheet("background-color : green");
@@ -610,15 +611,15 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
       }
     }
       //SALVA POSIZIONE
-    if(dati::command_old_sc3==3013) {
+    if(dati::command_old_sc3==SC3_SAVE) {
 
     }
        //CONTROLLO VOCALE
-    if(dati::command_old_sc3==3014) {
+    if(dati::command_old_sc3==SC3_VOCAL) {
 
     }
     //CONTROLLO SINGOLO GIUNTO
-    if(dati::command_old_sc3==3015) {
+    if(dati::command_old_sc3==SC3_JOINTS_CONTROL) {
       ui->stackedWidget->setCurrentWidget(ui->page_joint);
       if(dati::command_istr_sc3_old==0) {
         ui->pushButton_indietroj->setStyleSheet("background-color : green");
@@ -680,7 +681,7 @@ void sc_assistivo::callback3(const agree_gui::agree_gui_command msg_command_sc3)
       }
 
     }
-    if(dati::command_old_sc3==3016) {
+    if(dati::command_old_sc3==SC3_ELBOW_CONTROL) {
       ui->stackedWidget->setCurrentWidget(ui->page_rot_gomito);
 
     }
@@ -758,11 +759,6 @@ void sc_assistivo::myfunction4() {
 }
 
 
-
-// // update();
-
-
-
 void sc_assistivo::on_pushButton_salva_clicked()
 {
 
@@ -801,7 +797,7 @@ void sc_assistivo::on_pushButton_salva_clicked()
     n.setParam("physiological_param/weight",w_sc3_f);
 
 
-    dati::status1 = 3002;
+    dati::status1 = SC3_PHYSIOLOGICAL_EDIT;
 
     std_msgs::Int16 msg_status;
     msg_status.data = dati::status1;
@@ -842,9 +838,6 @@ void sc_assistivo::on_pushButton_vocale_clicked()
 }
 
 
-
-
-
 void sc_assistivo::on_pushButton_joy_clicked()
 {
 
@@ -859,9 +852,6 @@ void sc_assistivo::on_pushButton_joy_clicked()
 
 
 }
-
-
-
 
 
 void sc_assistivo::on_pushButton_joystick_clicked()
@@ -921,54 +911,13 @@ void sc_assistivo::on_pushButton_gomito_clicked()
 
 }
 
-//DESC LIMIT 1
-
-
 
 void sc_assistivo::on_pushButton_singoloj_clicked()
 {
   ui->stackedWidget->setCurrentWidget(ui->page_joint);
 }
 
-//void sc_assistivo::on_pushButton_modifica_2_clicked()
-//{
-//  dati::nuovo_utente = 0;
-//   ui->stackedWidget->setCurrentWidget(ui->page_config);
-//   if (dati::nuovo_utente==0)
-//   {
-//     QSqlQuery sel_mod;
 
-//     sel_mod.prepare("select Sesso, Patologia, Lato_dominante, Lunghezza_braccio, Lunghezza_avambraccio,altezza,peso, uROM1_min, uROM1_max, uROM2_min, uROM2_max,uROM3_min, uROM3_max,uROM4_min, uROM4_max,uROM5_min, uROM5_max from Utenti_ass where usernameass = '"+dati::username+"' ");
-//     if (sel_mod.exec()){
-//     while (sel_mod.next()) {
-//    //  sel_mod.value(0).toString();
-//    //  sel_mod.value(2).toString();
-//       QString patologia = sel_mod.value(1).toString();
-
-//       ui->lineEdit_patologia->setText(patologia);
-//       ui->lineEdit_la->setText(sel_mod.value(4).toString());
-//       ui->lineEdit_lb->setText(sel_mod.value(3).toString());
-//       ui->lineEdit_h->setText(sel_mod.value(5).toString());
-//       ui->lineEdit_w->setText(sel_mod.value(6).toString());
-//       ui->lineEdit_rom1_min->setText(sel_mod.value(7).toString());
-//       ui->lineEdit_rom1_max->setText(sel_mod.value(8).toString());
-//       ui->lineEdit_rom2_min->setText(sel_mod.value(9).toString());
-//       ui->lineEdit_rom2_max->setText(sel_mod.value(10).toString());
-//       ui->lineEdit_rom3_min->setText(sel_mod.value(11).toString());
-//       ui->lineEdit_rom3_max->setText(sel_mod.value(12).toString());
-//       ui->lineEdit_rom4_min->setText(sel_mod.value(13).toString());
-//       ui->lineEdit_rom4_max->setText(sel_mod.value(14).toString());
-//       ui->lineEdit_rom5_min->setText(sel_mod.value(15).toString());
-//       ui->lineEdit_rom5_max->setText(sel_mod.value(16).toString());
-//     }
-//     }
-//     else{qDebug()<<sel_mod.lastError();}
-
-
-
-
-//   }
-//}
 
 void sc_assistivo::on_pushButton_salva_rom_sc3_clicked()
 {
@@ -1014,7 +963,7 @@ void sc_assistivo::on_pushButton_salva_rom_sc3_clicked()
     n.setParam("/physiological_param/ROM_Max", J_MAX_SC3);
     n.setParam("/physiological_param/ROM_Min", J_MIN_SC3);
 
-    dati::status1 = 3005;
+    dati::status1 = SC3_ROM;
 
     std_msgs::Int16 msg_status;
     msg_status.data = dati::status1;
@@ -1031,7 +980,7 @@ void sc_assistivo::on_pushButton_salva_rom_sc3_clicked()
 
 void sc_assistivo::on_pushButton_skip_sc3_clicked()
 {
-  dati::status1 = 3004;
+  dati::status1 = SC3_WEARING;
 
   std_msgs::Int16 msg_status;
   msg_status.data = dati::status1;
@@ -1047,7 +996,7 @@ void sc_assistivo::on_pushButton_spegni_clicked()
 
 void sc_assistivo::on_pushButton_configura_joy_sc3_clicked()
 {
-  dati::status1 = 3006;
+  dati::status1 = SC3_DO_JOY_CALIBRATION;
 
   std_msgs::Int16 msg_status;
   msg_status.data = dati::status1;
@@ -1058,7 +1007,7 @@ void sc_assistivo::on_pushButton_configura_joy_sc3_clicked()
 
 void sc_assistivo::on_pushButton_salta_joy_clicked()
 {
-  dati::status1 = 3008;
+  dati::status1 = SC3_SKIP_CALIBRATION;
 
   std_msgs::Int16 msg_status;
   msg_status.data = dati::status1;
@@ -1070,11 +1019,11 @@ void sc_assistivo::on_pushButton_salta_joy_clicked()
 
 
 void sc_assistivo::cal_joy()  {
-  if(dati::command_sc3==3007) {
+  if(dati::command_sc3==SC3_GO_CALIBRATION_WINDOW) {
 
     qDebug()<<"sono nella funzione cal_joy";
     if ((dati::command_istr_sc3==0) && (dati::command_sec_sc3==0)) {
-      dati::status1 = 3007;
+      dati::status1 = SC3_GO_CALIBRATION_WINDOW;
 
       std_msgs::Int16 msg_status;
       msg_status.data = dati::status1;
@@ -1232,7 +1181,7 @@ void sc_assistivo::cal_joy()  {
 
 void sc_assistivo::on_pushButton_rifo_joy_clicked()
 {
-  dati::status1 = 3006;
+  dati::status1 = SC3_DO_JOY_CALIBRATION;
 
   std_msgs::Int16 msg_status;
   msg_status.data = dati::status1;
@@ -1242,7 +1191,7 @@ void sc_assistivo::on_pushButton_rifo_joy_clicked()
 
 void sc_assistivo::on_pushButton_end_conf_joy_clicked()
 {
-  dati::status1 = 3008;
+  dati::status1 = SC3_SKIP_CALIBRATION;
 
   std_msgs::Int16 msg_status;
   msg_status.data = dati::status1;
@@ -1252,7 +1201,7 @@ void sc_assistivo::on_pushButton_end_conf_joy_clicked()
 
 void sc_assistivo::on_pushButton_clicked()
 {
-  dati::status1 = 3009;
+  dati::status1 = SC3_SAVE_REST_POS;
 
   std_msgs::Int16 msg_status;
   msg_status.data = dati::status1;

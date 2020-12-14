@@ -1,5 +1,6 @@
 #include "../include/agree_gui/matrixwidget.h"
 #include "../include/agree_gui/login.h"
+#include "../include/agree_gui/fsm_gui_define.h"
 
 
 #include <QFile>
@@ -22,7 +23,7 @@ bool dati::selcount_mat=0;
 MatrixXd openData(string fileToOpen);
 
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
-{ if(dati::command_old_matrix==1007){
+{ if(dati::command_old_matrix==SC1_WORKSPACE_ON){
     LoadData();
     qDebug()<<"dati caricati";
   }
@@ -44,11 +45,11 @@ void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_comman
   if((dati::command_old_matrix) != (dati::command_matrix)) {
     dati::command_old_matrix=dati::command_matrix;
     qDebug()<< "matrix";
-    if(dati::command_old_matrix==1007){
+    if(dati::command_old_matrix==SC1_WORKSPACE_ON){
       LoadData();
       qDebug()<<"dati caricati";
     }
-    if(dati::command_old_matrix == 1008) { //SALVO PARAMETRI DA ROSPARAMETERS
+    if(dati::command_old_matrix == SC1_UPDATE_LED) { //SALVO PARAMETRI DA ROSPARAMETERS
 
       qDebug()<< "callback_matrix, command_old 8";
       //point0 = {15,3};
@@ -72,7 +73,7 @@ void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_comman
       //}
 
 
-      dati::status1 = 1008;
+      dati::status1 = SC1_UPDATE_LED;
       //?
       std_msgs::Int16 msg;
       msg.data = dati::status1;
@@ -80,7 +81,7 @@ void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_comman
       status_publisher.publish(msg);
 
     }
-    if(dati::command_old_matrix == 1009) {
+    if(dati::command_old_matrix == SC1_SELECT_FINISH) {
       if(selCount==1)
       {
         Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
@@ -119,7 +120,7 @@ QVector<QPoint> MatrixWidget::getPosition() const
 }
 void MatrixWidget::mousePressEvent(QMouseEvent *event)
 { ros::NodeHandle n;
-  if(dati::command_old_matrix == 1009){
+  if(dati::command_old_matrix == SC1_SELECT_FINISH){
     QPoint p= event->pos(); //dove clicco
 
     int xindex = p.x()/ bw;
@@ -153,7 +154,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
         qDebug()<< "riempio point1";
         qDebug()<< point1;
-        dati::status1 = 1009;
+        dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
         ROS_INFO ("%d", msg.data);
@@ -172,7 +173,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
         qDebug()<< "riempio point2";
         qDebug()<< point2;
-        dati::status1 = 1009;
+        dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
         ROS_INFO ("%d", msg.data);
@@ -187,7 +188,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         n.setParam("/point3/mat_coordinates", point3);
         qDebug()<< "riempio point3";
         qDebug()<< point3;
-        dati::status1 = 1009;
+        dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
         ROS_INFO ("%d", msg.data);
@@ -221,7 +222,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
       if(point1 == deselezione) {
         point1 = {0,0};
         n.setParam("/point1/mat_coordinates", point1);
-        dati::status1 = 1009;
+        dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
         ROS_INFO ("%d", msg.data);
@@ -231,7 +232,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
       else if (point2 == deselezione) {
         point2 = {0,0};
         n.setParam("/point2/mat_coordinates", point2);
-        dati::status1 = 1009;
+        dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
         ROS_INFO ("%d", msg.data);
@@ -240,7 +241,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
       else if (point3 == deselezione){
         point3 = {0,0};
         n.setParam("/point3/mat_coordinates", point3);
-        dati::status1 = 1009;
+        dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
         ROS_INFO ("%d", msg.data);

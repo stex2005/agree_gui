@@ -63,9 +63,9 @@ struct ExInfo{
   QList<QPixmap> images;
 };
 
-/********************         IMMAGINI MONTAGGIO            *******************/
+/********************         ASSEMBLY IMAGES            *******************/
 
-QList<QPixmap > GetImages2(QString tutID); //carico le immagini dal folder tutorial
+QList<QPixmap > GetImages2(QString tutID); //UPLOAD OF TUTORIAL IMAGES
 
 struct TutInfo {
   QString tut;
@@ -73,7 +73,7 @@ struct TutInfo {
   QStringList istr;
 };
 
-/********************         IMMAGINI VESTIZIONE            *******************/
+/********************         WEARING IMAGES            *******************/
 
 QList<QPixmap> GetImages3(QString vestID);
 struct VestInfo {
@@ -111,11 +111,11 @@ class paginaprincipale : public QDialog
 
   /*****************************************************************************
 
-  ***********************       DICHIARO MAPPE IMMAGINI         ****************
+  ***********************       MAPPING THE IMAGES         ****************
 
   *****************************************************************************/
 
-  /**********************         MAPPA ESERCIZI         *********************/
+  /**********************        EXERCISES MAP         *********************/
 
    std::map<QString,ExInfo>ExInfoMap;
    int curImage = 0;
@@ -125,7 +125,7 @@ class paginaprincipale : public QDialog
    QString key;
       std::vector<int> vect;
 
-    /**********************         MAPPA MONTAGGIO         *********************/
+    /**********************         ASSEMPLY MAP         *********************/
 
    std::map<QString, TutInfo> TutInfoMap;
    int curImg = 0;
@@ -133,15 +133,15 @@ class paginaprincipale : public QDialog
    int curTut = 0;
    QString key2;
 
-    /**********************        MAPPA VESTIZIONE          *********************/
+    /**********************        WEARING MAP          *********************/
 
-   std::map<QString, VestInfo> VestInfoMap; //VESTIZIONE
+   std::map<QString, VestInfo> VestInfoMap; //WEARING
    int curimgs = 0;
    QVector<QString> sel_vest;
    int curVest = 0;
    QString key3;
 
-   /********************       DICHIARO MATRICE PAD         *******************/
+   /********************       MATRIX MAT DECLARATION         *******************/
 
     MatrixWidget * matrix = new MatrixWidget (this);
 
@@ -151,7 +151,7 @@ class paginaprincipale : public QDialog
 
     /*****************************************************************************
 
-    ***************         DICHIARO MESSAGGI ROS         ******************
+    ***************         ROS MESSAGES DECLARATION          ******************
 
     *****************************************************************************/
 
@@ -165,7 +165,7 @@ class paginaprincipale : public QDialog
 
     std_msgs::Int16 msg_status_pp;
 
-    // STRING LIST PER ASSOCIARE LO USER
+    // STRING LIST TO ASSOCIATE ANOTHER THERAPIST
     QStringList associa_user;
 
     bool check_ex1;
@@ -174,11 +174,11 @@ class paginaprincipale : public QDialog
 
     /*****************************************************************************
 
-    ***************         DICHIARO VARIABILI ROS PARAMETERS   ******************
+    ***************         ROS PARAMETERS DECLARATION   ******************
 
     *****************************************************************************/
 
-    /***************               MODULI ATTIVI               ******************/
+    /***************               ACTIVE MODULES               ******************/
 
     bool active_module_spalla = 0;
     bool active_module_gomito = 0;
@@ -192,39 +192,48 @@ class paginaprincipale : public QDialog
     bool active_module_IK_ONLINE=0;
 
 
-    /***************          DEFINISCO ROS PARAMETERS          ******************/
 
-    std::vector<bool> active_modules; //MODULI ATTIVI
+    std::vector<bool> active_modules; //ACTIVE MODULES
     std::vector<double> J_MAX;         // ROM MAX
     std::vector<double> J_MIN;         // ROM MIN
     double upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param;
+    // UA --> upper arm
+    // LA --> lower arm
+    // H --> hand
+    // *_m variables refer to the mass of UA (upperarm), LA (lowerarm), H (hand)
+    // CdM_* variables refer to the center of mass of UA, LA, H
+    //comp_param refers to the compensation parameter of the weight of the arm needed to the exoskeleton
+
     std::vector<double> ARM_LENGTH;    // LUNGHEZZA BRACCIO
     uint8_t mode;
     int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
-    std::vector<int> ex_seq;
+    std::vector<int> ex_seq; //exercises sequence
     int rep1=0, rep2=0, rep3=0, rep4=0, rep5=0, rep6=0, rep7=0;
-    std::vector<int> ex_rep;
-    std::vector<int> ex_obj;
+    std::vector<int> ex_rep; //exercise repetition
+    std::vector<int> ex_obj; //exercise objects
 
 
-     std::vector<int> point1;
+    /***************            MAT  POINTS           ******************/
 
-     std::vector<int> point2;
-      std::vector<int> point3;
+     std::vector<int> point1; //target point 1
+
+     std::vector<int> point2; //target point 2
+      std::vector<int> point3; // target point 3
+
     /*****************************************************************************
 
-    ***************            CALCOLO TEMPO TERAPIA            ******************
+    ***************            VARIABLES TO COMPUTE THE ESTIMATION OF TIME THERAPY       ******************
 
     *****************************************************************************/
 
     QString es1, es2,es3,es4,es5,es6,es7;
-    int t_es1, t_es2, t_es3, t_es4, t_es5, t_es6, t_es7;
-    int ripe1, ripe2, ripe3, ripe4, ripe5, ripe6, ripe7;
+    int t_es1, t_es2, t_es3, t_es4, t_es5, t_es6, t_es7; //time for each exercise
+    int ripe1, ripe2, ripe3, ripe4, ripe5, ripe6, ripe7; //  repetition for each exercise
     int temp_tot;
     QString temp_string;
     /*****************************************************************************
 
-    *********            DICHIARO VARIABILI PER OGGETTI TERAPIA          *********
+    *********            VARIABLES DECLARION FOR INTERACTIVE OBJECTS           *********
 
     *****************************************************************************/
 
@@ -233,20 +242,11 @@ class paginaprincipale : public QDialog
 
     /*****************************************************************************
 
-    *********            DICHIARO VARIABILI VALUTAZIONE                  *********
+    *********            EVALUATION VARIABLE DECLARATION                  *********
 
     *****************************************************************************/
 
-//    float  rand1, rand2, rand3, rand4, rand5, rand6,rand10;
-//    float arr7_1, arr7_2,arr7_3,arr7_4,arr7_5;
-//    float arr9_1, arr9_2,arr9_3,arr9_4,arr9_5;
-//    QVector<float> val;
-//    QVector<float> val2;
-//    QVector<float> val8;
-//    QStringList vals;
-//    QStringList vals2;
-//    QStringList vals8;
-//    int8_t num;
+    // METTI OUTPUT QUI
 
 
 
@@ -263,39 +263,39 @@ signals:
 
 private slots:
 
-/**********************         NUOVO PAZIENTE         *********************/
+/**********************         NEW PATIENT         *********************/
 
   void on_pushButton_nuovopaziente_clicked();
 
-/**********************         NUOVO PAZIENTE         *********************/
+/**********************         SAVE NEW PATIENT         *********************/
 
   void on_pushButton_salva_clicked();
 
-/**********************         ELENCO PAZIENTI         *********************/
+/**********************        PATIENTS LIST         *********************/
 
   void on_pushButton_elencoPazienti_clicked();
 
-/*****               FUNZIONE PER ATTIVARE IL CLICK SUL DATABASE      *********/
+/*****               FUNCTION TO ACTIVATE THE CLICK MOUSE ON THE DATABASE TABLE      *********/
 
   void on_tableView_database_activated(const QModelIndex &index);
 
-/**********************         ELIMINA PAZIENTE           *********************/
+/**********************         DELETE PATIENT           *********************/
 
   void on_pushButton_eliminapaziente_clicked();
 
-/**********************         MODIFICA PAZIENTE            *********************/
+/**********************         EDIT PATIENT            *********************/
 
   void on_pushButton_modifica_clicked();
 
-/**********************         MODIFICA UTENTE              *********************/
+/**********************        EDIT USER              *********************/
 
   void on_pushButton_utente_clicked();
 
-/**********************         SALVA MODIFICA UTENTE        *********************/
+/**********************         SAVE USER EDIT        *********************/
 
   void on_pushButton_salva_2_clicked();
 
-/**********************         SEDUTA RIABILITATIVA         *********************/
+/**********************         START REHAB CONFIGURATION         *********************/
 
   void on_pushButton_vestizioneAgree_clicked();
 
@@ -303,32 +303,32 @@ private slots:
 
   void on_pushButton_home_clicked();
 
-/**********************         DISABILITA COMBO OGGETTI     *********************/
+/**********************         ENABLE OBJECTS COMBOBOXES      *********************/
 
-  void enable_combo();
-  void enable_combo_recap();
+  void enable_combo(); //REHAB CONFIGURATION
+  void enable_combo_recap();  //REHAB RECAP
 
-/**********************         CALCOLA TEMPO TERAPIA        *********************/
+/**********************         COMPUTE TIME THERAPY       *********************/
 
-  void update_tempo_terapia();
-  void update_tempo_recap();
+  void update_tempo_terapia(); //REHAB CONFIGURATION
+  void update_tempo_recap();   //REHAB RECAP
 
 
 
-/**********************         DISABILITÀ COMBO ESERCIZI    *********************/
+/**********************         ENABLE EXERCISES COMBOBOXES    *********************/
 
-  void enable_combo_ex();
-  void enable_combo_ex_recap();
+  void enable_combo_ex(); //REHAB CONFIGURATION
+  void enable_combo_ex_recap(); //REHAB RECAP
 
-  /**********************         DISABILITÀ CHECKBOX MODULI   *********************/
+  /**********************         ENABLE MODULES CHECKBOXES   *********************/
 
-    void enable_checkbox_moduli_sx();
-    void enable_checkbox_moduli_dx();
-    void enable_checkbox_moduli_spalla();
-    void enable_checkbox_moduli_gomito();
-    void enable_checkbox_moduli_polso();
+    void enable_checkbox_moduli_sx(); //LEFT SIDE
+    void enable_checkbox_moduli_dx(); //RIGHT SIDE
+    void enable_checkbox_moduli_spalla(); //SHOULDER
+    void enable_checkbox_moduli_gomito(); //ELBOW
+    void enable_checkbox_moduli_polso(); //WRIST
 
-/**********************               ESERCIZI               *********************/
+/**********************               EXERCISES FUNCTION               *********************/
 
   void next_img();
 
@@ -340,15 +340,15 @@ private slots:
 
   void on_pushButton_salta_clicked();
 
-/**********************       SALVA ROM                       *********************/
+/**********************       SAVE ROM                       *********************/
 
   void on_pushButton_salvaconf_clicked();
 
-/**********************       CERCA PAZIENTE                 *********************/
+/**********************       SEARCH FOR PATIENT BY SURNAME                 *********************/
 
   void on_pushButton_cerca_3_clicked();
 
-/**********************       SALVA ESERCIZI                 *********************/
+/**********************       SAVE EXECISES                 *********************/
 
   void on_pushButton_salvaex_clicked();
 
@@ -356,31 +356,31 @@ private slots:
 
  // void on_pushButton_controllo_clicked();
 
-/**********************       SALVA MODULI                   *********************/
+/**********************       SAVE MODULES                  *********************/
 
   void on_pushButton_salvamoduli_clicked();
 
-/**********************       SALVA PUNTI PAD                *********************/
+/**********************       SAVE MAT TARGET POINTS                *********************/
 
   void on_pushButton_salvatapp_clicked();
 
-/**********************       INIZIA TERAPIA                 *********************/
+/**********************      START THERAPY                *********************/
 
   void on_pushButton_next_clicked();
 
-/**********************       INDIETRO TUTORIAL MONTAGGIO    *********************/
+/**********************       BACK ASSEMLY TUTORIAL    *********************/
 
   void on_pushButton_indietro_2_clicked();
 
-/**********************       SALTA  TUTORIAL MONTAGGIO      *********************/
+/**********************       SKIP ASSEMBLI TUTORIAL      *********************/
 
   void on_pushButton_prosegui_clicked();
 
-/**********************       SALTA TUTORIAL VESTIZIONE      *********************/
+/**********************       SKIP WEARING TUTORIAL      *********************/
 
   void on_pushButton_go_clicked();
 
-/**********************       DICHIARAZIONE CALLBACK ROS     *********************/
+/**********************       ROS CALLBACK DECLARATION     *********************/
 
 // void callback1(const std_msgs::StringConstPtr& str);
 
@@ -388,26 +388,18 @@ private slots:
 
  void emg_callback(const agree_gui::agree_emg_status msg);
 
- void skip_init();
 
-/**********************    FUNZIONE PER MOSTRARE VALUTAZIONE    ******************/
-
- void show_val();
-
-/**********************   FUNZIONE PER MOSTRARE FEEDBACK PAZIENTE     *************/
-
- void show_feed();
-/**********************   FUNZIONE PER SETTARE ROSPARAM     *************/
+/**********************   SET COMPENSATION ROSPARAM DURING REHAB CONFIGURATION     *************/
 
  void set_comp_param();
- /**********************   FUNZIONE PER SETTARE ROSPARAM DALLA SESSIONE     *************/
+ /**********************   SET COMPENSATION AD ROSPARAM DURING REHAB SESSION     *************/
 
   void set_comp_param_ses();
 /**********************       INTERROMPI TERAPIA             *********************/
 
  void on_pushButton_allarme_clicked();
 
-/**********************       AVANTI  TUTORIAL VESTIZIONE      *********************/
+/**********************       GO FORWARD WEARING TUTORIAL      *********************/
 
  void on_pushButton_avanti_v_clicked();
 
@@ -475,6 +467,8 @@ private slots:
  void on_pushButton_5_clicked();
 
  void on_pushButton_pdf_clicked();
+
+ void on_pushButton_es_libero_clicked();
 
 private:
   Ui::paginaprincipale *ui;

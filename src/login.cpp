@@ -4,6 +4,7 @@
 #include "../include/agree_gui/paginaprincipale.h"
 #include "../include/agree_gui/main_window.hpp"
 #include "../include/agree_gui/sc_assistivo.h"
+#include "../include/agree_gui/fsm_gui_define.h"
 
 
 
@@ -114,12 +115,12 @@ void login::callback_log(const agree_gui::agree_gui_command msg_command) {
     dati::command_old_login=dati::command_login;
    ROS_INFO("I heard: %d Log Page", dati::command_login);
 
-    if (dati::command_old_login == 1002) {
+    if (dati::command_old_login == SC1_EDIT_PATIENT_MODULE_CONTROL) {
 
       this->hide();
 
    }
-    if(dati::command_old_login == 3002) {
+    if(dati::command_old_login == SC3_PHYSIOLOGICAL_EDIT) {
       this ->hide();
 //      Sc_assistivo = new sc_assistivo();
 //                  Sc_assistivo->show();

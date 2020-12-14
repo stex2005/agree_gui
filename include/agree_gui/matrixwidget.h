@@ -13,6 +13,7 @@
 using namespace Eigen;
 using namespace std;
 
+/****************************** struct definition of the cell of the MAT  ********************************************/
 struct DataPoint {
     int x;
     int y;
@@ -46,7 +47,7 @@ public:
  QVector<QPoint>position;
 
 
- /***************          DEFINISCO ROS PARAMETERS          ******************/
+ /***************          ROS PARAMETERS DEFINITION          ******************/
  std::vector<int> point0;
  int zero_point0 = 0;
  std::vector<int> point1;

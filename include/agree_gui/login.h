@@ -20,7 +20,7 @@
 
 /*****************************************************************************
 
-***************         DICHIARO VARIABILI GLOBALI         ******************
+***************         GLOBAL VARIABLES DECLARATION         ******************
 
 *****************************************************************************/
 
@@ -42,7 +42,7 @@ class login : public QMainWindow
   Q_OBJECT
   /*****************************************************************************
 
-  ***************         DICHIARO MESSAGGI ROS         ******************
+  ***************         ROS MESSAGES DECLARATION         ******************
 
   *****************************************************************************/
   std_msgs::String msg;
@@ -58,12 +58,13 @@ public:
   ~login();
   /*****************************************************************************
 
-  ***************         DICHIARO FUNZIONI                   ******************
+  ***************         FUNCTION DECLARATION                   ******************
 
   *****************************************************************************/
 public slots :
 
-/*******      DICHIARO FUNZIONE PER MOSTRARE FINESTRA LOGIN         ***********/
+/*******      RE-SHOW LOGIN FUNCTION DECLARATION         ***********/
+  //this functions allow to re-open the login window from scenario 1 window and scenario 3 window
 
   void showlogin();
 
@@ -72,7 +73,7 @@ public slots :
 
   void callback_log(const agree_gui::agree_gui_command msg);
 
-//  void cambia_status();
+
 
 private slots:
 
@@ -85,7 +86,7 @@ private slots:
 
 private:
   Ui::login *ui;
-  paginaprincipale *Paginaprincipale; //dichiaro il nome delle finestre a cui accedo dalla mainwindow
+  paginaprincipale *Paginaprincipale; //declaring the name of window that i can open from the login
   sc_assistivo *Sc_assistivo;
   login *Login;
   ros::Publisher status_publisher;
