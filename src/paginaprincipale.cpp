@@ -1711,6 +1711,10 @@ void paginaprincipale::update_tempo_terapia(){
   es5 = "Elevazione laterale su un piano frontale";
   es6 = "Mano alla bocca senza oggetto";
   es7 = "Mano alla bocca con oggetto";
+  es8 = "Exergames - Basket";
+  es9 = "Exergames - Macedonia";
+  es10 = "Exergames - Spesa";
+  es11 = "Exergames - Caffè";
 
 
   if (ui->comboBox_ex1->currentText()== es1 || ui->comboBox_ex1->currentText()==es3 || ui->comboBox_ex1->currentText() == es5 || ui->comboBox_ex1->currentText()== es6){
@@ -1722,7 +1726,7 @@ void paginaprincipale::update_tempo_terapia(){
     qDebug() << t_es1;
 
   }
-  else if ( ui->comboBox_ex1->currentText() == es2 || ui->comboBox_ex1->currentText()== es7) {
+  else if ( ui->comboBox_ex1->currentText() == es2 || ui->comboBox_ex1->currentText()== es7 || ui->comboBox_ex1->currentText()== es8 || ui->comboBox_ex1->currentText()== es9 || ui->comboBox_ex1->currentText()== es10 || ui->comboBox_ex1->currentText()== es11  ) {
     t_es1 = 2;
     ripe1 = ui->lineEdit_ex1->text().toInt();
     t_es1 = t_es1* ripe1;
@@ -1737,7 +1741,7 @@ void paginaprincipale::update_tempo_terapia(){
     qDebug() << t_es2;
 
   }
-  else if ( ui->comboBox_ex2->currentText() == es2 || ui->comboBox_ex2->currentText()== es7) {
+  else if ( ui->comboBox_ex2->currentText() == es2 || ui->comboBox_ex2->currentText()== es7 || ui->comboBox_ex2->currentText()== es8 || ui->comboBox_ex2->currentText()== es9 || ui->comboBox_ex2->currentText()== es10 || ui->comboBox_ex2->currentText()== es11) {
     t_es2 = 2;
     ripe2 = ui->lineEdit_ex2->text().toInt();
     t_es2 = t_es2* ripe2;
@@ -1752,7 +1756,7 @@ void paginaprincipale::update_tempo_terapia(){
     qDebug() << t_es3;
 
   }
-  else if ( ui->comboBox_ex3->currentText() == es2 || ui->comboBox_ex3->currentText()== es7) {
+  else if ( ui->comboBox_ex3->currentText() == es2 || ui->comboBox_ex3->currentText()== es7 || ui->comboBox_ex3->currentText()== es8 || ui->comboBox_ex3->currentText()== es9 || ui->comboBox_ex3->currentText()== es10 || ui->comboBox_ex3->currentText()== es11) {
     t_es3 = 2;
     ripe3 = ui->lineEdit_ex3->text().toInt();
     t_es3 = t_es3* ripe3;
@@ -1765,7 +1769,7 @@ void paginaprincipale::update_tempo_terapia(){
     t_es4 = t_es4*ripe4;
 
   }
-  else if ( ui->comboBox_ex4->currentText() == es2 || ui->comboBox_ex4->currentText()== es7) {
+  else if ( ui->comboBox_ex4->currentText() == es2 || ui->comboBox_ex4->currentText()== es7 || ui->comboBox_ex4->currentText()== es8 || ui->comboBox_ex4->currentText()== es9 || ui->comboBox_ex4->currentText()== es10 || ui->comboBox_ex4->currentText()== es11) {
     t_es4 = 2;
     ripe4 = ui->lineEdit_ex4->text().toInt();
     t_es4 = t_es4* ripe4;
@@ -1776,7 +1780,7 @@ void paginaprincipale::update_tempo_terapia(){
     t_es5 = t_es5*ripe5;
 
   }
-  else if ( ui->comboBox_ex5->currentText() == es2 || ui->comboBox_ex5->currentText()== es7) {
+  else if ( ui->comboBox_ex5->currentText() == es2 || ui->comboBox_ex5->currentText()== es7 || ui->comboBox_ex5->currentText()== es8 || ui->comboBox_ex5->currentText()== es9 || ui->comboBox_ex5->currentText()== es10 || ui->comboBox_ex5->currentText()== es11) {
     t_es5 = 2;
     ripe5 = ui->lineEdit_ex5->text().toInt();
     t_es5 = t_es5* ripe5;
@@ -1788,7 +1792,7 @@ void paginaprincipale::update_tempo_terapia(){
     t_es6 = t_es6*ripe6;
 
   }
-  else if ( ui->comboBox_ex6->currentText() == es2 || ui->comboBox_ex6->currentText()== es7) {
+  else if ( ui->comboBox_ex6->currentText() == es2 || ui->comboBox_ex6->currentText()== es7 || ui->comboBox_ex6->currentText()== es8 || ui->comboBox_ex6->currentText()== es9 || ui->comboBox_ex6->currentText()== es10 || ui->comboBox_ex6->currentText()== es11) {
     t_es6 = 2;
     ripe6 = ui->lineEdit_ex6->text().toInt();
     t_es6 = t_es6* ripe6;
@@ -1800,7 +1804,7 @@ void paginaprincipale::update_tempo_terapia(){
     t_es7 = t_es7*ripe7;
 
   }
-  else if ( ui->comboBox_ex7->currentText() == es2 || ui->comboBox_ex7->currentText()== es7) {
+  else if ( ui->comboBox_ex7->currentText() == es2 || ui->comboBox_ex7->currentText()== es7 || ui->comboBox_ex7->currentText()== es8 || ui->comboBox_ex7->currentText()== es9 || ui->comboBox_ex7->currentText()== es10 || ui->comboBox_ex7->currentText()== es11) {
     t_es7 = 2;
     ripe7 = ui->lineEdit_ex7->text().toInt();
     t_es7 = t_es7* ripe7;
@@ -3023,6 +3027,10 @@ void paginaprincipale::update_tempo_recap(){
   es5 = "Elevazione laterale su un piano frontale";
   es6 = "Mano alla bocca senza oggetto";
   es7 = "Mano alla bocca con oggetto";
+  es8 = "Exergames - Basket";
+  es9 = "Exergames - Macedonia";
+  es10 = "Exergames - Spesa";
+  es11 = "Exergames - Caffè";
 
 
 
@@ -3035,7 +3043,7 @@ void paginaprincipale::update_tempo_recap(){
     qDebug() << t_es1;
 
   }
-  else  {
+  else if (ui->comboBox_es1->currentText() == es2 || ui->comboBox_es1->currentText()== es7|| ui->comboBox_es1->currentText()==es4 || ui->comboBox_es1->currentText()== es8 || ui->comboBox_es1->currentText()== es9 || ui->comboBox_es1->currentText()== es10 || ui->comboBox_es1->currentText()== es11) {
     t_es1 = 2;
     ripe1 = ui->lineEdit_rep1->text().toInt();
     t_es1 = t_es1* ripe1;
@@ -3065,7 +3073,7 @@ void paginaprincipale::update_tempo_recap(){
     qDebug() << t_es3;
 
   }
-  else if ( ui->comboBox_es3->currentText() == es2 || ui->comboBox_es3->currentText()== es7 || ui->comboBox_es3->currentText()==es4) {
+  else if ( ui->comboBox_es3->currentText() == es2 || ui->comboBox_es3->currentText()== es7 || ui->comboBox_es3->currentText()==es4 || ui->comboBox_es3->currentText()== es8 || ui->comboBox_es3->currentText()== es9 || ui->comboBox_es3->currentText()== es10 || ui->comboBox_es3->currentText()== es11) {
     t_es3 = 2;
     ripe3 = ui->lineEdit_rep3->text().toInt();
     t_es3 = t_es3* ripe3;
@@ -3078,7 +3086,7 @@ void paginaprincipale::update_tempo_recap(){
     t_es4 = t_es4*ripe4;
 
   }
-  else if ( ui->comboBox_es4->currentText() == es2 || ui->comboBox_es4->currentText()== es7 || ui->comboBox_es4->currentText()==es4) {
+  else if ( ui->comboBox_es4->currentText() == es2 || ui->comboBox_es4->currentText()== es7 || ui->comboBox_es4->currentText()==es4 || ui->comboBox_es4->currentText()== es8 || ui->comboBox_es4->currentText()== es9 || ui->comboBox_es4->currentText()== es10 || ui->comboBox_es4->currentText()== es11) {
     t_es4 = 2;
     ripe4 = ui->lineEdit_rep4->text().toInt();
     t_es4 = t_es4* ripe4;
@@ -3089,7 +3097,7 @@ void paginaprincipale::update_tempo_recap(){
     t_es5 = t_es5*ripe5;
 
   }
-  else if ( ui->comboBox_es5->currentText() == es2 || ui->comboBox_es5->currentText()== es7 || ui->comboBox_es5->currentText()==es4) {
+  else if ( ui->comboBox_es5->currentText() == es2 || ui->comboBox_es5->currentText()== es7 || ui->comboBox_es5->currentText()==es4 || ui->comboBox_es5->currentText()== es8 || ui->comboBox_es5->currentText()== es9 || ui->comboBox_es5->currentText()== es10 || ui->comboBox_es5->currentText()== es11) {
     t_es5 = 2;
     ripe5 = ui->lineEdit_rep5->text().toInt();
     t_es5 = t_es5* ripe5;
@@ -3101,7 +3109,7 @@ void paginaprincipale::update_tempo_recap(){
     t_es6 = t_es6*ripe6;
 
   }
-  else if ( ui->comboBox_es6->currentText() == es2 || ui->comboBox_es6->currentText()== es7 || ui->comboBox_es6->currentText()==es4) {
+  else if ( ui->comboBox_es6->currentText() == es2 || ui->comboBox_es6->currentText()== es7 || ui->comboBox_es6->currentText()==es4 || ui->comboBox_es6->currentText()== es8 || ui->comboBox_es6->currentText()== es9 || ui->comboBox_es6->currentText()== es10 || ui->comboBox_es6->currentText()== es11) {
     t_es6 = 2;
     ripe6 = ui->lineEdit_rep6->text().toInt();
     t_es6 = t_es6* ripe6;
@@ -3113,7 +3121,7 @@ void paginaprincipale::update_tempo_recap(){
     t_es7 = t_es7*ripe7;
 
   }
-  else if ( ui->comboBox_es7->currentText() == es2 || ui->comboBox_es7->currentText()== es7 || ui->comboBox_es7->currentText()==es4) {
+  else if ( ui->comboBox_es7->currentText() == es2 || ui->comboBox_es7->currentText()== es7 || ui->comboBox_es7->currentText()==es4 || ui->comboBox_es7->currentText()== es8 || ui->comboBox_es7->currentText()== es9 || ui->comboBox_es7->currentText()== es10 || ui->comboBox_es7->currentText()== es11) {
     t_es7 = 2;
     ripe7 = ui->lineEdit_rep7->text().toInt();
     t_es7 = t_es7* ripe7;

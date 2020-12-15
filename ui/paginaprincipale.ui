@@ -1457,7 +1457,7 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 2   </string>
            <item row="1" column="0">
             <widget class="QStackedWidget" name="stackedWidget_es">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_es">
               <widget class="QGroupBox" name="groupBox_3">
@@ -3950,7 +3950,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
            <item row="1" column="1">
             <widget class="QStackedWidget" name="stackedWidget_2">
              <property name="currentIndex">
-              <number>0</number>
+              <number>2</number>
              </property>
              <widget class="QWidget" name="page_sessione">
               <layout class="QGridLayout" name="gridLayout_23">
@@ -4620,6 +4620,26 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                    <string>Elevazione laterale</string>
                   </property>
                  </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia </string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
                <item row="11" column="10">
@@ -4698,6 +4718,26 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  <item>
                   <property name="text">
                    <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
                   </property>
                  </item>
                 </widget>
@@ -4789,6 +4829,26 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  <item>
                   <property name="text">
                    <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
                   </property>
                  </item>
                 </widget>
@@ -4931,6 +4991,26 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                    <string>Elevazione laterale</string>
                   </property>
                  </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
                <item row="16" column="3">
@@ -4988,6 +5068,26 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  <item>
                   <property name="text">
                    <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
                   </property>
                  </item>
                 </widget>
@@ -5081,6 +5181,26 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  <item>
                   <property name="text">
                    <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
                   </property>
                  </item>
                 </widget>
@@ -5179,6 +5299,26 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  <item>
                   <property name="text">
                    <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
                   </property>
                  </item>
                 </widget>

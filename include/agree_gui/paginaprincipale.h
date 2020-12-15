@@ -226,7 +226,7 @@ class paginaprincipale : public QDialog
 
     *****************************************************************************/
 
-    QString es1, es2,es3,es4,es5,es6,es7;
+    QString es1, es2,es3,es4,es5,es6,es7,es8,es9,es10,es11;
     int t_es1, t_es2, t_es3, t_es4, t_es5, t_es6, t_es7; //time for each exercise
     int ripe1, ripe2, ripe3, ripe4, ripe5, ripe6, ripe7; //  repetition for each exercise
     int temp_tot;
