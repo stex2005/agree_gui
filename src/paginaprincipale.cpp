@@ -3025,6 +3025,7 @@ void paginaprincipale::update_tempo_recap(){
   es7 = "Mano alla bocca con oggetto";
 
 
+
   if (ui->comboBox_es1->currentText()== es1 || ui->comboBox_es1->currentText()==es3 || ui->comboBox_es1->currentText() == es5 || ui->comboBox_es1->currentText()== es6){
     t_es1 = 1;
     ripe1 = ui->lineEdit_rep1->text().toInt();
@@ -3034,7 +3035,7 @@ void paginaprincipale::update_tempo_recap(){
     qDebug() << t_es1;
 
   }
-  else if ( ui->comboBox_es1->currentText() == es2 || ui->comboBox_es1->currentText()== es7 || ui->comboBox_es1->currentText()==es4) {
+  else  {
     t_es1 = 2;
     ripe1 = ui->lineEdit_rep1->text().toInt();
     t_es1 = t_es1* ripe1;
@@ -3874,7 +3875,7 @@ void paginaprincipale::next_img() {
   qDebug()<< dati::command_exercise_pp;
 
 
-  ui->pushButton_es_libero->setVisible(false);
+  ui->pushButton_salvascore->setVisible(false);
   QString istr99, istr199, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7, istr_terap, istr0_3;
   istr99 = "Resta in Attesa di una nuova istruzione";
   istr199 = "Caricamento Exergame in corso, attendere";
@@ -4261,11 +4262,11 @@ void paginaprincipale::next_img() {
 
     //EXERGAMES FRUIT
 
-  case 8:
+  case 9:
     switch(dati::command_task_pp) {
     case 199:
       ui->label_img->setText(istr199);
-       ui->pushButton_es_libero->setVisible(true);
+       ui->pushButton_salvascore->setVisible(true);
       break;
 
     case 100:
@@ -5052,8 +5053,13 @@ void paginaprincipale::on_pushButton_indietro_clicked()
 void paginaprincipale::on_pushButton_es_libero_clicked()
 {
     //manda info exergames
+
+
+}
+
+void paginaprincipale::on_pushButton_salvascore_clicked()
+{
   dati::status1 = SC1_SAVE_SCORE;
   msg_status_pp.data = dati::status1;
   status_publisher.publish(msg_status_pp);
-
 }

@@ -675,7 +675,7 @@ background-color: rgb(157, 241, 161);</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>11</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -1457,7 +1457,7 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 2   </string>
            <item row="1" column="0">
             <widget class="QStackedWidget" name="stackedWidget_es">
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="page_es">
               <widget class="QGroupBox" name="groupBox_3">
@@ -3571,20 +3571,6 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
              </item>
             </layout>
            </item>
-           <item row="6" column="2">
-            <widget class="QPushButton" name="pushButton_salvaconf">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string> Salva Parametri </string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_34">
              <property name="font">
@@ -3725,20 +3711,6 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
              </property>
             </widget>
            </item>
-           <item row="5" column="2">
-            <widget class="QPushButton" name="pushButton_esplorarom">
-             <property name="font">
-              <font>
-               <family>Sans</family>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Esplora ROM</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="1">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
@@ -3832,6 +3804,34 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
               </widget>
              </item>
             </layout>
+           </item>
+           <item row="6" column="0">
+            <widget class="QPushButton" name="pushButton_esplorarom">
+             <property name="font">
+              <font>
+               <family>Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Esplora ROM</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QPushButton" name="pushButton_salvaconf">
+             <property name="font">
+              <font>
+               <family>Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string> Salva Parametri </string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -4183,7 +4183,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                 </widget>
                </item>
                <item row="17" column="1">
-                <widget class="QPushButton" name="pushButton_es_libero_2">
+                <widget class="QPushButton" name="pushButton_salvascore">
                  <property name="font">
                   <font>
                    <family>Sans</family>
@@ -5876,7 +5876,6 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
   <tabstop>lineEdit_gomitomax</tabstop>
   <tabstop>lineEdit_polomin</tabstop>
   <tabstop>lineEdit_polsomax</tabstop>
-  <tabstop>pushButton_salvaconf</tabstop>
   <tabstop>lineEdit_nome</tabstop>
   <tabstop>lineEdit_cognome</tabstop>
   <tabstop>lineEdit_datanascita</tabstop>

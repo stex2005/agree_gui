@@ -470,6 +470,8 @@ private slots:
 
  void on_pushButton_es_libero_clicked();
 
+ void on_pushButton_salvascore_clicked();
+
 private:
   Ui::paginaprincipale *ui;
 
