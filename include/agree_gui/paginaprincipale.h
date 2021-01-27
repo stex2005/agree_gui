@@ -43,6 +43,9 @@
 #include "agree_gui/agree_gui_command.h"
 #include "agree_gui/agree_emg_status.h"
 
+#include "agree_esmacat_pkg/agree_esmacat_command.h"
+#include "agree_esmacat_pkg/agree_esmacat_status.h"
+
 //#include "main_window.hpp"
 
 
@@ -144,6 +147,13 @@ class paginaprincipale : public QDialog
    /********************       MATRIX MAT DECLARATION         *******************/
 
     MatrixWidget * matrix = new MatrixWidget (this);
+     std::vector<int> point0p;
+     std::vector<int> point1p;
+     std::vector<int> point2p;
+     std::vector<int> point3p;
+    int  point1xp,point1yp,point2xp,point2yp,point3xp,point3yp;
+    int curr_ex;
+
 
 
 
@@ -196,7 +206,7 @@ class paginaprincipale : public QDialog
     std::vector<bool> active_modules; //ACTIVE MODULES
     std::vector<double> J_MAX;         // ROM MAX
     std::vector<double> J_MIN;         // ROM MIN
-    double upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param;
+    double upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param, comp_forearm;
     // UA --> upper arm
     // LA --> lower arm
     // H --> hand
@@ -204,7 +214,8 @@ class paginaprincipale : public QDialog
     // CdM_* variables refer to the center of mass of UA, LA, H
     //comp_param refers to the compensation parameter of the weight of the arm needed to the exoskeleton
 
-    std::vector<double> ARM_LENGTH;    // LUNGHEZZA BRACCIO
+    std::vector<double> ARM_LENGTH;   // LUNGHEZZA BRACCIO
+    double ROM_rad[5];
     uint8_t mode;
     int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
     std::vector<int> ex_seq; //exercises sequence
@@ -388,6 +399,8 @@ private slots:
 
  void emg_callback(const agree_gui::agree_emg_status msg);
 
+ void esmacat_callback(const agree_esmacat_pkg::agree_esmacat_status msg);
+
 
 /**********************   SET COMPENSATION ROSPARAM DURING REHAB CONFIGURATION     *************/
 
@@ -486,6 +499,8 @@ private:
 
  //EMG
  ros::Subscriber emg_subscriber; //creo il topic command  a cui fare il subscribe
+
+ ros::Subscriber esmacat_subscriber;
 
   SignalHelper *helper;
  // SignalHelper1 *helper1;

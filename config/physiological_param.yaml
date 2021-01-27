@@ -26,6 +26,8 @@ physiological_param:
      
     arm_compensation: 0.0
 
+    forearm_compensation: 0.0
+
     mass_upperarm: 0.0
 
     mass_lowerarm: 0.0

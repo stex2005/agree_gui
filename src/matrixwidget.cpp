@@ -100,6 +100,7 @@ void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_comman
         dati::selcount_mat=1;
 
         qDebug()<< "cisiamoooo3";
+        selCount=0;
 
       }
       //        n.setParam("/point1/mat_coordinates", point1);
