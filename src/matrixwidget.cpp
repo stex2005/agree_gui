@@ -294,7 +294,7 @@ void MatrixWidget::LoadData(){
   MatrixXd matrix_test;
   if(dati::lato=="1"){
     cout <<  "Enter Load right" << endl;
-    matrix_test = openData("/home/alice/Desktop/point_boolean_right.CSV");
+    matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_right.CSV");
     cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
     for(int i= 0; i<449;i++){
 
@@ -317,7 +317,7 @@ void MatrixWidget::LoadData(){
   } //DESTRO
   if(dati::lato== "0") {
     cout <<  "Enter Load left" << endl;
-    matrix_test = openData("/home/alice/Desktop/point_boolean_left.CSV");
+    matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_left.CSV");
     cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
     for(int i= 0; i<449;i++){
 

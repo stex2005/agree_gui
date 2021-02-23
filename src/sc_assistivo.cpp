@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QFloat16>
 
+
 QString dati::patologia;
 int joy;
 int contatore= 0;

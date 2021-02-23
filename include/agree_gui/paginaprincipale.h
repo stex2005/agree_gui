@@ -151,6 +151,9 @@ class paginaprincipale : public QDialog
      std::vector<int> point1p;
      std::vector<int> point2p;
      std::vector<int> point3p;
+     std::vector<int> point1ses;
+     std::vector<int> point2ses;
+     std::vector<int> point3ses;
     int  point1xp,point1yp,point2xp,point2yp,point3xp,point3yp;
     int curr_ex;
 

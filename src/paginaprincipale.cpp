@@ -20,6 +20,7 @@
 
 
 
+
 //matplotlibcpp.use("Qt5Agg")
 
 //GRAFICO?
@@ -190,6 +191,7 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
       ROS_INFO ("%d", msg_status_pp.data);
       status_publisher.publish(msg_status_pp);
       ui->pushButton_allarme->setVisible(true);
+       ui->pushButton_salvatapp->setEnabled(false);
     }
     if(dati::command_old_pp == SC1_SELECT_FINISH) {
       if(dati::selcount_mat ==1) {
@@ -345,7 +347,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->setupUi(this);
   ui->progressBar_th->setVisible(false);
 
-  ui->pushButton_salvatapp->setEnabled(false);
+  //ui->pushButton_salvatapp->setEnabled(false);
 
 
 
@@ -2906,6 +2908,7 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
 
 
 /**********************  UPDATE COMPENSATION ROS PARAMETER        *********************/
+//DOBBIAMO MODIFICARE MSG DELLO STATUS PER MANDARE ANCHE QUESTI
 void paginaprincipale::set_comp_param(){
 
   comp_param = ui->progressBar_comp->value();
@@ -4018,6 +4021,12 @@ void paginaprincipale::on_pushButton_next_clicked()
 void paginaprincipale::next_img() {
   qDebug()<< dati::command_exercise_pp;
 
+  //GET PARAM DEI PUNTI DEL TAPPETINO PER FARE CONTROLLO SU COLONNE
+  ros::NodeHandle n;
+  n.getParam("/point1/mat_coordinates", point1ses);
+  n.getParam("/point2/mat_coordinates", point2ses);
+  n.getParam("/point3/mat_coordinates", point3ses);
+
 
   ui->pushButton_salvascore->setVisible(false);
   QString istr99, istr199, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7, istr_terap, istr0_3;
@@ -4051,13 +4060,22 @@ void paginaprincipale::next_img() {
   //  QPixmap case1_1, case3_1, case5_1, def, case1_3, case2_3, case3_3, case4_3, case5_3, case6_3, case7_3, case8_3, case9_3, case1_5, case2_5, case1_6, case2_6, def_5, def_6;
   //check for the side of the exoskeleton
   if(dati::lato=="0") {
+
     //EXERCISE 1
     QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
+
+
     QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_2.png");
+    QPixmap case1_1_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_3.png");
+    QPixmap case1_1_d("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_4.png");
 
     QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_3.png");
+    QPixmap case3_1_s("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_2.png");
+    QPixmap case3_1_d("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_4.png");
 
     QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_4.png");
+    QPixmap case5_1_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_3.png");
+    QPixmap case5_1_s("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_2.png");
 
     QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
 
@@ -4067,18 +4085,28 @@ void paginaprincipale::next_img() {
 
 
     QPixmap case2_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_3.png"); // sx
-
+    QPixmap case2_3_d("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_6.png");
+    QPixmap case2_3_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png");
 
     QPixmap case3_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_4.png"); // rest
-
+    QPixmap case3_3_d("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_7.png");
+    QPixmap case3_3_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_1.png");
 
     QPixmap case4_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_5.png"); // sx
+    QPixmap case4_3_d("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_8.png");
+    QPixmap case4_3_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png");
 
     QPixmap case5_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_6.png"); // dx
+    QPixmap case5_3_s("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_3.png");
+    QPixmap case5_3_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png");
 
     QPixmap case6_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_7.png"); // rest
+    QPixmap case6_3_s("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_4.png"); // rest
+    QPixmap case6_3_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_1.png"); // rest
 
     QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_8.png"); // dx
+    QPixmap case7_3_s("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_5.png");
+    QPixmap case7_3_c("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png");
 
     QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png.jpg"); // centro
 
@@ -4120,19 +4148,42 @@ void paginaprincipale::next_img() {
         ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
         break;
       case 1:
-        ui->label_img->setPixmap(case1_1);
-
+        //prova esempio controllo colonne
+   if(point1ses.at(1)<11){
+        ui->label_img->setPixmap(case1_1);}
+else if(point1ses.at(1)>=12 && point1ses.at(1)<20) {
+     ui->label_img->setPixmap(case1_1_c);
+   }
+   else if(point1ses.at(1)>=20 && point1ses.at(1)<30) {
+     ui->label_img->setPixmap(case1_1_d);
+   }
         qDebug()<< "case1";
         break;
 
       case 3:
-        ui->label_img->setPixmap(case3_1);
+
+        if(point2ses.at(1)<11){
+             ui->label_img->setPixmap(case3_1_s);}
+     else if(point2ses.at(1)>=12 && point2ses.at(1)<20) {
+          ui->label_img->setPixmap(case3_1);
+        }
+        else if(point2ses.at(1)>=20 && point2ses.at(1)<30) {
+          ui->label_img->setPixmap(case3_1_d);
+        }
 
         qDebug()<< "case3";
         break;
 
       case 5:
-        ui->label_img->setPixmap(case5_1);
+
+        if(point3ses.at(1)<11){
+             ui->label_img->setPixmap(case5_1_s);}
+     else if(point3ses.at(1)>=12 && point3ses.at(1)<20) {
+          ui->label_img->setPixmap(case5_1_c);
+        }
+        else if(point3ses.at(1)>=20 && point3ses.at(1)<30) {
+       ui->label_img->setPixmap(case5_1);
+        }
 
         qDebug()<< "case5";
         break;
@@ -4191,58 +4242,120 @@ void paginaprincipale::next_img() {
         break;
 
 
-      case 2:
-        ui->label_img->setPixmap(case2_3);
+      case 2: //sx
         ui->pushButton_ok->setEnabled(false);
+        if(point1ses.at(1)<11){
+
+          ui->label_img->setPixmap(case2_3);
+        }
+        else if(point1ses.at(1)>=11 && point1ses.at(1)<20) {
+          ui->label_img->setPixmap(case2_3_c);
+        }
+        else if(point1ses.at(1)>=20) {
+          ui->label_img->setPixmap(case2_3_d);
+        }
+
 
 
         qDebug()<< "case2_3";
         break;
 
 
-      case 3 :
-        ui->label_img->setPixmap(case3_3);
+      case 3 : //rest
         ui->pushButton_ok->setEnabled(false);
+        if(point1ses.at(1)<11){
+        ui->label_img->setPixmap(case3_3);
+        }
+        else if (point1ses.at(1)>=11 && point1ses.at(1)<20) {
+       ui->label_img->setPixmap(case3_3_c);
+
+        }
+        else if(point1ses.at(1)>=20) {
+          ui->label_img->setPixmap(case3_3_d);
+
+        }
+
 
 
         break;
 
-      case 4:
-        ui->label_img->setPixmap(case4_3);
+      case 4: //sx
+        if(point1ses.at(1)<11) {
+          ui->label_img->setPixmap(case4_3);
+        }
+        else if(point1ses.at(1)>=11 && point1ses.at(1)<20) {
+          ui->label_img->setPixmap(case4_3_c);
+        }
+        else if(point1ses.at(1)>=20) {
+          ui->label_img->setPixmap(case4_3_d);
+        }
+
         ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case4_3";
         break;
 
-      case 5:
-        ui->label_img->setPixmap(case5_3);
+      case 5: //dx
         ui->pushButton_ok->setEnabled(false);
+        if(point2ses.at(1)>=20){
+        ui->label_img->setPixmap(case5_3);
+        }
+        else if (point2ses.at(1)>=11 && point2ses.at(1)<20) {
+          ui->label_img->setPixmap(case5_3_c);
+        }
+        else if(point2ses.at(1)<11) {
+          ui->label_img->setPixmap(case5_3_s);
+        }
+
 
         qDebug()<< "case5_3";
         break;
 
-      case 6:
-        ui->label_img->setPixmap(case6_3);
+      case 6: //rest
         ui->pushButton_ok->setEnabled(false);
+        if(point2.at(1)>=20) {
+
+          ui->label_img->setPixmap(case6_3);
+        }
+        else if(point2.at(1)<11) {
+          ui->label_img->setPixmap(case6_3_s);
+        }
+        else if(point2.at(1)>=11 && point2.at(1)<20) {
+          ui->label_img->setPixmap(case6_3_c);
+        }
+
 
         qDebug()<< "case6_3";
         break;
 
-      case 7:
-        ui->label_img->setPixmap(case7_3);
-        ui->pushButton_ok->setEnabled(false);
+      case 7: //dx
+                ui->pushButton_ok->setEnabled(false);
+
+
+        if(point2.at(1)>=20) {
+
+           ui->label_img->setPixmap(case7_3);
+        }
+        else if(point2.at(1)<11) {
+           ui->label_img->setPixmap(case7_3_s);
+        }
+        else if(point2.at(1)>=11 && point2.at(1)<20) {
+          ui->label_img->setPixmap(case7_3_c);
+        }
 
         qDebug()<< "case8_3";
         break;
 
-      case 8:
-        ui->label_img->setPixmap(case8_3);
+      case 8: //centro
         ui->pushButton_ok->setEnabled(false);
+
+        ui->label_img->setPixmap(case8_3);
+
 
         qDebug()<< "case9_3";
         break;
 
-      case 9:
+      case 9: //rest
         ui->label_img->setPixmap(case9_3);
         ui->pushButton_ok->setEnabled(false);
 

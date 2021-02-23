@@ -12,6 +12,7 @@ add_compile_options(-std=c++11)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
 include_directories(${PYTHONHOME}/include)
 include_directories(${PYTHONHOME}/Lib/site-packages/numpy/core/include)
 link_directories(${PYTHONHOME}/libs)
@@ -30,6 +31,7 @@ find_package(
     roscpp
     std_msgs
     message_generation
+
 
  )
 
@@ -78,7 +80,7 @@ set(CMAKE_AUTOMOC ON)
 
 
 
-find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Sql)
+find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Sql Multimedia)
 
 ##############################################################################
 # Sections
@@ -98,6 +100,7 @@ include_directories(
     ${Qt5Widgets_INCLUDE_DIRS}
     ${Qt5PrintSupport_INCLUDE_DIRS}
     ${Qt5Sql_INCLUDE_DIRS}
+
 
 
 
@@ -143,6 +146,9 @@ target_link_libraries(agree_gui ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PYTHON_LIB
     Qt5::Widgets
     Qt5::PrintSupport
     Qt5::Sql
+
+
+
 
 
 
