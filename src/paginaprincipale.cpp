@@ -16,6 +16,11 @@
 #include <QTextStream>
 #include <cmath>
 #include "../include/agree_gui/fsm_gui_define.h"
+//#include <QMultimedia>
+//#include <QSound>
+//#include <QMediaPlayer>
+//#include <QVideoWidget>
+#include <string>
 
 
 
@@ -120,6 +125,7 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
       ui->pushButton_allarme->setVisible(false);
       this->showMaximized();
       ui->stackedWidget_rom->showMaximized();
+
       QSqlQuery prova;
       prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
       prova.exec();
@@ -128,11 +134,14 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
         while(prova.next()) {
           ui->label_status->setText("Terapista: " + prova.value(0).toString() + " " +  prova.value(1).toString());
         } }
-      else qDebug()<< prova.lastError();
+      else {  qDebug()<<"ho problemi qui";
+        qDebug()<< prova.lastError();
+      qDebug() << QSqlDatabase::drivers();}
       this->show();
     }
     if (dati::command_old_pp ==SC1_SESSION_DEFINING) {
       ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
+
       ui->pushButton_allarme->setVisible(false);
       exe1=0;
       exe2=0;
@@ -325,6 +334,12 @@ void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_
 
     }
 
+    if(dati::command_old_pp== 1070) {
+
+     system("aplay /home/alice/Desktop/POLIMI/Poli.wav");
+
+    }
+
 
   }
 
@@ -336,7 +351,6 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QDialog(parent),
 
   ui(new Ui::paginaprincipale)
-
 
 
 {
@@ -572,6 +586,10 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
   QSqlDatabase mydb2 = QSqlDatabase::database();
 
+
+  ui->pushButton_show_pdf->setEnabled(false);
+
+
 }
 
 
@@ -673,7 +691,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
     qDebug()<<dati::codice_id;
 
     QSqlQuery qry6;
-    qry6.prepare("update Pazienti set Codice_ID= '"+dati::codice_id+"', NomePaziente ='"+dati::NomeP+"', Cognome= '"+dati::CognomeP+"', DatadiNascita= '"+Data+"',  Patologia = '"+Patologia+"', Sesso='"+Sesso+"', Lato_paretico = '"+Lato+"', StoriaClinica = '"+storiaclinica+"',  where Codice_ID = '"+dati::ind+"'");
+    qry6.prepare("update Pazienti set Codice_ID= '"+dati::codice_id+"', NomePaziente ='"+dati::NomeP+"', Cognome= '"+dati::CognomeP+"', DatadiNascita= '"+Data+"',  Patologia = '"+Patologia+"', Sesso='"+Sesso+"', Lato_paretico = '"+Lato+"', Altezza='"+altezza+"', Peso= '"+peso+"', StoriaClinica = '"+storiaclinica+"'  where Codice_ID = '"+dati::ind+"'");
     if (qry6.exec())
     {
     //  QMessageBox ::information(this,tr("Modifica"),tr(" Dati del Paziente Modificati Correttamente"));
@@ -887,7 +905,7 @@ void paginaprincipale::on_pushButton_salva_2_clicked()
     QMessageBox ::critical(this,tr("Errore"),tr("bo3"));
   }
 
-  ui->label_status->setText(QString("Utente: %1 %2").arg(dati::Nome) .arg(dati::Cognome));
+  ui->label_status->setText(QString("Terapista: %1 %2").arg(dati::Nome) .arg(dati::Cognome));
 }
 
 /**********************       START REHAB CONFIGURATION                       *********************/
@@ -5743,4 +5761,58 @@ void paginaprincipale::on_pushButton_salvascore_clicked()
   dati::status1 = SC1_SAVE_SCORE;
   msg_status_pp.data = dati::status1;
   status_publisher.publish(msg_status_pp);
+}
+
+void paginaprincipale::on_pushButton_valutazione_clicked()
+{  if(flag==3)  {  //PAZIENTE SELEZIONATO
+  QSqlQueryModel *model2 = new QSqlQueryModel();
+    QSqlQuery elenco_val;
+    elenco_val.prepare("select rowid, Data_acquisizione from Parametri_Paziente where Codice_ID = '"+dati::ind+"' ");
+    elenco_val.exec();
+      model2 -> setQuery(elenco_val);
+      ui->tableView_valutazioni->setModel(model2);
+      ui->tableView_valutazioni->resizeColumnsToContents();
+      ui->pushButton_show_pdf->setEnabled(true);
+  }
+  else
+  {
+    QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
+  }
+
+}
+
+void paginaprincipale::on_pushButton_show_pdf_clicked()
+{ if(flag==7) {
+
+  QSqlQuery sel_eval;
+    sel_eval.prepare("select path_val from Parametri_Paziente where Data_acquisizione ='"+data_eval+"'");
+    sel_eval.exec();
+      if(sel_eval.exec()) {
+
+      while(sel_eval.next()) {
+
+        filename_eval = sel_eval.value(0).toString();
+        std::string s = filename_eval.toStdString();
+        qDebug()<<filename_eval;
+        system(("xdg-open " +  s).c_str());
+
+      }
+      }
+      else {
+        qDebug()<<sel_eval.lastError();}
+}
+  else
+  {
+    QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
+  }
+//    system("xdg-open test_pdf.pdf");
+//    system("xdg-open mozilla.pdf");
+}
+
+void paginaprincipale::on_tableView_valutazioni_activated(const QModelIndex &index)
+{
+  data_eval= ui-> tableView_valutazioni->model()->data(index).toString();
+  flag= 7; //data selezionata
+  qDebug()<<data_eval;
+
 }

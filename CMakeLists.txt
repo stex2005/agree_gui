@@ -11,6 +11,7 @@ add_compile_options(-std=c++11)
 ####################
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#set(CMAKE_PREFIX_PATH "/opt/5.12.4/gcc_64/lib/cmake/")
 
 
 include_directories(${PYTHONHOME}/include)
@@ -80,7 +81,9 @@ set(CMAKE_AUTOMOC ON)
 
 
 
-find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Sql Multimedia)
+find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Sql )
+#find_package(Qt5 COMPONENTS Multimedia REQUIRED)
+#find_package(Qt5 COMPONENTS MultimediaWidgets REQUIRED)
 
 ##############################################################################
 # Sections
@@ -104,7 +107,11 @@ include_directories(
 
 
 
+
+
     )
+
+
 
 ##############################################################################
 # Sources
@@ -150,13 +157,17 @@ target_link_libraries(agree_gui ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PYTHON_LIB
 
 
 
-
-
-
-
-
     )
+#target_link_libraries(agree_gui
+#    Qt5::Multimedia
+#    Qt5::MultimediaWidgets
+#)
+
+
 install(TARGETS agree_gui RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+
+
 
 
 ################

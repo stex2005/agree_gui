@@ -38,6 +38,8 @@
 
 
 
+
+
 #include "matrixwidget.h"
 #include "qnode.hpp"
 #include "agree_gui/agree_gui_command.h"
@@ -261,6 +263,8 @@ class paginaprincipale : public QDialog
     *****************************************************************************/
 
     // METTI OUTPUT QUI
+    QString filename_eval;
+    QString data_eval;
 
 
 
@@ -488,6 +492,12 @@ private slots:
 
  void on_pushButton_salvascore_clicked();
 
+ void on_pushButton_valutazione_clicked();
+
+ void on_pushButton_show_pdf_clicked();
+
+ void on_tableView_valutazioni_activated(const QModelIndex &index);
+
 private:
   Ui::paginaprincipale *ui;
 
@@ -515,6 +525,8 @@ private:
   QTimer *timer_val;   // TIMER PER MOSTRARE VALUTAZIONE
   QTimer *timer_feedback; // TIMER PER FEEDBACK AL PAZIENTE
   QTimer *timer_comp; //TIMER PER INVIARE LA COMPENSAZIONE NEI ROSPARAM
+
+
 };
 
 
