@@ -158,6 +158,8 @@ target_link_libraries(agree_gui ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PYTHON_LIB
 
 
     )
+
+target_link_libraries(agree_gui matio)
 #target_link_libraries(agree_gui
 #    Qt5::Multimedia
 #    Qt5::MultimediaWidgets

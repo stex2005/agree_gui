@@ -9,6 +9,7 @@
 #include<std_msgs/Int16.h>
 #include "agree_gui/agree_gui_command.h"
 #include <eigen3/Eigen/Dense>
+#include<eigen3/Eigen/Core>
 
 using namespace Eigen;
 using namespace std;
@@ -16,7 +17,7 @@ using namespace std;
 /****************************** struct definition of the cell of the MAT  ********************************************/
 struct DataPoint {
     int x;
-    int y;
+   int y;
     bool value;
     QColor DrawColor{Qt::gray}; // we change this from selected / not selected.
     bool isSelected;

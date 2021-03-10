@@ -16,6 +16,12 @@
 #include <QDebug>
 #include <QPainter>
 #include <QMouseEvent>
+#include <eigen3/Eigen/Core>
+#include <eigen3/Eigen/Dense>
+#include <MATio/MATio.hpp>
+
+
+
 
 int16_t dati::command_matrix, dati::command_old_matrix=1;
 bool dati::selcount_mat=0;
@@ -47,7 +53,7 @@ void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_comman
     qDebug()<< "matrix";
     if(dati::command_old_matrix==SC1_WORKSPACE_ON){
       LoadData();
-      qDebug()<<"dati caricati";
+     // qDebug()<<"dati caricati";
     }
     if(dati::command_old_matrix == SC1_UPDATE_LED) { //SALVO PARAMETRI DA ROSPARAMETERS
 
@@ -259,11 +265,11 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   }
 }
 void MatrixWidget::paintEvent(QPaintEvent *event)
-{
+{  cout << "sono nel paint event 1"<<std::endl;
   QPainter p(this);
   p.drawRect(0,0, width()-1 , height() -1  );
   //-1
-
+  cout << "sono nel paint event"<<std::endl;
 
   // size of area we have. w = width , h = height , we take 2 pixles for border
   int w = width()-2;
@@ -274,8 +280,10 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
   // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
 
   for (int xi = 0; xi < max_x-1; ++xi) {
+     cout << "sono nel I for del paint event"<<std::endl;
     // for (int xi =14; xi >=1; --xi) {
     for (int yi = 0; yi < max_y -1; ++yi) {
+      cout << "sono nel II for del paint event"<<std::endl;
       // int new_x= Y-xi;
       p.setBrush(QBrush (Data[Y-xi][yi+1].DrawColor));
       QRect cellRect(yi*bw,xi*bh, bw,bh);
@@ -290,56 +298,125 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
 void MatrixWidget::LoadData(){  
   cout <<  "Enter Load" << endl;
   qDebug()<<dati::lato;
+   MatrixXd matrix_test;
+   MatrixXd matrix_test_y;
+   MatrixXd matrix_test_en;
 
-  MatrixXd matrix_test;
   if(dati::lato=="1"){
     cout <<  "Enter Load right" << endl;
-    matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_right.CSV");
-    cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
-    for(int i= 0; i<449;i++){
 
-      int x= matrix_test(i,1);
-      int  y= matrix_test(i,0);
-      cout <<  "ho assegnato righe e colonne"  << endl;
-      if(matrix_test(i,2)){
+     Eigen::MatioFile file_x_right("/home/alice/catkin_ws/data/right_workspace_x.mat");
+     const std::vector<std::string> read_x_right {"workspace_x"};
 
-        Data[x][y].DrawColor= Qt::green;
-        Data[x][y].value=1;
-        cout <<  "VERDE"  << endl;
-      }
-      else if (!matrix_test(i,2)) {
+
+       file_x_right.read_mat("workspace_x", matrix_test);
+    //   std::cout<< "destro_x" << std::endl << "workspace_x" << std::endl << matrix_test << std::endl;
+
+
+       Eigen::MatioFile file_y_right("/home/alice/catkin_ws/data/right_workspace_y.mat");
+       const std::vector<std::string> read_y_right {"workspace_y"};
+
+
+         file_y_right.read_mat("workspace_y", matrix_test_y);
+  //       std::cout<< "destro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
+
+
+         Eigen::MatioFile file_en_right("/home/alice/catkin_ws/data/right_workspace_enabled.mat");
+  //       const std::vector<std::string> read_en_right {"workspace_enabled"};
+
+
+           file_en_right.read_mat("workspace_enabled", matrix_test_en);
+  //         std::cout<< " destro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
+
+
+
+
+//     MatrixXd matrix;
+
+
+//   // matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_right.CSV");
+//  //  cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
+   for(int i= 1; i<451;i++){
+
+      int x= matrix_test_y(i);
+      int y = matrix_test(i);
+
+//    }
+
+//    int  y= matrix_test_y(i,0);
+  // cout <<  "ho assegnato righe e colonne"  << endl;
+     if(matrix_test_en(i)){
+
+       Data[x][y].DrawColor= Qt::green;
+
+       Data[x][y].value=1;
+       cout <<  "VERDE"  << endl;
+     }
+      else if (!matrix_test_en(i)) {
         Data[x][y].DrawColor= Qt::lightGray;
         Data[x][y].value=0;
-        cout <<  "GRIGIO"  << endl;
+       cout <<  "GRIGIO"  << endl;
 
       }
+    //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
     } //FOR
+ //    cout << "sono fuori dal ciclo for"<<std::endl;
   } //DESTRO
+ //  cout << "sono fuori dal destro"<<std::endl;
+  qDebug()<<Data[13][1].value;
   if(dati::lato== "0") {
-    cout <<  "Enter Load left" << endl;
-    matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_left.CSV");
-    cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
-    for(int i= 0; i<449;i++){
+  //  cout <<  "Enter Load left" << endl;
 
-      int x= matrix_test(i,1);
-      int  y= matrix_test(i,0);
-      cout <<  "ho assegnato righe e colonne"  << endl;
-      if(matrix_test(i,2)){
+    Eigen::MatioFile file_x_left("/home/alice/catkin_ws/data/left_workspace_x.mat");
+    const std::vector<std::string> read_x_left{"workspace_x"};
 
-        Data[x][y].DrawColor= Qt::green;
-        Data[4][15].DrawColor = Qt::black;
-        Data[x][y].value=1;
-        cout <<  "VERDE"  << endl;
-      }
-      else if (!matrix_test(i,2)) {
-        Data[x][y].DrawColor= Qt::lightGray;
-        Data[x][y].value=0;
-        cout <<  "GRIGIO"  << endl;
 
-      }
+      file_x_left.read_mat("workspace_x", matrix_test);
+      std::cout<< "sinistro x" << std::endl << "workspace_x" << std::endl << matrix_test << std::endl;
 
-    } //FOR
+
+      Eigen::MatioFile file_y_left("/home/alice/catkin_ws/data/left_workspace_y.mat");
+      const std::vector<std::string> read_y_left {"workspace_y"};
+
+
+        file_y_left.read_mat("workspace_y", matrix_test_y);
+        std::cout<< "sinistro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
+
+
+        Eigen::MatioFile file_en_left("/home/alice/catkin_ws/data/left_workspace_enabled.mat");
+        const std::vector<std::string> read_en_left {"workspace_enabled"};
+
+
+          file_en_left.read_mat("workspace_enabled", matrix_test_en);
+          std::cout<< "sinistro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
+      //              std::cout<< "sinistro en 0 " << std::endl << "workspace_enabled 0" << std::endl << matrix_test_en(0) << std::endl;
+
+   // matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_left.CSV");
+   // cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
+
+//      VectorXd x;
+//      x= matrix_test;
+//      cout<<"x"<< std::endl << x <<std::endl;
+
+//      int  y= matrix_test_y(i,0);
+//      cout <<  "ho assegnato righe e colonne"  << endl;
+//      if(matrix_test_en(i,0)){
+
+//        Data[x][y].DrawColor= Qt::green;
+//        Data[4][15].DrawColor = Qt::black;
+//        Data[x][y].value=1;
+//        cout <<  "VERDE"  << endl;
+//      }
+//      else if (!matrix_test_en(i,0)) {
+//        Data[x][y].DrawColor= Qt::lightGray;
+//        Data[x][y].value=0;
+//        cout <<  "GRIGIO"  << endl;
+
+//      }
+
+//    } //FOR
   } // SINISTRO
+ //  cout << "sono fuori fuori dal destro"<<std::endl;
 } //LOAD DATA
 
 
