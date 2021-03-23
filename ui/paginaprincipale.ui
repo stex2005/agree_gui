@@ -115,7 +115,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -678,7 +678,7 @@ che si vuole visualizzare</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>7</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -3386,165 +3386,66 @@ Inserisci le misure  di braccio e avambraccio che hai letto sull'esoscheletro qu
               </layout>
              </widget>
              <widget class="QWidget" name="page_comp">
-              <layout class="QVBoxLayout" name="verticalLayout_16">
+              <layout class="QVBoxLayout" name="verticalLayout_15">
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_15">
-                 <item>
-                  <widget class="QLabel" name="label_59">
-                   <property name="font">
-                    <font>
-                     <pointsize>19</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Quella che vedi è la procedura per regolare la compensazione del peso del braccio del paziente.
-
+                <widget class="QLabel" name="label_59">
+                 <property name="font">
+                  <font>
+                   <pointsize>19</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Quella che vedi è la procedura per regolare la compensazione del peso del braccio del paziente.
 Scorri gli sliders fino a quando l'esoscheletro sosterrà completamente il braccio. 
-
-Questo indicherà che il peso del braccio è pienamente compensato dall'esoscheletro.
-
- Puoi quindi  procedere con la configurazione della sessione </string>
+Questo indicherà che il peso del braccio è pienamente compensato dall'esoscheletro.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <widget class="QSlider" name="horizontalSlider_comp">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>125</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_7">
-                   <item>
-                    <widget class="QSlider" name="horizontalSlider_comp">
-                     <property name="minimum">
-                      <number>0</number>
-                     </property>
-                     <property name="maximum">
-                      <number>125</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QProgressBar" name="progressBar_comp">
-                     <property name="minimum">
-                      <number>0</number>
-                     </property>
-                     <property name="maximum">
-                      <number>125</number>
-                     </property>
-                     <property name="value">
-                      <number>74</number>
-                     </property>
-                     <property name="textVisible">
-                      <bool>false</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_65">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>600</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>Sans</family>
-                       <pointsize>15</pointsize>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>PERCENTUALE DI COMPENSAZIONE BRACCIO: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLCDNumber" name="lcdNumber">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>50</height>
-                      </size>
-                     </property>
-                     <property name="segmentStyle">
-                      <enum>QLCDNumber::Flat</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QSlider" name="horizontalSlider_comp_avam">
-                     <property name="maximum">
-                      <number>125</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QProgressBar" name="progressBar_comp_avam">
-                     <property name="maximum">
-                      <number>125</number>
-                     </property>
-                     <property name="value">
-                      <number>24</number>
-                     </property>
-                     <property name="textVisible">
-                      <bool>false</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_68">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>Sans</family>
-                       <pointsize>15</pointsize>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>PERCENTUALE DI COMPENSAZIONE AVAMBRACCIO: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLCDNumber" name="lcdNumber_comp_avam">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>50</height>
-                      </size>
-                     </property>
-                     <property name="segmentStyle">
-                      <enum>QLCDNumber::Flat</enum>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <widget class="QProgressBar" name="progressBar_comp">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>125</number>
+                   </property>
+                   <property name="value">
+                    <number>74</number>
+                   </property>
+                   <property name="textVisible">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_salva_comp">
+                  <widget class="QLabel" name="label_65">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>600</width>
+                     <height>40</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
                      <family>Sans</family>
@@ -3554,15 +3455,277 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
                     </font>
                    </property>
                    <property name="text">
-                    <string>Salva</string>
+                    <string>PERCENTUALE DI COMPENSAZIONE BRACCIO: </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLCDNumber" name="lcdNumber">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="horizontalSlider_comp_avam">
+                   <property name="maximum">
+                    <number>125</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QProgressBar" name="progressBar_comp_avam">
+                   <property name="maximum">
+                    <number>125</number>
+                   </property>
+                   <property name="value">
+                    <number>24</number>
+                   </property>
+                   <property name="textVisible">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_68">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Sans</family>
+                     <pointsize>15</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>PERCENTUALE DI COMPENSAZIONE AVAMBRACCIO: </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLCDNumber" name="lcdNumber_comp_avam">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="segmentStyle">
+                    <enum>QLCDNumber::Flat</enum>
                    </property>
                   </widget>
                  </item>
                 </layout>
                </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_46">
+                 <item>
+                  <widget class="QLabel" name="label_34">
+                   <property name="font">
+                    <font>
+                     <pointsize>19</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Quella che vedi è la procedura per regolare la velocità dell esoscheletro durante la terapia.
+Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con la configurazione della sessione</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_44">
+                   <item>
+                    <widget class="QRadioButton" name="radioButton_lenta">
+                     <property name="maximumSize">
+                      <size>
+                       <width>200</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Lenta</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QRadioButton" name="radioButton_media">
+                     <property name="maximumSize">
+                      <size>
+                       <width>200</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Media</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QRadioButton" name="radioButton_veloce">
+                     <property name="minimumSize">
+                      <size>
+                       <width>200</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>200</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Veloce</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_salva_comp">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>15</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Salva</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="page_2"/>
+             <widget class="QWidget" name="page_2">
+              <widget class="QWidget" name="">
+               <property name="geometry">
+                <rect>
+                 <x>20</x>
+                 <y>10</y>
+                 <width>1568</width>
+                 <height>99</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_45">
+                <item>
+                 <widget class="QLabel" name="label_16">
+                  <property name="font">
+                   <font>
+                    <pointsize>19</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Quella che vedi è la procedura per regolare la velocità dell esoscheletro durante la terapia.
+Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con la configurazione della sessione</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_43">
+                  <item>
+                   <widget class="QRadioButton" name="radioButton_2">
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Lenta</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="radioButton">
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Media</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="radioButton_3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Veloce</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
             </widget>
            </item>
           </layout>

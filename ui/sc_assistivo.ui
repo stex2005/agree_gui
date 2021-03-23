@@ -83,7 +83,7 @@
       </font>
      </property>
      <property name="currentIndex">
-      <number>13</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="page_config">
       <widget class="QLabel" name="label_la">

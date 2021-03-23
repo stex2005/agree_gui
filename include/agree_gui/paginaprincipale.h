@@ -211,7 +211,7 @@ class paginaprincipale : public QDialog
     std::vector<bool> active_modules; //ACTIVE MODULES
     std::vector<double> J_MAX;         // ROM MAX
     std::vector<double> J_MIN;         // ROM MIN
-    double upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param, comp_forearm;
+    double upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param, comp_forearm, speed;
     // UA --> upper arm
     // LA --> lower arm
     // H --> hand
@@ -265,6 +265,8 @@ class paginaprincipale : public QDialog
     // METTI OUTPUT QUI
     QString filename_eval;
     QString data_eval;
+
+    QString speeds;
 
 
 
@@ -497,6 +499,12 @@ private slots:
  void on_pushButton_show_pdf_clicked();
 
  void on_tableView_valutazioni_activated(const QModelIndex &index);
+
+ void on_radioButton_lenta_clicked();
+
+ void on_radioButton_media_clicked();
+
+ void on_radioButton_veloce_clicked();
 
 private:
   Ui::paginaprincipale *ui;

@@ -2898,11 +2898,13 @@ void paginaprincipale::on_pushButton_salva_exo_param_clicked()
 
 /**********************        SAVE COMPENSATION PARAM   *********************/
 void paginaprincipale::on_pushButton_salva_comp_clicked()
-{
+{ ros::NodeHandle n;
   int comp,comp_avam;
   comp = ui->progressBar_comp->value();
   comp_avam = ui->progressBar_comp_avam->value();
   //comp= comp/int(125);
+
+  n.setParam("/physiological_param/speed", speed);
 
   ui->lcdNumber_comp_ses->display(comp);
   ui->progressBar_comp_ses->setValue(comp);
@@ -2915,13 +2917,14 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
   comp_s = QString::number(comp);
   comp_avam_s = QString::number(comp_avam);
   QSqlQuery comp_exo;
-  comp_exo.prepare("update Parametri_Paziente set compensazione ='"+comp_s+"', compensazione_avamb= '"+comp_avam_s+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+  comp_exo.prepare("update Parametri_Paziente set compensazione ='"+comp_s+"', compensazione_avamb= '"+comp_avam_s+"', speed = '"+speeds+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
   if(comp_exo.exec()){
   //  QMessageBox ::information(this,tr("Salvataggio"),tr(" Dati Salvati Correttamente"));
     ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
 
   }
   else qDebug()<<"non funziona la comp_exo";
+
 }
 
 
@@ -5815,4 +5818,23 @@ void paginaprincipale::on_tableView_valutazioni_activated(const QModelIndex &ind
   flag= 7; //data selezionata
   qDebug()<<data_eval;
 
+}
+
+void paginaprincipale::on_radioButton_lenta_clicked()
+{
+    //setto velocità lenta
+  speed = 0.05;
+  speeds = "lento";
+}
+
+void paginaprincipale::on_radioButton_media_clicked()
+{
+    speed = 0.1;
+    speeds = "medio";
+}
+
+void paginaprincipale::on_radioButton_veloce_clicked()
+{
+    speed = 0.20;
+    speeds = "veloce";
 }
