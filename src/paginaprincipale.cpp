@@ -1266,7 +1266,7 @@ void paginaprincipale::on_pushButton_home_clicked()
   ui->comboBox_ex6->setCurrentIndex(0);
   ui->comboBox_ex7->setCurrentIndex(0);
 
-  dati::status1 = SC1_EVALUATION;
+  dati::status1 =  SC1_RETURN_HOME;
 
   std_msgs::Int16 msg_status;
   msg_status.data = dati::status1;
@@ -2904,7 +2904,7 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
   comp_avam = ui->progressBar_comp_avam->value();
   //comp= comp/int(125);
 
-  n.setParam("/physiological_param/speed", speed);
+  n.setParam("/physiological_param/velocity", speed);
 
   ui->lcdNumber_comp_ses->display(comp);
   ui->progressBar_comp_ses->setValue(comp);
