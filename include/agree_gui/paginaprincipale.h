@@ -404,7 +404,7 @@ private slots:
 
 // void callback1(const std_msgs::StringConstPtr& str);
 
- void callback2(const agree_gui::agree_gui_command msg);
+ void esmacat_command_callback(const agree_esmacat_pkg::agree_esmacat_command msg);
 
  void emg_callback(const agree_gui::agree_emg_status msg);
 

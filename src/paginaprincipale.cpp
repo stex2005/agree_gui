@@ -106,12 +106,14 @@ void paginaprincipale::esmacat_callback(const agree_esmacat_pkg::agree_esmacat_s
 
 }
 
-void paginaprincipale::callback2(const agree_gui::agree_gui_command msg_command_pp) {
+void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_esmacat_command msg) {
   ros::NodeHandle n;
   //  dati::command_old_pp = 1;
-  dati::command_pp = msg_command_pp.mode;
-  dati::command_exercise_pp = msg_command_pp.exercise;
-  dati::command_task_pp = msg_command_pp.task;
+
+
+  dati::command_pp = msg.gui_mode;
+  dati::command_exercise_pp = msg.exercise;
+  dati::command_task_pp = msg.task;
   if((dati::command_old_pp) != (dati::command_pp) || (dati::command_exercise_old_pp)!= (dati::command_exercise_pp) || (dati::command_task_old_pp)!= (dati::command_task_pp)) {
     qDebug()<< dati::command_old_pp;
     qDebug()<< dati::command_pp;
@@ -376,7 +378,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
 
 
-  command_subscriber = n.subscribe("/gui/command", 1000, &paginaprincipale::callback2, this); //creo il topic a cui faccio il subscribe
+  command_subscriber = n.subscribe("/gui/command", 1000, &paginaprincipale::esmacat_command_callback, this); //creo il topic a cui faccio il subscribe
   emg_subscriber = n.subscribe("/agree/emg_status", 1000, &paginaprincipale::emg_callback, this);
   esmacat_subscriber = n.subscribe("/agree/esmacat_status", 1000, &paginaprincipale::esmacat_callback, this);
 

@@ -48,7 +48,7 @@ login::login(QWidget *parent) :
 
 /**********************       CREO TOPIC                          *********************/
 status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
-command_subscriber = n.subscribe("/gui/command", 1000, &login::callback_log, this); //creo il topic a cui faccio il subscribe
+command_subscriber = n.subscribe("/esmacat/command", 1000, &login::callback_log, this); //creo il topic a cui faccio il subscribe
 
 
 
@@ -108,8 +108,8 @@ login::~login()
   delete ui;
 }
 
-void login::callback_log(const agree_gui::agree_gui_command msg_command) {
-  dati::command_login = msg_command.mode;
+void login::callback_log(const agree_esmacat_pkg::agree_esmacat_command msg) {
+  dati::command_login = msg.gui_mode;
 //cambia_status();
   if((dati::command_old_login) != (dati::command_login)) {
     dati::command_old_login=dati::command_login;

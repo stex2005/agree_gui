@@ -17,6 +17,7 @@
 #include "paginaprincipale.h"
 #include "sc_assistivo.h"
 #include "agree_gui/agree_gui_command.h"
+#include "agree_emg_pkg/agree_emg_command.h"
 
 /*****************************************************************************
 
@@ -71,7 +72,7 @@ public slots :
   void showlogin_sc3();
 
 
-  void callback_log(const agree_gui::agree_gui_command msg);
+  void callback_log(const agree_esmacat_pkg::agree_esmacat_command msg);
 
 
 
