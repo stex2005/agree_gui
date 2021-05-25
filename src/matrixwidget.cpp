@@ -42,10 +42,10 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 
 }
 /**********************       FUNZIONE DI CALLBACK                    *********************/
-void MatrixWidget::callback_matrix(const agree_gui::agree_gui_command msg_command_matrix) {
+void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_command msg_command_matrix) {
   ros::NodeHandle n;
   //dati::command_old_matrix = 1;
-  dati::command_matrix = msg_command_matrix.mode;
+  dati::command_matrix = msg_command_matrix.gui_mode;
   ROS_INFO("I heard: %d MATRIX WIDGET, %d %d", dati::command_matrix, msg_command_matrix.exercise, msg_command_matrix.task);
 
   if((dati::command_old_matrix) != (dati::command_matrix)) {

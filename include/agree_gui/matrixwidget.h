@@ -11,6 +11,8 @@
 #include <eigen3/Eigen/Dense>
 #include<eigen3/Eigen/Core>
 
+#include "agree_esmacat_pkg/agree_esmacat_command.h"
+
 using namespace Eigen;
 using namespace std;
 
@@ -68,7 +70,7 @@ signals:
 public slots:
  void LoadData();
 
- void callback_matrix(const agree_gui::agree_gui_command msg_command_matrix);
+ void callback_matrix(const agree_esmacat_pkg::agree_esmacat_command msg_command_matrix);
  // void getpos();
 
 

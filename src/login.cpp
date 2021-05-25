@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include "../include/agree_gui/paginaprincipale.h"
 #include "../include/agree_gui/main_window.hpp"
-#include "../include/agree_gui/sc_assistivo.h"
+//#include "../include/agree_gui/sc_assistivo.h"
 #include "../include/agree_gui/fsm_gui_define.h"
 
 
@@ -96,10 +96,10 @@ this->showMaximized();
 
 
    /**********************       CONNETTO LOGIN CON SC_ASSISTIVO                  *********************/
-      Sc_assistivo = new sc_assistivo();
+      //Sc_assistivo = new sc_assistivo();
 
-      connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
-      qDebug()<< "conn:" << connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
+     // connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
+    //  qDebug()<< "conn:" << connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
 
 }
 

@@ -2,7 +2,7 @@
 #include "ui_paginaprincipale.h"
 #include "../include/agree_gui/login.h"
 #include "../include/agree_gui/main_window.hpp"
-#include "../include/agree_gui/sc_assistivo.h"
+//#include "../include/agree_gui/sc_assistivo.h"
 #include "../include/agree_gui/matrixwidget.h"
 #include "../include/agree_gui/qnode.hpp"
 #include <QMessageBox>
@@ -109,8 +109,7 @@ void paginaprincipale::esmacat_callback(const agree_esmacat_pkg::agree_esmacat_s
 void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_esmacat_command msg) {
   ros::NodeHandle n;
   //  dati::command_old_pp = 1;
-
-
+  qDebug()<< "sono nella callback in pp";
   dati::command_pp = msg.gui_mode;
   dati::command_exercise_pp = msg.exercise;
   dati::command_task_pp = msg.task;
@@ -123,10 +122,11 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command_pp);
 
     if(dati::command_old_pp ==SC1_EDIT_PATIENT_MODULE_CONTROL) {
+      this->showMaximized();
       ui->tabWidget->setCurrentWidget(ui->tab);
       ui->pushButton_allarme->setVisible(false);
-      this->showMaximized();
-      ui->stackedWidget_rom->showMaximized();
+
+     // ui->stackedWidget_rom->showMaximized();
 
       QSqlQuery prova;
       prova.prepare("select Nome, Cognome from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
@@ -239,6 +239,9 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     }
     if(dati::command_old_pp == SC1_EVALUATION){
       timer_rehab->stop();
+      timer_updatedisplay->stop();
+
+
       ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
       n.getParam("/evaluation/Output", dati::output_val);
       int mode_consigliata;
@@ -362,7 +365,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
   ui->setupUi(this);
   ui->progressBar_th->setVisible(false);
-
+ //this->showMinimized();
   //ui->pushButton_salvatapp->setEnabled(false);
 
 
@@ -378,7 +381,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
 
 
-  command_subscriber = n.subscribe("/gui/command", 1000, &paginaprincipale::esmacat_command_callback, this); //creo il topic a cui faccio il subscribe
+  command_subscriber = n.subscribe("/esmacat/command", 1000, &paginaprincipale::esmacat_command_callback, this); //creo il topic a cui faccio il subscribe
   emg_subscriber = n.subscribe("/agree/emg_status", 1000, &paginaprincipale::emg_callback, this);
   esmacat_subscriber = n.subscribe("/agree/esmacat_status", 1000, &paginaprincipale::esmacat_callback, this);
 
@@ -449,10 +452,13 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   timer_val = new QTimer(this);
   timer_feedback = new QTimer(this);
   timer_comp = new QTimer (this);
+  timer_updatedisplay = new QTimer(this);
+
   ROS_INFO("TIMER");
 
 
   connect(timer_rehab, SIGNAL(timeout()),this,SLOT(next_img()));
+  connect(timer_updatedisplay, SIGNAL(timeout()),this,SLOT(updateLabel()));
 
 
   // msec
@@ -590,6 +596,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
   ui->pushButton_show_pdf->setEnabled(false);
+  ui->pushButton_report_long->setEnabled(false);
 
 
 }
@@ -4026,6 +4033,12 @@ void paginaprincipale::on_pushButton_next_clicked()
   ui->progressBar_th->setVisible(true);
   ui->progressBar_th->setMinimum(0);
   ui->progressBar_th->setMaximum(dati::rep_index);
+ // time.restart();
+  time.restart();
+  timer_updatedisplay->start(500);
+  updateLabel();
+  //QString time_text;
+  //time_text = time.toString("hh : mm : ss");
 
 
 
@@ -4042,6 +4055,7 @@ void paginaprincipale::on_pushButton_next_clicked()
 
 /**********************          SHOW EXERCISES IMAGES                    *********************/
 void paginaprincipale::next_img() {
+
   qDebug()<< dati::command_exercise_pp;
 
   //GET PARAM DEI PUNTI DEL TAPPETINO PER FARE CONTROLLO SU COLONNE
@@ -5778,6 +5792,7 @@ void paginaprincipale::on_pushButton_valutazione_clicked()
       ui->tableView_valutazioni->setModel(model2);
       ui->tableView_valutazioni->resizeColumnsToContents();
       ui->pushButton_show_pdf->setEnabled(true);
+      ui->pushButton_report_long->setEnabled(true);
   }
   else
   {
@@ -5839,4 +5854,14 @@ void paginaprincipale::on_radioButton_veloce_clicked()
 {
     speed = 0.20;
     speeds = "veloce";
+}
+
+void paginaprincipale::updateLabel() {
+  int secs = time.elapsed() /1000;
+  int mins = (secs/ 60)%60;
+  int hours = (secs/3600);
+  secs = secs%60;
+  ui->label_time->setText(QString("%1 : %2 : %3").arg(hours).arg(mins).arg(secs));
+
+
 }

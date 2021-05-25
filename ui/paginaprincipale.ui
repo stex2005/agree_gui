@@ -32,21 +32,6 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="1">
-    <widget class="QPushButton" name="pushButton_indietro">
-     <property name="font">
-      <font>
-       <family>Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Indietro</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="3">
     <widget class="QLabel" name="label_date">
      <property name="font">
@@ -56,21 +41,6 @@
      </property>
      <property name="text">
       <string>[+]Date</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2">
-    <widget class="QPushButton" name="pushButton_home">
-     <property name="font">
-      <font>
-       <family>Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Home</string>
      </property>
     </widget>
    </item>
@@ -86,6 +56,64 @@
      </property>
      <property name="text">
       <string>LogOut</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="pushButton_allarme">
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>13</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Allarme</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_status">
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>[+]Status</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QPushButton" name="pushButton_indietro">
+     <property name="font">
+      <font>
+       <family>Sans</family>
+       <pointsize>13</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Indietro</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QPushButton" name="pushButton_home">
+     <property name="font">
+      <font>
+       <family>Sans</family>
+       <pointsize>13</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Home</string>
      </property>
     </widget>
    </item>
@@ -137,35 +165,41 @@
            </property>
            <widget class="QWidget" name="page_3">
             <layout class="QGridLayout" name="gridLayout_4">
-             <item row="1" column="3">
-              <widget class="QPushButton" name="pushButton_eliminapaziente">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                </font>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_ricercapaziente_3">
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
                </property>
+               <property name="text">
+                <string>Ricerca Paziente</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Selezionare con Doppio Click la data relativa alla valutazione 
+che si vuole visualizzare</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="5">
+              <widget class="QTableView" name="tableView_database">
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="4">
+              <widget class="QPushButton" name="pushButton_valutazione">
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(189, 255, 192);</string>
                </property>
                <property name="text">
-                <string>Elimina Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="4">
-              <widget class="QPushButton" name="pushButton_modifica">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);
-
-background-color: rgb(157, 241, 161);</string>
-               </property>
-               <property name="text">
-                <string>Modifica Paziente</string>
+                <string>Valutazioni Paziente</string>
                </property>
               </widget>
              </item>
@@ -184,24 +218,7 @@ background-color: rgb(157, 241, 161);</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="4">
-              <widget class="QPushButton" name="pushButton_nuovopaziente">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);
-
-background-color: rgb(157, 241, 161);</string>
-               </property>
-               <property name="text">
-                <string>Inserisci Nuovo Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
+             <item row="9" column="0">
               <widget class="QPushButton" name="pushButton_utente">
                <property name="font">
                 <font>
@@ -216,10 +233,19 @@ background-color: rgb(157, 241, 161);</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_cercapaziente_3">
-               <property name="placeholderText">
-                <string>Inserire il Cognome del Paziente</string>
+             <item row="6" column="3">
+              <widget class="QPushButton" name="pushButton_show_pdf">
+               <property name="maximumSize">
+                <size>
+                 <width>300</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(189, 255, 192);</string>
+               </property>
+               <property name="text">
+                <string>Mostra Valutazione Precedente</string>
                </property>
               </widget>
              </item>
@@ -238,7 +264,53 @@ background-color: rgb(157, 241, 161);</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="2">
+             <item row="6" column="4">
+              <widget class="QPushButton" name="pushButton_report_long">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(189, 255, 192);</string>
+               </property>
+               <property name="text">
+                <string>Mostra Report Longitudinale</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0" colspan="5">
+              <widget class="QTableView" name="tableView_valutazioni"/>
+             </item>
+             <item row="2" column="4">
+              <widget class="QPushButton" name="pushButton_modifica">
+               <property name="font">
+                <font>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(189, 255, 192);
+</string>
+               </property>
+               <property name="text">
+                <string>Modifica Paziente</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QPushButton" name="pushButton_nuovopaziente">
+               <property name="font">
+                <font>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(189, 255, 192);
+
+</string>
+               </property>
+               <property name="text">
+                <string>Inserisci Nuovo Paziente</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="2">
               <widget class="QLabel" name="label_21">
                <property name="font">
                 <font>
@@ -254,24 +326,7 @@ background-color: rgb(157, 241, 161);</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
-              <widget class="QTableView" name="tableView_valutazioni"/>
-             </item>
-             <item row="1" column="2">
-              <widget class="QPushButton" name="pushButton_valutazione">
-               <property name="text">
-                <string>Valutazioni Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_ricercapaziente_3">
-               <property name="text">
-                <string>Ricerca Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="4">
+             <item row="9" column="4">
               <widget class="QPushButton" name="pushButton_vestizioneAgree">
                <property name="font">
                 <font>
@@ -290,31 +345,25 @@ background-color: rgb(157, 241, 161);</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="0" colspan="5">
-              <widget class="QTableView" name="tableView_database">
-               <property name="sizeAdjustPolicy">
-                <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+             <item row="2" column="3">
+              <widget class="QPushButton" name="pushButton_eliminapaziente">
+               <property name="font">
+                <font>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(189, 255, 192);</string>
+               </property>
+               <property name="text">
+                <string>Elimina Paziente</string>
                </property>
               </widget>
              </item>
-             <item row="6" column="0">
-              <widget class="QPushButton" name="pushButton_show_pdf">
-               <property name="maximumSize">
-                <size>
-                 <width>300</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Mostra Valutazione</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>Selezionare con Doppio Click la data relativa alla valutazione 
-che si vuole visualizzare</string>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEdit_cercapaziente_3">
+               <property name="placeholderText">
+                <string>Inserire il Cognome del Paziente</string>
                </property>
               </widget>
              </item>
@@ -678,7 +727,7 @@ che si vuole visualizzare</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>8</number>
+          <number>11</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -5677,6 +5726,28 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_28">
                  <item>
+                  <widget class="QLabel" name="label_72">
+                   <property name="text">
+                    <string>Tempo: </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_time">
+                   <property name="font">
+                    <font>
+                     <family>Sans</family>
+                     <pointsize>17</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QLabel" name="label_61">
                    <property name="minimumSize">
                     <size>
@@ -7829,34 +7900,6 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
      </widget>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QPushButton" name="pushButton_allarme">
-     <property name="font">
-      <font>
-       <family>DejaVu Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Allarme</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_status">
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>[+]Status</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <tabstops>
@@ -7878,7 +7921,6 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
   <tabstop>lineEdit_cognome_2</tabstop>
   <tabstop>lineEdit_conferma</tabstop>
   <tabstop>pushButton_cerca_3</tabstop>
-  <tabstop>lineEdit_cercapaziente_3</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>pushButton_elencoPazienti</tabstop>
   <tabstop>tableView_database</tabstop>

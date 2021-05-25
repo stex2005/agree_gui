@@ -47,7 +47,7 @@ add_message_files(
     DIRECTORY
     msg
     FILES
-    agree_gui_command.msg
+    agree_esmacat_command.msg
     agree_emg_status.msg
     )
 

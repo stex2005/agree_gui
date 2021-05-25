@@ -33,16 +33,12 @@
 #include <QThread>
 #include <QStringListModel>
 #include <QTimer>
+#include <QTime>
 #include <vector>
-
-
-
-
-
 
 #include "matrixwidget.h"
 #include "qnode.hpp"
-#include "agree_gui/agree_gui_command.h"
+//#include "agree_gui/agree_gui_command.h"
 #include "agree_gui/agree_emg_status.h"
 
 #include "agree_esmacat_pkg/agree_esmacat_command.h"
@@ -506,6 +502,8 @@ private slots:
 
  void on_radioButton_veloce_clicked();
 
+ void updateLabel();
+
 private:
   Ui::paginaprincipale *ui;
 
@@ -533,6 +531,8 @@ private:
   QTimer *timer_val;   // TIMER PER MOSTRARE VALUTAZIONE
   QTimer *timer_feedback; // TIMER PER FEEDBACK AL PAZIENTE
   QTimer *timer_comp; //TIMER PER INVIARE LA COMPENSAZIONE NEI ROSPARAM
+  QTime time;
+  QTimer *timer_updatedisplay;
 
 
 };

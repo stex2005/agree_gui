@@ -15,9 +15,10 @@
 #include <QFileInfo>
 
 #include "paginaprincipale.h"
-#include "sc_assistivo.h"
-#include "agree_gui/agree_gui_command.h"
+//#include "sc_assistivo.h"
+//#include "agree_gui/agree_gui_command.h"
 #include "agree_emg_pkg/agree_emg_command.h"
+#include "agree_esmacat_pkg/agree_esmacat_command.h"
 
 /*****************************************************************************
 
@@ -88,7 +89,7 @@ private slots:
 private:
   Ui::login *ui;
   paginaprincipale *Paginaprincipale; //declaring the name of window that i can open from the login
-  sc_assistivo *Sc_assistivo;
+  //sc_assistivo *Sc_assistivo;
   login *Login;
   ros::Publisher status_publisher;
   ros::Subscriber command_subscriber;
