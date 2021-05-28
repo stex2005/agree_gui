@@ -1,7 +1,5 @@
 physiological_param:
 
-
-
     ROM_Max:
       - 0.0
       - 0.0
@@ -24,27 +22,23 @@ physiological_param:
 
     weight: 0.0
      
-    arm_compensation: 0.0
+    hand_length: 0.0
+    uppearm_length: 0.0
+    lowerarm_length: 0.0
 
+    arm_compensation: 0.0
     forearm_compensation: 0.0
 
     mass_upperarm: 0.0
-
     mass_lowerarm: 0.0
-
     mass_hand: 0.0
 
     cdm_upperarm: 0.0
-
     cdm_lowerarm: 0.0
 
     cdm_hand: 0.0
 
-    hand_length: 0.0
 
-    uppearm_length: 0.0
-
-    lowerarm_length: 0.0
 
     velocity: 0.0
 
