@@ -143,7 +143,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -1035,7 +1035,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>6</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -3588,7 +3588,7 @@ Al ternine della procedura verrai automaticamente indirizzato al passaggio succe
            <item row="0" column="0">
             <widget class="QStackedWidget" name="stackedWidget_4">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_param_agree">
               <layout class="QVBoxLayout" name="verticalLayout_14">
