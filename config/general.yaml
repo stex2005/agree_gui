@@ -20,7 +20,7 @@ active_modules:
   - false   # VOCAL 8
   - false   # IK ONLINE
 
-side: false #FALSE = sx, TRUE = dx
+side: 0 #0 = default / 1 = destra / 2 = sinistra
 
 scenario: 0
 

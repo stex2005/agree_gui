@@ -2,6 +2,10 @@ evaluation:
 
     Output: 0
 
+    Final_Score_Kinematics: 0.0
+
+    Final_Score_EMG: 0.0
+
     rest_energy:
       - 0.0
       - 0.0
@@ -20,6 +24,8 @@ evaluation:
     Flag_end_eval: false
 
     Path_pdf: 'name_pdf'
+
+    Path_emg_pdf: 'emg_name_pdf'
 
 
 

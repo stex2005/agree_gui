@@ -237,85 +237,70 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
       }
 
     }
+    //ATTENDO CHE NODO VALUTAZIONE PROCESSI ED ELABORI I DATI
     if(dati::command_old_pp == SC1_EVALUATION){
       timer_rehab->stop();
       timer_updatedisplay->stop();
 
 
       ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
-      n.getParam("/evaluation/Output", dati::output_val);
-      int mode_consigliata;
+      ui->stackedWidget_val_2->setCurrentWidget(ui->page_wait_for_eval);
 
-      //SAVE THE PDF EVALUATION PATH
+
+    }
+    if(dati::command_old_pp == SC1_EVALUATION_DONE)
+    {
+      //valutazione finita faccio il get di tutti i parametri che mi servono
+      n.getParam("/evaluation/Output", dati::output_val);
+      n.getParam("/evaluation/Final_Score_Kinematics", final_score_kinematics);
+      n.getParam("/evaluation/Final_Score_EMG", final_score_emg);
+      n.getParam("/evaluation/Path_pdf", eval_kinematics);
+
+      if(active_module_EEG_EMG==1) {
+        n.getParam("/evaluation/Path_emg_pdf", eval_emg);
+      }
+      QString eval_kinematics_str = QString::fromUtf8(eval_kinematics.c_str());
+      QString eval_emg_str = QString::fromUtf8(eval_emg.c_str());
+      QString final_score_kinematics_str = QString::number(final_score_kinematics);
+      QString final_score_emg_str = QString::number(final_score_emg);
+
+      QSqlQuery save_eval_data;
+      save_eval_data.prepare("update Parametri_Paziente set val_kinematics = '"+eval_kinematics_str+"', val_emg = '"+eval_emg_str+"', final_score_kinamtics = '"+final_score_kinematics_str+"', final_score_emg = '"+final_score_emg_str+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+      if (!save_eval_data.exec()) {
+        qDebug()<< save_eval_data.lastError();
+      }
+
+      n.getParam("/exercise/mode", mode_consigliata);
 
       if(dati::output_val == -1) {
         QPixmap output_neg("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output-1.png");
-        ui->label_output->setPixmap(output_neg);
-        n.getParam("/exercise/mode", mode_consigliata);
+        ui->label_output_semaforo->setPixmap(output_neg);
         mode_consigliata = mode_consigliata-1;
-        QString mode_consigliata_db = QString::number(mode_consigliata);
-        QSqlQuery salvaout;
-        salvaout.prepare("update Parametri_Paziente set output='"+mode_consigliata_db+"' where Codice_ID='"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
-        salvaout.exec();
-        if (!salvaout.exec()) {
-          qDebug()<<salvaout.lastError();
-        }
-
       }
       if(dati::output_val== 0)
       {
         QPixmap output0("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output0.png");
-        ui->label_output->setPixmap(output0);
-        n.getParam("/exercise/mode", mode_consigliata);
+        ui->label_output_semaforo->setPixmap(output0);
         mode_consigliata = mode_consigliata;
-        QString mode_consigliata_db = QString::number(mode_consigliata);
-        QSqlQuery salvaout;
-        salvaout.prepare("update Parametri_Paziente set output='"+mode_consigliata_db+"' where Codice_ID='"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
-        salvaout.exec();
-        if (!salvaout.exec()) {
-          qDebug()<<salvaout.lastError();
         }
-      }
+
       if(dati::output_val==1) {
         QPixmap output1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output1.png");
-        ui->label_output->setPixmap(output1);
-        n.getParam("/exercise/mode", mode_consigliata);
+        ui->label_output_semaforo->setPixmap(output1);
         mode_consigliata = mode_consigliata+1;
-        QString mode_consigliata_db = QString::number(mode_consigliata);
-        QSqlQuery salvaout;
-        salvaout.prepare("update Parametri_Paziente set output='"+mode_consigliata_db+"' where Codice_ID='"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
-        salvaout.exec();
-        if (!salvaout.exec()) {
-          qDebug()<<salvaout.lastError();
-        }
       }
 
-      //SAVING EVALUATION PDF PATH ON THE DATABASE
+      //salvo una sola volta
+      QString mode_consigliata_db = QString::number(mode_consigliata);
+      QSqlQuery salvaout;
+      salvaout.prepare("update Parametri_Paziente set output='"+mode_consigliata_db+"' where Codice_ID='"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+      salvaout.exec();
+      if (!salvaout.exec()) {
+        qDebug()<<salvaout.lastError();
+      }
 
-      //std::string PatientCode = "gigio01";
-      std::string dir_val = "/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/";
-      std::string PatientCode = dati::ind.toUtf8().constData();
-      std::string format = ".pdf";
-      std::string filepath = dir_val+ PatientCode + format;
-      //      std::string filepath;
-      //      n.getParam("/evaluation/Path_pdf", filepath);
-
-      QString filepath_db = QString::fromUtf8(filepath.c_str());
-      cout << filepath <<endl;
-      QSqlQuery save_path;
-      save_path.prepare("update  Parametri_Paziente set path_val = '"+filepath_db+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
-      save_path.exec();
-      if(!save_path.exec())
-        qDebug()<< save_path.lastError();
-
-
-      // QFileInfo fi( QDir("/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/"), "%s", PatientCode );
-      //  QString path = fi.absoluteFilePath();
-      // QDir dir_val("/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/");
-
-
-      //sprintf(bufferollo,"/home/nearlab/AGREE_ws/src/agree_evaluation_pkg/src/evaluation_node/%s",PatientCode.c_str());
-
+     ui->tabWidget_2->setCurrentWidget(ui->tab_valutazione);
+     ui->stackedWidget_val_2->setCurrentWidget(ui->page_output);
 
     }
     if(dati::command_old_pp== SC1_EMERGENCY_RESET) {
@@ -515,8 +500,11 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
 
-  QPixmap pic12("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/iniz.png");
+  QPixmap pic12("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/init.jpeg");
   ui->label_wait->setPixmap(pic12);
+
+  QPixmap pic_eval("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/eval.jpeg");
+  ui->label_wait_for_eval->setPixmap(pic_eval);
 
 
   QPixmap pic13("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/emergenza.png");
@@ -595,8 +583,10 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QSqlDatabase mydb2 = QSqlDatabase::database();
 
 
-  ui->pushButton_show_pdf->setEnabled(false);
-  ui->pushButton_report_long->setEnabled(false);
+  ui->pushButton_show_pdf->setVisible(false);
+  ui->pushButton_report_long->setVisible(false);
+
+  ui->pushButton_show_pdf->setToolTip("Verrà visualizzata la valutazione della cinematica relativa alla data selezionata");
 
 
 }
@@ -625,7 +615,7 @@ void paginaprincipale::on_pushButton_nuovopaziente_clicked()
                        ui-> lineEdit_patologia -> clear();
                           ui->lineEdit_storiaclinica ->clear();
                              ui->lineEdit_braccio->clear();
-                                ui ->lineEdit_avambraccio->clear();
+                               // ui ->lineEdit_avambraccio->clear();
                                    QSqlQuery query;
                                       query.prepare("select count (*) from Count");
                                          query.exec();
@@ -640,8 +630,8 @@ void paginaprincipale::on_pushButton_nuovopaziente_clicked()
 /**********************       SAVE PATIENT (BOTH FOR NEW AND EDITING)  *********************/
 void paginaprincipale::on_pushButton_salva_clicked()
 {
-
-  QString Data, Sesso, Patologia, Lato, storiaclinica,sigla, altezza, peso;
+  ros::NodeHandle n;
+  QString Data, Sesso, Patologia, Lato, storiaclinica,sigla, altezza, peso, lunghezza_braccio, lunghezza_avambraccio;
   dati::NomeP = ui->lineEdit_nome-> text();
   dati::CognomeP = ui-> lineEdit_cognome -> text();
   Data = ui-> lineEdit_datanascita -> text();
@@ -650,8 +640,26 @@ void paginaprincipale::on_pushButton_salva_clicked()
   Lato = ui-> comboBox_latodominante-> currentText();
   storiaclinica = ui->lineEdit_storiaclinica ->text();
 
+  comp_arm = 100;
+  comp_forearm_i = 100;
+  ui->horizontalSlider_comp->setValue(comp_arm);
+  ui->progressBar_comp->setValue(comp_arm);
+  ui->lcdNumber->display(comp_arm);
+
+
+  ui->progressBar_comp_avam->setValue(comp_forearm_i);
+  ui->lcdNumber_comp_avam->display(comp_forearm_i);
+  ui->horizontalSlider_comp_avam->setValue(comp_forearm_i);
+
+  // COME LI DEVO INVIARE I ROSPARAM
+  n.setParam ("/physiological_param/arm_compensation", comp_param);
+  n.setParam ("/physiological_param/forearm_compensation", comp_forearm);
+
   altezza = ui-> lineEdit_h-> text();
   peso = ui->lineEdit_peso->text();
+
+  lunghezza_braccio = ui->lineEdit_lunghezzabraccio_fisio->text();
+  lunghezza_avambraccio = ui->lineEdit_lunghezzavamb_fisio->text();
   dati::sigla = "p";
 
   if(flag==1)
@@ -671,7 +679,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
 
           dati::codice_id= dati::NomeP + dati::CognomeP + dati::sigla+dati::count;
           QSqlQuery qry;
-          qry.prepare("insert into Pazienti (Codice_ID, UsernameDOC, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, Altezza, Peso, StoriaClinica) values ('"+dati::codice_id+"', '"+dati::username+"', '"+dati::NomeP+"', '"+dati::CognomeP+"','"+Data+"', '"+Patologia+"', '"+Sesso+"', '"+Lato+"', '"+altezza+"', '"+peso+"', '"+storiaclinica+"')" );
+          qry.prepare("insert into Pazienti (Codice_ID, UsernameDOC, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, Altezza, Peso, StoriaClinica, lb_fisio, la_fisio) values ('"+dati::codice_id+"', '"+dati::username+"', '"+dati::NomeP+"', '"+dati::CognomeP+"','"+Data+"', '"+Patologia+"', '"+Sesso+"', '"+Lato+"', '"+altezza+"', '"+peso+"', '"+storiaclinica+"', '"+lunghezza_braccio+"', '"+lunghezza_avambraccio+"')" );
           if(qry.exec()) {
             // se lo salvo lo comunico e copio username in tabella count
             //QMessageBox ::information(this,tr("Salvataggio"),tr(" Paziente Salvato Correttamente"));
@@ -716,6 +724,9 @@ void paginaprincipale::on_pushButton_salva_clicked()
 
     }
   }
+  //qui salvo a default la compensazione uguale a 100 (che corrisponde ad alla compensazione per il peso e l'altezza della persona appena inserita
+
+
 }
 
 /**********************      UPLOAD PATIENT TABLE                       *********************/
@@ -807,7 +818,13 @@ void paginaprincipale::on_pushButton_modifica_clicked()
         ui->lineEdit_peso->setText(qry5.value(9).toString());
         ui->lineEdit_storiaclinica ->setText(qry5.value(12).toString());
         ui->lineEdit_braccio->setText(qry5.value(10).toString());
-        ui->lineEdit_avambraccio->setText(qry5.value(11).toString());
+        //ui->lineEdit_avambraccio->setText(qry5.value(11).toString());
+        ui->lineEdit_lunghezzabraccio_fisio->setText(qry5.value(16).toString());
+        lb_fisio = qry5.value(16).toString();
+        la_fisio = qry5.value(17).toString();
+
+        ui->lineEdit_lunghezzavamb_fisio->setText(qry5.value(17).toString());
+
         QSqlQuery prova1;
         prova1.prepare("select cont from Count where username = '"+dati::ind+"'");
         prova1.exec();
@@ -938,7 +955,8 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
       risposta.exec();
       if(risposta.clickedButton()==pButtonYes)
 
-      {
+      { //funzione che calcola la lunghezza exo rispetto ai parametri fisiologici
+        exosize();
 
         QSqlQuery selezione; // selezioni l'ultima riga salvata con questo codice id
         selezione.prepare ("select *  from Parametri_Paziente where Codice_ID = '"+dati::ind+"' order by Data_acquisizione desc limit 1");
@@ -1000,7 +1018,9 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             dati::lex6 = dati::ex6_prec.length();
             dati::lex7 = dati::ex7_prec.length();
             comp_exo_forearm = selezione.value(43).toString();
+            comp_forearm = selezione.value(43).toDouble();
             comp_exo = selezione.value(44).toString();
+            comp_param = selezione.value(44).toDouble();
             Lunghezza_a = selezione.value(48).toString();
             Lunghezza_b = selezione.value(49).toString();
             dati::mode_output = selezione.value(52).toString();
@@ -1023,8 +1043,6 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             else if(dati::mode_output =="6") {
               dati::mode_output  = "Challenging";
             }
-
-
 
 
             ui->lineEdit_flessospallamin->setText(FESm2);
@@ -1054,7 +1072,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
             ui->label_istr_agg_param_exo-> setText("Durante la precedente sessione sono state inserite\n\nle lunghezze che vedi qui riportate.\n\nVerificale sull'esoscheltro e aggiornale.\n\nQuindi premi Salva");
             ui->lineEdit_braccio->setText(Lunghezza_b);
-            ui->lineEdit_avambraccio->setText(Lunghezza_a);
+            //ui->lineEdit_avambraccio->setText(Lunghezza_a);
 
             //            QSqlQuery agg_param_exo;
             //            agg_param_exo.prepare("select from Pazienti(LunghezzaBraccio, LunghezzaAvambraccio) where Codice_ID = '"+dati::ind+"'");
@@ -1094,9 +1112,11 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
           ui ->lineEdit_polsomin->setText(Pm1);
           ui->lineEdit_polsomax->setText(PM1);
 
-
+          QString comp_avamb_s, comp_s;
+          comp_avamb_s = QString::number(comp_forearm_i);
+          comp_s =QString::number(comp_arm);
           QSqlQuery insert;
-          insert.prepare("insert into Parametri_Paziente (Codice_ID, UsernameDoc, Data_acquisizione) values ('"+dati::ind+"', '"+dati::username+"', '"+dati::data1+"')");
+          insert.prepare("insert into Parametri_Paziente (Codice_ID, UsernameDoc, Data_acquisizione, compensazione_avamb, compensazione) values ('"+dati::ind+"', '"+dati::username+"', '"+dati::data1+"', '"+comp_avamb_s+"', '"+comp_arm+"')");
           if (insert.exec())
           {
             ui->tabWidget->setCurrentWidget(ui->tab_2);
@@ -1189,7 +1209,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
   upperarm = l_b.toDouble();
   lowerarm = l_a.toDouble();
-  height = h.toDouble();
+  height = (h.toDouble())/100;
   weight = p.toDouble();
 
   UA_m = double(0.028)*weight;
@@ -1205,6 +1225,8 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
   n.setParam("/physiological_param/mass_upperarm", UA_m);
   n.setParam("/physiological_param/mass_lowerarm", LA_m);
   n.setParam("/physiological_param/mass_hand", H_m);
+  n.setParam("/physiological_param/arm_compensation", comp_param/100);
+  n.setParam ("/physiological_param/forearm_compensation", comp_forearm/100);
   std::string codice_id_paziente, patient_name, patient_surname;
   codice_id_paziente = dati::ind.toUtf8().constData();
   patient_name = dati::NomeP.toUtf8().constData();
@@ -1324,7 +1346,7 @@ void paginaprincipale::on_pushButton_home_clicked()
   ros::NodeHandle n;
   n.setParam ("/physiological_param/arm_compensation", comp_param);
   n.setParam ("/physiological_param/forearm_compensation", comp_forearm);
-  n.setParam("/active_modules", active_modules);
+  n.setParam("/general/active_modules", active_modules);
   n.setParam("/exercise/sequence", ex_seq);
   n.setParam("/exercise/repetition", ex_rep);
   n.setParam ("/exercise/objects", ex_obj);
@@ -2168,7 +2190,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe1==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+          n.setParam("/general/active_modules", active_modules);
 
         }
 
@@ -2223,7 +2245,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe2==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+          n.setParam("/general/active_modules", active_modules);
 
         }
 
@@ -2272,7 +2294,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe3==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+          n.setParam("/general/active_modules", active_modules);
 
         }
 
@@ -2320,7 +2342,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe4==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+          n.setParam("/general/active_modules", active_modules);
 
         }
 
@@ -2370,7 +2392,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe5==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+          n.setParam("/general/active_modules", active_modules);
 
         }
 
@@ -2418,7 +2440,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe6==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+          n.setParam("/general/active_modules", active_modules);
 
         }
 
@@ -2468,7 +2490,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe7==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+          n.setParam("/general/active_modules", active_modules);
 
         }
 
@@ -2864,8 +2886,9 @@ void paginaprincipale::on_pushButton_avanti_v_clicked()
 void paginaprincipale::on_pushButton_salva_exo_param_clicked()
 { QString Lunghezza_braccio, Lunghezza_avambraccio;
   Lunghezza_braccio = ui->lineEdit_braccio -> text();
+  Lunghezza_avambraccio = la_fisio;
   //  float Lunghezza_braccio_f = Lunghezza_braccio.toFloat();
-  Lunghezza_avambraccio = ui->lineEdit_avambraccio-> text();
+  //Lunghezza_avambraccio = ui->lineEdit_avambraccio-> text();
 
   UA_l = Lunghezza_braccio.toDouble();
   LA_l = Lunghezza_avambraccio.toDouble();
@@ -2877,7 +2900,7 @@ void paginaprincipale::on_pushButton_salva_exo_param_clicked()
   CdM_LA = double(0.43)*LA_l;
   CdM_H = double(0.506)*H_l;
   ros::NodeHandle n;
-  n.setParam("/physiological_param/upperarm_length", UA_l);
+  n.setParam("/physiological_param/upperarm_length", UA_l); //questa è la taglia dell'exo indicata sui pittogrammi
   n.setParam("/physiological_param/lowerarm_length", LA_l);
   n.setParam("/physiological_param/hand_length",H_l);
   n.setParam("/matlab/len_fore", LA_l);
@@ -5098,6 +5121,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
   if(ui->checkBox_sinistro->isChecked())
   {dati::lato="0" ;
+    side_param = 2;
     QPixmap pic7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j2_sx.png");
     ui->label_13->setPixmap(pic7);
 
@@ -5116,6 +5140,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   }
   if(ui->checkBox_destro->isChecked())
   { dati::lato = "1";
+    side_param = 1;
     QPixmap pic7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j2_dx.png");
     ui->label_13->setPixmap(pic7);
 
@@ -5638,7 +5663,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   }
   /***************         SETTO ROS PARAMETERS CON I MODULI   ******************/
   ros::NodeHandle n;
-  n.setParam("/active_modules", active_modules );
+  n.setParam("/general/active_modules", active_modules );
+  n.setParam("/general/side", side_param);
 
 
 
@@ -5783,7 +5809,8 @@ void paginaprincipale::on_pushButton_salvascore_clicked()
 }
 
 void paginaprincipale::on_pushButton_valutazione_clicked()
-{  if(flag==3)  {  //PAZIENTE SELEZIONATO
+{
+  if(flag==3)  {  //PAZIENTE SELEZIONATO
   QSqlQueryModel *model2 = new QSqlQueryModel();
     QSqlQuery elenco_val;
     elenco_val.prepare("select rowid, Data_acquisizione from Parametri_Paziente where Codice_ID = '"+dati::ind+"' ");
@@ -5791,8 +5818,8 @@ void paginaprincipale::on_pushButton_valutazione_clicked()
       model2 -> setQuery(elenco_val);
       ui->tableView_valutazioni->setModel(model2);
       ui->tableView_valutazioni->resizeColumnsToContents();
-      ui->pushButton_show_pdf->setEnabled(true);
-      ui->pushButton_report_long->setEnabled(true);
+      ui->pushButton_show_pdf->setVisible(true);
+      ui->pushButton_report_long->setVisible(true);
   }
   else
   {
@@ -5802,10 +5829,12 @@ void paginaprincipale::on_pushButton_valutazione_clicked()
 }
 
 void paginaprincipale::on_pushButton_show_pdf_clicked()
-{ if(flag==7) {
+{
+  if(flag==7) //data selezionata
+  {
 
   QSqlQuery sel_eval;
-    sel_eval.prepare("select path_val from Parametri_Paziente where Data_acquisizione ='"+data_eval+"'");
+    sel_eval.prepare("select val_kinematics from Parametri_Paziente where Data_acquisizione ='"+data_eval+"'");
     sel_eval.exec();
       if(sel_eval.exec()) {
 
@@ -5825,8 +5854,7 @@ void paginaprincipale::on_pushButton_show_pdf_clicked()
   {
     QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
   }
-//    system("xdg-open test_pdf.pdf");
-//    system("xdg-open mozilla.pdf");
+
 }
 
 void paginaprincipale::on_tableView_valutazioni_activated(const QModelIndex &index)
@@ -5863,5 +5891,57 @@ void paginaprincipale::updateLabel() {
   secs = secs%60;
   ui->label_time->setText(QString("%1 : %2 : %3").arg(hours).arg(mins).arg(secs));
 
+}
 
+void paginaprincipale::exosize() {
+  lb_fisio_d = lb_fisio.toDouble();
+  la_fisio_d = la_fisio.toDouble();
+  if (lb_fisio_d < max_size1)
+    exo_size = 1;
+  else if(lb_fisio_d < max_size2)
+    exo_size = 2;
+  else if (lb_fisio_d < max_size3)
+    exo_size = 3;
+  else if (lb_fisio_d <max_size4)
+    exo_size = 4;
+
+
+}
+
+void paginaprincipale::on_pushButton_valutazione_cinematica_2_clicked()
+{
+  system(("xdg-open " +  eval_kinematics).c_str());
+}
+
+void paginaprincipale::on_pushButton_valutazione_EMG_2_clicked()
+{
+    system(("xdg-open " +  eval_emg).c_str());
+}
+
+void paginaprincipale::on_pushButton_showeval_emg_clicked()
+{
+  if(flag==7) //data selezionata
+  {
+
+  QSqlQuery sel_eval_emg;
+    sel_eval_emg.prepare("select val_emg from Parametri_Paziente where Data_acquisizione ='"+data_eval+"'");
+    sel_eval_emg.exec();
+      if(sel_eval_emg.exec()) {
+
+      while(sel_eval_emg.next()) {
+
+        filename_eval_emg = sel_eval_emg.value(0).toString();
+        std::string s = filename_eval_emg.toStdString();
+        qDebug()<<filename_eval_emg;
+        system(("xdg-open " +  s).c_str());
+
+      }
+      }
+      else {
+        qDebug()<<sel_eval_emg.lastError();}
+}
+  else
+  {
+    QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
+  }
 }

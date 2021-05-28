@@ -36,6 +36,8 @@
 #include <QTime>
 #include <vector>
 
+#include <QToolTip>
+
 #include "matrixwidget.h"
 #include "qnode.hpp"
 //#include "agree_gui/agree_gui_command.h"
@@ -208,6 +210,7 @@ class paginaprincipale : public QDialog
     std::vector<double> J_MAX;         // ROM MAX
     std::vector<double> J_MIN;         // ROM MIN
     double upperarm, lowerarm, height, weight, UA_m, LA_m, H_m, CdM_UA, CdM_LA, CdM_H, UA_l, LA_l, H_l, comp_param, comp_forearm, speed;
+    int8_t comp_arm, comp_forearm_i;
     // UA --> upper arm
     // LA --> lower arm
     // H --> hand
@@ -259,10 +262,36 @@ class paginaprincipale : public QDialog
     *****************************************************************************/
 
     // METTI OUTPUT QUI
+    std::string eval_kinematics, eval_emg; //nome dei file pdf delle valutazioni da salvare nel db
+    int mode_consigliata; //output da incrementare per salvare nel db la modalità successiva
+    double final_score_kinematics, final_score_emg; // output globale per il report longitudinale
+
+    //DICHIARAZIONE LATO
+    int side_param;
+
+
+
+
     QString filename_eval;
+    QString filename_eval_emg;
     QString data_eval;
 
     QString speeds;
+
+    /*****************************************************************************
+
+    *********            PHYSIOLOGICAL PARAM DECLARATION                  *********
+
+    *****************************************************************************/
+
+    QString lb_fisio, la_fisio;
+    double lb_fisio_d, la_fisio_d;
+    double max_size1 = 25.0;
+    double max_size2 = 30.0;
+    double max_size3 = 35.0;
+    double max_size4 = 40.0;
+    int8_t exo_size;
+
 
 
 
@@ -503,6 +532,14 @@ private slots:
  void on_radioButton_veloce_clicked();
 
  void updateLabel();
+
+ void exosize();
+
+ void on_pushButton_valutazione_cinematica_2_clicked();
+
+ void on_pushButton_valutazione_EMG_2_clicked();
+
+ void on_pushButton_showeval_emg_clicked();
 
 private:
   Ui::paginaprincipale *ui;
