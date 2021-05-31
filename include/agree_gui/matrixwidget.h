@@ -11,6 +11,7 @@
 #include <eigen3/Eigen/Dense>
 #include<eigen3/Eigen/Core>
 
+
 #include "agree_esmacat_pkg/agree_esmacat_command.h"
 
 using namespace Eigen;
@@ -61,6 +62,7 @@ public:
   int zero_point3 = 0;
 std::vector<int> points;
 int  point1x,point1y,point2x,point2y,point3x,point3y;
+int side_matrix;
 
 
  QVector<QPoint> getPosition() const;

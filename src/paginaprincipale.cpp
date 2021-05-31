@@ -2146,6 +2146,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
 void paginaprincipale::on_pushButton_salvaex_clicked()
 {
   ros::NodeHandle n;
+  QMessageBox::warning(this, tr("AVVISO INIZIALIZZAZIONE"), tr("Attenzione si sta per procedere con l'inizializzazione di AGREE. L'esoscheltro si muoverà e porterà i motori a fine corsa. Prima di procedere assicurarsi che l'esoscheletro sia messo in sicurezza rispetto all'ambiente circostante."));
 
   ui->tabWidget_2->setCurrentWidget(ui->tab_init);
   QString bicchiere, borraccia, tazza;

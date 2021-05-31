@@ -29,7 +29,8 @@ bool dati::selcount_mat=0;
 MatrixXd openData(string fileToOpen);
 
 MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
-{ if(dati::command_old_matrix==SC1_WORKSPACE_ON){
+{
+  if(dati::command_old_matrix==SC1_WORKSPACE_ON){
     LoadData();
     qDebug()<<"dati caricati";
   }
@@ -44,6 +45,7 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 /**********************       FUNZIONE DI CALLBACK                    *********************/
 void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_command msg_command_matrix) {
   ros::NodeHandle n;
+  n.getParam("/side", side_matrix);
   //dati::command_old_matrix = 1;
   dati::command_matrix = msg_command_matrix.gui_mode;
   ROS_INFO("I heard: %d MATRIX WIDGET, %d %d", dati::command_matrix, msg_command_matrix.exercise, msg_command_matrix.task);
@@ -302,7 +304,9 @@ void MatrixWidget::LoadData(){
    MatrixXd matrix_test_y;
    MatrixXd matrix_test_en;
 
-  if(dati::lato=="1"){
+
+  //if(dati::lato=="1"){
+   if(side_matrix== 1){
     cout <<  "Enter Load right" << endl;
 
      Eigen::MatioFile file_x_right("/home/alice/catkin_ws/data/right_workspace_x.mat");
@@ -364,7 +368,8 @@ void MatrixWidget::LoadData(){
   } //DESTRO
  //  cout << "sono fuori dal destro"<<std::endl;
   qDebug()<<Data[13][1].value;
-  if(dati::lato== "0") {
+//  if(dati::lato== "0") {
+  if(side_matrix==2){
   //  cout <<  "Enter Load left" << endl;
 
     Eigen::MatioFile file_x_left("/home/alice/catkin_ws/data/left_workspace_x.mat");
