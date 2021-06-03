@@ -39,20 +39,21 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QWidget(parent)
 
   /**********************       CREO TOPIC                          *********************/
   status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
-  command_subscriber = n.subscribe("/gui/command", 1000, &MatrixWidget::callback_matrix, this);
+  command_subscriber = n.subscribe("/esmacat/command", 1000, &MatrixWidget::callback_matrix, this);
 
 }
 /**********************       FUNZIONE DI CALLBACK                    *********************/
 void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_command msg_command_matrix) {
   ros::NodeHandle n;
   n.getParam("/side", side_matrix);
+  //ROS_INFO( "rio  side matrix: %d" , side_matrix);
   //dati::command_old_matrix = 1;
   dati::command_matrix = msg_command_matrix.gui_mode;
   ROS_INFO("I heard: %d MATRIX WIDGET, %d %d", dati::command_matrix, msg_command_matrix.exercise, msg_command_matrix.task);
 
   if((dati::command_old_matrix) != (dati::command_matrix)) {
     dati::command_old_matrix=dati::command_matrix;
-    qDebug()<< "matrix";
+   // qDebug()<< "matrix";
     if(dati::command_old_matrix==SC1_WORKSPACE_ON){
       LoadData();
      // qDebug()<<"dati caricati";
@@ -267,11 +268,11 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   }
 }
 void MatrixWidget::paintEvent(QPaintEvent *event)
-{  cout << "sono nel paint event 1"<<std::endl;
+{  //cout << "sono nel paint event 1"<<std::endl;
   QPainter p(this);
   p.drawRect(0,0, width()-1 , height() -1  );
   //-1
-  cout << "sono nel paint event"<<std::endl;
+ // cout << "sono nel paint event"<<std::endl;
 
   // size of area we have. w = width , h = height , we take 2 pixles for border
   int w = width()-2;
@@ -282,10 +283,10 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
   // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
 
   for (int xi = 0; xi < max_x-1; ++xi) {
-     cout << "sono nel I for del paint event"<<std::endl;
+   //  cout << "sono nel I for del paint event"<<std::endl;
     // for (int xi =14; xi >=1; --xi) {
     for (int yi = 0; yi < max_y -1; ++yi) {
-      cout << "sono nel II for del paint event"<<std::endl;
+    //  cout << "sono nel II for del paint event"<<std::endl;
       // int new_x= Y-xi;
       p.setBrush(QBrush (Data[Y-xi][yi+1].DrawColor));
       QRect cellRect(yi*bw,xi*bh, bw,bh);
@@ -298,19 +299,22 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
 
 }
 void MatrixWidget::LoadData(){  
-  cout <<  "Enter Load" << endl;
+ qDebug()<< "sono in load data";
   qDebug()<<dati::lato;
    MatrixXd matrix_test;
    MatrixXd matrix_test_y;
    MatrixXd matrix_test_en;
+ros::NodeHandle n;
+n.getParam("/side", side_matrix);
 
-
-  //if(dati::lato=="1"){
+ // if(dati::lato=="1"){
    if(side_matrix== 1){
+     qDebug()<< "sono in load data rigth";
     cout <<  "Enter Load right" << endl;
 
      Eigen::MatioFile file_x_right("/home/alice/catkin_ws/data/right_workspace_x.mat");
      const std::vector<std::string> read_x_right {"workspace_x"};
+
 
 
        file_x_right.read_mat("workspace_x", matrix_test);

@@ -5,6 +5,7 @@
 #include "../include/agree_gui/main_window.hpp"
 //#include "../include/agree_gui/sc_assistivo.h"
 #include "../include/agree_gui/fsm_gui_define.h"
+#include <iostream>
 
 
 
@@ -43,6 +44,27 @@ login::login(QWidget *parent) :
 
   ui->setupUi(this);
 
+
+  //CREO IL PATH
+//  QString path_dir = QDir::currentPath();
+//  qDebug()<< path_dir;
+//  path = getcwd(path, size);
+//  //cout << path[0] << " "<< path[1]<< " "<< path[2]<< " "<< path[3]<< " "<<path[4]<< " "<<path[5]<< " "<<endl;
+//  qDebug()<< path;
+
+
+// if(path[6] == 'a') {
+// QString path_new = "/home/alice/catkin_ws";
+//  qDebug()<< path_new;
+// }
+// else if (path[6]== 's') {
+//   std::string path_new = "/home/smartbox/AGREE_ws";
+//    cout << path_new << endl;
+// }
+
+
+
+
 /**********************       DICHIARO NODO                           *********************/
   ros::NodeHandle n;
 
@@ -56,11 +78,11 @@ command_subscriber = n.subscribe("/esmacat/command", 1000, &login::callback_log,
   QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
 //mydb.setDatabaseName("~/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
 mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
-//  mydb.setDatabaseName("../src/agree_gui/database/Sqlite_prova2");
 mydb.setHostName("alice");
 mydb.setUserName("alice");
 mydb.setPassword("ali");
 this->showMaximized();
+
 
   // questo mostra nella prima pagina se il database è connesso
   if (!mydb.open())

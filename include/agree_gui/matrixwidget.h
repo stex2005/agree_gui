@@ -64,6 +64,10 @@ std::vector<int> points;
 int  point1x,point1y,point2x,point2y,point3x,point3y;
 int side_matrix;
 
+//VERIFICA PATH
+char *path_alice2 =NULL;
+char *path_smartbox2 = NULL;
+
 
  QVector<QPoint> getPosition() const;
 

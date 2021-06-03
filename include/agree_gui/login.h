@@ -54,6 +54,14 @@ class login : public QMainWindow
   std::stringstream ss_log2_new; // NEW LOGIN SC 2
   std_msgs::Int16 msg_status;
 
+  //VERIFICA PATH
+  size_t size;
+  char *path=NULL;
+
+ char *path_alice =NULL;
+char *path_smartbox = NULL;
+
+
 
 public:
   explicit login(QWidget *parent = nullptr);

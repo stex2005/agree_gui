@@ -21,6 +21,8 @@
 //#include <QMediaPlayer>
 //#include <QVideoWidget>
 #include <string>
+#include <iostream>
+#include <QtMath>
 
 
 
@@ -85,22 +87,37 @@ void paginaprincipale::emg_callback(const agree_gui::agree_emg_status emg_msg){
   }
 }
 void paginaprincipale::esmacat_callback(const agree_esmacat_pkg::agree_esmacat_status msg){
-  ROM_rad[0]= msg.joint_position_rad[0]; //J1
+  double ROM1_deg, ROM2_deg, ROM3_deg, ROM4_deg;
+  int ROM1, ROM2, ROM3, ROM4;
+  ROM_rad1= msg.joint_position_rad[0]; //J1
+  ROM_rad2= msg.joint_position_rad[1]; //J2
+  ROM_rad3= msg.joint_position_rad[2]; //J3
+  ROM_rad4= msg.joint_position_rad[3]; //J4
 
-  ROM_rad[1]= msg.joint_position_rad[1]; //J2
-  ROM_rad[2]= msg.joint_position_rad[2]; //J3
-  ROM_rad[3]= msg.joint_position_rad[3]; //J4
-  ROM_rad[4]= msg.joint_position_rad[4]; //J5
-  ui->lcdNumber_j1->display(ROM_rad[0]);
-  ui->lcdNumber_j2->display(ROM_rad[1]);
-  ui->lcdNumber_j3->display(ROM_rad[2]);
-  ui->lcdNumber_j4->display(ROM_rad[3]);
-  ui->lcdNumber_j5->display(ROM_rad[4]);
-  ui->dial_j1->setValue(ROM_rad[0]);
-  ui->dial_j2->setValue(ROM_rad[1]);
-  ui->dial_j3->setValue(ROM_rad[2]);
-  ui->dial_j4->setValue(ROM_rad[3]);
-  ui->dial_j5->setValue(ROM_rad[4]);
+  ROM1_deg = qRadiansToDegrees(msg.joint_position_rad[0]);
+  ROM2_deg = qRadiansToDegrees(msg.joint_position_rad[1]);
+  ROM3_deg = qRadiansToDegrees(msg.joint_position_rad[2]);
+  ROM4_deg = qRadiansToDegrees(msg.joint_position_rad[3]);
+  ROM1 = qRound(ROM1_deg);
+  ROM2 = qRound(ROM2_deg);
+  ROM3 = qRound(ROM3_deg);
+  ROM4 = qRound(ROM4_deg);
+
+
+
+
+  cout <<msg.joint_position_rad[1] << endl;
+ // ROM_rad[4]= msg.joint_position_rad[4]; //J5
+  ui->lcdNumber_j1->display(ROM1);
+  ui->lcdNumber_j2->display(ROM2);
+  ui->lcdNumber_j3->display(ROM3);
+  ui->lcdNumber_j4->display(ROM4);
+ // ui->lcdNumber_j5->display(ROM_rad[4]);
+  ui->dial_j1->setValue(ROM1);
+  ui->dial_j2->setValue(ROM2);
+  ui->dial_j3->setValue(ROM3);
+  ui->dial_j4->setValue(ROM4);
+ // ui->dial_j5->setValue(ROM1);
 
 
 
@@ -109,7 +126,7 @@ void paginaprincipale::esmacat_callback(const agree_esmacat_pkg::agree_esmacat_s
 void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_esmacat_command msg) {
   ros::NodeHandle n;
   //  dati::command_old_pp = 1;
-  qDebug()<< "sono nella callback in pp";
+
   dati::command_pp = msg.gui_mode;
   dati::command_exercise_pp = msg.exercise;
   dati::command_task_pp = msg.task;
@@ -122,6 +139,12 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command_pp);
 
     if(dati::command_old_pp ==SC1_EDIT_PATIENT_MODULE_CONTROL) {
+      ui->comboBox_ex2->setVisible(false);
+      ui->comboBox_ex3->setVisible(false);
+      ui->comboBox_ex4->setVisible(false);
+      ui->comboBox_ex5->setVisible(false);
+      ui->comboBox_ex6->setVisible(false);
+      ui->comboBox_ex7->setVisible(false);
       this->showMaximized();
       ui->tabWidget->setCurrentWidget(ui->tab);
       ui->pushButton_allarme->setVisible(false);
@@ -343,13 +366,22 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui(new Ui::paginaprincipale)
 
 
-{
+{  //faccio sparire tutti i combo box degli esercizi
 
+
+
+
+
+  //PROVA IMMAGINE SU LABEL CLICKABILE
+  QPixmap pix("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png");
+  //ui->pushButton_prova->setStyleSheet("border-image: url(/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png);");
+   //ui->pushButton_prova->setStyleSheet("border-image:url(:/catkin_ws/src/agree_gui/IMG_AGREE/antig.png);");
 
 
 
   ui->setupUi(this);
   ui->progressBar_th->setVisible(false);
+  ui->checkBox_eeg_2->setEnabled(false);
  //this->showMinimized();
   //ui->pushButton_salvatapp->setEnabled(false);
 
@@ -368,7 +400,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
   command_subscriber = n.subscribe("/esmacat/command", 1000, &paginaprincipale::esmacat_command_callback, this); //creo il topic a cui faccio il subscribe
   emg_subscriber = n.subscribe("/agree/emg_status", 1000, &paginaprincipale::emg_callback, this);
-  esmacat_subscriber = n.subscribe("/agree/esmacat_status", 1000, &paginaprincipale::esmacat_callback, this);
+  esmacat_subscriber = n.subscribe("/esmacat/status", 1000, &paginaprincipale::esmacat_callback, this);
 
 
   //connetto combobox con combo box
@@ -408,13 +440,13 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
 
-  connect(ui->checkBox_ex1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  connect(ui->checkBox_ex2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  connect(ui->checkBox_ex3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  connect(ui->checkBox_ex4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  connect(ui->checkBox_ex5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  connect(ui->checkBox_ex6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  connect(ui->checkBox_7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+ // connect(ui->checkBox_ex1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+ // connect(ui->checkBox_ex2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+ // connect(ui->checkBox_ex3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+  //connect(ui->checkBox_ex4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+  //connect(ui->checkBox_ex5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+  //connect(ui->checkBox_ex6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
+  //connect(ui->checkBox_7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
   //RECAP
   connect(ui->checkBox_es1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
   connect(ui->checkBox_es2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
@@ -429,7 +461,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
   connect(ui->checkBox_sinistro, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_sx()));
   connect(ui->checkBox_spalla, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_spalla()));
-  connect(ui->checkBox_gomito, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_gomito()));
+  //connect(ui->checkBox_gomito, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_gomito()));
   connect(ui->checkBox_polso, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_polso()));
   //timer = new QTimer(this);
   //timer_init = new QTimer(this);
@@ -679,7 +711,7 @@ void paginaprincipale::on_pushButton_salva_clicked()
 
           dati::codice_id= dati::NomeP + dati::CognomeP + dati::sigla+dati::count;
           QSqlQuery qry;
-          qry.prepare("insert into Pazienti (Codice_ID, UsernameDOC, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, Altezza, Peso, StoriaClinica, lb_fisio, la_fisio) values ('"+dati::codice_id+"', '"+dati::username+"', '"+dati::NomeP+"', '"+dati::CognomeP+"','"+Data+"', '"+Patologia+"', '"+Sesso+"', '"+Lato+"', '"+altezza+"', '"+peso+"', '"+storiaclinica+"', '"+lunghezza_braccio+"', '"+lunghezza_avambraccio+"')" );
+          qry.prepare("insert into Pazienti (Codice_ID, UsernameDOC, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, Altezza, Peso, StoriaClinica, LunghezzaBraccio, LunghezzaAvambraccio) values ('"+dati::codice_id+"', '"+dati::username+"', '"+dati::NomeP+"', '"+dati::CognomeP+"','"+Data+"', '"+Patologia+"', '"+Sesso+"', '"+Lato+"', '"+altezza+"', '"+peso+"', '"+storiaclinica+"', '"+lunghezza_braccio+"', '"+lunghezza_avambraccio+"')" );
           if(qry.exec()) {
             // se lo salvo lo comunico e copio username in tabella count
             //QMessageBox ::information(this,tr("Salvataggio"),tr(" Paziente Salvato Correttamente"));
@@ -734,7 +766,7 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
 {
   QSqlQueryModel *model = new QSqlQueryModel();
   QSqlQuery * qry1 = new QSqlQuery(mydb2);
-  qry1 -> prepare("select rowid, Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, LunghezzaBraccio, LunghezzaAvambraccio, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"' order by Cognome  asc");
+  qry1 -> prepare("select  Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"' order by Cognome  asc");
   qry1 -> exec();
   if(qry1->exec()) {
     model -> setQuery(*qry1);
@@ -1141,11 +1173,11 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
               ui->checkBox_spalla->setChecked(true);
             }
-            if (dati::modulo_gomito_prec== "1" && dati::modulo_polso_prec =="0") {
-              dati::modulo_prec1 = "Spalla e Gomito";
+//            if (dati::modulo_gomito_prec== "1" && dati::modulo_polso_prec =="0") {
+//              dati::modulo_prec1 = "Spalla e Gomito";
 
-              ui-> checkBox_gomito ->setChecked(true);
-            }
+//              //ui-> checkBox_gomito ->setChecked(true);
+//            }
             if (dati::modulo_polso_prec=="1") {
               dati::modulo_prec1 = "Spalla, Gomito e Polso";
 
@@ -1279,16 +1311,10 @@ void paginaprincipale::on_pushButton_home_clicked()
   ui->checkBox_emg_2->setChecked(false);
   ui->checkBox_MAP_2->setChecked(false);
   ui->checkBox_spalla->setChecked(false);
-  ui->checkBox_gomito->setChecked(false);
+  //ui->checkBox_gomito->setChecked(false);
   ui->checkBox_polso->setChecked(false);
 
-  ui->checkBox_ex1->setChecked(false);
-  ui->checkBox_ex2->setChecked(false);
-  ui->checkBox_ex3->setChecked(false);
-  ui->checkBox_ex4->setChecked(false);
-  ui->checkBox_ex5->setChecked(false);
-  ui->checkBox_ex6->setChecked(false);
-  ui->checkBox_7->setChecked(false);
+
   ui->comboBox_ex1->setCurrentIndex(0);
   ui->comboBox_ex2->setCurrentIndex(0);
   ui->comboBox_ex3->setCurrentIndex(0);
@@ -1346,7 +1372,7 @@ void paginaprincipale::on_pushButton_home_clicked()
   ros::NodeHandle n;
   n.setParam ("/physiological_param/arm_compensation", comp_param);
   n.setParam ("/physiological_param/forearm_compensation", comp_forearm);
-  n.setParam("/general/active_modules", active_modules);
+  n.setParam("/active_modules", active_modules);
   n.setParam("/exercise/sequence", ex_seq);
   n.setParam("/exercise/repetition", ex_rep);
   n.setParam ("/exercise/objects", ex_obj);
@@ -1385,19 +1411,19 @@ void paginaprincipale::enable_checkbox_moduli_dx() {
 }
 void paginaprincipale::enable_checkbox_moduli_spalla() {
   if (ui->checkBox_spalla->isChecked()) {
-    ui->checkBox_gomito->setChecked(false);
+   // ui->checkBox_gomito->setChecked(false);
     ui->checkBox_polso->setChecked(false);
   }
 }
-void paginaprincipale::enable_checkbox_moduli_gomito() {
-  if (ui->checkBox_gomito->isChecked()) {
-    ui->checkBox_spalla->setChecked(false);
-    ui->checkBox_polso->setChecked(false);
-  }
-}
+//void paginaprincipale::enable_checkbox_moduli_gomito() {
+//  if (ui->checkBox_gomito->isChecked()) {
+//    ui->checkBox_spalla->setChecked(false);
+//    ui->checkBox_polso->setChecked(false);
+//  }
+//}
 void paginaprincipale::enable_checkbox_moduli_polso() {
   if (ui->checkBox_polso->isChecked()) {
-    ui->checkBox_gomito->setChecked(false);
+    //ui->checkBox_gomito->setChecked(false);
     ui->checkBox_spalla->setChecked(false);
   }
 }
@@ -1573,7 +1599,8 @@ void paginaprincipale::on_pushButton_4_clicked()
     QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
   }
   if (dati::flag_ex ==0 ){
-    ui->checkBox_ex1->setChecked(true);
+
+    ui->comboBox_ex1->setVisible(true);
     dati::flag_ex++;
   }
 }
@@ -1636,7 +1663,7 @@ void paginaprincipale::on_pushButton_pass_clicked()
   }
   ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
   if (dati::flag_ex ==0 ){
-    ui->checkBox_ex1->setChecked(true);
+    ui->comboBox_ex1->setVisible(true);
     dati::flag_ex++;
   }
 }
@@ -1701,7 +1728,7 @@ void paginaprincipale::on_pushButton_asan_clicked()
   }
   ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
   if (dati::flag_ex ==0 ){
-    ui->checkBox_ex1->setChecked(true);
+    ui->comboBox_ex1->setVisible(true);
     dati::flag_ex++;
   }
 }
@@ -1729,7 +1756,7 @@ void paginaprincipale::on_pushButton_antig_clicked()
   }
   ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
   if (dati::flag_ex ==0 ){
-    ui->checkBox_ex1->setChecked(true);
+    ui->comboBox_ex1->setVisible(true);
     dati::flag_ex++;
   }
 }
@@ -1792,7 +1819,7 @@ void paginaprincipale::on_pushButton_challening_clicked()
   }
   ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
   if (dati::flag_ex ==0 ){
-    ui->checkBox_ex1->setChecked(true);
+    ui->comboBox_ex1->setVisible(true);
     dati::flag_ex++;
   }
 }
@@ -1820,7 +1847,7 @@ void paginaprincipale::on_pushButton_trasp_clicked()
   }
   ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
   if (dati::flag_ex ==0 ){
-    ui->checkBox_ex1->setChecked(true);
+    ui->comboBox_ex1->setVisible(true);
     dati::flag_ex++;
   }
 }
@@ -1987,39 +2014,38 @@ void paginaprincipale::update_tempo_terapia(){
     ripe7 = ui->lineEdit_ex7->text().toInt();
     t_es7 = t_es7* ripe7;
   }
-  if(ui->checkBox_ex1->isChecked()) {
+  if(ui->comboBox_ex1->isVisible()) {
     temp_tot = t_es1;
-    ui->label_t_es1->setText(QString::number(t_es1));
+
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_ex2->isChecked()) {
+  if(ui->comboBox_ex2->isVisible()) {
     temp_tot += t_es2;
-    ui->label_t_es2->setText(QString::number(t_es2));
+
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_ex3->isChecked()) {
+  if(ui->comboBox_ex3->isVisible()) {
     temp_tot += t_es3;
-    ui->label_t_es3->setText(QString::number(t_es3));
+
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_ex4->isChecked()) {
+  if(ui->comboBox_ex4->isVisible()) {
     temp_tot += t_es4;
-    ui->label_t_es4->setText(QString::number(t_es4));
+
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_ex5->isChecked()) {
+  if(ui->comboBox_ex5->isVisible()) {
     temp_tot += t_es5;
-    ui->label_t_es5->setText(QString::number(t_es5));
+
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_ex6->isChecked()) {
+  if(ui->comboBox_ex6->isVisible()) {
     temp_tot += t_es6;
-    ui->label_t_es6->setText(QString::number(t_es6));
+
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_7->isChecked()) {
+  if(ui->comboBox_ex7->isVisible()) {
     temp_tot += t_es7;
-    ui->label_t_es7->setText(QString::number(t_es7));
     temp_string = QString::number(temp_tot);
   }
 
@@ -2027,44 +2053,41 @@ void paginaprincipale::update_tempo_terapia(){
   qDebug()<< temp_tot;
   qDebug()<< temp_string;
 
-  QString test = QString("Tempo Stimato per la Terapia : %1 minuti").arg(temp_string);
-
-  ui->label_tempo->setText(test);
   ui->lcdNumber_tempotot->display(temp_tot);
 
 }
 
 /**********************       ENABLE EXERCISES COMBOBOX IN THE REHAB CONFIGURATION                *********************/
 void paginaprincipale::enable_combo_ex() {
-  ui->comboBox_ex1->setEnabled(false);
-  ui->comboBox_ex2->setEnabled(false);
-  ui->comboBox_ex3->setEnabled(false);
-  ui->comboBox_ex4->setEnabled(false);
-  ui->comboBox_ex5->setEnabled(false);
-  ui->comboBox_ex6->setEnabled(false);
-  ui->comboBox_ex7->setEnabled(false);
+//  ui->comboBox_ex1->setEnabled(false);
+//  ui->comboBox_ex2->setEnabled(false);
+//  ui->comboBox_ex3->setEnabled(false);
+//  ui->comboBox_ex4->setEnabled(false);
+//  ui->comboBox_ex5->setEnabled(false);
+//  ui->comboBox_ex6->setEnabled(false);
+//  ui->comboBox_ex7->setEnabled(false);
 
-  if(ui->checkBox_ex1->isChecked() ) {
-    ui->comboBox_ex1->setEnabled(true);
-  }
-  if(ui->checkBox_ex2->isChecked() ) {
-    ui->comboBox_ex2->setEnabled(true);
-  }
-  if(ui->checkBox_ex3->isChecked()) {
-    ui->comboBox_ex3->setEnabled(true);
-  }
-  if(ui->checkBox_ex4->isChecked() ) {
-    ui->comboBox_ex4->setEnabled(true);
-  }
-  if(ui->checkBox_ex5->isChecked() ) {
-    ui->comboBox_ex5->setEnabled(true);
-  }
-  if(ui->checkBox_ex6->isChecked()) {
-    ui->comboBox_ex6->setEnabled(true);
-  }
-  if(ui->checkBox_7->isChecked()) {
-    ui->comboBox_ex7->setEnabled(true);
-  }
+//  if(ui->checkBox_ex1->isChecked() ) {
+//    ui->comboBox_ex1->setEnabled(true);
+//  }
+//  if(ui->checkBox_ex2->isChecked() ) {
+//    ui->comboBox_ex2->setEnabled(true);
+//  }
+//  if(ui->checkBox_ex3->isChecked()) {
+//    ui->comboBox_ex3->setEnabled(true);
+//  }
+//  if(ui->checkBox_ex4->isChecked() ) {
+//    ui->comboBox_ex4->setEnabled(true);
+//  }
+//  if(ui->checkBox_ex5->isChecked() ) {
+//    ui->comboBox_ex5->setEnabled(true);
+//  }
+//  if(ui->checkBox_ex6->isChecked()) {
+//    ui->comboBox_ex6->setEnabled(true);
+//  }
+//  if(ui->checkBox_7->isChecked()) {
+//    ui->comboBox_ex7->setEnabled(true);
+//  }
 
 }
 
@@ -2074,33 +2097,39 @@ void paginaprincipale::on_pushButton_add_clicked()
 { if(dati::flag_ex == 0) {
     dati::flag_ex++;}
   if(dati::flag_ex == 1) {
-    ui->checkBox_ex2->setChecked(true);
+   // ui->checkBox_ex2->setChecked(true);
+    ui->comboBox_ex2->setVisible(true);
 
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==2) {
-    ui->checkBox_ex3->setChecked(true);
+    //ui->checkBox_ex3->setChecked(true);
+    ui->comboBox_ex3->setVisible(true);
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==3) {
-    ui->checkBox_ex4->setChecked(true);
+   // ui->checkBox_ex4->setChecked(true);
+    ui->comboBox_ex4->setVisible(true);
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==4) {
-    ui->checkBox_ex5->setChecked(true);
+   // ui->checkBox_ex5->setChecked(true);
+   ui->comboBox_ex5->setVisible(true);
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==5) {
-    ui->checkBox_ex6->setChecked(true);
+  //  ui->checkBox_ex6->setChecked(true);
+   ui->comboBox_ex6->setVisible(true);
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==6) {
-    ui->checkBox_7->setChecked(true);
+  //  ui->checkBox_7->setChecked(true);
+    ui->comboBox_ex7->setVisible(true);
     // dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
@@ -2109,33 +2138,34 @@ void paginaprincipale::on_pushButton_add_clicked()
 /**********************        REMOVE EXERCISE IN REHAB CONFIGURATION *********************/
 void paginaprincipale::on_pushButton_remove_clicked()
 { if(dati::flag_ex == 6){
-    ui->checkBox_7->setChecked(false);
+
+    ui->comboBox_ex7->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
 
   }
   else if (dati::flag_ex ==5) {
-    ui->checkBox_ex6->setChecked(false);
+    ui->comboBox_ex6->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==4) {
-    ui->checkBox_ex5->setChecked(false);
+    ui->comboBox_ex5->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==3) {
-    ui->checkBox_ex4->setChecked(false);
+    ui->comboBox_ex4->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==2) {
-    ui->checkBox_ex3->setChecked(false);
+    ui->comboBox_ex3->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==1) {
-    ui->checkBox_ex2->setChecked(false);
+    ui->comboBox_ex2->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
@@ -2154,7 +2184,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
   borraccia = "Borraccia";
   tazza = "Tazza";
 
-  if(ui->checkBox_ex1->isChecked())
+  if(ui->comboBox_ex1->isVisible())
   {  check_ex1=1;
 
     dati::ex1 = ui->comboBox_ex1->currentText();
@@ -2191,7 +2221,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe1==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/general/active_modules", active_modules);
+          n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2213,7 +2243,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->checkBox_ex2->isChecked())
+  if(ui->comboBox_ex2->isVisible())
   {
     dati::ex2 = ui->comboBox_ex2->currentText();
     ui->label_es2_recap->setText(dati::ex2);
@@ -2246,7 +2276,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe2==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/general/active_modules", active_modules);
+          n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2262,7 +2292,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->checkBox_ex3->isChecked())
+  if(ui->comboBox_ex3->isVisible())
   {
     dati::ex3 = ui->comboBox_ex3->currentText();
     ui->label_es3_recap->setText(dati::ex3);
@@ -2295,7 +2325,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe3==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/general/active_modules", active_modules);
+          n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2310,7 +2340,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->checkBox_ex4->isChecked())
+  if(ui->comboBox_ex4->isVisible())
   {
     dati::ex4 = ui->comboBox_ex4->currentText();
     ui->label_es4_recap->setText(dati::ex4);
@@ -2343,7 +2373,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe4==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/general/active_modules", active_modules);
+          n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2359,7 +2389,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->checkBox_ex5->isChecked())
+  if(ui->comboBox_ex5->isVisible())
   {
     dati::ex5 = ui->comboBox_ex5->currentText();
     ui->label_es5_recap->setText(dati::ex5);
@@ -2393,7 +2423,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe5==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/general/active_modules", active_modules);
+          n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2409,7 +2439,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->checkBox_ex6->isChecked())
+  if(ui->comboBox_ex6->isVisible())
   {
     dati::ex6 = ui->comboBox_ex6->currentText();
     ui->label_es6_recap->setText(dati::ex6);
@@ -2441,7 +2471,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe6==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/general/active_modules", active_modules);
+          n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2458,7 +2488,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
 
   }
-  if(ui->checkBox_7->isChecked())
+  if(ui->comboBox_ex7->isVisible())
   {
     dati::ex7 = ui->comboBox_ex7->currentText();
     ui->label_es7_recap->setText(dati::ex7);
@@ -2491,7 +2521,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         if(exe7==3) {
           active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/general/active_modules", active_modules);
+          n.setParam("/active_modules", active_modules);
 
         }
 
@@ -3539,7 +3569,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     }
 
   }
-  if(ui->checkBox_ex2->isChecked())
+  if(ui->checkBox_es2->isChecked())
   {
     dati::ex2 = ui->comboBox_ex2->currentText();
 
@@ -5163,17 +5193,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   }
 
 
-  if (ui->checkBox_gomito->isChecked())
-  {
-    dati::modulo_gomito = "1";
-    dati::modulo_spalla = "1";
-    dati::oi = "1";
-    active_module_spalla = 1;
-    active_module_gomito = 1;
-    active_module_RF = 0;
-    active_module_MAT = 1;
 
-  }
 
   if (ui->checkBox_polso->isChecked())  {
 
@@ -5272,7 +5292,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     qDebug()<< "qui";
     if(!(dati::lex1==0))
     {
-      ui->checkBox_ex1->setChecked(true);
+    //  ui->checkBox_ex1->setChecked(true);
+      ui->comboBox_ex1->setVisible(true);
       dati::flag_ex=0;
       QSqlQuery selezione1;
       selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
@@ -5307,11 +5328,11 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
     }
     else {
-      ui->checkBox_ex1->setChecked(false);
+      ui->comboBox_ex1->setVisible(false);
     }
     if(!(dati::lex2==0))
     {
-      ui->checkBox_ex2->setChecked(true);
+      ui->comboBox_ex2->setVisible(true);
       dati::flag_ex = 1;
       QSqlQuery selezione2;
       selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
@@ -5342,12 +5363,12 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       }
     }
     else {
-      ui->checkBox_ex2->setChecked(false);
+      ui->comboBox_ex2->setVisible(false);
     }
 
     if(!(dati::lex3==0))
     {
-      ui->checkBox_ex3->setChecked(true);
+      ui->comboBox_ex3->setVisible(true);
       dati::flag_ex=2;
       QSqlQuery selezione3;
       selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
@@ -5380,11 +5401,11 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       }
     }
     else {
-      ui->checkBox_ex3->setChecked(false);
+      ui->comboBox_ex3->setVisible(false);
     }
     if(!(dati::lex4==0))
     {
-      ui->checkBox_ex4->setChecked(true);
+      ui->comboBox_ex4->setVisible(true);
       dati::flag_ex=3;
       QSqlQuery selezione4;
       selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
@@ -5416,11 +5437,11 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       }
     }
     else {
-      ui->checkBox_ex4->setChecked(false);
+      ui->comboBox_ex4->setVisible(false);
     }
     if(!(dati::lex5==0))
     {
-      ui->checkBox_ex5->setChecked(true);
+      ui->comboBox_ex5->setVisible(true);
       dati::flag_ex=4;
       QSqlQuery selezione5;
       selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
@@ -5452,11 +5473,11 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       }
     }
     else {
-      ui->checkBox_ex5->setChecked(false);
+      ui->comboBox_ex5->setVisible(false);
     }
     if(!(dati::lex6==0))
     {
-      ui->checkBox_ex6->setChecked(true);
+      ui->comboBox_ex6->setVisible(true);
       dati::flag_ex=5;
       QSqlQuery selezione6;
       selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
@@ -5488,11 +5509,11 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       }
     }
     else {
-      ui->checkBox_ex6->setChecked(false);
+      ui->comboBox_ex6->setVisible(false);
     }
     if(!(dati::lex7==0))
     {
-      ui->checkBox_7->setChecked(true);
+      ui->comboBox_ex7->setVisible(true);
       dati::flag_ex=6;
       QSqlQuery selezione7;
       selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
@@ -5527,7 +5548,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       }
     }
     else {
-      ui->checkBox_7->setChecked(false);
+      ui->comboBox_ex7->setVisible(false);
     }
     qDebug()<<r1;
     qDebug()<< r2;
@@ -5664,8 +5685,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   }
   /***************         SETTO ROS PARAMETERS CON I MODULI   ******************/
   ros::NodeHandle n;
-  n.setParam("/general/active_modules", active_modules );
-  n.setParam("/general/side", side_param);
+  n.setParam("/active_modules", active_modules );
+  n.setParam("/side", side_param);
 
 
 
@@ -5946,3 +5967,4 @@ void paginaprincipale::on_pushButton_showeval_emg_clicked()
     QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
   }
 }
+

@@ -220,6 +220,7 @@ class paginaprincipale : public QDialog
 
     std::vector<double> ARM_LENGTH;   // LUNGHEZZA BRACCIO
     double ROM_rad[5];
+    double ROM_rad1, ROM_rad2, ROM_rad3, ROM_rad4;
     uint8_t mode;
     int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
     std::vector<int> ex_seq; //exercises sequence
@@ -291,6 +292,12 @@ class paginaprincipale : public QDialog
     double max_size3 = 35.0;
     double max_size4 = 40.0;
     int8_t exo_size;
+
+    //VERIFICA PATH
+    size_t size;
+    char *path_alice1 =NULL;
+    char *path_smartbox1 = NULL;
+    char *path = NULL;
 
 
 
@@ -370,7 +377,7 @@ private slots:
     void enable_checkbox_moduli_sx(); //LEFT SIDE
     void enable_checkbox_moduli_dx(); //RIGHT SIDE
     void enable_checkbox_moduli_spalla(); //SHOULDER
-    void enable_checkbox_moduli_gomito(); //ELBOW
+   // void enable_checkbox_moduli_gomito(); //ELBOW
     void enable_checkbox_moduli_polso(); //WRIST
 
 /**********************               EXERCISES FUNCTION               *********************/
