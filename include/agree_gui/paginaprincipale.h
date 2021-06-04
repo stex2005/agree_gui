@@ -167,6 +167,14 @@ class paginaprincipale : public QDialog
     bool es6_b = false;
     bool es7_b = false;
 
+    bool es1_b_r = true;
+    bool es2_b_r = false;
+    bool es3_b_r = false;
+    bool es4_b_r = false;
+    bool es5_b_r = false;
+    bool es6_b_r = false;
+    bool es7_b_r = false;
+
 
 
 

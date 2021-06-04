@@ -153,7 +153,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
       ui->lineEdit_ex6->setVisible(false);
       ui->lineEdit_ex7->setVisible(false);
 
-      ui->comboBox_oi_es1->setVisible(false);
+      ui->comboBox_oi_es1->setVisible(true);
       ui->comboBox_oi_es2->setVisible(false);
       ui->comboBox_oi_es3->setVisible(false);
       ui->comboBox_oi_es4->setVisible(false);
@@ -278,7 +278,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
 
     }
     //ATTENDO CHE NODO VALUTAZIONE PROCESSI ED ELABORI I DATI
-    if(dati::command_old_pp == SC1_EVALUATION){
+    if(dati::command_old_pp == SC1_DOING_EVALUATION){
       timer_rehab->stop();
       timer_updatedisplay->stop();
 
@@ -465,13 +465,13 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   //connect(ui->checkBox_ex6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
   //connect(ui->checkBox_7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
   //RECAP
-  connect(ui->checkBox_es1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  connect(ui->checkBox_es2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  connect(ui->checkBox_es3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  connect(ui->checkBox_es4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  connect(ui->checkBox_es5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  connect(ui->checkBox_es6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  connect(ui->checkBox_es7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+  //connect(ui->checkBox_es1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+ // connect(ui->checkBox_es2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+  //connect(ui->checkBox_es3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+  //connect(ui->checkBox_es4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+  //connect(ui->checkBox_es5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+  //connect(ui->checkBox_es6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
+  //connect(ui->checkBox_es7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
 
   //controllo unicità checkbox dei lato e dei moduli
   connect(ui->checkBox_destro, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_dx()));
@@ -1190,16 +1190,17 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
               ui->checkBox_spalla->setChecked(true);
             }
-//            if (dati::modulo_gomito_prec== "1" && dati::modulo_polso_prec =="0") {
-//              dati::modulo_prec1 = "Spalla e Gomito";
-
-//              //ui-> checkBox_gomito ->setChecked(true);
-//            }
-            if (dati::modulo_polso_prec=="1") {
+            if (dati::modulo_gomito_prec== "1" && dati::modulo_polso_prec =="0") {
               dati::modulo_prec1 = "Spalla, Gomito e Polso";
 
               ui->checkBox_polso->setChecked(true);
+
             }
+//            if (dati::modulo_polso_prec=="1") {
+//            //  dati::modulo_prec1 = "Spalla, Gomito e Polso";
+
+              ui->checkBox_polso_2->setChecked(true);
+//            }
 
             if (dati::modulo_emg_prec=="1")
             {
@@ -2245,7 +2246,10 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     dati::rip1= ui->lineEdit_ex1->text();
     ui->label_es1_rip_recap->setText(dati::rip1);
 
-    ui->checkBox_es1->setChecked(true);
+    ui->comboBox_es1->setVisible(true);
+    ui->comboBox_ogg1->setVisible(true);
+    ui->lineEdit_rep1->setVisible(true);
+
     ui->comboBox_es1->setCurrentText(dati::ex1);
     ui->lineEdit_rep1->setText(dati::rip1);
     rep1 = dati::rip1.toInt();
@@ -2303,7 +2307,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     dati::rip2= ui->lineEdit_ex2->text();
     ui->label_es2_ripe_recap->setText(dati::rip2);
 
-    ui->checkBox_es2->setChecked(true);
+    ui->comboBox_es2->setVisible(true);
+    ui->comboBox_ogg2->setVisible(true);
+    ui->lineEdit_rep2->setVisible(true);
     ui->comboBox_es2->setCurrentText(dati::ex2);
     ui->lineEdit_rep2->setText(dati::rip2);
 
@@ -2352,7 +2358,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     dati::rip3= ui->lineEdit_ex3->text();
     ui->label_es3_ripe_recap->setText(dati::rip3);
 
-    ui->checkBox_es3->setChecked(true);
+    ui->comboBox_es3->setVisible(true);
+    ui->comboBox_ogg3->setVisible(true);
+    ui->lineEdit_rep3->setVisible(true);
     ui->comboBox_es3->setCurrentText(dati::ex3);
     ui->lineEdit_rep3->setText(dati::rip3);
 
@@ -2400,7 +2408,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     dati::rip4= ui->lineEdit_ex4->text();
     ui->label_es4_ripe_recap->setText(dati::rip4);
 
-    ui->checkBox_es4->setChecked(true);
+    ui->comboBox_es4->setVisible(true);
+    ui->comboBox_ogg4->setVisible(true);
+    ui->lineEdit_rep4->setVisible(true);
     ui->comboBox_es4->setCurrentText(dati::ex4);
     ui->lineEdit_rep4->setText(dati::rip4);
 
@@ -2449,7 +2459,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     dati::rip5= ui->lineEdit_ex5->text();
     ui->label_5_ripe_recap->setText(dati::rip5);
 
-    ui->checkBox_es5->setChecked(true);
+    ui->comboBox_es5->setVisible(true);
+    ui->comboBox_ogg5->setVisible(true);
+    ui->lineEdit_rep5->setVisible(true);
     ui->comboBox_es5->setCurrentText(dati::ex5);
     ui->lineEdit_rep5->setText(dati::rip5);
 
@@ -2498,7 +2510,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     dati::rip6= ui->lineEdit_ex6->text();
     ui->label_es6_ripe_recap->setText(dati::rip6);
 
-    ui->checkBox_es6->setChecked(true);
+    ui->comboBox_es6->setVisible(true);
+    ui->comboBox_ogg6->setVisible(true);
+    ui->lineEdit_rep6->setVisible(true);
     ui->comboBox_es6->setCurrentText(dati::ex6);
     ui->lineEdit_rep6->setText(dati::rip6);
 
@@ -2548,7 +2562,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     dati::rip7= ui->lineEdit_ex7->text();
     ui->label_7_ripe_recap->setText(dati::rip7);
 
-    ui->checkBox_es7->setChecked(true);
+    ui->comboBox_es7->setVisible(true);
+    ui->comboBox_ogg7->setVisible(true);
+    ui->lineEdit_rep7->setVisible(true);
     ui->comboBox_es7->setCurrentText(dati::ex7);
     ui->lineEdit_rep7->setText(dati::rip7);
 
@@ -3402,31 +3418,31 @@ void paginaprincipale::update_tempo_recap(){
     ripe7 = ui->lineEdit_rep7->text().toInt();
     t_es7 = t_es7* ripe7;
   }
-  if(ui->checkBox_es1->isChecked()) {
+  if(es1_b_r == true) {
     temp_tot = t_es1;
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_es2->isChecked()) {
+  if(es2_b_r == true) {
     temp_tot += t_es2;
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_es3->isChecked()) {
+  if(es3_b_r == true) {
     temp_tot += t_es3;
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_es4->isChecked()) {
+  if(es4_b_r == true) {
     temp_tot += t_es4;
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_es5->isChecked()) {
+  if(es5_b_r == true) {
     temp_tot += t_es5;
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_es6->isChecked()) {
+  if(es6_b_r == true) {
     temp_tot += t_es6;
     temp_string = QString::number(temp_tot);
   }
-  if(ui->checkBox_es7->isChecked()) {
+  if(es7_b_r == true) {
     temp_tot += t_es7;
     temp_string = QString::number(temp_tot);
   }
@@ -3444,34 +3460,34 @@ void paginaprincipale::update_tempo_recap(){
 
 /**********************       ENABLE EXERCISES COMBOXES IN THE RECAP                       *********************/
 void paginaprincipale::enable_combo_ex_recap() {
-  ui->comboBox_es1->setEnabled(false);
-  ui->comboBox_es2->setEnabled(false);
-  ui->comboBox_es3->setEnabled(false);
-  ui->comboBox_es4->setEnabled(false);
-  ui->comboBox_es5->setEnabled(false);
-  ui->comboBox_es6->setEnabled(false);
-  ui->comboBox_es7->setEnabled(false);
+  //ui->comboBox_es1->setVisible(false);
+  ui->comboBox_es2->setVisible(false);
+  ui->comboBox_es3->setVisible(false);
+  ui->comboBox_es4->setVisible(false);
+  ui->comboBox_es5->setVisible(false);
+  ui->comboBox_es6->setVisible(false);
+  ui->comboBox_es7->setVisible(false);
 
-  if(ui->checkBox_es1->isChecked() ) {
-    ui->comboBox_es1->setEnabled(true);
+//  if(ui->checkBox_es1->isChecked() ) {
+//    ui->comboBox_es1->setEnabled(true);
+//  }
+  if(es2_b_r == true ) {
+    ui->comboBox_es2->setVisible(true);
   }
-  if(ui->checkBox_es2->isChecked() ) {
-    ui->comboBox_es2->setEnabled(true);
+  if(es3_b_r == true) {
+    ui->comboBox_es3->setVisible(true);
   }
-  if(ui->checkBox_es3->isChecked()) {
-    ui->comboBox_es3->setEnabled(true);
+  if(es4_b_r == true ) {
+    ui->comboBox_es4->setVisible(true);
   }
-  if(ui->checkBox_es4->isChecked() ) {
-    ui->comboBox_es4->setEnabled(true);
+  if(es5_b_r == true ) {
+    ui->comboBox_es5->setVisible(true);
   }
-  if(ui->checkBox_es5->isChecked() ) {
-    ui->comboBox_es5->setEnabled(true);
+  if(es6_b_r == true) {
+    ui->comboBox_es6->setVisible(true);
   }
-  if(ui->checkBox_es6->isChecked()) {
-    ui->comboBox_es6->setEnabled(true);
-  }
-  if(ui->checkBox_es7->isChecked()) {
-    ui->comboBox_es7->setEnabled(true);
+  if(es7_b_r == true) {
+    ui->comboBox_es7->setVisible(true);
   }
 }
 
@@ -3495,33 +3511,39 @@ void paginaprincipale::on_pushButton_add_2_clicked()
   if(dati::flag_ex_recap == 0) {
     dati::flag_ex_recap++;}
   if(dati::flag_ex_recap == 1) {
-    ui->checkBox_es2->setChecked(true);
+    ui->comboBox_es2->setVisible(true);
 
     dati::flag_ex_recap++;
+    es2_b_r = true;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap==2) {
-    ui->checkBox_es3->setChecked(true);
+    ui->comboBox_es3->setVisible(true);
+    es3_b_r = true;
     dati::flag_ex_recap++;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap==3) {
-    ui->checkBox_es4->setChecked(true);
+    ui->comboBox_es4->setVisible(true);
+    es4_b_r = true;
     dati::flag_ex_recap++;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap==4) {
-    ui->checkBox_es5->setChecked(true);
+    ui->comboBox_es5->setVisible(true);
+    es5_b_r = true;
     dati::flag_ex_recap++;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap==5) {
-    ui->checkBox_es6->setChecked(true);
+    ui->comboBox_es6->setVisible(true);
+    es6_b_r = true;
     dati::flag_ex_recap++;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap==6) {
-    ui->checkBox_es7->setChecked(true);
+    ui->comboBox_es7->setVisible(true);
+    es7_b_r = true;
     // dati::flag_ex++;
     qDebug()<<dati::flag_ex_recap;
   }
@@ -3531,33 +3553,45 @@ void paginaprincipale::on_pushButton_add_2_clicked()
 void paginaprincipale::on_pushButton_remove_2_clicked()
 {
   if(dati::flag_ex_recap == 6){
-    ui->checkBox_es7->setChecked(false);
+    ui->comboBox_es7->setVisible(false);
+    ui->comboBox_ogg7->setVisible(false);
+    ui->lineEdit_rep7->setVisible(false);
     dati::flag_ex_recap--;
     qDebug()<<dati::flag_ex_recap;
 
   }
   else if (dati::flag_ex_recap ==5) {
-    ui->checkBox_es6->setChecked(false);
+    ui->comboBox_es6->setVisible(false);
+    ui->comboBox_ogg6->setVisible(false);
+    ui->lineEdit_rep6->setVisible(false);
     dati::flag_ex_recap--;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap ==4) {
-    ui->checkBox_es5->setChecked(false);
+    ui->comboBox_es5->setVisible(false);
+    ui->comboBox_ogg5->setVisible(false);
+    ui->lineEdit_rep5->setVisible(false);
     dati::flag_ex_recap--;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap ==3) {
-    ui->checkBox_es4->setChecked(false);
+    ui->comboBox_es4->setVisible(false);
+    ui->comboBox_ogg4->setVisible(false);
+    ui->lineEdit_rep4->setVisible(false);
     dati::flag_ex_recap--;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap ==2) {
-    ui->checkBox_es3->setChecked(false);
+    ui->comboBox_es3->setVisible(false);
+    ui->comboBox_ogg3->setVisible(false);
+    ui->lineEdit_rep3->setVisible(false);
     dati::flag_ex_recap--;
     qDebug()<<dati::flag_ex_recap;
   }
   else if (dati::flag_ex_recap ==1) {
-    ui->checkBox_es2->setChecked(false);
+    ui->comboBox_es2->setVisible(false);
+    ui->comboBox_ogg2->setVisible(false);
+    ui->lineEdit_rep2->setVisible(false);
     dati::flag_ex_recap--;
     qDebug()<<dati::flag_ex_recap;
   }
@@ -3571,20 +3605,11 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
   borraccia = "Borraccia";
   tazza = "Tazza";
 
-  if(ui->checkBox_es1->isChecked())
+  if(es1_b_r == true)
   {  check_ex1=1;
 
     dati::ex1 = ui->comboBox_es1->currentText();
-
-
-
-
-
     dati::rip1= ui->lineEdit_rep1->text();
-
-
-
-
     rep1 = dati::rip1.toInt();
     if(ui->comboBox_ogg1->isEnabled()) {
       if(ui->comboBox_ogg1->currentText()== bicchiere ) {  oggetto_es1= "1"; ros_ogg1=1; ui->label_oi1_recap->setText(bicchiere);}
@@ -3622,7 +3647,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     }
 
   }
-  if(ui->checkBox_es2->isChecked())
+  if(es2_b_r == true)
   {
     dati::ex2 = ui->comboBox_ex2->currentText();
 
@@ -3663,7 +3688,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     }
 
   }
-  if(ui->checkBox_es3->isChecked())
+  if(es3_b_r == true)
   {
     dati::ex3 = ui->comboBox_es3->currentText();
 
@@ -3703,7 +3728,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     }
 
   }
-  if(ui->checkBox_es4->isChecked())
+  if(es4_b_r == true)
   {
     dati::ex4 = ui->comboBox_es4->currentText();
 
@@ -3742,7 +3767,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     }
 
   }
-  if(ui->checkBox_es5->isChecked())
+  if(es5_b_r == true)
   {
     dati::ex5 = ui->comboBox_es5->currentText();
 
@@ -3784,7 +3809,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
     }
 
   }
-  if(ui->checkBox_es6->isChecked())
+  if(es6_b_r == true)
   {
     dati::ex6 = ui->comboBox_es6->currentText();
 
@@ -3825,17 +3850,10 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
 
 
   }
-  if(ui->checkBox_es7->isChecked())
+  if(es7_b_r == true)
   {
     dati::ex7 = ui->comboBox_es7->currentText();
-
-
-
     dati::rip7= ui->lineEdit_ex7->text();
-
-
-
-
     rep7 = dati::rip7.toInt();
     if(ui->comboBox_ogg7->isEnabled()) {
       if(ui->comboBox_ogg7->currentText()== bicchiere ) { oggetto_es7= "1"; ros_ogg7=1; ui->label_oi7_recap->setText(bicchiere);}
@@ -3991,10 +4009,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         sel_ex.append(EX4);
         qDebug()<< "sel:" << sel_ex;
         qDebug()<< " size:" << sel_ex.size();
-
-
-
-
       }
       else {
 
@@ -4005,8 +4019,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
           //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
           std::cout<< "Key found";
-
-
         }
         else  {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
           std::cout<< "key not found";}
@@ -4022,10 +4034,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         sel_ex.append(EX5);
         qDebug()<< "sel:" << sel_ex;
         qDebug()<< " size:" << sel_ex.size();
-
-
-
-
       }
       else {
 
@@ -4036,8 +4044,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
           // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
           std::cout<< "Key found";
-
-
         }
         else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
           std::cout<< "key not found";}
@@ -4053,10 +4059,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         sel_ex.append(EX6);
         qDebug()<< "sel:" << sel_ex;
         qDebug()<< " size:" << sel_ex.size();
-
-
-
-
       }
       else {
 
@@ -4067,8 +4069,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
           //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
           std::cout<< "Key found";
-
-
         }
         else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
           std::cout<< "key not found";}
@@ -4084,8 +4084,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         sel_ex.append(EX7);
         qDebug()<< "sel:" << sel_ex;
         qDebug()<< " size:" << sel_ex.size();
-
-
       }
       else {
 
@@ -4096,8 +4094,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
           //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
           std::cout<< "Key found";
-
-
         }
         else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
           std::cout<< "key not found";}
@@ -4107,24 +4103,9 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
   }
 
 
-
-  /**********************       INSERISCO VALUTAZIONI FITTIZIE                      *********************/
-  //  QSqlQuery ins_val;
-  //  ins_val.prepare("insert into Valutazioni (Codice_ID, Data_acquisizione) values('"+dati::ind+"', '"+dati::data1+"') ");
-
-  //  if (ins_val.exec()) {
-  //    qDebug()<< "fatto";
-  //  }
-  //  else qDebug()<< ins_val.lastError();
-
-
-
-
-
   ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
   ui->stackedWidget_2->setCurrentWidget(ui->page_sessione);
 
-  // qDebug()<< rand1;
 }
 
 
@@ -4146,8 +4127,6 @@ void paginaprincipale::on_pushButton_next_clicked()
   updateLabel();
   //QString time_text;
   //time_text = time.toString("hh : mm : ss");
-
-
 
   ui->pushButton_next->setVisible(false);
   timer_rehab->start(20);
@@ -5251,16 +5230,20 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   if (ui->checkBox_polso->isChecked())  {
 
     dati::modulo_spalla = "1";
-    dati::modulo_polso= "1";
+    dati::modulo_polso= "0";
     dati::modulo_gomito = "1";
     dati::oi = "1";
     active_module_spalla = 1;
     active_module_gomito = 1;
     active_module_RF = 0;
     active_module_MAT = 1;
+    active_module_polso = 0;
+
+
+  }
+  if(ui->checkBox_polso_2->isChecked()) {
+    dati::modulo_polso = "1";
     active_module_polso = 1;
-
-
   }
 
   if(ui->checkBox_eeg_2->isChecked())
@@ -5390,6 +5373,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       ui->comboBox_ex2->setVisible(true);
       ui->lineEdit_ex2->setVisible(true);
+      ui->comboBox_oi_es2->setVisible(true);
 
       es2_b = true;
 
@@ -5431,6 +5415,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       ui->comboBox_ex3->setVisible(true);
       ui->lineEdit_ex3->setVisible(true);
+      ui->comboBox_oi_es3->setVisible(true);
       dati::flag_ex=2;
       es3_b = true;
       QSqlQuery selezione3;
@@ -5471,6 +5456,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       ui->comboBox_ex4->setVisible(true);
       ui->lineEdit_ex4->setVisible(true);
+      ui->comboBox_oi_es4->setVisible(true);
       dati::flag_ex=3;
       es4_b = true;
       QSqlQuery selezione4;
@@ -5510,6 +5496,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       ui->comboBox_ex5->setVisible(true);
       ui->lineEdit_ex5->setVisible(true);
+      ui->comboBox_oi_es5->setVisible(true);
       dati::flag_ex=4;
       es5_b = true;
       QSqlQuery selezione5;
@@ -5549,6 +5536,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       ui->comboBox_ex6->setVisible(true);
       ui->lineEdit_ex6->setVisible(true);
+      ui->comboBox_oi_es6->setVisible(true);
       dati::flag_ex=5;
       es6_b = true;
       QSqlQuery selezione6;
@@ -5588,6 +5576,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       ui->comboBox_ex7->setVisible(true);
       ui->lineEdit_ex7->setVisible(true);
+      ui->comboBox_oi_es7->setVisible(true);
       dati::flag_ex=6;
       es7_b = true;
       QSqlQuery selezione7;
@@ -5617,9 +5606,6 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
         else if(dati::ogg7_prec == "3") {
           ui->comboBox_oi_es7->setCurrentText("Tazza");
         }
-
-
-
       }
     }
     else {
@@ -5850,7 +5836,8 @@ void paginaprincipale::on_pushButton_logout_clicked()
 
     emit ShowMain();
     accept();
-    dati::status1 = SC1_EVALUATION;
+    //RIOREMINDER : che stato ti devo mandare per il login
+    dati::status1 = SC1_RETURN_LOGIN;
 
     std_msgs::Int16 msg_status;
     msg_status.data = dati::status1;

@@ -1103,7 +1103,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>11</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -6666,69 +6666,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
              </widget>
              <widget class="QWidget" name="modifica_recap">
               <layout class="QGridLayout" name="gridLayout_9">
-               <item row="15" column="2">
-                <widget class="QComboBox" name="comboBox_es6">
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca con oggetto </string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Elevazione laterale</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Basket</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Macedonia </string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Spesa</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Caffè</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="11" column="10">
-                <layout class="QVBoxLayout" name="verticalLayout_5"/>
-               </item>
-               <item row="11" column="5">
+               <item row="11" column="3">
                 <widget class="QComboBox" name="comboBox_ogg3">
                  <item>
                   <property name="text">
@@ -6747,197 +6685,15 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </item>
                 </widget>
                </item>
-               <item row="14" column="5">
-                <widget class="QComboBox" name="comboBox_ogg5">
-                 <item>
-                  <property name="text">
-                   <string>bicchiere</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>borraccia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>tazza</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="16" column="2">
-                <widget class="QComboBox" name="comboBox_es7">
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca con oggetto </string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Elevazione laterale</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Basket</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Macedonia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Spesa</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Caffè</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="7" column="3">
-                <widget class="QLineEdit" name="lineEdit_rep1">
-                 <property name="maximumSize">
-                  <size>
-                   <width>50</width>
-                   <height>28</height>
-                  </size>
-                 </property>
-                 <property name="placeholderText">
-                  <string>10</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="16" column="5">
-                <widget class="QComboBox" name="comboBox_ogg7">
-                 <item>
-                  <property name="text">
-                   <string>bicchiere</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>borraccia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>tazza</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="15" column="3">
-                <widget class="QLineEdit" name="lineEdit_rep6">
-                 <property name="maximumSize">
-                  <size>
-                   <width>50</width>
-                   <height>28</height>
-                  </size>
-                 </property>
-                 <property name="placeholderText">
-                  <string>10</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="16" column="0">
-                <widget class="QCheckBox" name="checkBox_es7">
+               <item row="18" column="2" colspan="6">
+                <widget class="QLabel" name="label_tempo_recap">
                  <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
-               <item row="13" column="2">
-                <widget class="QComboBox" name="comboBox_es4">
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca con oggetto </string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Elevazione laterale</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Basket</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Macedonia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Spesa</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Caffè</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="10" column="3">
-                <widget class="QLineEdit" name="lineEdit_rep2">
+               <item row="11" column="2">
+                <widget class="QLineEdit" name="lineEdit_rep3">
                  <property name="maximumSize">
                   <size>
                    <width>50</width>
@@ -6949,95 +6705,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="10">
-                <widget class="QPushButton" name="pushButton_add_2">
-                 <property name="font">
-                  <font>
-                   <family>Sans</family>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Aggiungi Esercizio</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="2">
-                <widget class="QComboBox" name="comboBox_mode">
-                 <item>
-                  <property name="text">
-                   <string>Mobilizzazione passiva</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mobilizzazione passiva con trigger</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mobilizzazione con assistenza se necessario</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mobilizzazione in antigravità</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mobilizzazione con trasparenza</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mobilizzazione con resistenza</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="4" column="3">
-                <widget class="QLabel" name="label_35">
-                 <property name="maximumSize">
-                  <size>
-                   <width>100</width>
-                   <height>29</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu Condensed</family>
-                   <pointsize>14</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Ripetizioni</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="5">
-                <widget class="QComboBox" name="comboBox_ogg1">
-                 <item>
-                  <property name="text">
-                   <string>bicchiere</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>borraccia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>tazza</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="11" column="2">
+               <item row="11" column="1">
                 <widget class="QComboBox" name="comboBox_es3">
                  <item>
                   <property name="text">
@@ -7096,27 +6764,66 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </item>
                 </widget>
                </item>
-               <item row="16" column="3">
-                <widget class="QLineEdit" name="lineEdit_rep7">
-                 <property name="maximumSize">
-                  <size>
-                   <width>50</width>
-                   <height>28</height>
-                  </size>
-                 </property>
-                 <property name="placeholderText">
-                  <string>10</string>
-                 </property>
+               <item row="16" column="1">
+                <widget class="QComboBox" name="comboBox_es7">
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca con oggetto </string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
-               <item row="10" column="0">
-                <widget class="QCheckBox" name="checkBox_es2">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="14" column="2">
+               <item row="14" column="1">
                 <widget class="QComboBox" name="comboBox_es5">
                  <item>
                   <property name="text">
@@ -7175,161 +6882,8 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </item>
                 </widget>
                </item>
-               <item row="13" column="3">
-                <widget class="QLineEdit" name="lineEdit_rep4">
-                 <property name="maximumSize">
-                  <size>
-                   <width>50</width>
-                   <height>28</height>
-                  </size>
-                 </property>
-                 <property name="placeholderText">
-                  <string>10</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="14" column="3">
-                <widget class="QLineEdit" name="lineEdit_rep5">
-                 <property name="maximumSize">
-                  <size>
-                   <width>50</width>
-                   <height>28</height>
-                  </size>
-                 </property>
-                 <property name="placeholderText">
-                  <string>10</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="0">
-                <widget class="QCheckBox" name="checkBox_es1">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="0">
-                <widget class="QCheckBox" name="checkBox_es3">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="19" column="10">
-                <widget class="QPushButton" name="pushButton_salva_recap">
-                 <property name="font">
-                  <font>
-                   <family>Sans</family>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Salva</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="2">
-                <widget class="QComboBox" name="comboBox_es2">
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca senza oggetto</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Mano alla bocca con oggetto </string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Elevazione laterale</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Basket</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Macedonia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Spesa</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Exergames - Caffè</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="14" column="0">
-                <widget class="QCheckBox" name="checkBox_es5">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="17" column="3">
-                <spacer name="verticalSpacer_9">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="3" column="8">
-                <spacer name="verticalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="15" column="0">
-                <widget class="QCheckBox" name="checkBox_es6">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="5">
-                <widget class="QComboBox" name="comboBox_ogg2">
+               <item row="16" column="3">
+                <widget class="QComboBox" name="comboBox_ogg7">
                  <item>
                   <property name="text">
                    <string>bicchiere</string>
@@ -7347,7 +6901,111 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </item>
                 </widget>
                </item>
+               <item row="4" column="8">
+                <widget class="QPushButton" name="pushButton_add_2">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Aggiungi Esercizio</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="14" column="2">
+                <widget class="QLineEdit" name="lineEdit_rep5">
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>28</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="3">
+                <widget class="QComboBox" name="comboBox_ogg6">
+                 <item>
+                  <property name="text">
+                   <string>bicchiere</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>borraccia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>tazza</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="3" column="6">
+                <spacer name="verticalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
                <item row="7" column="2">
+                <widget class="QLineEdit" name="lineEdit_rep1">
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>28</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="2">
+                <widget class="QLineEdit" name="lineEdit_rep7">
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>28</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="3">
+                <widget class="QComboBox" name="comboBox_ogg4">
+                 <item>
+                  <property name="text">
+                   <string>bicchiere</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>borraccia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>tazza</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="7" column="1">
                 <widget class="QComboBox" name="comboBox_es1">
                  <item>
                   <property name="text">
@@ -7406,7 +7064,226 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </item>
                 </widget>
                </item>
-               <item row="7" column="10">
+               <item row="10" column="1">
+                <widget class="QComboBox" name="comboBox_es2">
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca con oggetto </string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QComboBox" name="comboBox_mode">
+                 <item>
+                  <property name="text">
+                   <string>Mobilizzazione passiva</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mobilizzazione passiva con trigger</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mobilizzazione con assistenza se necessario</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mobilizzazione in antigravità</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mobilizzazione con trasparenza</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mobilizzazione con resistenza</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="13" column="2">
+                <widget class="QLineEdit" name="lineEdit_rep4">
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>28</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="2">
+                <widget class="QLabel" name="label_35">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>29</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Ubuntu Condensed</family>
+                   <pointsize>14</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Ripetizioni</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="19" column="8">
+                <widget class="QPushButton" name="pushButton_salva_recap">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Salva</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="1">
+                <widget class="QComboBox" name="comboBox_es6">
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca con oggetto </string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia </string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="7" column="3">
+                <widget class="QComboBox" name="comboBox_ogg1">
+                 <item>
+                  <property name="text">
+                   <string>bicchiere</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>borraccia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>tazza</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="7" column="8">
                 <widget class="QPushButton" name="pushButton_remove_2">
                  <property name="font">
                   <font>
@@ -7420,14 +7297,111 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </property>
                 </widget>
                </item>
-               <item row="18" column="3" colspan="7">
-                <widget class="QLabel" name="label_tempo_recap">
-                 <property name="text">
-                  <string/>
+               <item row="17" column="2">
+                <spacer name="verticalSpacer_9">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="13" column="1">
+                <widget class="QComboBox" name="comboBox_es4">
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Raggiungimento anteriore di target su un piano nello spazio senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Rsggiungimento anteriore di target su un piano nello spazio con oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca senza oggetto</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mano alla bocca con oggetto </string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Elevazione laterale</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Basket</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Macedonia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Spesa</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exergames - Caffè</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="14" column="3">
+                <widget class="QComboBox" name="comboBox_ogg5">
+                 <item>
+                  <property name="text">
+                   <string>bicchiere</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>borraccia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>tazza</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="15" column="2">
+                <widget class="QLineEdit" name="lineEdit_rep6">
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>28</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="5">
+               <item row="4" column="3">
                 <widget class="QLabel" name="label_50">
                  <property name="font">
                   <font>
@@ -7442,15 +7416,27 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </property>
                 </widget>
                </item>
-               <item row="13" column="0">
-                <widget class="QCheckBox" name="checkBox_es4">
-                 <property name="text">
-                  <string/>
-                 </property>
+               <item row="10" column="3">
+                <widget class="QComboBox" name="comboBox_ogg2">
+                 <item>
+                  <property name="text">
+                   <string>bicchiere</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>borraccia</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>tazza</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
-               <item row="11" column="3">
-                <widget class="QLineEdit" name="lineEdit_rep3">
+               <item row="10" column="2">
+                <widget class="QLineEdit" name="lineEdit_rep2">
                  <property name="maximumSize">
                   <size>
                    <width>50</width>
@@ -7462,107 +7448,8 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  </property>
                 </widget>
                </item>
-               <item row="15" column="5">
-                <widget class="QComboBox" name="comboBox_ogg6">
-                 <item>
-                  <property name="text">
-                   <string>bicchiere</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>borraccia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>tazza</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="13" column="5">
-                <widget class="QComboBox" name="comboBox_ogg4">
-                 <item>
-                  <property name="text">
-                   <string>bicchiere</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>borraccia</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>tazza</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="7" column="4">
-                <widget class="QLabel" name="label_36">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="4">
-                <widget class="QLabel" name="label_37">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="4">
-                <widget class="QLabel" name="label_51">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="13" column="4">
-                <widget class="QLabel" name="label_52">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="14" column="4">
-                <widget class="QLabel" name="label_53">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="15" column="4">
-                <widget class="QLabel" name="label_54">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="16" column="4">
-                <widget class="QLabel" name="label_55">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="4">
-                <widget class="QLabel" name="label_56">
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu Condensed</family>
-                   <pointsize>14</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Tempo </string>
-                 </property>
-                </widget>
+               <item row="11" column="8">
+                <layout class="QVBoxLayout" name="verticalLayout_5"/>
                </item>
               </layout>
              </widget>
