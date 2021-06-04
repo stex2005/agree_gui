@@ -145,6 +145,23 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
       ui->comboBox_ex5->setVisible(false);
       ui->comboBox_ex6->setVisible(false);
       ui->comboBox_ex7->setVisible(false);
+
+      ui->lineEdit_ex2->setVisible(false);
+      ui->lineEdit_ex3->setVisible(false);
+      ui->lineEdit_ex4->setVisible(false);
+      ui->lineEdit_ex5->setVisible(false);
+      ui->lineEdit_ex6->setVisible(false);
+      ui->lineEdit_ex7->setVisible(false);
+
+      ui->comboBox_oi_es1->setVisible(false);
+      ui->comboBox_oi_es2->setVisible(false);
+      ui->comboBox_oi_es3->setVisible(false);
+      ui->comboBox_oi_es4->setVisible(false);
+      ui->comboBox_oi_es5->setVisible(false);
+      ui->comboBox_oi_es6->setVisible(false);
+      ui->comboBox_oi_es7->setVisible(false);
+
+
       this->showMaximized();
       ui->tabWidget->setCurrentWidget(ui->tab);
       ui->pushButton_allarme->setVisible(false);
@@ -420,7 +437,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   connect(ui->comboBox_es6, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
   connect(ui->comboBox_es7, SIGNAL (currentTextChanged(QString)), this, SLOT(enable_combo_recap()));
 
-  //connect(ui->lineEdit_ex1, SIGNAL(TextChanged(QString)),this, SLOT(update_tempo_terapia(QString)));
+  connect(ui->lineEdit_ex1, SIGNAL(TextChanged(QString)),this, SLOT(update_tempo_terapia(QString)));
   connect(ui->lineEdit_ex1, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
   connect(ui->lineEdit_ex2, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
   connect(ui->lineEdit_ex3, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
@@ -1378,12 +1395,12 @@ void paginaprincipale::on_pushButton_home_clicked()
   n.setParam ("/exercise/objects", ex_obj);
   n.setParam ("/exercise/mode", mode);
   n.setParam("/exercise/current_exercise", curr_ex);
- n.setParam("matlab/point1/x", point1xp);
- n.setParam("matlab/point1/y", point1yp);
- n.setParam("matlab/point2/x", point2xp);
- n.setParam("matlab/point2/y", point2yp);
-  n.setParam("matlab/point3/x", point3xp);
-  n.setParam("matlab/point3/y", point3yp);
+ n.setParam("matlab/point1/mat_coordinate/x", point1xp);
+ n.setParam("matlab/point1/mat_coordinate/y", point1yp);
+ n.setParam("matlab/point2/mat_coordinate/x", point2xp);
+ n.setParam("matlab/point2/mat_coordinate/y", point2yp);
+  n.setParam("matlab/point3/mat_coordinate/x", point3xp);
+  n.setParam("matlab/point3/mat_coordinate/y", point3yp);
   n.setParam("/point0/mat_coordinates", point0p);
   n.setParam("/point1/mat_coordinates", point1p);
   n.setParam("/point2/mat_coordinates", point2p);
@@ -2014,37 +2031,37 @@ void paginaprincipale::update_tempo_terapia(){
     ripe7 = ui->lineEdit_ex7->text().toInt();
     t_es7 = t_es7* ripe7;
   }
-  if(ui->comboBox_ex1->isVisible()) {
+  if(es1_b == true) {
     temp_tot = t_es1;
 
     temp_string = QString::number(temp_tot);
   }
-  if(ui->comboBox_ex2->isVisible()) {
+  if(es2_b == true) {
     temp_tot += t_es2;
 
     temp_string = QString::number(temp_tot);
   }
-  if(ui->comboBox_ex3->isVisible()) {
+  if(es3_b == true) {
     temp_tot += t_es3;
 
     temp_string = QString::number(temp_tot);
   }
-  if(ui->comboBox_ex4->isVisible()) {
+  if(es4_b == true) {
     temp_tot += t_es4;
 
     temp_string = QString::number(temp_tot);
   }
-  if(ui->comboBox_ex5->isVisible()) {
+  if(es5_b == true) {
     temp_tot += t_es5;
 
     temp_string = QString::number(temp_tot);
   }
-  if(ui->comboBox_ex6->isVisible()) {
+  if(es6_b == true) {
     temp_tot += t_es6;
 
     temp_string = QString::number(temp_tot);
   }
-  if(ui->comboBox_ex7->isVisible()) {
+  if(es7_b == true) {
     temp_tot += t_es7;
     temp_string = QString::number(temp_tot);
   }
@@ -2095,41 +2112,61 @@ void paginaprincipale::enable_combo_ex() {
 void paginaprincipale::on_pushButton_add_clicked()
 
 { if(dati::flag_ex == 0) {
+
     dati::flag_ex++;}
   if(dati::flag_ex == 1) {
    // ui->checkBox_ex2->setChecked(true);
     ui->comboBox_ex2->setVisible(true);
+    ui->lineEdit_ex2->setVisible(true);
+    ui->comboBox_oi_es2->setVisible(true);
+
+    es2_b = true;
 
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==2) {
+    es3_b = true;
     //ui->checkBox_ex3->setChecked(true);
     ui->comboBox_ex3->setVisible(true);
+    ui->lineEdit_ex3->setVisible(true);
+    ui->comboBox_oi_es3->setVisible(true);
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==3) {
    // ui->checkBox_ex4->setChecked(true);
     ui->comboBox_ex4->setVisible(true);
+    ui->lineEdit_ex4->setVisible(true);
+    ui->comboBox_oi_es4->setVisible(true);
+    es4_b= true;
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==4) {
    // ui->checkBox_ex5->setChecked(true);
    ui->comboBox_ex5->setVisible(true);
+   ui->lineEdit_ex5->setVisible(true);
+   ui->comboBox_oi_es5->setVisible(true);
+   es5_b = true;
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==5) {
   //  ui->checkBox_ex6->setChecked(true);
    ui->comboBox_ex6->setVisible(true);
+   ui->lineEdit_ex6->setVisible(true);
+   ui->comboBox_oi_es6->setVisible(true);
+   es6_b = true;
     dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex==6) {
   //  ui->checkBox_7->setChecked(true);
     ui->comboBox_ex7->setVisible(true);
+    ui->lineEdit_ex7->setVisible(true);
+    ui->comboBox_oi_es7->setVisible(true);
+    es7_b = true;
     // dati::flag_ex++;
     qDebug()<<dati::flag_ex;
   }
@@ -2140,32 +2177,44 @@ void paginaprincipale::on_pushButton_remove_clicked()
 { if(dati::flag_ex == 6){
 
     ui->comboBox_ex7->setVisible(false);
+    ui->lineEdit_ex7->setVisible(false);
+    ui->comboBox_oi_es7->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
 
   }
   else if (dati::flag_ex ==5) {
     ui->comboBox_ex6->setVisible(false);
+    ui->lineEdit_ex6->setVisible(false);
+    ui->comboBox_oi_es6->setVisible(false);
+
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==4) {
     ui->comboBox_ex5->setVisible(false);
+    ui->lineEdit_ex5->setVisible(false);
+    ui->comboBox_oi_es5->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==3) {
     ui->comboBox_ex4->setVisible(false);
+    ui->lineEdit_ex4->setVisible(false);
+    ui->comboBox_oi_es4->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==2) {
     ui->comboBox_ex3->setVisible(false);
+    ui->lineEdit_ex3->setVisible(false);
+    ui->comboBox_oi_es3->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==1) {
     ui->comboBox_ex2->setVisible(false);
+    ui->lineEdit_ex2->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
@@ -2184,8 +2233,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
   borraccia = "Borraccia";
   tazza = "Tazza";
 
-  if(ui->comboBox_ex1->isVisible())
-  {  check_ex1=1;
+  if(es1_b== true)
+  { qDebug()<<" rio: sono qui 1" ;
+    check_ex1=1;
 
     dati::ex1 = ui->comboBox_ex1->currentText();
     ui->label_es1_recap->setText(dati::ex1);
@@ -2198,8 +2248,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     ui->checkBox_es1->setChecked(true);
     ui->comboBox_es1->setCurrentText(dati::ex1);
     ui->lineEdit_rep1->setText(dati::rip1);
-
     rep1 = dati::rip1.toInt();
+    qDebug ()<< "rio";
+    qDebug()<< rep1;
     if(ui->comboBox_oi_es1->isEnabled()) {
       //AGGIORNA ROSPARAM MODULI OGGETTI QUI
       if(ui->comboBox_oi_es1->currentText()== bicchiere ) { ui->comboBox_ogg1->setCurrentText("bicchiere"); oggetto_es1= "1"; ros_ogg1=1; ui->label_oi1_recap->setText(bicchiere);}
@@ -2243,8 +2294,8 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->comboBox_ex2->isVisible())
-  {
+  if(es2_b==true)
+  { qDebug()<<"rio :sono qui 2" ;
     dati::ex2 = ui->comboBox_ex2->currentText();
     ui->label_es2_recap->setText(dati::ex2);
 
@@ -2292,7 +2343,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->comboBox_ex3->isVisible())
+  if(es3_b==true)
   {
     dati::ex3 = ui->comboBox_ex3->currentText();
     ui->label_es3_recap->setText(dati::ex3);
@@ -2340,7 +2391,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->comboBox_ex4->isVisible())
+  if(es4_b==true)
   {
     dati::ex4 = ui->comboBox_ex4->currentText();
     ui->label_es4_recap->setText(dati::ex4);
@@ -2389,7 +2440,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->comboBox_ex5->isVisible())
+  if(es5_b==true)
   {
     dati::ex5 = ui->comboBox_ex5->currentText();
     ui->label_es5_recap->setText(dati::ex5);
@@ -2439,7 +2490,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     }
 
   }
-  if(ui->comboBox_ex6->isVisible())
+  if(es6_b==true)
   {
     dati::ex6 = ui->comboBox_ex6->currentText();
     ui->label_es6_recap->setText(dati::ex6);
@@ -2488,7 +2539,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
 
   }
-  if(ui->comboBox_ex7->isVisible())
+  if(es7_b==true)
   {
     dati::ex7 = ui->comboBox_ex7->currentText();
     ui->label_es7_recap->setText(dati::ex7);
@@ -2556,7 +2607,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
 
     /******************         AGGIORNO ROS PARAMETERS : EXERCISE SEQUENCE                      ***********************/
     ex_seq = {exe1, exe2, exe3, exe4, exe5, exe6, exe7};
+    qDebug() << exe1;
     ex_rep = {rep1, rep2, rep3, rep4, rep5, rep6, rep7};
+    qDebug() << rep1;
     ex_obj = {ros_ogg1, ros_ogg2, ros_ogg3, ros_ogg4, ros_ogg5, ros_ogg6, ros_ogg7};
     ros::NodeHandle n;
     n.setParam("/exercise/sequence", ex_seq);
@@ -5284,6 +5337,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   enable_combo_ex();
   enable_combo_ex_recap();
   if (flag == 4) {
+    //RECUPERO ESERCIZI
     ui->label_recap_controllo->setText(QString("Modalità di controllo utilizzata nella scorsa sessione : %1\n").arg(dati::mood_prec));
     //  ui->label_suggerimento_output->setText(QString("Modalità di controllo suggerita dalla valutazione della precedente sessione : %1").arg(dati::mode_output));
 
@@ -5294,6 +5348,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
     //  ui->checkBox_ex1->setChecked(true);
       ui->comboBox_ex1->setVisible(true);
+      ui->lineEdit_ex1->setVisible(true);
       dati::flag_ex=0;
       QSqlQuery selezione1;
       selezione1.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex1_prec+"'");
@@ -5328,11 +5383,16 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
     }
     else {
-      ui->comboBox_ex1->setVisible(false);
+//      ui->comboBox_ex1->setVisible(false);
+//      ui->lineEdit_ex1->setVisible(false);
     }
     if(!(dati::lex2==0))
     {
       ui->comboBox_ex2->setVisible(true);
+      ui->lineEdit_ex2->setVisible(true);
+
+      es2_b = true;
+
       dati::flag_ex = 1;
       QSqlQuery selezione2;
       selezione2.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex2_prec+"'");
@@ -5364,12 +5424,15 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     }
     else {
       ui->comboBox_ex2->setVisible(false);
+      ui->lineEdit_ex2->setVisible(false);
     }
 
     if(!(dati::lex3==0))
     {
       ui->comboBox_ex3->setVisible(true);
+      ui->lineEdit_ex3->setVisible(true);
       dati::flag_ex=2;
+      es3_b = true;
       QSqlQuery selezione3;
       selezione3.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex3_prec+"'");
       selezione3.exec();
@@ -5402,11 +5465,14 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     }
     else {
       ui->comboBox_ex3->setVisible(false);
+      ui->lineEdit_ex3->setVisible(false);
     }
     if(!(dati::lex4==0))
     {
       ui->comboBox_ex4->setVisible(true);
+      ui->lineEdit_ex4->setVisible(true);
       dati::flag_ex=3;
+      es4_b = true;
       QSqlQuery selezione4;
       selezione4.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex4_prec+"'");
       selezione4.exec();
@@ -5438,11 +5504,14 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     }
     else {
       ui->comboBox_ex4->setVisible(false);
+      ui->lineEdit_ex4->setVisible(false);
     }
     if(!(dati::lex5==0))
     {
       ui->comboBox_ex5->setVisible(true);
+      ui->lineEdit_ex5->setVisible(true);
       dati::flag_ex=4;
+      es5_b = true;
       QSqlQuery selezione5;
       selezione5.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex5_prec+"'");
       selezione5.exec();
@@ -5474,11 +5543,14 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     }
     else {
       ui->comboBox_ex5->setVisible(false);
+      ui->lineEdit_ex5->setVisible(false);
     }
     if(!(dati::lex6==0))
     {
       ui->comboBox_ex6->setVisible(true);
+      ui->lineEdit_ex6->setVisible(true);
       dati::flag_ex=5;
+      es6_b = true;
       QSqlQuery selezione6;
       selezione6.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex6_prec+"'");
       selezione6.exec();
@@ -5510,11 +5582,14 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     }
     else {
       ui->comboBox_ex6->setVisible(false);
+      ui->lineEdit_ex6->setVisible(false);
     }
     if(!(dati::lex7==0))
     {
       ui->comboBox_ex7->setVisible(true);
+      ui->lineEdit_ex7->setVisible(true);
       dati::flag_ex=6;
+      es7_b = true;
       QSqlQuery selezione7;
       selezione7.prepare("select Ex from Esercizi where Num_ex ='"+dati::ex7_prec+"'");
       selezione7.exec();

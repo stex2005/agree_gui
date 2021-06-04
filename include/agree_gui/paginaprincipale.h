@@ -157,6 +157,17 @@ class paginaprincipale : public QDialog
     int  point1xp,point1yp,point2xp,point2yp,point3xp,point3yp;
     int curr_ex;
 
+    //check per esercizi
+   // bool es1, es2,es3,es4,es5,es6,es7;
+    bool es1_b = true;
+    bool es2_b = false;
+    bool es3_b = false;
+    bool es4_b = false;
+    bool es5_b = false;
+    bool es6_b = false;
+    bool es7_b = false;
+
+
 
 
 
