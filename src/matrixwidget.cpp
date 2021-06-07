@@ -141,9 +141,9 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
     DataPoint &dp = Data[15-(yindex)][xindex+1 ];
 
     //MANDO COORDINATE DEL PUNTO DI REST
-    point0 = {15,4};
+    point0 = {16,4};
     n.setParam("/point0/mat_coordinates", point0);
-    Data[4][15].DrawColor=Qt::black;
+    Data[4][16].DrawColor=Qt::black;
     //zero non selezionabile
     if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
     if(dp.isSelected == false)
@@ -159,8 +159,8 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point1x = point1.at(0);
         point1y = point1.at(1);
         n.setParam("/point1/mat_coordinates", point1);
-        n.setParam("matlab/point1/x", point1x);
-        n.setParam("matlab/point1/y", point1y);
+        n.setParam("matlab/point1/mat_coordinate/x", point1x);
+        n.setParam("matlab/point1/mat_coordinate/y", point1y);
 
         qDebug()<< "riempio point1";
         qDebug()<< point1;
@@ -178,8 +178,8 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point2y = point2.at(1);
 
         n.setParam("/point2/mat_coordinates", point2);
-        n.setParam("matlab/point2/x", point2x);
-        n.setParam("matlab/point2/y", point2y);
+        n.setParam("matlab/point2/mat_coordinate/x", point2x);
+        n.setParam("matlab/point2/mat_coordinate/y", point2y);
 
         qDebug()<< "riempio point2";
         qDebug()<< point2;
@@ -203,8 +203,8 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         msg.data = dati::status1;
         ROS_INFO ("%d", msg.data);
         status_publisher.publish(msg);
-        n.setParam("matlab/point3/x", point3x);
-        n.setParam("matlab/point3/y", point3y);
+        n.setParam("matlab/point3/mat_coordinate/x", point3x);
+        n.setParam("matlab/point3/mat_coordinate/y", point3y);
 
       }
 
@@ -270,6 +270,8 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 void MatrixWidget::paintEvent(QPaintEvent *event)
 {  //cout << "sono nel paint event 1"<<std::endl;
   QPainter p(this);
+  //FAI CHECK CON DX E SX
+  Data[4][16].DrawColor=Qt::black;
   p.drawRect(0,0, width()-1 , height() -1  );
   //-1
  // cout << "sono nel paint event"<<std::endl;

@@ -1388,24 +1388,24 @@ void paginaprincipale::on_pushButton_home_clicked()
   point2p= {0,0};
   point3p= {0,0};
   ros::NodeHandle n;
-  n.setParam ("/physiological_param/arm_compensation", comp_param);
-  n.setParam ("/physiological_param/forearm_compensation", comp_forearm);
-  n.setParam("/active_modules", active_modules);
-  n.setParam("/exercise/sequence", ex_seq);
-  n.setParam("/exercise/repetition", ex_rep);
-  n.setParam ("/exercise/objects", ex_obj);
-  n.setParam ("/exercise/mode", mode);
-  n.setParam("/exercise/current_exercise", curr_ex);
- n.setParam("matlab/point1/mat_coordinate/x", point1xp);
- n.setParam("matlab/point1/mat_coordinate/y", point1yp);
- n.setParam("matlab/point2/mat_coordinate/x", point2xp);
- n.setParam("matlab/point2/mat_coordinate/y", point2yp);
-  n.setParam("matlab/point3/mat_coordinate/x", point3xp);
-  n.setParam("matlab/point3/mat_coordinate/y", point3yp);
-  n.setParam("/point0/mat_coordinates", point0p);
-  n.setParam("/point1/mat_coordinates", point1p);
-  n.setParam("/point2/mat_coordinates", point2p);
-  n.setParam("/point3/mat_coordinates", point3p);
+//  n.setParam ("/physiological_param/arm_compensation", comp_param);
+//  n.setParam ("/physiological_param/forearm_compensation", comp_forearm);
+//  n.setParam("/active_modules", active_modules);
+//  n.setParam("/exercise/sequence", ex_seq);
+//  n.setParam("/exercise/repetition", ex_rep);
+//  n.setParam ("/exercise/objects", ex_obj);
+//  n.setParam ("/exercise/mode", mode);
+//  n.setParam("/exercise/current_exercise", curr_ex);
+// n.setParam("matlab/point1/mat_coordinate/x", point1xp);
+// n.setParam("matlab/point1/mat_coordinate/y", point1yp);
+// n.setParam("matlab/point2/mat_coordinate/x", point2xp);
+// n.setParam("matlab/point2/mat_coordinate/y", point2yp);
+//  n.setParam("matlab/point3/mat_coordinate/x", point3xp);
+//  n.setParam("matlab/point3/mat_coordinate/y", point3yp);
+//  n.setParam("/point0/mat_coordinates", point0p);
+//  n.setParam("/point1/mat_coordinates", point1p);
+//  n.setParam("/point2/mat_coordinates", point2p);
+//  n.setParam("/point3/mat_coordinates", point3p);
 
 }
 
@@ -2176,7 +2176,7 @@ void paginaprincipale::on_pushButton_add_clicked()
 /**********************        REMOVE EXERCISE IN REHAB CONFIGURATION *********************/
 void paginaprincipale::on_pushButton_remove_clicked()
 { if(dati::flag_ex == 6){
-
+    es7_b = false;
     ui->comboBox_ex7->setVisible(false);
     ui->lineEdit_ex7->setVisible(false);
     ui->comboBox_oi_es7->setVisible(false);
@@ -2185,6 +2185,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
 
   }
   else if (dati::flag_ex ==5) {
+    es6_b = false;
     ui->comboBox_ex6->setVisible(false);
     ui->lineEdit_ex6->setVisible(false);
     ui->comboBox_oi_es6->setVisible(false);
@@ -2193,6 +2194,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==4) {
+    es5_b = false;
     ui->comboBox_ex5->setVisible(false);
     ui->lineEdit_ex5->setVisible(false);
     ui->comboBox_oi_es5->setVisible(false);
@@ -2200,6 +2202,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==3) {
+    es4_b = false;
     ui->comboBox_ex4->setVisible(false);
     ui->lineEdit_ex4->setVisible(false);
     ui->comboBox_oi_es4->setVisible(false);
@@ -2207,6 +2210,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==2) {
+    es3_b = false;
     ui->comboBox_ex3->setVisible(false);
     ui->lineEdit_ex3->setVisible(false);
     ui->comboBox_oi_es3->setVisible(false);
@@ -2214,6 +2218,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
     qDebug()<<dati::flag_ex;
   }
   else if (dati::flag_ex ==1) {
+    es2_b = false;
     ui->comboBox_ex2->setVisible(false);
     ui->lineEdit_ex2->setVisible(false);
     dati::flag_ex--;
@@ -2274,9 +2279,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         dati::num_ex1 = selezione1.value(0).toString();
         exe1 = dati::num_ex1.toInt();
         if(exe1==3) {
-          active_module_RF=1;
+         // active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+        //  n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2331,9 +2336,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         dati::num_ex2 = selezione2.value(0).toString();
         exe2 = dati::num_ex2.toInt();
         if(exe2==3) {
-          active_module_RF=1;
+         // active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+         // n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2382,9 +2387,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         dati::num_ex3 = selezione3.value(0).toString();
         exe3 = dati::num_ex3.toInt();
         if(exe3==3) {
-          active_module_RF=1;
+         // active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+        //  n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2432,9 +2437,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         dati::num_ex4 = selezione4.value(0).toString();
         exe4 = dati::num_ex4.toInt();
         if(exe4==3) {
-          active_module_RF=1;
+         // active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+        //  n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2484,9 +2489,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         dati::num_ex5 = selezione5.value(0).toString();
         exe5 = dati::num_ex5.toInt();
         if(exe5==3) {
-          active_module_RF=1;
+         // active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+        //  n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2534,9 +2539,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         dati::num_ex6 = selezione6.value(0).toString();
         exe6 = dati::num_ex6.toInt();
         if(exe6==3) {
-          active_module_RF=1;
+        //  active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+       //   n.setParam("/active_modules", active_modules);
 
         }
 
@@ -2586,9 +2591,9 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         dati::num_ex7 = selezione7.value(0).toString();
         exe7 = dati::num_ex7.toInt();
         if(exe7==3) {
-          active_module_RF=1;
+        //  active_module_RF=1;
           active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
-          n.setParam("/active_modules", active_modules);
+        //  n.setParam("/active_modules", active_modules);
 
         }
 

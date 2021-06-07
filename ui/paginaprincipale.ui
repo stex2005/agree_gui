@@ -1103,7 +1103,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>11</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
