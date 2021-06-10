@@ -239,7 +239,7 @@ class paginaprincipale : public QDialog
 
     std::vector<double> ARM_LENGTH;   // LUNGHEZZA BRACCIO
     double ROM_rad[5];
-    double ROM_rad1, ROM_rad2, ROM_rad3, ROM_rad4;
+    double ROM_rad1, ROM_rad2, ROM_rad3, ROM_rad4, ROM_rad5;
     uint8_t mode;
     int exe1=0, exe2=0, exe3=0, exe4=0, exe5=0, exe6=0, exe7=0;
     std::vector<int> ex_seq; //exercises sequence
@@ -317,6 +317,10 @@ class paginaprincipale : public QDialog
     char *path_alice1 =NULL;
     char *path_smartbox1 = NULL;
     char *path = NULL;
+
+    //AGGIORNO ROM
+    double ROM1_deg, ROM2_deg, ROM3_deg, ROM4_deg, ROM5_deg;
+    int ROM1, ROM2, ROM3, ROM4, ROM5;
 
 
 
@@ -567,6 +571,8 @@ private slots:
 
  void on_pushButton_showeval_emg_clicked();
 
+ void update_rom();
+
 private:
   Ui::paginaprincipale *ui;
 
@@ -596,6 +602,7 @@ private:
   QTimer *timer_comp; //TIMER PER INVIARE LA COMPENSAZIONE NEI ROSPARAM
   QTime time;
   QTimer *timer_updatedisplay;
+  QTimer *timer_rom;
 
 
 };

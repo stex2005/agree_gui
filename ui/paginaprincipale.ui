@@ -143,7 +143,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -649,7 +649,105 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                 <string>DATI PAZIENTE</string>
                </property>
                <layout class="QGridLayout" name="gridLayout_12">
-                <item row="7" column="0" colspan="2">
+                <item row="4" column="2">
+                 <widget class="QLineEdit" name="lineEdit_patologia">
+                  <property name="placeholderText">
+                   <string>Patologia</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="2">
+                 <widget class="QComboBox" name="comboBox_latodominante">
+                  <item>
+                   <property name="text">
+                    <string>Destro</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Sinistro</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLabel" name="label_datanascita">
+                  <property name="text">
+                   <string>Data di Nascita</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLabel" name="label_sesso">
+                  <property name="text">
+                   <string>Sesso</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="2">
+                 <widget class="QLineEdit" name="lineEdit_storiaclinica">
+                  <property name="placeholderText">
+                   <string>Note Utili</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QLabel" name="label_storiaclinica">
+                  <property name="text">
+                   <string>Note Utili</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLineEdit" name="lineEdit_datanascita">
+                  <property name="placeholderText">
+                   <string>gg-mm-aaaa</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLineEdit" name="lineEdit_cognome">
+                  <property name="placeholderText">
+                   <string>Cognome</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLabel" name="label_latodominante">
+                  <property name="text">
+                   <string>Lato Terapia</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="label_nome">
+                  <property name="text">
+                   <string>Nome</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QComboBox" name="comboBox_sesso">
+                  <item>
+                   <property name="text">
+                    <string>Femmina</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Maschio</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLineEdit" name="lineEdit_nome">
+                  <property name="placeholderText">
+                   <string>Nome </string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0" colspan="3">
                  <widget class="QGroupBox" name="groupBox_8">
                   <property name="title">
                    <string>PARAMETRI ANTROPOMETRICI</string>
@@ -825,116 +923,18 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                   </layout>
                  </widget>
                 </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_latodominante">
-                  <property name="text">
-                   <string>Lato Terapia</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_datanascita">
-                  <property name="text">
-                   <string>Data di Nascita</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="lineEdit_patologia">
-                  <property name="placeholderText">
-                   <string>Patologia</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QLineEdit" name="lineEdit_storiaclinica">
-                  <property name="placeholderText">
-                   <string>Note Utili</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_nome">
-                  <property name="text">
-                   <string>Nome</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
+                <item row="1" column="1">
                  <widget class="QLabel" name="label_cognome">
                   <property name="text">
                    <string>Cognome</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_storiaclinica">
-                  <property name="text">
-                   <string>Note Utili</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QLineEdit" name="lineEdit_nome">
-                  <property name="placeholderText">
-                   <string>Nome </string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="lineEdit_cognome">
-                  <property name="placeholderText">
-                   <string>Cognome</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_sesso">
-                  <property name="text">
-                   <string>Sesso</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="lineEdit_datanascita">
-                  <property name="placeholderText">
-                   <string>gg-mm-aaaa</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
+                <item row="4" column="1">
                  <widget class="QLabel" name="label_patologia">
                   <property name="text">
                    <string>Patologia</string>
                   </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QComboBox" name="comboBox_latodominante">
-                  <item>
-                   <property name="text">
-                    <string>Destro</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Sinistro</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QComboBox" name="comboBox_sesso">
-                  <item>
-                   <property name="text">
-                    <string>Femmina</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Maschio</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                </layout>
@@ -1103,7 +1103,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -1806,7 +1806,7 @@ background-color: rgb(152, 194, 233);</string>
                  </property>
                  <property name="text">
                   <string>Mobilizzazione Passiva con Trigger
-Suggerimento: selezionare se 0 ≤ MRC ≤ 2   </string>
+Suggerimento: selezionare se 1 ≤ MRC ≤ 2   </string>
                  </property>
                 </widget>
                </item>
@@ -3176,18 +3176,6 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>1780</width>
-               <height>500</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>1780</width>
-               <height>500</height>
-              </size>
              </property>
              <property name="text">
               <string/>
@@ -4642,7 +4630,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                     <widget class="QLabel" name="label_8">
                      <property name="minimumSize">
                       <size>
-                       <width>150</width>
+                       <width>180</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -4658,7 +4646,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                       </font>
                      </property>
                      <property name="text">
-                      <string>Abdo-Adduzione</string>
+                      <string>Flesso- Estensione</string>
                      </property>
                     </widget>
                    </item>
@@ -5087,7 +5075,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLabel" name="label_j4_min_2">
+                          <widget class="QLabel" name="label_j5_min">
                            <property name="minimumSize">
                             <size>
                              <width>0</width>
@@ -5124,7 +5112,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLabel" name="label_j4_min_3">
+                          <widget class="QLabel" name="label_j5_max">
                            <property name="minimumSize">
                             <size>
                              <width>0</width>
@@ -5354,7 +5342,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                       </font>
                      </property>
                      <property name="text">
-                      <string>Flesso-Estensione</string>
+                      <string>Abdo-Adduzione</string>
                      </property>
                     </widget>
                    </item>
@@ -7471,7 +7459,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
               <item>
                <widget class="QStackedWidget" name="stackedWidget_val_2">
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="page_pdf_2">
                  <layout class="QVBoxLayout" name="verticalLayout_47">
@@ -7585,7 +7573,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                     <property name="maximumSize">
                      <size>
                       <width>16777215</width>
-                      <height>250</height>
+                      <height>140</height>
                      </size>
                     </property>
                     <property name="font">
