@@ -217,6 +217,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     }
     if(dati::command_old_pp == SC1_HAND_POSITION){
       ui->tabWidget_2->setCurrentWidget(ui->tab_calibrazione);
+      ui->stackedWidget_calibrazione_mat->setCurrentWidget(ui->page_cal_mat);
       ui->pushButton_allarme->setVisible(true);
       point1p={0,0};
       point2p={0,0};
@@ -228,6 +229,14 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
 
 
     }
+    if(dati::command_old_pp == SC1_HAND_POSITION_WAIT){
+      //mostra schermata di attesa
+      ui->stackedWidget_calibrazione_mat->setCurrentWidget(ui->page_cal_mat_wait);
+
+
+
+    }
+
     if(dati::command_old_pp == SC1_WORKSPACE_ON) {
       ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
       dati::status1 = SC1_WORKSPACE_ON;
@@ -246,6 +255,12 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
         ui->pushButton_salvatapp->setEnabled(false);
         qDebug()<<dati::selcount_mat;
       }
+
+    }
+    if(dati::command_old_pp == SC1_FINISHED_WAIT) {
+
+      ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+      ui->stackedWidget_2->setCurrentWidget(ui->page_wait_traj);
 
     }
 
@@ -3322,6 +3337,8 @@ void paginaprincipale::on_pushButton_salvatapp_clicked()
   status_publisher.publish(msg);
   dati::selcount_mat=0;
 
+  ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+
 
 }
 
@@ -4327,11 +4344,11 @@ void paginaprincipale::next_img() {
 
         break;
 
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        qDebug()<< "case99";
-        break;
+//        qDebug()<< "case99";
+//        break;
       case 0:
         ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
         break;
@@ -4400,12 +4417,12 @@ void paginaprincipale::next_img() {
         ui->label_img->setText("Terapista, posiziona l'oggetto \n\nsul punto del pad illuminato.\n\nQuindi premi OK");
         ui->pushButton_ok->setEnabled(true);
         break;
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        ui->pushButton_ok->setEnabled(false);
-        qDebug()<< "case99";
-        break;
+//        ui->pushButton_ok->setEnabled(false);
+//        qDebug()<< "case99";
+//        break;
 
       case 1:
         ui->label_img->setPixmap(case1_3);
@@ -4417,7 +4434,7 @@ void paginaprincipale::next_img() {
       case 2: //sx
         ui->pushButton_ok->setEnabled(false);
 
-          ui->label_img->setPixmap(case2_3);
+        //  ui->label_img->setPixmap(case2_3);
 
         qDebug()<< "case2_3";
         break;
@@ -4425,7 +4442,7 @@ void paginaprincipale::next_img() {
       case 3 : //rest
         ui->pushButton_ok->setEnabled(false);
 
-        ui->label_img->setPixmap(case3_3);
+       // ui->label_img->setPixmap(case3_3);
 
         break;
 
@@ -4435,13 +4452,13 @@ void paginaprincipale::next_img() {
 
 
 
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case4_3";
         break;
 
       case 5: //dx
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
 
         ui->label_img->setPixmap(case5_3);
 
@@ -4452,7 +4469,7 @@ void paginaprincipale::next_img() {
         break;
 
       case 6: //rest
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
 
           ui->label_img->setPixmap(case6_3);
@@ -4461,7 +4478,7 @@ void paginaprincipale::next_img() {
         break;
 
       case 7: //dx
-                ui->pushButton_ok->setEnabled(false);
+          //      ui->pushButton_ok->setEnabled(false);
 
 
 
@@ -4473,7 +4490,7 @@ void paginaprincipale::next_img() {
         break;
 
       case 8: //centro
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
         ui->label_img->setPixmap(case8_3);
 
@@ -4483,7 +4500,7 @@ void paginaprincipale::next_img() {
 
       case 9: //rest
         ui->label_img->setPixmap(case9_3);
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case9_3";
         break;
@@ -4491,12 +4508,12 @@ void paginaprincipale::next_img() {
       case 102: // FEEDBACK
         ui->label_img->setPixmap(feedback_happy);
 
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       default:
         ui->label_img->setPixmap(case2_3);
-        ui->pushButton_ok->setEnabled(false);
+     //   ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "casedef";
         break;
@@ -4518,11 +4535,11 @@ void paginaprincipale::next_img() {
         ui->pushButton_ok->setEnabled(true);
 
         break;
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        qDebug()<< "case99";
-        break;
+//        qDebug()<< "case99";
+//        break;
 
       case 0:
         ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
@@ -4533,27 +4550,27 @@ void paginaprincipale::next_img() {
         ui->label_img->setPixmap(case2_6);
 
         qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       case 2:
         ui->label_img->setPixmap(def_6);
 
         qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       case 102: //FEEDBACK
         ui->label_img->setPixmap(feedback_happy);
 
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       default:
         ui->label_img->setPixmap(def_6);
 
         qDebug()<< "casedef";
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
         break;
 
 
@@ -4578,42 +4595,42 @@ void paginaprincipale::next_img() {
         //      ui->pushButton_ok->setEnabled(true);
 
         //     break;
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        qDebug()<< "case99";
-        break;
+//        qDebug()<< "case99";
+//        break;
 
       case 0:
         ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
         break;
 
       case 1:
         ui->label_img->setPixmap(case2_5);
 
         // qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       case 2:
         ui->label_img->setPixmap(def_5);
 
         //  qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+     //   ui->pushButton_ok->setEnabled(false);
         break;
 
       case 102: //FEEDBACK
         ui->label_img->setPixmap(feedback_happy);
 
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       default:
         ui->label_img->setPixmap(def_5);
 
         //    qDebug()<< "casedef";
-        ui->pushButton_ok->setEnabled(false);
+     //   ui->pushButton_ok->setEnabled(false);
         break;
 
       }
@@ -4738,11 +4755,11 @@ void paginaprincipale::next_img() {
 
         break;
 
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        qDebug()<< "case99";
-        break;
+//        qDebug()<< "case99";
+//        break;
       case 0:
         ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
         break;
@@ -4801,12 +4818,12 @@ void paginaprincipale::next_img() {
         ui->label_img->setText("Terapista, posiziona l'oggetto \n\nsul punto del pad illuminato.\n\nQuindi premi OK");
         ui->pushButton_ok->setEnabled(true);
         break;
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        ui->pushButton_ok->setEnabled(false);
-        qDebug()<< "case99";
-        break;
+//        ui->pushButton_ok->setEnabled(false);
+//        qDebug()<< "case99";
+//        break;
 
 
 
@@ -4820,7 +4837,7 @@ void paginaprincipale::next_img() {
 
       case 2:
         ui->label_img->setPixmap(case2_3);
-        ui->pushButton_ok->setEnabled(false);
+     //   ui->pushButton_ok->setEnabled(false);
 
 
         qDebug()<< "case2_3";
@@ -4829,13 +4846,13 @@ void paginaprincipale::next_img() {
 
       case 3 :
         ui->label_img->setPixmap(case3_3);
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
         break;
 
       case 4:
         ui->label_img->setPixmap(case4_3);
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
 
         qDebug()<< "case4_3";
@@ -4843,35 +4860,35 @@ void paginaprincipale::next_img() {
 
       case 5:
         ui->label_img->setPixmap(case5_3);
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case5_3";
         break;
 
       case 6:
         ui->label_img->setPixmap(case6_3);
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case6_3";
         break;
 
       case 7:
         ui->label_img->setPixmap(case7_3);
-        ui->pushButton_ok->setEnabled(false);
+     //   ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case8_3";
         break;
 
       case 8:
         ui->label_img->setPixmap(case8_3);
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case9_3";
         break;
 
       case 9:
         ui->label_img->setPixmap(case9_3);
-        ui->pushButton_ok->setEnabled(false);
+     //   ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case9_3";
         break;
@@ -4879,12 +4896,12 @@ void paginaprincipale::next_img() {
       case 102: // FEEDBACK
         ui->label_img->setPixmap(feedback_happy);
 
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       default:
         ui->label_img->setPixmap(case2_3);
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "casedef";
         break;
@@ -4906,11 +4923,11 @@ void paginaprincipale::next_img() {
         ui->pushButton_ok->setEnabled(true);
 
         break;
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        qDebug()<< "case99";
-        break;
+//        qDebug()<< "case99";
+//        break;
 
       case 0:
         ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
@@ -4924,32 +4941,28 @@ void paginaprincipale::next_img() {
         ui->label_img->setPixmap(case2_6);
 
         qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       case 2:
         ui->label_img->setPixmap(def_6);
 
         qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+     //   ui->pushButton_ok->setEnabled(false);
         break;
 
       case 102: //FEEDBACK
         ui->label_img->setPixmap(feedback_happy);
 
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
         break;
 
       default:
         ui->label_img->setPixmap(def_6);
 
         qDebug()<< "casedef";
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
         break;
-
-
-
-
       }
       break;
 
@@ -4969,11 +4982,11 @@ void paginaprincipale::next_img() {
         //      ui->pushButton_ok->setEnabled(true);
 
         //     break;
-      case 99:
-        ui->label_img->setPixmap(case99);
+//      case 99:
+//        ui->label_img->setPixmap(case99);
 
-        qDebug()<< "case99";
-        break;
+//        qDebug()<< "case99";
+//        break;
 
       case 0:
         ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
@@ -4987,27 +5000,27 @@ void paginaprincipale::next_img() {
         ui->label_img->setPixmap(case2_5);
 
         // qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       case 2:
         ui->label_img->setPixmap(def_5);
 
         //  qDebug()<< "case2_6";
-        ui->pushButton_ok->setEnabled(false);
+       // ui->pushButton_ok->setEnabled(false);
         break;
 
       case 102: //FEEDBACK
         ui->label_img->setPixmap(feedback_happy);
 
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       default:
         ui->label_img->setPixmap(def_5);
 
         //    qDebug()<< "casedef";
-        ui->pushButton_ok->setEnabled(false);
+      //  ui->pushButton_ok->setEnabled(false);
         break;
 
       }
