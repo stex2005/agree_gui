@@ -322,6 +322,10 @@ class paginaprincipale : public QDialog
     double ROM1_deg, ROM2_deg, ROM3_deg, ROM4_deg, ROM5_deg;
     int ROM1, ROM2, ROM3, ROM4, ROM5;
 
+    //DICHIARO STRINGHE PER AGGIORNARE IMMAGINE IN AGGIUNGI O MODIFICA NUOVO PAZIENTE
+    QString male, female;
+
+
 
 
 
@@ -572,6 +576,10 @@ private slots:
  void on_pushButton_showeval_emg_clicked();
 
  void update_rom();
+
+ void select_img();
+
+ void on_tableView_database_clicked(const QModelIndex &index);
 
 private:
   Ui::paginaprincipale *ui;

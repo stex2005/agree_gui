@@ -161,7 +161,7 @@
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_3">
             <layout class="QGridLayout" name="gridLayout_4">
@@ -752,173 +752,120 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                   <property name="title">
                    <string>PARAMETRI ANTROPOMETRICI</string>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_55">
+                  <layout class="QVBoxLayout" name="verticalLayout_57">
                    <item>
-                    <spacer name="verticalSpacer_16">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>20</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_46">
+                    <layout class="QVBoxLayout" name="verticalLayout_56">
                      <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_54">
+                      <layout class="QHBoxLayout" name="horizontalLayout_46">
                        <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_16">
+                        <layout class="QHBoxLayout" name="horizontalLayout_45">
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_49">
+                          <layout class="QVBoxLayout" name="verticalLayout_54">
                            <item>
-                            <widget class="QLabel" name="label_38">
-                             <property name="text">
-                              <string>Altezza(cm)</string>
-                             </property>
-                            </widget>
+                            <layout class="QVBoxLayout" name="verticalLayout_49">
+                             <item>
+                              <widget class="QLabel" name="label_38">
+                               <property name="text">
+                                <string>Altezza(cm)</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_h"/>
+                             </item>
+                            </layout>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="lineEdit_h"/>
+                            <layout class="QVBoxLayout" name="verticalLayout_53">
+                             <item>
+                              <widget class="QLabel" name="label_39">
+                               <property name="text">
+                                <string>Peso(Kg)</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_peso"/>
+                             </item>
+                            </layout>
                            </item>
                           </layout>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_3">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QLabel" name="label_figure">
+                           <property name="text">
+                            <string>TextLabel</string>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>20</height>
-                            </size>
+                           <property name="scaledContents">
+                            <bool>true</bool>
                            </property>
-                          </spacer>
-                         </item>
-                         <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_50">
-                           <item>
-                            <widget class="QLabel" name="label_81">
-                             <property name="text">
-                              <string>Lunghezza Braccio </string>
-                             </property>
-                            </widget>
-                           </item>
-                           <item>
-                            <widget class="QLineEdit" name="lineEdit_lunghezzabraccio_fisio"/>
-                           </item>
-                          </layout>
+                          </widget>
                          </item>
                         </layout>
                        </item>
                        <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_45">
+                        <layout class="QHBoxLayout" name="horizontalLayout_16">
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_53">
+                          <layout class="QVBoxLayout" name="verticalLayout_55">
                            <item>
-                            <widget class="QLabel" name="label_39">
-                             <property name="text">
-                              <string>Peso(Kg)</string>
-                             </property>
-                            </widget>
+                            <layout class="QVBoxLayout" name="verticalLayout_50">
+                             <item>
+                              <widget class="QLabel" name="label_81">
+                               <property name="text">
+                                <string>Lunghezza Braccio </string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_lunghezzabraccio_fisio"/>
+                             </item>
+                            </layout>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="lineEdit_peso"/>
+                            <layout class="QVBoxLayout" name="verticalLayout_51">
+                             <item>
+                              <widget class="QLabel" name="label_82">
+                               <property name="text">
+                                <string>Lunghezza Avambraccio</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_lunghezzavamb_fisio"/>
+                             </item>
+                            </layout>
                            </item>
                           </layout>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_8">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QLabel" name="label_img_braccio_fisio">
+                           <property name="text">
+                            <string>TextLabel</string>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>20</height>
-                            </size>
+                           <property name="scaledContents">
+                            <bool>true</bool>
                            </property>
-                          </spacer>
-                         </item>
-                         <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_51">
-                           <item>
-                            <widget class="QLabel" name="label_82">
-                             <property name="text">
-                              <string>Lunghezza Avambraccio</string>
-                             </property>
-                            </widget>
-                           </item>
-                           <item>
-                            <widget class="QLineEdit" name="lineEdit_lunghezzavamb_fisio"/>
-                           </item>
-                          </layout>
+                          </widget>
                          </item>
                         </layout>
                        </item>
                       </layout>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_img_braccio_fisio">
-                       <property name="minimumSize">
-                        <size>
-                         <width>230</width>
-                         <height>230</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>200</width>
-                         <height>200</height>
-                        </size>
+                      <widget class="QPushButton" name="pushButton_salva">
+                       <property name="font">
+                        <font>
+                         <family>Sans</family>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
                        </property>
                        <property name="text">
-                        <string>TextLabel</string>
+                        <string>Salva</string>
                        </property>
                       </widget>
                      </item>
                     </layout>
-                   </item>
-                   <item>
-                    <spacer name="verticalSpacer_19">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>20</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_4_dx_3">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="scaledContents">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_salva">
-                     <property name="font">
-                      <font>
-                       <family>Sans</family>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Salva</string>
-                     </property>
-                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -1103,7 +1050,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">

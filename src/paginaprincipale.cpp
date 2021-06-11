@@ -408,6 +408,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
 
 
+  ui->tableView_database->setSelectionBehavior(QAbstractItemView::SelectRows);
+
   command_subscriber = n.subscribe("/esmacat/command", 1000, &paginaprincipale::esmacat_command_callback, this); //creo il topic a cui faccio il subscribe
   emg_subscriber = n.subscribe("/agree/emg_status", 1000, &paginaprincipale::emg_callback, this);
   esmacat_subscriber = n.subscribe("/esmacat/status", 1000, &paginaprincipale::esmacat_callback, this);
@@ -447,6 +449,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   connect(ui->lineEdit_rep5, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
   connect(ui->lineEdit_rep6, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
   connect(ui->lineEdit_rep7, SIGNAL(textChanged(const QString)),this, SLOT(update_tempo_terapia()));
+
+  connect(ui->comboBox_sesso, SIGNAL (currentTextChanged(QString)), this, SLOT(select_img()));
 
 
 
@@ -569,6 +573,9 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QPixmap triceps ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/triceps.png");
   ui->label_triceps->setPixmap(triceps);
 
+
+
+
   //metto in grigino il modulo polso
   ui->dial_j5->setEnabled(false);
   ui->label_14->setEnabled(false);
@@ -643,6 +650,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
   ui->pushButton_show_pdf->setVisible(false);
   ui->pushButton_report_long->setVisible(false);
+  ui->pushButton_showeval_emg->setVisible(false);
 
   ui->pushButton_show_pdf->setToolTip("Verrà visualizzata la valutazione della cinematica relativa alla data selezionata");
 
@@ -663,7 +671,8 @@ paginaprincipale::~paginaprincipale()
 
 /**********************       INSERT NEW PATIENT             *********************/
 void paginaprincipale::on_pushButton_nuovopaziente_clicked()
-{    ROS_INFO("NUOVOPAZIENTE");
+{   select_img();
+  ROS_INFO("NUOVOPAZIENTE");
      qDebug()<< "nuovopaziente";
         ui->stackedWidget->setCurrentWidget(ui->page_4);
            flag=1; //nuovo paziente
@@ -823,7 +832,7 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
 {
   QSqlQueryModel *model = new QSqlQueryModel();
   QSqlQuery * qry1 = new QSqlQuery(mydb2);
-  qry1 -> prepare("select  Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"' order by Cognome  asc");
+  qry1 -> prepare("select  Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"'");
   qry1 -> exec();
   if(qry1->exec()) {
     model -> setQuery(*qry1);
@@ -838,8 +847,8 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
 /**********************       DOUBLE MOUSE CLICK ACVIVATED                 *********************/
 void paginaprincipale::on_tableView_database_activated(const QModelIndex &index)
 {
-  dati::ind= ui-> tableView_database->model()->data(index).toString();
-  flag= 3; //paziente selezionato
+//  dati::ind= ui-> tableView_database->model()->data(index).toString();
+//  flag= 3; //paziente selezionato
 }
 
 /**********************       DELETE PATIENT                      *********************/
@@ -913,6 +922,8 @@ void paginaprincipale::on_pushButton_modifica_clicked()
         la_fisio = qry5.value(17).toString();
 
         ui->lineEdit_lunghezzavamb_fisio->setText(qry5.value(17).toString());
+        //aggiorno figura a seconda del genere del paziente che si vuole modificare
+        select_img();
 
         QSqlQuery prova1;
         prova1.prepare("select cont from Count where username = '"+dati::ind+"'");
@@ -5903,6 +5914,7 @@ void paginaprincipale::on_pushButton_valutazione_clicked()
       ui->tableView_valutazioni->setModel(model2);
       ui->tableView_valutazioni->resizeColumnsToContents();
       ui->pushButton_show_pdf->setVisible(true);
+      ui->pushButton_showeval_emg->setVisible(true);
       ui->pushButton_report_long->setVisible(true);
   }
   else
@@ -6043,3 +6055,52 @@ void paginaprincipale::update_rom(){
  // ui->dial_j5->setValue(ROM1);
 }
 
+void paginaprincipale::select_img() {
+  male = "Maschio";
+  female = "Femmina";
+  QPixmap figure_w("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/woman_gui.jpg");
+  QPixmap figure_m("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/man_gui.jpg");
+
+  if(ui->comboBox_sesso->currentText()== female) {
+    ui->label_figure->setPixmap(figure_w);
+  }
+  else if (ui->comboBox_sesso->currentText() == male) {
+    ui->label_figure->setPixmap(figure_m);
+  }
+}
+
+void paginaprincipale::on_tableView_database_clicked(const QModelIndex &index)
+{
+ // QModelIndex index = view->currentIndex();
+  QSqlRecord record;
+//  int i = index.row();
+ // dati::ind= ui-> tableView_database->model()->data(index).toString();
+  flag= 3; //paziente selezionato
+
+  foreach(QModelIndex index,ui->tableView_database->selectionModel()->selectedIndexes()){
+          qDebug()<<"index.row()"<<index.row();
+
+  }
+
+  std::string indice;
+  indice = std::to_string(index.row());
+  int indice_i;
+  indice_i = std::stoi( indice );
+  indice_i = indice_i+1;
+  QString ind_s;
+  ind_s = QString::number(indice_i);
+
+  qDebug()<< "rio" << ind_s;
+  QSqlQuery codice;
+  codice.prepare("select Codice_ID from Pazienti where rowid = '"+ind_s+"'");
+  if(codice.exec()) {
+ qDebug()<<"sono in codice exec";
+  while (codice.next()){
+    dati::ind = codice.value(0).toString();
+    qDebug()<< "codice paziente" << dati::ind;
+  }
+  }
+  else qDebug()<< codice.lastError();
+
+
+}
