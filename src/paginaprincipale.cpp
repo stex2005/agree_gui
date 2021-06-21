@@ -23,6 +23,7 @@
 #include <string>
 #include <iostream>
 #include <QtMath>
+#include <QPoint>
 
 
 
@@ -79,13 +80,13 @@ int dati::output_val;
 namespace plt = matplotlibcpp;
 
 //SignalHelper *helper;
-void paginaprincipale::emg_callback(const agree_gui::agree_emg_status emg_msg){
+//void paginaprincipale::emg_callback(const agree_gui::agree_emg_status emg_msg){
 
-  for(int i=0; i<5; i++){
-    dati::emg_vector[i] = emg_msg.check_emg[i];
+//  for(int i=0; i<5; i++){
+//    dati::emg_vector[i] = emg_msg.check_emg[i];
 
-  }
-}
+//  }
+//}
 void paginaprincipale::esmacat_callback(const agree_esmacat_pkg::agree_esmacat_status msg){
 
   ROM_rad1= msg.joint_position_rad[0]; //J1
@@ -154,6 +155,10 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
       ui->comboBox_oi_es6->setVisible(false);
       ui->comboBox_oi_es7->setVisible(false);
 
+      ui->pushButton_show_pdf->setEnabled(false);
+      ui->pushButton_showeval_emg->setEnabled(false);
+      ui->pushButton_report_long->setEnabled(false);
+
 
       this->showMaximized();
       ui->tabWidget->setCurrentWidget(ui->tab);
@@ -171,7 +176,23 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
         } }
       else {  qDebug()<<"ho problemi qui";
         qDebug()<< prova.lastError();
-      qDebug() << QSqlDatabase::drivers();}
+      qDebug() << QSqlDatabase::drivers();
+      }
+
+      //mostro in automatico l'elenco dei pazienti associati all'utente che si logga
+
+      QSqlQueryModel *model = new QSqlQueryModel();
+      QSqlQuery * qry1 = new QSqlQuery(mydb2);
+      qry1 -> prepare("select Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"'");
+      qry1 -> exec();
+      if(qry1->exec()) {
+        model -> setQuery(*qry1);
+        ui->tableView_database->setModel(model);
+        ui->tableView_database->resizeColumnsToContents();
+
+
+      }
+      else qDebug()<<qry1->lastError();
       this->show();
     }
     if (dati::command_old_pp ==SC1_SESSION_DEFINING) {
@@ -391,10 +412,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui(new Ui::paginaprincipale)
 
 
-{  //faccio sparire tutti i combo box degli esercizi
-
-
-
+{
 
 
   //PROVA IMMAGINE SU LABEL CLICKABILE
@@ -426,7 +444,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->tableView_database->setSelectionBehavior(QAbstractItemView::SelectRows);
 
   command_subscriber = n.subscribe("/esmacat/command", 1000, &paginaprincipale::esmacat_command_callback, this); //creo il topic a cui faccio il subscribe
-  emg_subscriber = n.subscribe("/agree/emg_status", 1000, &paginaprincipale::emg_callback, this);
+  //emg_subscriber = n.subscribe("/agree/emg_status", 1000, &paginaprincipale::emg_callback, this);
   esmacat_subscriber = n.subscribe("/esmacat/status", 1000, &paginaprincipale::esmacat_callback, this);
 
 
@@ -591,6 +609,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
 
+
+
   //metto in grigino il modulo polso
   ui->dial_j5->setEnabled(false);
   ui->label_14->setEnabled(false);
@@ -663,12 +683,16 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QSqlDatabase mydb2 = QSqlDatabase::database();
 
 
-  ui->pushButton_show_pdf->setVisible(false);
-  ui->pushButton_report_long->setVisible(false);
-  ui->pushButton_showeval_emg->setVisible(false);
+//  ui->pushButton_show_pdf->setVisible(false);
+//  ui->pushButton_report_long->setVisible(false);
+//  ui->pushButton_showeval_emg->setVisible(false);
 
   ui->pushButton_show_pdf->setToolTip("Verrà visualizzata la valutazione della cinematica relativa alla data selezionata");
 
+
+
+  //metto pushbutton ok della sessione disabilitato
+  ui->pushButton_ok->setEnabled(false);
 
 }
 
@@ -843,11 +867,13 @@ void paginaprincipale::on_pushButton_salva_clicked()
 }
 
 /**********************      UPLOAD PATIENT TABLE                       *********************/
+
+
 void paginaprincipale::on_pushButton_elencoPazienti_clicked()
 {
   QSqlQueryModel *model = new QSqlQueryModel();
   QSqlQuery * qry1 = new QSqlQuery(mydb2);
-  qry1 -> prepare("select  Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"'");
+  qry1 -> prepare("select Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"'");
   qry1 -> exec();
   if(qry1->exec()) {
     model -> setQuery(*qry1);
@@ -858,7 +884,6 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
   }
   else qDebug()<<qry1->lastError();
 }
-
 /**********************       DOUBLE MOUSE CLICK ACVIVATED                 *********************/
 void paginaprincipale::on_tableView_database_activated(const QModelIndex &index)
 {
@@ -880,6 +905,7 @@ void paginaprincipale::on_pushButton_eliminapaziente_clicked()
 
       QMessageBox risposta;
       risposta.setText(tr("Si è scelto eliminare i dati relativi al paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP));
+      //questi sono invertiti semplicemente per la posizione dei tasti, in questo modo risulta più intuitiva per come siamo abituati noi
       QAbstractButton* pButtonYes = risposta.addButton(tr("Conferma"), QMessageBox::YesRole);
       QAbstractButton* pButtonNo =  risposta.addButton(tr("No"), QMessageBox::NoRole);
       risposta.exec();
@@ -1054,19 +1080,20 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 {   //  if (dati::command == 3){
   if (flag==3)
   {
-    qDebug()<< dati::ind;
+    qDebug()<< "sono in seduta rehab";
     QSqlQuery qry7;
-    qry7.prepare("select NomePaziente, Cognome from Pazienti  where codice_ID= '"+dati::ind+"'");
+    qry7.prepare("select NomePaziente, Cognome from Pazienti  where codice_ID= '"+dati::ind+"' and UsernameDoc = '"+dati::username+"'");
     qry7.exec();
     while(qry7.next())
     {
+      //
       dati::NomeP = qry7.value(0).toString();
       dati::CognomeP = qry7.value(1).toString();
       ui->label_status2->setText(qry7.value(0).toString()+ " "+ qry7.value(1).toString());
       QMessageBox risposta;
       risposta.setText(tr("Si è scelto di iniziare la sessione di terapia del paziente : %1 %2") .arg(dati::NomeP).arg(dati::CognomeP));
-      QAbstractButton* pButtonYes = risposta.addButton(tr("Conferma"), QMessageBox::YesRole);
-      QAbstractButton* pButtonNo =  risposta.addButton(tr("No"), QMessageBox::NoRole);
+      QAbstractButton* pButtonNo = risposta.addButton(tr("No"), QMessageBox::YesRole);
+      QAbstractButton* pButtonYes =  risposta.addButton(tr("Conferma"), QMessageBox::NoRole);
       risposta.exec();
       if(risposta.clickedButton()==pButtonYes)
 
@@ -1138,7 +1165,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             comp_param = selezione.value(44).toDouble();
             Lunghezza_a = selezione.value(48).toString();
             Lunghezza_b = selezione.value(49).toString();
-            dati::mode_output = selezione.value(52).toString();
+            dati::mode_output = selezione.value(51).toString();
 
             if(dati::mode_output =="1") {
               dati::mode_output = "Passiva";
@@ -1646,40 +1673,8 @@ void paginaprincipale::on_pushButton_4_clicked()
     ui->stackedWidget_es->setCurrentWidget(ui->page_es);
     ros::NodeHandle n;
     n.setParam ("/exercise/mode", mode);
-    ui->comboBox_ex1->removeItem(7);
-    ui->comboBox_ex1->removeItem(8);
-    ui->comboBox_ex1->removeItem(9);
-    ui->comboBox_ex1->removeItem(10);
 
-    ui->comboBox_ex2->removeItem(7);
-    ui->comboBox_ex2->removeItem(8);
-    ui->comboBox_ex2->removeItem(9);
-    ui->comboBox_ex2->removeItem(10);
 
-    ui->comboBox_ex3->removeItem(7);
-    ui->comboBox_ex3->removeItem(8);
-    ui->comboBox_ex3->removeItem(9);
-    ui->comboBox_ex3->removeItem(10);
-
-    ui->comboBox_ex4->removeItem(7);
-    ui->comboBox_ex4->removeItem(8);
-    ui->comboBox_ex4->removeItem(9);
-    ui->comboBox_ex4->removeItem(10);
-
-    ui->comboBox_ex5->removeItem(7);
-    ui->comboBox_ex5->removeItem(8);
-    ui->comboBox_ex5->removeItem(9);
-    ui->comboBox_ex5->removeItem(10);
-
-    ui->comboBox_ex6->removeItem(7);
-    ui->comboBox_ex6->removeItem(8);
-    ui->comboBox_ex6->removeItem(9);
-    ui->comboBox_ex6->removeItem(10);
-
-    ui->comboBox_ex7->removeItem(7);
-    ui->comboBox_ex7->removeItem(8);
-    ui->comboBox_ex7->removeItem(9);
-    ui->comboBox_ex7->removeItem(10);
   }
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -1709,40 +1704,8 @@ void paginaprincipale::on_pushButton_pass_clicked()
     ros::NodeHandle n;
     n.setParam ("/exercise/mode", mode);
 
-    ui->comboBox_ex1->removeItem(7);
-    ui->comboBox_ex1->removeItem(8);
-    ui->comboBox_ex1->removeItem(9);
-    ui->comboBox_ex1->removeItem(10);
 
-    ui->comboBox_ex2->removeItem(7);
-    ui->comboBox_ex2->removeItem(8);
-    ui->comboBox_ex2->removeItem(9);
-    ui->comboBox_ex2->removeItem(10);
 
-    ui->comboBox_ex3->removeItem(7);
-    ui->comboBox_ex3->removeItem(8);
-    ui->comboBox_ex3->removeItem(9);
-    ui->comboBox_ex3->removeItem(10);
-
-    ui->comboBox_ex4->removeItem(7);
-    ui->comboBox_ex4->removeItem(8);
-    ui->comboBox_ex4->removeItem(9);
-    ui->comboBox_ex4->removeItem(10);
-
-    ui->comboBox_ex5->removeItem(7);
-    ui->comboBox_ex5->removeItem(8);
-    ui->comboBox_ex5->removeItem(9);
-    ui->comboBox_ex5->removeItem(10);
-
-    ui->comboBox_ex6->removeItem(7);
-    ui->comboBox_ex6->removeItem(8);
-    ui->comboBox_ex6->removeItem(9);
-    ui->comboBox_ex6->removeItem(10);
-
-    ui->comboBox_ex7->removeItem(7);
-    ui->comboBox_ex7->removeItem(8);
-    ui->comboBox_ex7->removeItem(9);
-    ui->comboBox_ex7->removeItem(10);
   }
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -1774,40 +1737,8 @@ void paginaprincipale::on_pushButton_asan_clicked()
     ros::NodeHandle n;
     n.setParam ("/exercise/mode", mode);
 
-    ui->comboBox_ex1->removeItem(7);
-    ui->comboBox_ex1->removeItem(8);
-    ui->comboBox_ex1->removeItem(9);
-    ui->comboBox_ex1->removeItem(10);
 
-    ui->comboBox_ex2->removeItem(7);
-    ui->comboBox_ex2->removeItem(8);
-    ui->comboBox_ex2->removeItem(9);
-    ui->comboBox_ex2->removeItem(10);
 
-    ui->comboBox_ex3->removeItem(7);
-    ui->comboBox_ex3->removeItem(8);
-    ui->comboBox_ex3->removeItem(9);
-    ui->comboBox_ex3->removeItem(10);
-
-    ui->comboBox_ex4->removeItem(7);
-    ui->comboBox_ex4->removeItem(8);
-    ui->comboBox_ex4->removeItem(9);
-    ui->comboBox_ex4->removeItem(10);
-
-    ui->comboBox_ex5->removeItem(7);
-    ui->comboBox_ex5->removeItem(8);
-    ui->comboBox_ex5->removeItem(9);
-    ui->comboBox_ex5->removeItem(10);
-
-    ui->comboBox_ex6->removeItem(7);
-    ui->comboBox_ex6->removeItem(8);
-    ui->comboBox_ex6->removeItem(9);
-    ui->comboBox_ex6->removeItem(10);
-
-    ui->comboBox_ex7->removeItem(7);
-    ui->comboBox_ex7->removeItem(8);
-    ui->comboBox_ex7->removeItem(9);
-    ui->comboBox_ex7->removeItem(10);
   }
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -1865,40 +1796,8 @@ void paginaprincipale::on_pushButton_challening_clicked()
     ros::NodeHandle n;
     n.setParam ("/exercise/mode", mode);
 
-    ui->comboBox_ex1->removeItem(7);
-    ui->comboBox_ex1->removeItem(8);
-    ui->comboBox_ex1->removeItem(9);
-    ui->comboBox_ex1->removeItem(10);
 
-    ui->comboBox_ex2->removeItem(7);
-    ui->comboBox_ex2->removeItem(8);
-    ui->comboBox_ex2->removeItem(9);
-    ui->comboBox_ex2->removeItem(10);
 
-    ui->comboBox_ex3->removeItem(7);
-    ui->comboBox_ex3->removeItem(8);
-    ui->comboBox_ex3->removeItem(9);
-    ui->comboBox_ex3->removeItem(10);
-
-    ui->comboBox_ex4->removeItem(7);
-    ui->comboBox_ex4->removeItem(8);
-    ui->comboBox_ex4->removeItem(9);
-    ui->comboBox_ex4->removeItem(10);
-
-    ui->comboBox_ex5->removeItem(7);
-    ui->comboBox_ex5->removeItem(8);
-    ui->comboBox_ex5->removeItem(9);
-    ui->comboBox_ex5->removeItem(10);
-
-    ui->comboBox_ex6->removeItem(7);
-    ui->comboBox_ex6->removeItem(8);
-    ui->comboBox_ex6->removeItem(9);
-    ui->comboBox_ex6->removeItem(10);
-
-    ui->comboBox_ex7->removeItem(7);
-    ui->comboBox_ex7->removeItem(8);
-    ui->comboBox_ex7->removeItem(9);
-    ui->comboBox_ex7->removeItem(10);
   }
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
@@ -2003,10 +1902,9 @@ void paginaprincipale::update_tempo_recap(){
   es5 = "Elevazione laterale su un piano frontale";
   es6 = "Mano alla bocca senza oggetto";
   es7 = "Mano alla bocca con oggetto";
-  es8 = "Exergames - Basket";
-  es9 = "Exergames - Macedonia";
-  es10 = "Exergames - Spesa";
-  es11 = "Exergames - Caffè";
+  es8 = "Exergames - Macedonia";
+  es9 = "Exergames - Spesa";
+  es10 = "Exergames - Caffè";
 
 
   if (ui->comboBox_ex1->currentText()== es1 || ui->comboBox_ex1->currentText()==es3 || ui->comboBox_ex1->currentText() == es5 || ui->comboBox_ex1->currentText()== es6){
@@ -2355,7 +2253,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         exe1 = dati::num_ex1.toInt();
         if(exe1==3) {
          // active_module_RF=1;
-          active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+         // active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
         //  n.setParam("/active_modules", active_modules);
 
         }
@@ -2412,7 +2310,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         exe2 = dati::num_ex2.toInt();
         if(exe2==3) {
          // active_module_RF=1;
-          active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+         // active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
          // n.setParam("/active_modules", active_modules);
 
         }
@@ -2463,7 +2361,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         exe3 = dati::num_ex3.toInt();
         if(exe3==3) {
          // active_module_RF=1;
-          active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+        //  active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
         //  n.setParam("/active_modules", active_modules);
 
         }
@@ -2513,7 +2411,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         exe4 = dati::num_ex4.toInt();
         if(exe4==3) {
          // active_module_RF=1;
-          active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+        //  active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
         //  n.setParam("/active_modules", active_modules);
 
         }
@@ -2565,7 +2463,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         exe5 = dati::num_ex5.toInt();
         if(exe5==3) {
          // active_module_RF=1;
-          active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+        //  active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
         //  n.setParam("/active_modules", active_modules);
 
         }
@@ -2615,7 +2513,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         exe6 = dati::num_ex6.toInt();
         if(exe6==3) {
         //  active_module_RF=1;
-          active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+        //  active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
        //   n.setParam("/active_modules", active_modules);
 
         }
@@ -2667,7 +2565,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
         exe7 = dati::num_ex7.toInt();
         if(exe7==3) {
         //  active_module_RF=1;
-          active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+        //  active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
         //  n.setParam("/active_modules", active_modules);
 
         }
@@ -2716,6 +2614,20 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("errore"));
     qDebug()<< selezione.lastError();
+  }
+  //CONTROLLO SUGLI ESERCIZI, SE NON SONO EXERGAMES
+  for(int i = 0; i< dati::flag_ex+1; i++){
+    if(!(ex_seq[i] == 8 || ex_seq[i] == 9 || ex_seq[i] == 10) )
+    {
+      //attiva modulo mat
+      active_module_MAT = 1;
+      qDebug()<< "rio: sono in if not ex seq ";
+
+
+    }
+    else  active_module_MAT = 0;
+    active_modules = {active_module_spalla, active_module_gomito, active_module_polso, active_module_MAT, active_module_RF, active_module_EEG_EMG, active_module_MAP, active_module_JOYSTICK, active_module_VOCAL, active_module_IK_ONLINE};
+    n.setParam("/active_modules", active_modules);
   }
 
   //            QSqlQuery esercizi;
@@ -2956,7 +2868,8 @@ void paginaprincipale::on_pushButton_clicked()
 void paginaprincipale::on_pushButton_test_matplotlib_clicked()
 {
 
-  system("rqt_plot rqt_plot /emg_eeg_module/status/ref_emg /emg_eeg_module/status/check_emg[0] /emg_eeg_module/status/check_emg[1] /emg_eeg_module/status/check_emg[2] /emg_eeg_module/status/check_emg[3] /emg_eeg_module/status/check_emg[4]");
+  //system("rqt_plot rqt_plot /emg_eeg_module/status/ref_emg /emg_eeg_module/status/check_emg[0] /emg_eeg_module/status/check_emg[1] /emg_eeg_module/status/check_emg[2] /emg_eeg_module/status/check_emg[3] /emg_eeg_module/status/check_emg[4]");
+  system("rqt_plot rqt_plot /agree/emg_stream/emg_data[0] /agree/emg_stream/emg_data[1] /agree/emg_stream/emg_data[2] /agree/emg_stream/emg_data[3] /agree/emg_stream/emg_data[4]");
 
 
 
@@ -3329,16 +3242,189 @@ void paginaprincipale::on_pushButton_salvatapp_clicked()
   QVector<QPoint> mylocalList =matrix->getPosition();
 
 
-  dati::status1 = SC1_FINISHED;
+  check_point();
 
-  std_msgs::Int16 msg;
-  msg.data = dati::status1;
-  ROS_INFO ("%d", msg.data);
-  status_publisher.publish(msg);
-  dati::selcount_mat=0;
 
-  ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+}
 
+void paginaprincipale::check_point()
+{
+  ros::NodeHandle n;
+  n.getParam("/side", side_check);
+  n.getParam("/matlab/point1/mat_coordinate/x", point1_x_t);
+  n.getParam("/matlab/point2/mat_coordinate/x", point2_x_t);
+  n.getParam("/matlab/point3/mat_coordinate/x", point3_x_t);
+  n.getParam("/matlab/point1/mat_coordinate/y", point1_y_t);
+  n.getParam("/matlab/point2/mat_coordinate/y", point2_y_t);
+  n.getParam("/matlab/point3/mat_coordinate/y", point3_y_t);
+  qDebug()<< "point1" <<point1_x_t;
+  qDebug()<< "point2" << point2_x_t;
+  qDebug()<< "point3" <<point3_x_t;
+
+  if(side_check == 1)
+  {    vector<int> v = { point1_x_t, point2_x_t, point3_x_t };
+
+    cout<<"Elements before sorting"<<endl;
+    for (const auto &i: v)
+       cout << i << ' '<<endl;
+       cout<<"Elements after sorting"<<endl;
+       sort(v.begin(), v.end());
+    for (const auto &i: v)
+       cout << i << ' '<<endl;
+    qDebug()<< v[0]<< v[1]<< v[2];
+    if(v[0] == point1_x_t){
+      point1_x = point1_x_t;
+      point1_y = point1_y_t;
+      qDebug()<< "sono in 1";
+    }
+    else if(v[0]== point2_x_t) {
+      point1_x = point2_x_t;
+      point1_y = point2_y_t;
+      qDebug()<< "sono in 2";
+    }
+    else if(v[0]== point3_x_t) {
+      point1_x = point3_x_t;
+      point1_y = point3_y_t;
+      qDebug()<< "sono in 3";
+    }
+    if(v[1] == point1_x_t){
+      point2_x = point1_x_t;
+      point2_y = point1_y_t;
+      qDebug()<< "sono in 4";
+    }
+    else if(v[1]== point2_x_t) {
+      point2_x = point2_x_t;
+      point2_y = point2_y_t;
+      qDebug()<< "sono in 5";
+    }
+    else if(v[1]== point3_x_t) {
+      point2_x = point3_x_t;
+      point2_y = point3_y_t;
+      qDebug()<< "sono in 6";
+    }
+    if(v[2] == point1_x_t){
+      point3_x = point1_x_t;
+      point3_y = point1_y_t;
+      qDebug()<< "sono in 7";
+    }
+    else if(v[2]== point2_x_t) {
+      point3_x = point2_x_t;
+      point3_y = point2_y_t;
+      qDebug()<< "sono in 8";
+    }
+    else if(v[2]== point3_x_t) {
+      point3_x = point3_x_t;
+      point3_y = point3_y_t;
+      qDebug()<< "sono in 9";
+    }
+    n.setParam("/matlab/point1/mat_coordinate/x", point1_x);
+    n.setParam("/matlab/point2/mat_coordinate/x", point2_x);
+    n.setParam("/matlab/point3/mat_coordinate/x", point3_x);
+    n.setParam("/matlab/point1/mat_coordinate/y", point1_y);
+    n.setParam("/matlab/point2/mat_coordinate/y", point2_y);
+    n.setParam("/matlab/point3/mat_coordinate/y", point3_y);
+    check_ended = true;
+    if(check_ended == true){
+      check_ended= false;
+    dati::status1 = SC1_FINISHED;
+
+    std_msgs::Int16 msg;
+    msg.data = dati::status1;
+    ROS_INFO ("%d", msg.data);
+    status_publisher.publish(msg);
+    dati::selcount_mat=0;
+
+    ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+    //prendo punti salvati
+    //chiamo funzione per ordinarli e salvarli
+    }
+
+
+
+
+
+  }
+  else if (side_check == 2)
+  {
+    vector<int> v = { point1_x_t, point2_x_t, point3_x_t };
+
+       cout<<"Elements before sorting"<<endl;
+       for (const auto &i: v)
+          cout << i << ' '<<endl;
+          cout<<"Elements after sorting"<<endl;
+          sort(v.begin(), v.end(), greater<int>());
+       for (const auto &i: v)
+          cout << i << ' '<<endl;
+       qDebug()<< v[0]<< v[1]<< v[2];
+       if(v[0] == point1_x_t){
+         point1_x = point1_x_t;
+         point1_y = point1_y_t;
+         qDebug()<< "sono in 1";
+       }
+       else if(v[0]== point2_x_t) {
+         point1_x = point2_x_t;
+         point1_y = point2_y_t;
+         qDebug()<< "sono in 2";
+       }
+       else if(v[0]== point3_x_t) {
+         point1_x = point3_x_t;
+         point1_y = point3_y_t;
+         qDebug()<< "sono in 3";
+       }
+       if(v[1] == point1_x_t){
+         point2_x = point1_x_t;
+         point2_y = point1_y_t;
+         qDebug()<< "sono in 4";
+       }
+       else if(v[1]== point2_x_t) {
+         point2_x = point2_x_t;
+         point2_y = point2_y_t;
+         qDebug()<< "sono in 5";
+       }
+       else if(v[1]== point3_x_t) {
+         point2_x = point3_x_t;
+         point2_y = point3_y_t;
+         qDebug()<< "sono in 6";
+       }
+       if(v[2] == point1_x_t){
+         point3_x = point1_x_t;
+         point3_y = point1_y_t;
+         qDebug()<< "sono in 7";
+       }
+       else if(v[2]== point2_x_t) {
+         point3_x = point2_x_t;
+         point3_y = point2_y_t;
+         qDebug()<< "sono in 8";
+       }
+       else if(v[2]== point3_x_t) {
+         point3_x = point3_x_t;
+         point3_y = point3_y_t;
+         qDebug()<< "sono in 9";
+       }
+       n.setParam("/matlab/point1/mat_coordinate/x", point1_x);
+       n.setParam("/matlab/point2/mat_coordinate/x", point2_x);
+       n.setParam("/matlab/point3/mat_coordinate/x", point3_x);
+       n.setParam("/matlab/point1/mat_coordinate/y", point1_y);
+       n.setParam("/matlab/point2/mat_coordinate/y", point2_y);
+       n.setParam("/matlab/point3/mat_coordinate/y", point3_y);
+       check_ended = true;
+       if(check_ended == true){
+         check_ended= false;
+       dati::status1 = SC1_FINISHED;
+
+       std_msgs::Int16 msg;
+       msg.data = dati::status1;
+       ROS_INFO ("%d", msg.data);
+       status_publisher.publish(msg);
+       dati::selcount_mat=0;
+
+       ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
+       //prendo punti salvati
+       //chiamo funzione per ordinarli e salvarli
+       }
+
+
+  }
 
 }
 
@@ -3406,10 +3492,9 @@ void paginaprincipale::update_tempo_terapia(){
   es5 = "Elevazione laterale su un piano frontale";
   es6 = "Mano alla bocca senza oggetto";
   es7 = "Mano alla bocca con oggetto";
-  es8 = "Exergames - Basket";
-  es9 = "Exergames - Macedonia";
-  es10 = "Exergames - Spesa";
-  es11 = "Exergames - Caffè";
+  es8 = "Exergames - Macedonia";
+  es9 = "Exergames - Spesa";
+  es10 = "Exergames - Caffè";
 
 
 
@@ -4222,7 +4307,8 @@ void paginaprincipale::on_pushButton_next_clicked()
   //QString time_text;
   //time_text = time.toString("hh : mm : ss");
 
-  ui->pushButton_next->setVisible(false);
+ // ui->pushButton_next->setVisible(false);
+  ui->pushButton_next->setEnabled(false);
   timer_rehab->start(10);
   dati::status1 = SC1_START_SESSION;
 
@@ -4243,32 +4329,16 @@ void paginaprincipale::next_img() {
   n.getParam("/point1/mat_coordinates", point1ses);
   n.getParam("/point2/mat_coordinates", point2ses);
   n.getParam("/point3/mat_coordinates", point3ses);
+  n.getParam("/side", side_ses);
 
 
   ui->pushButton_salvascore->setVisible(false);
-  QString istr99, istr199, istr_def, istr1_1, istr3_1, istr5_1, istr1_3, istr2_3, istr3_3, istr4_3, istr5_3, istr6_3, istr7_3, istr8_3, istr9_3, istr_def6, istr2_6, istr_def7, istr2_7, istr_terap, istr0_3;
-  istr99 = "Resta in Attesa di una nuova istruzione";
+
+  QString istr199;
   istr199 = "Caricamento Exergame in corso, attendere";
-  istr_def = "Posizione di Riposo";
-  istr_def6 = "Posizione di Riposo";
-  //  istr_def7 = "Posizione di Riposo";
-
-  //ISTRUZIONI ESERCIZIO 1
-  istr1_1 = "Porta il braccio sul punto Rosso";
-  istr3_1 = "Porta il braccio sul punto Rosso";
-  istr5_1 = "Porta il braccio sul punto Rosso";
 
 
 
-  //ISTRUZIONI ESERCIZIO 6
-  istr_terap = "Terapista, posiziona l'oggetto in posizione di riposo ";
-  istr2_6 = "porta l'oggetto alla bocca";
-
-
-
-  //ISTRUZIONI ESERCIZIO 7
-
-  istr2_7= "Eleva il braccio lateralmente";
 
   //EXER 1 IMAGES
 
@@ -4276,22 +4346,24 @@ void paginaprincipale::next_img() {
 
   //  QPixmap case1_1, case3_1, case5_1, def, case1_3, case2_3, case3_3, case4_3, case5_3, case6_3, case7_3, case8_3, case9_3, case1_5, case2_5, case1_6, case2_6, def_5, def_6;
   //check for the side of the exoskeleton
-  if(dati::lato=="0") {
+  if(side_ses == 2) {
 
     //EXERCISE 1
     QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
+    //rest
+    QPixmap case_rest_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
 
-
+    //dx
     QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_2.png");
 
-
+    //centro
     QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_3.png");
 
-
+    //sx
     QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_4.png");
 
-
-    QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
+    //rest
+   // QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
 
     //EXERCISE 3
 
@@ -4314,7 +4386,7 @@ void paginaprincipale::next_img() {
 
     QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_8.png"); // dx
 
-    QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png.jpg"); // centro
+    QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png"); // centro
 
     QPixmap case9_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_1.png"); // rest
 
@@ -4352,15 +4424,21 @@ void paginaprincipale::next_img() {
       case 0:
         ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
         break;
-      case 1:
+      case 1: //dx
         //prova esempio controllo colonne
 
         ui->label_img->setPixmap(case1_1);
 
         qDebug()<< "case1";
         break;
+      case 2: //dx
+        //prova esempio controllo colonne
 
-      case 3:
+        ui->label_img->setPixmap(case_rest_1);
+
+        break;
+
+      case 3: //avanti
 
 
 
@@ -4372,12 +4450,26 @@ void paginaprincipale::next_img() {
         qDebug()<< "case3";
         break;
 
-      case 5:
+      case 4: //rest
+        //prova esempio controllo colonne
+
+        ui->label_img->setPixmap(case_rest_1);
+
+        break;
+
+      case 5: //sx
 
        ui->label_img->setPixmap(case5_1);
 
 
         qDebug()<< "case5";
+        break;
+
+      case 6: //rest
+        //prova esempio controllo colonne
+
+        ui->label_img->setPixmap(case_rest_1);
+
         break;
 
       case 102: //FEEDBACK
@@ -4386,7 +4478,7 @@ void paginaprincipale::next_img() {
         break;
 
       default:
-        ui->label_img->setPixmap(def);
+        ui->label_img->setPixmap(case_rest_1);
 
         qDebug()<< "casedef";
         break;
@@ -4695,18 +4787,18 @@ void paginaprincipale::next_img() {
 
 
   }
-  else if(dati::lato=="1") {
+  else if(side_ses == 1) {
 
 
     QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
     //EXERCISE 1
-    QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_2_dx.png");
+    QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_2_dx.png"); //sx
 
-    QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_3_dx.png");
+    QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_3_dx.png"); //avanti
 
-    QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_4_dx.png");
+    QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_4_dx.png"); //dx
 
-    QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_1_dx.png");
+    QPixmap case_rest_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_1_dx.png");     //rest
 
     //EXERCISE 3
 
@@ -4727,7 +4819,7 @@ void paginaprincipale::next_img() {
 
     QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_8_dx.png"); // sx
 
-    QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_2.png.jpg"); // centro
+    QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_2_dx.png"); // centro
 
     QPixmap case9_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_1.png"); // rest
 
@@ -4763,8 +4855,14 @@ void paginaprincipale::next_img() {
       case 0:
         ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
         break;
-      case 1:
+      case 1: //sx
         ui->label_img->setPixmap(case1_1);
+
+        qDebug()<< "case1";
+        break;
+
+      case 2: //sx
+        ui->label_img->setPixmap(case_rest_1);
 
         qDebug()<< "case1";
         break;
@@ -4775,10 +4873,22 @@ void paginaprincipale::next_img() {
         qDebug()<< "case3";
         break;
 
+      case 4: //sx
+        ui->label_img->setPixmap(case_rest_1);
+
+        qDebug()<< "case1";
+        break;
+
       case 5:
         ui->label_img->setPixmap(case5_1);
 
         qDebug()<< "case5";
+        break;
+
+      case 6: //sx
+        ui->label_img->setPixmap(case_rest_1);
+
+        qDebug()<< "case1";
         break;
 
       case 102: //FEEDBACK
@@ -4787,9 +4897,7 @@ void paginaprincipale::next_img() {
         break;
 
       default:
-        ui->label_img->setPixmap(def);
-
-        qDebug()<< "casedef";
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
         break;
 
 
@@ -4900,10 +5008,7 @@ void paginaprincipale::next_img() {
         break;
 
       default:
-        ui->label_img->setPixmap(case2_3);
-      //  ui->pushButton_ok->setEnabled(false);
-
-        qDebug()<< "casedef";
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
         break;
       }
       break;
@@ -4958,10 +5063,8 @@ void paginaprincipale::next_img() {
         break;
 
       default:
-        ui->label_img->setPixmap(def_6);
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
 
-        qDebug()<< "casedef";
-       // ui->pushButton_ok->setEnabled(false);
         break;
       }
       break;
@@ -5017,10 +5120,7 @@ void paginaprincipale::next_img() {
         break;
 
       default:
-        ui->label_img->setPixmap(def_5);
-
-        //    qDebug()<< "casedef";
-      //  ui->pushButton_ok->setEnabled(false);
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
         break;
 
       }
@@ -5039,7 +5139,15 @@ void paginaprincipale::next_img() {
         ui->label_img-> setText("Iniziamo exergames \n\nMacedonia.\n\nPremere OK per iniziare.\n\nTerminata la sessioni chiudi il gioco e\n\npremi Salva Punteggio.");
         ui->pushButton_es_libero->setVisible(true);
         break;
+
+      default:
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
+        break;
       }
+      break;
+
+    default:
+      qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
       break;
 
 
@@ -5246,7 +5354,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     active_module_spalla = 1;
     active_module_gomito = 1;
     active_module_RF = 0;
-    active_module_MAT = 1;
+    active_module_MAT = 0;
     active_module_polso = 0;
 
 
@@ -5346,8 +5454,14 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   if (flag == 4) {
     //RECUPERO ESERCIZI
     ui->label_recap_controllo->setText(QString("Modalità di controllo utilizzata nella scorsa sessione : %1\n").arg(dati::mood_prec));
-    //  ui->label_suggerimento_output->setText(QString("Modalità di controllo suggerita dalla valutazione della precedente sessione : %1").arg(dati::mode_output));
+    if(!(dati::mode_output == "")){
+      ui->label_suggerimento_output->setVisible(false);
+}
+    else {
+      ui->label_suggerimento_output->setVisible(true);
+      ui->label_suggerimento_output->setText(QString("Modalità di controllo suggerita dalla valutazione della precedente sessione : %1").arg(dati::mode_output));
 
+    }
 
 
     qDebug()<< "qui";
@@ -5853,8 +5967,8 @@ void paginaprincipale::on_pushButton_logout_clicked()
 
   QMessageBox logout;
   logout.setText(tr("Si è scelto di effetturare il Log out?"));
-  QAbstractButton* pButtonYes = logout.addButton(tr("Conferma"), QMessageBox::YesRole);
-  QAbstractButton* pButtonNo =  logout.addButton(tr("No"), QMessageBox::NoRole);
+  QAbstractButton* pButtonNo = logout.addButton(tr("No"), QMessageBox::YesRole);
+  QAbstractButton* pButtonYes =  logout.addButton(tr("Conferma"), QMessageBox::NoRole);
   logout.exec();
   if(logout.clickedButton()==pButtonYes) {
 
@@ -5916,26 +6030,6 @@ void paginaprincipale::on_pushButton_salvascore_clicked()
   status_publisher.publish(msg_status_pp);
 }
 
-void paginaprincipale::on_pushButton_valutazione_clicked()
-{
-  if(flag==3)  {  //PAZIENTE SELEZIONATO
-  QSqlQueryModel *model2 = new QSqlQueryModel();
-    QSqlQuery elenco_val;
-    elenco_val.prepare("select rowid, Data_acquisizione from Parametri_Paziente where Codice_ID = '"+dati::ind+"' ");
-    elenco_val.exec();
-      model2 -> setQuery(elenco_val);
-      ui->tableView_valutazioni->setModel(model2);
-      ui->tableView_valutazioni->resizeColumnsToContents();
-      ui->pushButton_show_pdf->setVisible(true);
-      ui->pushButton_showeval_emg->setVisible(true);
-      ui->pushButton_report_long->setVisible(true);
-  }
-  else
-  {
-    QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
-  }
-
-}
 
 void paginaprincipale::on_pushButton_show_pdf_clicked()
 {
@@ -6072,7 +6166,7 @@ void paginaprincipale::select_img() {
   male = "Maschio";
   female = "Femmina";
   QPixmap figure_w("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/woman_gui.jpg");
-  QPixmap figure_m("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/man_gui.jpg");
+  QPixmap figure_m("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/man.jpg");
 
   if(ui->comboBox_sesso->currentText()== female) {
     ui->label_figure->setPixmap(figure_w);
@@ -6084,36 +6178,28 @@ void paginaprincipale::select_img() {
 
 void paginaprincipale::on_tableView_database_clicked(const QModelIndex &index)
 {
- // QModelIndex index = view->currentIndex();
-  QSqlRecord record;
-//  int i = index.row();
- // dati::ind= ui-> tableView_database->model()->data(index).toString();
   flag= 3; //paziente selezionato
-
-  foreach(QModelIndex index,ui->tableView_database->selectionModel()->selectedIndexes()){
-          qDebug()<<"index.row()"<<index.row();
-
+  //ASSEGNA NOME
+QString codice;
+codice =ui->tableView_database->model()->data(ui->tableView_database->model()->index(index.row(),0)).toString();
+dati::ind = codice;
+qDebug() << "dati::ind" << dati::ind;
+  if(flag==3)  {  //PAZIENTE SELEZIONATO
+  QSqlQueryModel *model2 = new QSqlQueryModel();
+    QSqlQuery elenco_val;
+    elenco_val.prepare("select Data_acquisizione from Parametri_Paziente where Codice_ID = '"+dati::ind+"' ");
+    elenco_val.exec();
+      model2 -> setQuery(elenco_val);
+      ui->tableView_valutazioni->setModel(model2);
+      ui->tableView_valutazioni->resizeColumnsToContents();
+      ui->pushButton_show_pdf->setEnabled(true);
+      ui->pushButton_showeval_emg->setEnabled(true);
+      ui->pushButton_report_long->setEnabled(true);
   }
-
-  std::string indice;
-  indice = std::to_string(index.row());
-  int indice_i;
-  indice_i = std::stoi( indice );
-  indice_i = indice_i+1;
-  QString ind_s;
-  ind_s = QString::number(indice_i);
-
-  qDebug()<< "rio" << ind_s;
-  QSqlQuery codice;
-  codice.prepare("select Codice_ID from Pazienti where rowid = '"+ind_s+"'");
-  if(codice.exec()) {
- qDebug()<<"sono in codice exec";
-  while (codice.next()){
-    dati::ind = codice.value(0).toString();
-    qDebug()<< "codice paziente" << dati::ind;
+  else
+  {
+    QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
   }
-  }
-  else qDebug()<< codice.lastError();
 
 
 }

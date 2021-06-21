@@ -27,5 +27,13 @@ evaluation:
 
     Path_emg_pdf: 'emg_name_pdf'
 
+    Flag_start_eval_emg: false
+
+    Flag_end_eval_emg: false
+
+    CSVEMG: 'csvemg'
+
+    CSVKinematics: 'csvkin'
+
 
 

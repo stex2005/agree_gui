@@ -133,6 +133,7 @@
      </property>
      <property name="font">
       <font>
+       <family>Ubuntu</family>
        <pointsize>13</pointsize>
       </font>
      </property>
@@ -173,34 +174,58 @@
                  <height>16777215</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Laksaman</family>
+                </font>
+               </property>
                <property name="text">
                 <string>Ricerca Paziente</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="0" colspan="5">
+             <item row="5" column="1">
               <widget class="QTableView" name="tableView_database">
                <property name="sizeAdjustPolicy">
                 <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
                </property>
               </widget>
              </item>
-             <item row="0" column="3">
-              <widget class="QPushButton" name="pushButton_elencoPazienti">
+             <item row="0" column="2">
+              <widget class="QPushButton" name="pushButton_cerca_3">
                <property name="font">
                 <font>
+                 <family>Laksaman</family>
                  <pointsize>13</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(189, 255, 192);</string>
                </property>
                <property name="text">
-                <string>Elenco Pazienti</string>
+                <string>Cerca</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="0">
+             <item row="9" column="1">
+              <widget class="QLabel" name="label_6">
+               <property name="font">
+                <font>
+                 <family>Laksaman</family>
+                 <pointsize>14</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Report di Valutazione</string>
+               </property>
+              </widget>
+             </item>
+             <item row="12" column="0">
               <widget class="QPushButton" name="pushButton_utente">
                <property name="font">
                 <font>
@@ -218,88 +243,88 @@
                </property>
               </widget>
              </item>
-             <item row="6" column="3">
-              <widget class="QPushButton" name="pushButton_show_pdf">
-               <property name="maximumSize">
-                <size>
-                 <width>300</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
-               </property>
-               <property name="text">
-                <string>Mostra Valutazione Cinematica</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QPushButton" name="pushButton_cerca_3">
+             <item row="5" column="0">
+              <widget class="QGroupBox" name="groupBox_4">
                <property name="font">
                 <font>
-                 <pointsize>13</pointsize>
+                 <family>Laksaman</family>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
+               <property name="title">
+                <string>Gestione Paziente</string>
                </property>
-               <property name="text">
-                <string>Cerca</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="4">
-              <widget class="QPushButton" name="pushButton_report_long">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
-               </property>
-               <property name="text">
-                <string>Mostra Report Longitudinale</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0" colspan="5">
-              <widget class="QTableView" name="tableView_valutazioni"/>
-             </item>
-             <item row="2" column="4">
-              <widget class="QPushButton" name="pushButton_modifica">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);
-</string>
-               </property>
-               <property name="text">
-                <string>Modifica Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="4">
-              <widget class="QPushButton" name="pushButton_nuovopaziente">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);
+               <layout class="QVBoxLayout" name="verticalLayout_69">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_68">
+                  <item>
+                   <widget class="QPushButton" name="pushButton_nuovopaziente">
+                    <property name="font">
+                     <font>
+                      <family>Laksaman</family>
+                      <pointsize>13</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(189, 255, 192);
 
 </string>
-               </property>
-               <property name="text">
-                <string>Inserisci Nuovo Paziente</string>
-               </property>
+                    </property>
+                    <property name="text">
+                     <string>Inserisci Nuovo Paziente</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_modifica">
+                    <property name="font">
+                     <font>
+                      <family>Laksaman</family>
+                      <pointsize>13</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(189, 255, 192);
+</string>
+                    </property>
+                    <property name="text">
+                     <string>Modifica Paziente</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_eliminapaziente">
+                    <property name="font">
+                     <font>
+                      <family>Laksaman</family>
+                      <pointsize>13</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(189, 255, 192);</string>
+                    </property>
+                    <property name="text">
+                     <string>Elimina Paziente</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </widget>
              </item>
-             <item row="3" column="0" colspan="2">
+             <item row="4" column="1">
               <widget class="QLabel" name="label_21">
                <property name="font">
                 <font>
-                 <family>Ubuntu</family>
+                 <family>Laksaman</family>
                  <pointsize>14</pointsize>
                  <weight>50</weight>
                  <italic>false</italic>
@@ -311,14 +336,110 @@
                </property>
               </widget>
              </item>
-             <item row="9" column="4">
+             <item row="10" column="1">
+              <widget class="QTableView" name="tableView_valutazioni"/>
+             </item>
+             <item row="10" column="4">
+              <widget class="QLabel" name="label_52">
+               <property name="text">
+                <string>immagine report con blender?</string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="0">
+              <widget class="QGroupBox" name="groupBox_11">
+               <property name="title">
+                <string>Gestione Valutazione</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_72">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_70">
+                  <item>
+                   <widget class="QPushButton" name="pushButton_showeval_emg">
+                    <property name="font">
+                     <font>
+                      <family>Laksaman</family>
+                      <pointsize>13</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(189, 255, 192);</string>
+                    </property>
+                    <property name="text">
+                     <string>Mostra Valutazione EMG</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_show_pdf">
+                    <property name="font">
+                     <font>
+                      <family>Laksaman</family>
+                      <pointsize>13</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(189, 255, 192);</string>
+                    </property>
+                    <property name="text">
+                     <string>Mostra Valutazione Cinematica</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_report_long">
+                    <property name="font">
+                     <font>
+                      <family>Laksaman</family>
+                      <pointsize>13</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(189, 255, 192);</string>
+                    </property>
+                    <property name="text">
+                     <string>Mostra Report Longitudinale</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEdit_cercapaziente_3">
+               <property name="font">
+                <font>
+                 <family>Laksaman</family>
+                </font>
+               </property>
+               <property name="placeholderText">
+                <string>Inserire il Cognome del Paziente</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="4">
+              <widget class="QLabel" name="label_51">
+               <property name="text">
+                <string>immagine exo</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="4">
               <widget class="QPushButton" name="pushButton_vestizioneAgree">
                <property name="font">
                 <font>
-                 <family>Sans</family>
+                 <family>Laksaman</family>
                  <pointsize>15</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="styleSheet">
@@ -330,62 +451,21 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="3">
-              <widget class="QPushButton" name="pushButton_eliminapaziente">
+             <item row="4" column="4">
+              <widget class="QPushButton" name="pushButton_elencoPazienti">
                <property name="font">
                 <font>
-                 <pointsize>13</pointsize>
+                 <family>Laksaman</family>
+                 <pointsize>15</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
+                <string notr="true">background-color: rgb(133, 208, 120);</string>
                </property>
                <property name="text">
-                <string>Elimina Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_cercapaziente_3">
-               <property name="placeholderText">
-                <string>Inserire il Cognome del Paziente</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="2">
-              <widget class="QPushButton" name="pushButton_showeval_emg">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
-               </property>
-               <property name="text">
-                <string>Mostra Valutazione EMG</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0" colspan="2">
-              <widget class="QLabel" name="label_6">
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Selezionare con Doppio Click la data relativa alla valutazione che si vuole visualizzare</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QPushButton" name="pushButton_valutazione">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(189, 255, 192);</string>
-               </property>
-               <property name="text">
-                <string>Valutazioni Paziente</string>
+                <string>Aggiorna </string>
                </property>
               </widget>
              </item>
@@ -410,6 +490,7 @@
                    </property>
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>19</pointsize>
                     </font>
                    </property>
@@ -535,6 +616,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                    </property>
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>19</pointsize>
                     </font>
                    </property>
@@ -764,7 +846,32 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                            <item>
                             <layout class="QVBoxLayout" name="verticalLayout_49">
                              <item>
+                              <spacer name="verticalSpacer_16">
+                               <property name="orientation">
+                                <enum>Qt::Vertical</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>20</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
+                             <item>
                               <widget class="QLabel" name="label_38">
+                               <property name="maximumSize">
+                                <size>
+                                 <width>16777215</width>
+                                 <height>60</height>
+                                </size>
+                               </property>
+                               <property name="font">
+                                <font>
+                                 <family>Ubuntu</family>
+                                 <pointsize>15</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
                                 <string>Altezza(cm)</string>
                                </property>
@@ -779,6 +886,18 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                             <layout class="QVBoxLayout" name="verticalLayout_53">
                              <item>
                               <widget class="QLabel" name="label_39">
+                               <property name="maximumSize">
+                                <size>
+                                 <width>16777215</width>
+                                 <height>60</height>
+                                </size>
+                               </property>
+                               <property name="font">
+                                <font>
+                                 <family>Ubuntu</family>
+                                 <pointsize>15</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
                                 <string>Peso(Kg)</string>
                                </property>
@@ -787,12 +906,37 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                              <item>
                               <widget class="QLineEdit" name="lineEdit_peso"/>
                              </item>
+                             <item>
+                              <spacer name="verticalSpacer_19">
+                               <property name="orientation">
+                                <enum>Qt::Vertical</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>20</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
                             </layout>
                            </item>
                           </layout>
                          </item>
                          <item>
                           <widget class="QLabel" name="label_figure">
+                           <property name="minimumSize">
+                            <size>
+                             <width>300</width>
+                             <height>500</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>300</width>
+                             <height>500</height>
+                            </size>
+                           </property>
                            <property name="text">
                             <string>TextLabel</string>
                            </property>
@@ -810,9 +954,34 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                            <item>
                             <layout class="QVBoxLayout" name="verticalLayout_50">
                              <item>
+                              <spacer name="verticalSpacer_22">
+                               <property name="orientation">
+                                <enum>Qt::Vertical</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>20</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
+                             <item>
                               <widget class="QLabel" name="label_81">
+                               <property name="maximumSize">
+                                <size>
+                                 <width>16777215</width>
+                                 <height>60</height>
+                                </size>
+                               </property>
+                               <property name="font">
+                                <font>
+                                 <family>Ubuntu</family>
+                                 <pointsize>15</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
-                                <string>Lunghezza Braccio </string>
+                                <string>Lunghezza Braccio (cm)</string>
                                </property>
                               </widget>
                              </item>
@@ -825,13 +994,38 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                             <layout class="QVBoxLayout" name="verticalLayout_51">
                              <item>
                               <widget class="QLabel" name="label_82">
+                               <property name="maximumSize">
+                                <size>
+                                 <width>16777215</width>
+                                 <height>60</height>
+                                </size>
+                               </property>
+                               <property name="font">
+                                <font>
+                                 <family>Ubuntu</family>
+                                 <pointsize>15</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
-                                <string>Lunghezza Avambraccio</string>
+                                <string>Lunghezza Avambraccio (cm) </string>
                                </property>
                               </widget>
                              </item>
                              <item>
                               <widget class="QLineEdit" name="lineEdit_lunghezzavamb_fisio"/>
+                             </item>
+                             <item>
+                              <spacer name="verticalSpacer_23">
+                               <property name="orientation">
+                                <enum>Qt::Vertical</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>20</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
                              </item>
                             </layout>
                            </item>
@@ -839,6 +1033,18 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                          </item>
                          <item>
                           <widget class="QLabel" name="label_img_braccio_fisio">
+                           <property name="minimumSize">
+                            <size>
+                             <width>300</width>
+                             <height>500</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>300</width>
+                             <height>500</height>
+                            </size>
+                           </property>
                            <property name="text">
                             <string>TextLabel</string>
                            </property>
@@ -1050,7 +1256,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>10</number>
+          <number>12</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -1075,228 +1281,329 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
             <widget class="QGroupBox" name="groupBox">
              <property name="font">
               <font>
+               <family>Ubuntu</family>
                <pointsize>17</pointsize>
               </font>
              </property>
              <property name="title">
               <string/>
              </property>
-             <layout class="QGridLayout" name="gridLayout_29">
-              <item row="0" column="1">
-               <widget class="QGroupBox" name="groupBox_6">
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="title">
-                 <string>Moduli Meccanici</string>
-                </property>
-                <widget class="QCheckBox" name="checkBox_spalla">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>60</y>
-                   <width>251</width>
-                   <height>29</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <italic>false</italic>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Spalla</string>
-                 </property>
-                </widget>
-                <widget class="QCheckBox" name="checkBox_polso">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>240</y>
-                   <width>461</width>
-                   <height>29</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Exo Completo </string>
-                 </property>
-                </widget>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QGroupBox" name="groupBox_10">
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="title">
-                 <string>Moduli Extra</string>
-                </property>
-                <widget class="QCheckBox" name="checkBox_eeg_2">
-                 <property name="geometry">
-                  <rect>
-                   <x>30</x>
-                   <y>50</y>
-                   <width>357</width>
-                   <height>27</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>EEG</string>
-                 </property>
-                </widget>
-                <widget class="QCheckBox" name="checkBox_emg_2">
-                 <property name="geometry">
-                  <rect>
-                   <x>30</x>
-                   <y>140</y>
-                   <width>356</width>
-                   <height>27</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>EMG</string>
-                 </property>
-                </widget>
-                <widget class="QCheckBox" name="checkBox_MAP_2">
-                 <property name="geometry">
-                  <rect>
-                   <x>30</x>
-                   <y>230</y>
-                   <width>481</width>
-                   <height>27</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Ausilio Assistenza alla Presa</string>
-                 </property>
-                </widget>
-                <widget class="QCheckBox" name="checkBox_polso_2">
-                 <property name="geometry">
-                  <rect>
-                   <x>30</x>
-                   <y>310</y>
-                   <width>481</width>
-                   <height>27</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Polso</string>
-                 </property>
-                </widget>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QGroupBox" name="groupBox_5">
-                <property name="font">
-                 <font>
-                  <family>DejaVu Sans</family>
-                  <pointsize>15</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="title">
-                 <string>Lato Terapia</string>
-                </property>
-                <widget class="QCheckBox" name="checkBox_sinistro">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>60</y>
-                   <width>251</width>
-                   <height>29</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <italic>false</italic>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Sinistro</string>
-                 </property>
-                </widget>
-                <widget class="QCheckBox" name="checkBox_destro">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>150</y>
-                   <width>251</width>
-                   <height>31</height>
-                  </rect>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Ubuntu</family>
-                   <pointsize>20</pointsize>
-                   <weight>50</weight>
-                   <italic>false</italic>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Destro</string>
-                 </property>
-                </widget>
-               </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_78">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_50">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_49">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_48">
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_75">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_5">
+                        <property name="font">
+                         <font>
+                          <family>Ubuntu</family>
+                          <pointsize>17</pointsize>
+                          <weight>50</weight>
+                          <bold>false</bold>
+                         </font>
+                        </property>
+                        <property name="title">
+                         <string>Lato Terapia</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_79">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_73">
+                           <item>
+                            <widget class="QCheckBox" name="checkBox_sinistro">
+                             <property name="font">
+                              <font>
+                               <family>Ubuntu</family>
+                               <pointsize>20</pointsize>
+                               <weight>50</weight>
+                               <italic>false</italic>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Sinistro</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QCheckBox" name="checkBox_destro">
+                             <property name="font">
+                              <font>
+                               <family>Ubuntu</family>
+                               <pointsize>20</pointsize>
+                               <weight>50</weight>
+                               <italic>false</italic>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Destro</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_6">
+                        <property name="font">
+                         <font>
+                          <family>Ubuntu</family>
+                          <pointsize>15</pointsize>
+                          <weight>50</weight>
+                          <bold>false</bold>
+                         </font>
+                        </property>
+                        <property name="title">
+                         <string>Articolazioni Assistite</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_80">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_71">
+                           <item>
+                            <widget class="QCheckBox" name="checkBox_spalla">
+                             <property name="font">
+                              <font>
+                               <family>Ubuntu</family>
+                               <pointsize>20</pointsize>
+                               <weight>50</weight>
+                               <italic>false</italic>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Spalla</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QCheckBox" name="checkBox_polso">
+                             <property name="font">
+                              <font>
+                               <family>Ubuntu</family>
+                               <pointsize>20</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Spalla e Gomito </string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QGroupBox" name="groupBox_10">
+                      <property name="font">
+                       <font>
+                        <family>Ubuntu</family>
+                        <pointsize>17</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="title">
+                       <string>Moduli Aggiuntivi </string>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_76">
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_74">
+                         <item>
+                          <widget class="QCheckBox" name="checkBox_eeg_2">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>20</pointsize>
+                             <weight>50</weight>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>EEG</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_54">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>15</pointsize>
+                             <weight>50</weight>
+                             <italic>true</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>TextLabel</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QCheckBox" name="checkBox_emg_2">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>20</pointsize>
+                             <weight>50</weight>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>EMG</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_55">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>11</pointsize>
+                             <weight>50</weight>
+                             <italic>true</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>Con questo modulo è possibile valutare l'intenzione di movimento nel paziente 
+e controllare la modalità con trigger di AGREE </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QCheckBox" name="checkBox_MAP_2">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>20</pointsize>
+                             <weight>50</weight>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>Ausilio Assistenza alla Presa</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_56">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>11</pointsize>
+                             <weight>50</weight>
+                             <italic>true</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>Con questo modulo sarà possibile assistere il paziente nell'aggancio e sgancio
+degli oggetti.
+Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizione  </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QCheckBox" name="checkBox_polso_2">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>20</pointsize>
+                             <weight>50</weight>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>Polso</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_83">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>11</pointsize>
+                             <weight>50</weight>
+                             <italic>true</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>Questo modulo permette assiste la prono-supinazione dell'articolazione polso.</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QCheckBox" name="checkBox">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>20</pointsize>
+                             <weight>50</weight>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>RFID</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_84">
+                           <property name="font">
+                            <font>
+                             <family>Ubuntu</family>
+                             <pointsize>11</pointsize>
+                             <weight>50</weight>
+                             <italic>true</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>Questo modulo permette di non fare niente perche non va ciao </string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_12">
+                  <property name="title">
+                   <string>Configurazione di AGREE</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_77">
+                   <item>
+                    <widget class="QLabel" name="label_53">
+                     <property name="text">
+                      <string>blender di agree </string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -1352,6 +1659,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                </property>
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -1442,15 +1750,14 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                  </property>
                  <property name="font">
                   <font>
-                   <family>DejaVu Sans</family>
+                   <family>Laksaman</family>
                    <pointsize>19</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
+                   <weight>50</weight>
+                   <bold>false</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">
-background-color: rgb(152, 194, 233);</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Mobilizzazione con Resistenza 
@@ -1500,15 +1807,14 @@ Suggerimento: selezionare se MRC &gt; 4.5</string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>DejaVu Sans</family>
+                   <family>Laksaman</family>
                    <pointsize>19</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
+                   <weight>50</weight>
+                   <bold>false</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">
-background-color: rgb(152, 194, 233);</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Mobilizzazione con Trasparenza 
@@ -1561,15 +1867,14 @@ background-color: rgb(152, 194, 233);</string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>DejaVu Sans</family>
+                   <family>Laksaman</family>
                    <pointsize>19</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
+                   <weight>50</weight>
+                   <bold>false</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">
-background-color: rgb(152, 194, 233);</string>
+                  <string notr="true">QPushButton:checked{background-color: red;}</string>
                  </property>
                  <property name="text">
                   <string>Mobilizzazione Passiva 
@@ -1595,7 +1900,10 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 1   </string>
                </property>
                <property name="font">
                 <font>
-                 <pointsize>21</pointsize>
+                 <family>Laksaman</family>
+                 <pointsize>23</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="text">
@@ -1676,19 +1984,17 @@ Il suggerimento si riferisce alla forza del deltoide anteriore secondo la scala 
                  </property>
                  <property name="font">
                   <font>
-                   <family>DejaVu Sans</family>
+                   <family>Laksaman</family>
                    <pointsize>19</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
+                   <weight>50</weight>
+                   <bold>false</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">
-background-color: rgb(152, 194, 233);</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
-                  <string>Mobilizzazione con Assistenza 
-(Assisted as Needed)
+                  <string>Mobilizzazione con Assistenza (Assisted as Needed)
  Suggerimento: selezionare se 2 ≤ MRC ≤ 3.5 </string>
                  </property>
                 </widget>
@@ -1741,15 +2047,14 @@ background-color: rgb(152, 194, 233);</string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>DejaVu Sans</family>
+                   <family>Laksaman</family>
                    <pointsize>19</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
+                   <weight>50</weight>
+                   <bold>false</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">
-background-color: rgb(152, 194, 233);</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Mobilizzazione Passiva con Trigger
@@ -1855,19 +2160,15 @@ Suggerimento: selezionare se 1 ≤ MRC ≤ 2   </string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>DejaVu Sans</family>
+                   <family>Laksaman</family>
                    <pointsize>19</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">
-background-color: rgb(152, 194, 233);</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Mobilizzazione in Assenza di peso 
-(Antigravitario)
 Suggerimento: selezionare se MRC &gt; 3.5</string>
                  </property>
                 </widget>
@@ -2222,6 +2523,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                    <widget class="QLabel" name="label_20">
                     <property name="font">
                      <font>
+                      <family>Ubuntu</family>
                       <pointsize>19</pointsize>
                      </font>
                     </property>
@@ -2234,6 +2536,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                    <widget class="QLabel" name="label_18">
                     <property name="font">
                      <font>
+                      <family>Ubuntu</family>
                       <pointsize>19</pointsize>
                      </font>
                     </property>
@@ -2277,11 +2580,6 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     <item>
                      <property name="text">
                       <string>Mano alla bocca con oggetto</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Exergames - Basket</string>
                      </property>
                     </item>
                     <item>
@@ -2340,11 +2638,6 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     </item>
                     <item>
                      <property name="text">
-                      <string>Exergames - Basket</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
                       <string>Exergames - Macedonia</string>
                      </property>
                     </item>
@@ -2395,11 +2688,6 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     <item>
                      <property name="text">
                       <string>Mano alla bocca con oggetto</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Exergames - Basket</string>
                      </property>
                     </item>
                     <item>
@@ -2576,11 +2864,6 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     </item>
                     <item>
                      <property name="text">
-                      <string>Exergames - Basket</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
                       <string>Exergames - Macedonia</string>
                      </property>
                     </item>
@@ -2631,11 +2914,6 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     <item>
                      <property name="text">
                       <string>Mano alla bocca con oggetto</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Exergames - Basket</string>
                      </property>
                     </item>
                     <item>
@@ -3027,6 +3305,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                </property>
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -3045,6 +3324,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                </property>
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -3063,6 +3343,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                </property>
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -3081,6 +3362,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                </property>
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -3099,6 +3381,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                </property>
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -3145,7 +3428,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
            <item row="0" column="0">
             <widget class="QStackedWidget" name="stackedWidget_3">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_check">
               <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -3155,6 +3438,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   <widget class="QLabel" name="label_62">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>19</pointsize>
                     </font>
                    </property>
@@ -3205,6 +3489,7 @@ Quando sei soddisfatto del segnale che ricevi premi Prosegui.</string>
                  </property>
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>19</pointsize>
                   </font>
                  </property>
@@ -3311,6 +3596,7 @@ Quando sei soddisfatto del segnale che ricevi premi Prosegui.</string>
                   <widget class="QLabel" name="label_63">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>19</pointsize>
                     </font>
                    </property>
@@ -3369,6 +3655,7 @@ Al ternine della procedura verrai automaticamente indirizzato al passaggio succe
               <widget class="QLabel" name="label_istr_vest">
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -3429,6 +3716,7 @@ Al ternine della procedura verrai automaticamente indirizzato al passaggio succe
                   <widget class="QLabel" name="label_istr_agg_param_exo">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>19</pointsize>
                     </font>
                    </property>
@@ -3483,8 +3771,31 @@ Inserisci la misura del braccio  che hai letto indicata sul pittogramma dell'eso
                      </item>
                     </layout>
                    </item>
-                   <item row="1" column="1">
-                    <layout class="QVBoxLayout" name="verticalLayout_9"/>
+                   <item row="0" column="3">
+                    <spacer name="horizontalSpacer_7">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="0" column="0">
+                    <spacer name="horizontalSpacer">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                    <item row="0" column="2" rowspan="2">
                     <widget class="QLabel" name="label_dimensionebraccio">
@@ -3502,31 +3813,8 @@ Inserisci la misura del braccio  che hai letto indicata sul pittogramma dell'eso
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="0">
-                    <spacer name="horizontalSpacer">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item row="0" column="3">
-                    <spacer name="horizontalSpacer_7">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
+                   <item row="1" column="1">
+                    <layout class="QVBoxLayout" name="verticalLayout_9"/>
                    </item>
                   </layout>
                  </item>
@@ -3549,12 +3837,206 @@ Inserisci la misura del braccio  che hai letto indicata sul pittogramma dell'eso
                </item>
               </layout>
              </widget>
+             <widget class="QWidget" name="page_prova">
+              <layout class="QVBoxLayout" name="verticalLayout_62">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_61">
+                 <item>
+                  <widget class="QLabel" name="label_36">
+                   <property name="text">
+                    <string>immagine di un braccio bello </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_2">
+                   <property name="title">
+                    <string>Parametri Agree</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_67">
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_66">
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_65">
+                        <item>
+                         <widget class="QLabel" name="label_37">
+                          <property name="text">
+                           <string>LUNGHEZZA BRACCIO </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEdit_5">
+                          <property name="minimumSize">
+                           <size>
+                            <width>60</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_47">
+                        <item>
+                         <spacer name="horizontalSpacer_3">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_63">
+                          <item>
+                           <widget class="QLabel" name="label_73">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>600</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>Sans</family>
+                              <pointsize>15</pointsize>
+                              <weight>75</weight>
+                              <bold>true</bold>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>COMPENSAZIONE BRACCIO</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QSlider" name="horizontalSlider_comp_2">
+                            <property name="minimum">
+                             <number>50</number>
+                            </property>
+                            <property name="maximum">
+                             <number>150</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLCDNumber" name="lcdNumber_3">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="segmentStyle">
+                             <enum>QLCDNumber::Flat</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_64">
+                          <item>
+                           <widget class="QLabel" name="label_80">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>600</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>Sans</family>
+                              <pointsize>15</pointsize>
+                              <weight>75</weight>
+                              <bold>true</bold>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>COMPENSAZIONE AVAMBRACCIO</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QSlider" name="horizontalSlider_comp_3">
+                            <property name="minimum">
+                             <number>50</number>
+                            </property>
+                            <property name="maximum">
+                             <number>150</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLCDNumber" name="lcdNumber_4">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="segmentStyle">
+                             <enum>QLCDNumber::Flat</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_8">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
              <widget class="QWidget" name="page_comp">
               <layout class="QVBoxLayout" name="verticalLayout_15">
                <item>
                 <widget class="QLabel" name="label_59">
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>19</pointsize>
                   </font>
                  </property>
@@ -3713,6 +4195,7 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
                   <widget class="QLabel" name="label_34">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>19</pointsize>
                     </font>
                    </property>
@@ -3734,6 +4217,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>15</pointsize>
                       </font>
                      </property>
@@ -3752,6 +4236,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>15</pointsize>
                       </font>
                      </property>
@@ -3776,6 +4261,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>15</pointsize>
                       </font>
                      </property>
@@ -3812,7 +4298,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                  <x>20</x>
                  <y>10</y>
                  <width>1568</width>
-                 <height>99</height>
+                 <height>156</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_45">
@@ -3820,6 +4306,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                  <widget class="QLabel" name="label_16">
                   <property name="font">
                    <font>
+                    <family>Ubuntu</family>
                     <pointsize>19</pointsize>
                    </font>
                   </property>
@@ -3841,6 +4328,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                     </property>
                     <property name="font">
                      <font>
+                      <family>Ubuntu</family>
                       <pointsize>15</pointsize>
                      </font>
                     </property>
@@ -3859,6 +4347,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                     </property>
                     <property name="font">
                      <font>
+                      <family>Ubuntu</family>
                       <pointsize>15</pointsize>
                      </font>
                     </property>
@@ -3883,6 +4372,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                     </property>
                     <property name="font">
                      <font>
+                      <family>Ubuntu</family>
                       <pointsize>15</pointsize>
                      </font>
                     </property>
@@ -3938,6 +4428,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>14</pointsize>
                       </font>
                      </property>
@@ -4030,6 +4521,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -4067,6 +4559,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -4262,6 +4755,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>14</pointsize>
                       </font>
                      </property>
@@ -4354,6 +4848,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -4391,6 +4886,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -4589,6 +5085,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>14</pointsize>
                       </font>
                      </property>
@@ -4684,6 +5181,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -4721,6 +5219,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -4945,6 +5444,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>14</pointsize>
                       </font>
                      </property>
@@ -5037,6 +5537,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -5074,6 +5575,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            </property>
                            <property name="font">
                             <font>
+                             <family>Ubuntu</family>
                              <pointsize>15</pointsize>
                             </font>
                            </property>
@@ -5285,6 +5787,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                      </property>
                      <property name="font">
                       <font>
+                       <family>Ubuntu</family>
                        <pointsize>14</pointsize>
                       </font>
                      </property>
@@ -5705,7 +6208,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
            <item>
             <widget class="QStackedWidget" name="stackedWidget_calibrazione_mat">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_cal_mat">
               <layout class="QVBoxLayout" name="verticalLayout_58">
@@ -5713,8 +6216,21 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                 <layout class="QVBoxLayout" name="verticalLayout_25">
                  <item>
                   <widget class="QLabel" name="label_cal_pad">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>500</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>1700</width>
+                     <height>800</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>25</pointsize>
                     </font>
                    </property>
@@ -5751,6 +6267,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                 <widget class="QLabel" name="label_27">
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>227</pointsize>
                   </font>
                  </property>
@@ -5786,6 +6303,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                 <widget class="QLabel" name="label_29">
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>19</pointsize>
                   </font>
                  </property>
@@ -5827,7 +6345,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
            <item row="0" column="0">
             <widget class="QStackedWidget" name="stackedWidget_2">
              <property name="currentIndex">
-              <number>3</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_sessione">
               <layout class="QHBoxLayout" name="horizontalLayout_19">
@@ -5847,6 +6365,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  </property>
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>23</pointsize>
                    <italic>true</italic>
                   </font>
@@ -5939,6 +6458,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                    </property>
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>23</pointsize>
                     </font>
                    </property>
@@ -5972,6 +6492,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                    </property>
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>21</pointsize>
                     </font>
                    </property>
@@ -6231,6 +6752,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                  </property>
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>15</pointsize>
                   </font>
                  </property>
@@ -6296,6 +6818,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_oi1_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6308,6 +6831,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_oi2_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6320,6 +6844,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_oi3_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6332,6 +6857,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_oi4_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6344,6 +6870,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_oi5_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6356,6 +6883,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_oi6_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6368,6 +6896,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_oi7_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6399,6 +6928,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es1_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6411,6 +6941,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es2_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6423,6 +6954,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es3_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6435,6 +6967,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es4_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6447,6 +6980,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es5_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6459,6 +6993,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es6_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6471,6 +7006,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es7_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6487,6 +7023,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es1_rip_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6499,6 +7036,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es2_ripe_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6511,6 +7049,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es3_ripe_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6523,6 +7062,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es4_ripe_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6535,6 +7075,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_5_ripe_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6547,6 +7088,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_es6_ripe_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6559,6 +7101,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                   <widget class="QLabel" name="label_7_ripe_recap">
                    <property name="font">
                     <font>
+                     <family>Ubuntu</family>
                      <pointsize>15</pointsize>
                     </font>
                    </property>
@@ -6588,6 +7131,7 @@ Seleziona 3 punti target che il paziente dovrà raggiungere durante lo svolgimen
                 <widget class="QLabel" name="label_5">
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>19</pointsize>
                   </font>
                  </property>
@@ -7432,7 +7976,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
               <item>
                <widget class="QStackedWidget" name="stackedWidget_val_2">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="page_pdf_2">
                  <layout class="QVBoxLayout" name="verticalLayout_47">
@@ -7448,6 +7992,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                       </property>
                       <property name="font">
                        <font>
+                        <family>Ubuntu</family>
                         <pointsize>19</pointsize>
                        </font>
                       </property>
@@ -7551,6 +8096,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                     </property>
                     <property name="font">
                      <font>
+                      <family>Ubuntu</family>
                       <pointsize>19</pointsize>
                      </font>
                     </property>
@@ -7876,6 +8422,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
               <widget class="QRadioButton" name="radioButton_pass_d">
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -7888,6 +8435,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
               <widget class="QRadioButton" name="radioButton_asan_d">
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -7900,6 +8448,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
               <widget class="QRadioButton" name="radioButton_trigger_d">
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -7927,6 +8476,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                 <widget class="QRadioButton" name="radioButton_antig_d">
                  <property name="font">
                   <font>
+                   <family>Ubuntu</family>
                    <pointsize>19</pointsize>
                   </font>
                  </property>
@@ -7951,6 +8501,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
               <widget class="QRadioButton" name="radioButton_trasp_d">
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -7963,6 +8514,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
               <widget class="QRadioButton" name="radioButton_chall_d">
                <property name="font">
                 <font>
+                 <family>Ubuntu</family>
                  <pointsize>19</pointsize>
                 </font>
                </property>
@@ -8035,8 +8587,6 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
   <tabstop>lineEdit_conferma</tabstop>
   <tabstop>pushButton_cerca_3</tabstop>
   <tabstop>tabWidget</tabstop>
-  <tabstop>pushButton_elencoPazienti</tabstop>
-  <tabstop>tableView_database</tabstop>
   <tabstop>pushButton_indietro_2</tabstop>
   <tabstop>pushButton_salta</tabstop>
  </tabstops>

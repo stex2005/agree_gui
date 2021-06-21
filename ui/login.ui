@@ -38,9 +38,6 @@
             <property name="text">
              <string>Username</string>
             </property>
-            <property name="pixmap">
-             <pixmap>:/images/icon.png</pixmap>
-            </property>
            </widget>
           </item>
           <item row="14" column="2">

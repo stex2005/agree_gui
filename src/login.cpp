@@ -321,9 +321,9 @@ if (dati::password == Conferma) {
 
 
 
-         Paginaprincipale  = new paginaprincipale(this);
-         connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
-         Paginaprincipale->show();
+//         Paginaprincipale  = new paginaprincipale(this);
+//        connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+//         Paginaprincipale->show();
 
 
          std_msgs::Int16 msg;

@@ -2,41 +2,77 @@ matlab:
 
     point0:
         mat_coordinate:
-            x: 16
-            y: 4
+            x: 0
+            y: 0
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
         configuration:
-            J1: 0.467791818362832
-            J2: -0.916331700451065
-            J3: 0.236950641663520
-            J4: 1.852122046399449
+            J1: 0.0
+            J2: 0.0
+            J3: 0.0
+            J4: 0.0
             J5: 0.0
+        enabled: false
+        color: 1
 
     point1:
         mat_coordinate:
-            x: 12
-            y: 6
+            x: 0
+            y: 0
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
         configuration:
             J1: 0.0
             J2: 0.0
             J3: 0.0
             J4: 0.0
             J5: 0.0
+        enabled: false
+        color: 1
 
     point2:
         mat_coordinate:
-            x: 20
-            y: 10
+            x: 0
+            y: 0
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
         configuration:
             J1: 0.0
             J2: 0.0
             J3: 0.0
             J4: 0.0
             J5: 0.0
+        enabled: false
+        color: 1
 
     point3:
         mat_coordinate:
-            x: 23
-            y: 10
+            x: 0
+            y: 0
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        configuration:
+            J1: 0.0
+            J2: 0.0
+            J3: 0.0
+            J4: 0.0
+            J5: 0.0
+        enabled: false
+        color: 1
+
+    point1e:
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
         configuration:
             J1: 0.0
             J2: 0.0
@@ -44,20 +80,54 @@ matlab:
             J4: 0.0
             J5: 0.0
 
-    point_mouth_R:
+    point2e:
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
         configuration:
             J1: 0.0
-            J2: -1.308996938995747
-            J3: -0.785398163397448
-            J4: 1.832595714594046
+            J2: 0.0
+            J3: 0.0
+            J4: 0.0
             J5: 0.0
 
-    point_mouth_L:
+    point3e:
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
         configuration:
             J1: 0.0
-            J2: 1.308996938995747
-            J3: 0.785398163397448
-            J4: 1.832595714594046
+            J2: 0.0
+            J3: 0.0
+            J4: 0.0
+            J5: 0.0
+
+
+
+    point_hand_R:
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        configuration:
+            J1: 0.0
+            J2: -0.872664625997165
+            J3: -0.872664625997165
+            J4: 0.523598775598299
+            J5: 0.0
+
+    point_hand_L:
+        system_coordinate:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        configuration:
+            J1: -0.174532925199433
+            J2: -1.396263401595464
+            J3: -0.872664625997165
+            J4: 1.919862177193763
             J5: 0.0
 
     mat_origin:

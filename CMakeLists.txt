@@ -48,7 +48,7 @@ add_message_files(
     msg
     FILES
     agree_esmacat_command.msg
-    agree_emg_status.msg
+    #agree_emg_status.msg
     )
 
 generate_messages(

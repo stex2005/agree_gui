@@ -288,8 +288,7 @@ class paginaprincipale : public QDialog
 
     //DICHIARAZIONE LATO
     int side_param;
-
-
+    int side_ses;
 
 
     QString filename_eval;
@@ -325,6 +324,9 @@ class paginaprincipale : public QDialog
     //DICHIARO STRINGHE PER AGGIORNARE IMMAGINE IN AGGIUNGI O MODIFICA NUOVO PAZIENTE
     QString male, female;
 
+    //CREO VARIABILI PER AGGIORNARE ROSPARAM DEI PUNTI CORRETTAMENTE NELLA FUNZIONE DI CHECK_POINT ()
+    int side_check, point1_x, point2_x, point3_x, point1_y, point2_y, point3_y,point1_x_t, point2_x_t, point3_x_t, point1_y_t, point2_y_t, point3_y_t;
+    bool check_ended;
 
 
 
@@ -465,7 +467,7 @@ private slots:
 
  void esmacat_command_callback(const agree_esmacat_pkg::agree_esmacat_command msg);
 
- void emg_callback(const agree_gui::agree_emg_status msg);
+ //void emg_callback(const agree_gui::agree_emg_status msg);
 
  void esmacat_callback(const agree_esmacat_pkg::agree_esmacat_status msg);
 
@@ -553,8 +555,6 @@ private slots:
 
  void on_pushButton_salvascore_clicked();
 
- void on_pushButton_valutazione_clicked();
-
  void on_pushButton_show_pdf_clicked();
 
  void on_tableView_valutazioni_activated(const QModelIndex &index);
@@ -581,6 +581,10 @@ private slots:
 
  void on_tableView_database_clicked(const QModelIndex &index);
 
+ void check_point();
+
+
+
 private:
   Ui::paginaprincipale *ui;
 
@@ -594,7 +598,7 @@ private:
  ros::Subscriber command_subscriber;
 
  //EMG
- ros::Subscriber emg_subscriber; //creo il topic command  a cui fare il subscribe
+ //ros::Subscriber emg_subscriber; //creo il topic command  a cui fare il subscribe
 
  ros::Subscriber esmacat_subscriber;
 

@@ -140,10 +140,8 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
     //get the data point (check se ind non è fuori dalla griglia)
     DataPoint &dp = Data[15-(yindex)][xindex+1 ];
 
-    //MANDO COORDINATE DEL PUNTO DI REST
-    point0 = {16,4};
-    n.setParam("/point0/mat_coordinates", point0);
-    Data[4][16].DrawColor=Qt::black;
+
+
     //zero non selezionabile
     if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
     if(dp.isSelected == false)
@@ -268,10 +266,26 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
   }
 }
 void MatrixWidget::paintEvent(QPaintEvent *event)
-{  //cout << "sono nel paint event 1"<<std::endl;
+{
+  //MANDO COORDINATE DEL PUNTO DI REST
+  ros::NodeHandle n;
+  n.getParam("/side", side_matrix);
+  if(side_matrix == 1) //destro
+  {
+    point0 = {16,4};
+    n.setParam("/point0/mat_coordinates", point0);
+    Data[4][16].DrawColor=Qt::black;
+
+  }
+  else if(side_matrix == 2) {
+    point0 = {15,4};
+    n.setParam("/point0/mat_coordinates", point0);
+    Data[4][15].DrawColor=Qt::black;
+  }
+  //cout << "sono nel paint event 1"<<std::endl;
   QPainter p(this);
   //FAI CHECK CON DX E SX
-  Data[4][16].DrawColor=Qt::black;
+
   p.drawRect(0,0, width()-1 , height() -1  );
   //-1
  // cout << "sono nel paint event"<<std::endl;
@@ -310,6 +324,7 @@ ros::NodeHandle n;
 n.getParam("/side", side_matrix);
 
  // if(dati::lato=="1"){
+//faccio controllo su destro e sinistro e salvo i file
    if(side_matrix== 1){
      qDebug()<< "sono in load data rigth";
     cout <<  "Enter Load right" << endl;
@@ -338,41 +353,38 @@ n.getParam("/side", side_matrix);
            file_en_right.read_mat("workspace_enabled", matrix_test_en);
   //         std::cout<< " destro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
 
-
-
-
 //     MatrixXd matrix;
 
 
 //   // matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_right.CSV");
 //  //  cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
-   for(int i= 1; i<451;i++){
+//   for(int i= 1; i<451;i++){
 
-      int x= matrix_test_y(i);
-      int y = matrix_test(i);
+//      int x= matrix_test_y(i);
+//      int y = matrix_test(i);
 
-//    }
+////    }
 
-//    int  y= matrix_test_y(i,0);
-  // cout <<  "ho assegnato righe e colonne"  << endl;
-     if(matrix_test_en(i)){
+////    int  y= matrix_test_y(i,0);
+//  // cout <<  "ho assegnato righe e colonne"  << endl;
+//     if(matrix_test_en(i)){
 
-       Data[x][y].DrawColor= Qt::green;
+//       Data[x][y].DrawColor= Qt::green;
 
-       Data[x][y].value=1;
-       cout <<  "VERDE"  << endl;
-     }
-      else if (!matrix_test_en(i)) {
-        Data[x][y].DrawColor= Qt::lightGray;
-        Data[x][y].value=0;
-       cout <<  "GRIGIO"  << endl;
+//       Data[x][y].value=1;
+//       cout <<  "VERDE"  << endl;
+//     }
+//      else if (!matrix_test_en(i)) {
+//        Data[x][y].DrawColor= Qt::lightGray;
+//        Data[x][y].value=0;
+//       cout <<  "GRIGIO"  << endl;
 
-      }
-    //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
-    } //FOR
- //    cout << "sono fuori dal ciclo for"<<std::endl;
-  } //DESTRO
- //  cout << "sono fuori dal destro"<<std::endl;
+//      }
+//    //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
+//    } //FOR
+// //    cout << "sono fuori dal ciclo for"<<std::endl;
+ } //DESTRO
+// //  cout << "sono fuori dal destro"<<std::endl;
   qDebug()<<Data[13][1].value;
 //  if(dati::lato== "0") {
   if(side_matrix==2){
@@ -402,32 +414,35 @@ n.getParam("/side", side_matrix);
           std::cout<< "sinistro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
       //              std::cout<< "sinistro en 0 " << std::endl << "workspace_enabled 0" << std::endl << matrix_test_en(0) << std::endl;
 
-   // matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_left.CSV");
-   // cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
 
-//      VectorXd x;
-//      x= matrix_test;
-//      cout<<"x"<< std::endl << x <<std::endl;
+}
+//creo il workspace
+  for(int i= 1; i<451;i++){
 
-//      int  y= matrix_test_y(i,0);
-//      cout <<  "ho assegnato righe e colonne"  << endl;
-//      if(matrix_test_en(i,0)){
+     int x= matrix_test_y(i);
+     int y = matrix_test(i);
 
-//        Data[x][y].DrawColor= Qt::green;
-//        Data[4][15].DrawColor = Qt::black;
-//        Data[x][y].value=1;
-//        cout <<  "VERDE"  << endl;
-//      }
-//      else if (!matrix_test_en(i,0)) {
-//        Data[x][y].DrawColor= Qt::lightGray;
-//        Data[x][y].value=0;
-//        cout <<  "GRIGIO"  << endl;
+//    }
 
-//      }
+//    int  y= matrix_test_y(i,0);
+ // cout <<  "ho assegnato righe e colonne"  << endl;
+    if(matrix_test_en(i)){
 
-//    } //FOR
-  } // SINISTRO
- //  cout << "sono fuori fuori dal destro"<<std::endl;
+      Data[x][y].DrawColor= Qt::green;
+
+      Data[x][y].value=1;
+      cout <<  "VERDE"  << endl;
+    }
+     else if (!matrix_test_en(i)) {
+       Data[x][y].DrawColor= Qt::lightGray;
+       Data[x][y].value=0;
+      cout <<  "GRIGIO"  << endl;
+
+     }
+   //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
+   } //FOR
+//    cout << "sono fuori dal ciclo for"<<std::endl;
+
 } //LOAD DATA
 
 
