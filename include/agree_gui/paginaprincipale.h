@@ -320,6 +320,17 @@ class paginaprincipale : public QDialog
     //AGGIORNO ROM
     double ROM1_deg, ROM2_deg, ROM3_deg, ROM4_deg, ROM5_deg;
     int ROM1, ROM2, ROM3, ROM4, ROM5;
+    //DEFINISCO I DEFAULT DEI ROM
+    double FESm1_def = -80;
+    double FESM1_def = 45;
+    double AASm1_def = -50;
+    double AASM1_def = 30;
+    double RIESm1_def = -20;
+    double RIESM1_def = 90;
+    double Gm1_def = 5;
+    double GM1_def = 135;
+    double Pm1_def = -90;
+    double PM1_def = 90;
 
     //DICHIARO STRINGHE PER AGGIORNARE IMMAGINE IN AGGIUNGI O MODIFICA NUOVO PAZIENTE
     QString male, female;
@@ -327,6 +338,9 @@ class paginaprincipale : public QDialog
     //CREO VARIABILI PER AGGIORNARE ROSPARAM DEI PUNTI CORRETTAMENTE NELLA FUNZIONE DI CHECK_POINT ()
     int side_check, point1_x, point2_x, point3_x, point1_y, point2_y, point3_y,point1_x_t, point2_x_t, point3_x_t, point1_y_t, point2_y_t, point3_y_t;
     bool check_ended;
+
+    //SETTO PUNTI DI REST QUANDO VIENE SELEZIONATO LATO SINISTRO O DESTRO
+    int point0_x, point0_y;
 
 
 

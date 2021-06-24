@@ -253,9 +253,6 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     if(dati::command_old_pp == SC1_HAND_POSITION_WAIT){
       //mostra schermata di attesa
       ui->stackedWidget_calibrazione_mat->setCurrentWidget(ui->page_cal_mat_wait);
-
-
-
     }
 
     if(dati::command_old_pp == SC1_WORKSPACE_ON) {
@@ -550,6 +547,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   //  ui->lcdNumber_j4->display(ROM_rad[3]);
   //  ui->lcdNumber_j5->display(ROM_rad[4]);
 //connect(ui->lcdNumber_j1, SIGNAL(display(int)),ui->dial_j1, SLOT(setValue(int)));
+
+  ui->tabWidget_2->tabBar()->setEnabled(false);
 
   ui->progressBar_comp->setValue(ui->horizontalSlider_comp->value());
   ui->progressBar_comp_ses->setValue(ui->horizontalSlider_comp_ses->value());
@@ -1186,7 +1185,9 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
               dati::mode_output  = "Challenging";
             }
 
+            if(FESm2== " "){
 
+            }
             ui->lineEdit_flessospallamin->setText(FESm2);
             ui->lineEdit_flessospallamax->setText(FESM2);
             ui->lineEdit_adduzionespallamin->setText(AASm2);
@@ -2930,7 +2931,7 @@ void paginaprincipale::on_pushButton_go_clicked()
      ROS_INFO ("%d", msg.data);
       status_publisher.publish(msg);
        ui->tabWidget_2->setCurrentWidget(ui->tab_exo_param);
-        ui->stackedWidget_4->setCurrentWidget(ui->page_param_agree);
+        ui->stackedWidget_4->setCurrentWidget(ui->page_prova);
 
          //  if(dati::command == 4)
          //    ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
@@ -2977,7 +2978,7 @@ void paginaprincipale::on_pushButton_avanti_v_clicked()
 
 /**********************        SAVE LENGTH EXO PARAM  *********************/
 void paginaprincipale::on_pushButton_salva_exo_param_clicked()
-{ QString Lunghezza_braccio, Lunghezza_avambraccio;
+{ /*QString Lunghezza_braccio, Lunghezza_avambraccio;
   Lunghezza_braccio = ui->lineEdit_braccio -> text();
   Lunghezza_avambraccio = la_fisio;
   //  float Lunghezza_braccio_f = Lunghezza_braccio.toFloat();
@@ -3016,7 +3017,7 @@ void paginaprincipale::on_pushButton_salva_exo_param_clicked()
 
   }
   //timer_comp->start(20);
-  ui->stackedWidget_4->setCurrentWidget(ui->page_comp);
+  ui->stackedWidget_4->setCurrentWidget(ui->page_comp);*/
 
 
 }
@@ -3052,6 +3053,47 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
   }
   else qDebug()<<"non funziona la comp_exo";
 
+
+  QString Lunghezza_braccio, Lunghezza_avambraccio;
+    Lunghezza_braccio = ui->lineEdit_braccio -> text();
+    Lunghezza_avambraccio = la_fisio;
+    //  float Lunghezza_braccio_f = Lunghezza_braccio.toFloat();
+    //Lunghezza_avambraccio = ui->lineEdit_avambraccio-> text();
+
+    UA_l = Lunghezza_braccio.toDouble();
+    LA_l = Lunghezza_avambraccio.toDouble();
+    UA_l =UA_l/100;
+    LA_l=LA_l/100;
+    height = height/100;
+    H_l = double(0.108)*height;
+    CdM_UA = double(0.436)*UA_l;
+    CdM_LA = double(0.43)*LA_l;
+    CdM_H = double(0.506)*H_l;
+
+    n.setParam("/physiological_param/upperarm_length", UA_l); //questa è la taglia dell'exo indicata sui pittogrammi
+    n.setParam("/physiological_param/lowerarm_length", LA_l);
+    n.setParam("/physiological_param/hand_length",H_l);
+    n.setParam("/matlab/len_fore", LA_l);
+    n.setParam("/matlab/len_upp", UA_l);
+
+
+    n.setParam ("/physiological_param/cdm_upperarm", CdM_UA);
+    n.setParam("/physiological_param/cdm_lowerarm", CdM_LA);
+    n.setParam("/physiological_param/cdm_hand", CdM_H);
+
+    QString l_h, com_ua, com_la, com_h;
+    l_h= QString::number(H_l);
+    com_ua = QString::number(CdM_UA);
+    com_la = QString::number(CdM_LA);
+    com_h = QString::number(CdM_H);
+    QSqlQuery exo_param;
+    exo_param.prepare("update Parametri_Paziente set l_UA= '"+Lunghezza_braccio+"', l_LA = '"+Lunghezza_avambraccio+"', com_UA = '"+com_ua+"', com_LA = '"+com_la+"', com_H = '"+com_h+"', l_H = '"+l_h+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    if(exo_param.exec()){
+    //  QMessageBox ::information(this,tr("Salvataggio"),tr(" Dati Salvati Correttamente"));
+
+    }
+    //timer_comp->start(20);
+    ui->stackedWidget_4->setCurrentWidget(ui->page_comp);
 }
 
 
@@ -3092,17 +3134,7 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
   timer_rom->stop();
   QString FESm1, FESM1, AASm1, AASM1, RIESm1, RIESM1,Gm1, GM1, Pm1,PM1;
   double FESm1_f, FESM1_f, AASm1_f, AASM1_f, RIESm1_f, RIESM1_f,Gm1_f, GM1_f, Pm1_f,PM1_f;
-  double FESm1_def, FESM1_def, AASm1_def, AASM1_def, RIESm1_def, RIESM1_def,Gm1_def, GM1_def, Pm1_def,PM1_def;
-  FESm1_def = -90;
-  FESM1_def = 20;
-  AASm1_def = -50;
-  AASM1_def = 30;
-  RIESm1_def = -20;
-  RIESM1_def = 90;
-  Gm1_def = 0;
-  GM1_def = 110;
-  Pm1_def = -90;
-  PM1_def = 90;
+
   FESm1= ui->lineEdit_flessospallamin->text();
   FESm1_f = FESm1.toDouble();
   FESM1 = ui->lineEdit_flessospallamax->text();
@@ -5303,6 +5335,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   if(ui->checkBox_sinistro->isChecked())
   {dati::lato="0" ;
     side_param = 2;
+    point0_x = 15;
+    point0_y = 4;
     QPixmap pic7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j2_sx.png");
     ui->label_67->setPixmap(pic7);
 
@@ -5322,6 +5356,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   if(ui->checkBox_destro->isChecked())
   { dati::lato = "1";
     side_param = 1;
+    point0_x = 16;
+    point0_y = 4;
     QPixmap pic7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j2_dx.png");
     ui->label_67->setPixmap(pic7);
 
@@ -5411,6 +5447,9 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
         //  flag=6;
         // ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
         ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
+        ui->tabWidget_2->setTabEnabled(1, true);
+        ui->tabWidget_2->setTabEnabled(2, true);
+        ui->tabWidget_3->setTabEnabled(1, true);
         check = 1;
         qDebug() << "modulo polso stronzissimo";
       }
@@ -5886,6 +5925,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   ros::NodeHandle n;
   n.setParam("/active_modules", active_modules );
   n.setParam("/side", side_param);
+  n.setParam("/matlab/point0/mat_coordinate/x", point0_x);
+  n.setParam("/matlab/point0/mat_coordinate/y", point0_y);
 
 
 

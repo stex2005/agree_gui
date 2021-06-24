@@ -62,24 +62,10 @@ void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_comman
 
       qDebug()<< "callback_matrix, command_old 8";
       //point0 = {15,3};
-      n.setParam("/point0/mat_coordinates", point0);
 
-      n.getParam("/point1/mat_coordinates", point1);
-      n.getParam("/point2/mat_coordinates", point2);
-      n.getParam ("/point3/mat_coordinates", point3);
 
-      qDebug()<< point1;
-      qDebug()<< point2;
-      qDebug()<<point3;
       qDebug()<<selCount;
       // qui devo ricolorare i punti
-
-
-
-
-      //if(!(point1.at(0)==0 && point1.at(1)==0) && ) {
-
-      //}
 
 
       dati::status1 = SC1_UPDATE_LED;
@@ -112,14 +98,6 @@ void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_comman
         selCount=0;
 
       }
-      //        n.setParam("/point1/mat_coordinates", point1);
-      //        n.setParam("/point2/mat_coordinates", point2);
-      //        n.setParam("/point3/mat_coordinates", point3);
-      qDebug()<< point1;
-      qDebug()<< point2;
-      qDebug()<<point3;
-
-
     }
   }
 
@@ -139,9 +117,6 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
     cout << "X "<<15- yindex <<" "<< "Y" << xindex+1 <<endl;
     //get the data point (check se ind non è fuori dalla griglia)
     DataPoint &dp = Data[15-(yindex)][xindex+1 ];
-
-
-
     //zero non selezionabile
     if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
     if(dp.isSelected == false)
@@ -156,7 +131,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point1 = {(xindex+1),(15-yindex)};
         point1x = point1.at(0);
         point1y = point1.at(1);
-        n.setParam("/point1/mat_coordinates", point1);
+
         n.setParam("matlab/point1/mat_coordinate/x", point1x);
         n.setParam("matlab/point1/mat_coordinate/y", point1y);
 
@@ -175,7 +150,6 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point2x = point2.at(0);
         point2y = point2.at(1);
 
-        n.setParam("/point2/mat_coordinates", point2);
         n.setParam("matlab/point2/mat_coordinate/x", point2x);
         n.setParam("matlab/point2/mat_coordinate/y", point2y);
 
@@ -193,7 +167,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point3 = {(xindex+1),(15-yindex)};
         point3x = point3.at(0);
         point3y = point3.at(1);
-        n.setParam("/point3/mat_coordinates", point3);
+
         qDebug()<< "riempio point3";
         qDebug()<< point3;
         dati::status1 = SC1_SELECTED;
@@ -228,8 +202,12 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
       //QPoint deletedFromVector = position[i1];
       position.remove(i1);
       if(point1 == deselezione) {
-        point1 = {0,0};
-        n.setParam("/point1/mat_coordinates", point1);
+
+        point1x = 0;
+        point1y = 0;
+        n.setParam("/matlab/point1/mat_coordinate/x", point1x);
+        n.setParam("/matlab/point1/mat_coordinate/y", point1y);
+
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
@@ -238,8 +216,10 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
       }
       else if (point2 == deselezione) {
-        point2 = {0,0};
-        n.setParam("/point2/mat_coordinates", point2);
+        point2x = 0;
+        point2y = 0;
+        n.setParam("/matlab/point2/mat_coordinate/x", point2x);
+        n.setParam("/matlab/point2/mat_coordinate/y", point2y);
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
@@ -247,8 +227,10 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         status_publisher.publish(msg);
       }
       else if (point3 == deselezione){
-        point3 = {0,0};
-        n.setParam("/point3/mat_coordinates", point3);
+        point3x = 0;
+        point3y = 0;
+        n.setParam("/matlab/point3/mat_coordinate/x", point3x);
+        n.setParam("/matlab/point3/mat_coordinate/y", point3y);
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
@@ -273,13 +255,13 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
   if(side_matrix == 1) //destro
   {
     point0 = {16,4};
-    n.setParam("/point0/mat_coordinates", point0);
+
     Data[4][16].DrawColor=Qt::black;
 
   }
   else if(side_matrix == 2) {
     point0 = {15,4};
-    n.setParam("/point0/mat_coordinates", point0);
+
     Data[4][15].DrawColor=Qt::black;
   }
   //cout << "sono nel paint event 1"<<std::endl;

@@ -32,15 +32,17 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="3">
-    <widget class="QLabel" name="label_date">
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_status">
      <property name="font">
       <font>
+       <family>FreeSans</family>
        <pointsize>13</pointsize>
+       <italic>false</italic>
       </font>
      </property>
      <property name="text">
-      <string>[+]Date</string>
+      <string>[+]Status</string>
      </property>
     </widget>
    </item>
@@ -59,31 +61,15 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QPushButton" name="pushButton_allarme">
-     <property name="font">
-      <font>
-       <family>DejaVu Sans</family>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Allarme</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_status">
+   <item row="2" column="3">
+    <widget class="QLabel" name="label_date">
      <property name="font">
       <font>
        <pointsize>13</pointsize>
-       <italic>true</italic>
       </font>
      </property>
      <property name="text">
-      <string>[+]Status</string>
+      <string>[+]Date</string>
      </property>
     </widget>
    </item>
@@ -99,6 +85,21 @@
      </property>
      <property name="text">
       <string>Indietro</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="pushButton_allarme">
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>13</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Allarme</string>
      </property>
     </widget>
    </item>
@@ -133,8 +134,7 @@
      </property>
      <property name="font">
       <font>
-       <family>Ubuntu</family>
-       <pointsize>13</pointsize>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="autoFillBackground">
@@ -168,6 +168,12 @@
             <layout class="QGridLayout" name="gridLayout_4">
              <item row="0" column="0">
               <widget class="QLabel" name="label_ricercapaziente_3">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>45</height>
+                </size>
+               </property>
                <property name="maximumSize">
                 <size>
                  <width>200</width>
@@ -176,7 +182,8 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
+                 <family>FreeSans</family>
+                 <pointsize>13</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -193,9 +200,21 @@
              </item>
              <item row="0" column="2">
               <widget class="QPushButton" name="pushButton_cerca_3">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>45</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
+                 <family>FreeSans</family>
                  <pointsize>13</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
@@ -213,7 +232,7 @@
               <widget class="QLabel" name="label_6">
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
+                 <family>FreeSans</family>
                  <pointsize>14</pointsize>
                  <weight>50</weight>
                  <italic>false</italic>
@@ -247,9 +266,10 @@
               <widget class="QGroupBox" name="groupBox_4">
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <family>FreeSans</family>
+                 <pointsize>13</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="title">
@@ -260,9 +280,21 @@
                  <layout class="QVBoxLayout" name="verticalLayout_68">
                   <item>
                    <widget class="QPushButton" name="pushButton_nuovopaziente">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>45</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>45</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Laksaman</family>
+                      <family>FreeSans</family>
                       <pointsize>13</pointsize>
                       <weight>50</weight>
                       <bold>false</bold>
@@ -280,9 +312,21 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_modifica">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>45</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>45</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Laksaman</family>
+                      <family>FreeSans</family>
                       <pointsize>13</pointsize>
                       <weight>50</weight>
                       <bold>false</bold>
@@ -299,9 +343,21 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_eliminapaziente">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>45</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>45</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Laksaman</family>
+                      <family>FreeSans</family>
                       <pointsize>13</pointsize>
                       <weight>50</weight>
                       <bold>false</bold>
@@ -320,22 +376,6 @@
                </layout>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QLabel" name="label_21">
-               <property name="font">
-                <font>
-                 <family>Laksaman</family>
-                 <pointsize>14</pointsize>
-                 <weight>50</weight>
-                 <italic>false</italic>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Per Selezionare un Paziente fare Doppio Click sul relativo Codice_ID</string>
-               </property>
-              </widget>
-             </item>
              <item row="10" column="1">
               <widget class="QTableView" name="tableView_valutazioni"/>
              </item>
@@ -348,6 +388,12 @@
              </item>
              <item row="10" column="0">
               <widget class="QGroupBox" name="groupBox_11">
+               <property name="font">
+                <font>
+                 <family>FreeSans</family>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
                <property name="title">
                 <string>Gestione Valutazione</string>
                </property>
@@ -356,9 +402,21 @@
                  <layout class="QVBoxLayout" name="verticalLayout_70">
                   <item>
                    <widget class="QPushButton" name="pushButton_showeval_emg">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>45</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>45</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Laksaman</family>
+                      <family>FreeSans</family>
                       <pointsize>13</pointsize>
                       <weight>50</weight>
                       <bold>false</bold>
@@ -374,9 +432,21 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_show_pdf">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>45</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>45</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Laksaman</family>
+                      <family>FreeSans</family>
                       <pointsize>13</pointsize>
                       <weight>50</weight>
                       <bold>false</bold>
@@ -392,9 +462,21 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_report_long">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>45</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>45</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Laksaman</family>
+                      <family>FreeSans</family>
                       <pointsize>13</pointsize>
                       <weight>50</weight>
                       <bold>false</bold>
@@ -415,9 +497,16 @@
              </item>
              <item row="0" column="1">
               <widget class="QLineEdit" name="lineEdit_cercapaziente_3">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>45</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
+                 <family>FreeSans</family>
+                 <pointsize>13</pointsize>
                 </font>
                </property>
                <property name="placeholderText">
@@ -434,9 +523,21 @@
              </item>
              <item row="8" column="4">
               <widget class="QPushButton" name="pushButton_vestizioneAgree">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>45</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
+                 <family>FreeSans</family>
                  <pointsize>15</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
@@ -453,9 +554,21 @@
              </item>
              <item row="4" column="4">
               <widget class="QPushButton" name="pushButton_elencoPazienti">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>45</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
+                 <family>FreeSans</family>
                  <pointsize>15</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
@@ -1062,6 +1175,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                        <property name="font">
                         <font>
                          <family>Sans</family>
+                         <pointsize>10</pointsize>
                          <weight>75</weight>
                          <bold>true</bold>
                         </font>
@@ -1235,11 +1349,11 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
         <widget class="QLabel" name="label_status2">
          <property name="font">
           <font>
-           <family>DejaVu Sans</family>
+           <family>FreeSans</family>
            <pointsize>13</pointsize>
-           <weight>75</weight>
+           <weight>50</weight>
            <italic>false</italic>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -1256,7 +1370,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>12</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_moduli">
           <attribute name="title">
@@ -1267,7 +1381,8 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
             <widget class="QPushButton" name="pushButton_salvamoduli">
              <property name="font">
               <font>
-               <family>Sans</family>
+               <family>DejaVu Sans</family>
+               <pointsize>14</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -1301,8 +1416,8 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                        <widget class="QGroupBox" name="groupBox_5">
                         <property name="font">
                          <font>
-                          <family>Ubuntu</family>
-                          <pointsize>17</pointsize>
+                          <family>FreeSans</family>
+                          <pointsize>15</pointsize>
                           <weight>50</weight>
                           <bold>false</bold>
                          </font>
@@ -1317,7 +1432,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                             <widget class="QCheckBox" name="checkBox_sinistro">
                              <property name="font">
                               <font>
-                               <family>Ubuntu</family>
+                               <family>FreeSans</family>
                                <pointsize>20</pointsize>
                                <weight>50</weight>
                                <italic>false</italic>
@@ -1333,7 +1448,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                             <widget class="QCheckBox" name="checkBox_destro">
                              <property name="font">
                               <font>
-                               <family>Ubuntu</family>
+                               <family>FreeSans</family>
                                <pointsize>20</pointsize>
                                <weight>50</weight>
                                <italic>false</italic>
@@ -1354,7 +1469,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                        <widget class="QGroupBox" name="groupBox_6">
                         <property name="font">
                          <font>
-                          <family>Ubuntu</family>
+                          <family>FreeSans</family>
                           <pointsize>15</pointsize>
                           <weight>50</weight>
                           <bold>false</bold>
@@ -1370,7 +1485,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                             <widget class="QCheckBox" name="checkBox_spalla">
                              <property name="font">
                               <font>
-                               <family>Ubuntu</family>
+                               <family>FreeSans</family>
                                <pointsize>20</pointsize>
                                <weight>50</weight>
                                <italic>false</italic>
@@ -1386,9 +1501,10 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                             <widget class="QCheckBox" name="checkBox_polso">
                              <property name="font">
                               <font>
-                               <family>Ubuntu</family>
+                               <family>FreeSans</family>
                                <pointsize>20</pointsize>
                                <weight>50</weight>
+                               <italic>false</italic>
                                <bold>false</bold>
                               </font>
                              </property>
@@ -1408,8 +1524,8 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                      <widget class="QGroupBox" name="groupBox_10">
                       <property name="font">
                        <font>
-                        <family>Ubuntu</family>
-                        <pointsize>17</pointsize>
+                        <family>FreeSans</family>
+                        <pointsize>15</pointsize>
                         <weight>50</weight>
                         <bold>false</bold>
                        </font>
@@ -1424,9 +1540,10 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                           <widget class="QCheckBox" name="checkBox_eeg_2">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
+                             <family>FreeSans</family>
                              <pointsize>20</pointsize>
                              <weight>50</weight>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1439,10 +1556,10 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                           <widget class="QLabel" name="label_54">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
-                             <pointsize>15</pointsize>
+                             <family>FreeSans</family>
+                             <pointsize>10</pointsize>
                              <weight>50</weight>
-                             <italic>true</italic>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1455,9 +1572,10 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                           <widget class="QCheckBox" name="checkBox_emg_2">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
+                             <family>FreeSans</family>
                              <pointsize>20</pointsize>
                              <weight>50</weight>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1470,10 +1588,10 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                           <widget class="QLabel" name="label_55">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
-                             <pointsize>11</pointsize>
+                             <family>FreeSans</family>
+                             <pointsize>10</pointsize>
                              <weight>50</weight>
-                             <italic>true</italic>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1487,9 +1605,10 @@ e controllare la modalità con trigger di AGREE </string>
                           <widget class="QCheckBox" name="checkBox_MAP_2">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
+                             <family>FreeSans</family>
                              <pointsize>20</pointsize>
                              <weight>50</weight>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1502,10 +1621,10 @@ e controllare la modalità con trigger di AGREE </string>
                           <widget class="QLabel" name="label_56">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
-                             <pointsize>11</pointsize>
+                             <family>FreeSans</family>
+                             <pointsize>10</pointsize>
                              <weight>50</weight>
-                             <italic>true</italic>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1520,9 +1639,10 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                           <widget class="QCheckBox" name="checkBox_polso_2">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
+                             <family>FreeSans</family>
                              <pointsize>20</pointsize>
                              <weight>50</weight>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1535,10 +1655,10 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                           <widget class="QLabel" name="label_83">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
-                             <pointsize>11</pointsize>
+                             <family>FreeSans</family>
+                             <pointsize>10</pointsize>
                              <weight>50</weight>
-                             <italic>true</italic>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1551,9 +1671,10 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                           <widget class="QCheckBox" name="checkBox">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
+                             <family>FreeSans</family>
                              <pointsize>20</pointsize>
                              <weight>50</weight>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1566,10 +1687,10 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                           <widget class="QLabel" name="label_84">
                            <property name="font">
                             <font>
-                             <family>Ubuntu</family>
-                             <pointsize>11</pointsize>
+                             <family>FreeSans</family>
+                             <pointsize>10</pointsize>
                              <weight>50</weight>
-                             <italic>true</italic>
+                             <italic>false</italic>
                              <bold>false</bold>
                             </font>
                            </property>
@@ -1589,6 +1710,14 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                 </item>
                 <item>
                  <widget class="QGroupBox" name="groupBox_12">
+                  <property name="font">
+                   <font>
+                    <family>FreeSans</family>
+                    <pointsize>15</pointsize>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                   </font>
+                  </property>
                   <property name="title">
                    <string>Configurazione di AGREE</string>
                   </property>
@@ -1622,6 +1751,7 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                <property name="font">
                 <font>
                  <family>Sans</family>
+                 <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -1640,6 +1770,7 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                <property name="font">
                 <font>
                  <family>Sans</family>
+                 <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -1683,6 +1814,7 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                <property name="font">
                 <font>
                  <family>Sans</family>
+                 <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -1750,7 +1882,7 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                  </property>
                  <property name="font">
                   <font>
-                   <family>Laksaman</family>
+                   <family>FreeSans</family>
                    <pointsize>19</pointsize>
                    <weight>50</weight>
                    <bold>false</bold>
@@ -1807,7 +1939,7 @@ Suggerimento: selezionare se MRC &gt; 4.5</string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>Laksaman</family>
+                   <family>FreeSans</family>
                    <pointsize>19</pointsize>
                    <weight>50</weight>
                    <bold>false</bold>
@@ -1867,7 +1999,7 @@ Suggerimento: selezionare se MRC &gt; 4.5</string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>Laksaman</family>
+                   <family>FreeSans</family>
                    <pointsize>19</pointsize>
                    <weight>50</weight>
                    <bold>false</bold>
@@ -1900,10 +2032,10 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 1   </string>
                </property>
                <property name="font">
                 <font>
-                 <family>Laksaman</family>
-                 <pointsize>23</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <family>FreeSans</family>
+                 <pointsize>21</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -1984,7 +2116,7 @@ Il suggerimento si riferisce alla forza del deltoide anteriore secondo la scala 
                  </property>
                  <property name="font">
                   <font>
-                   <family>Laksaman</family>
+                   <family>FreeSans</family>
                    <pointsize>19</pointsize>
                    <weight>50</weight>
                    <bold>false</bold>
@@ -2047,7 +2179,7 @@ Il suggerimento si riferisce alla forza del deltoide anteriore secondo la scala 
                  </property>
                  <property name="font">
                   <font>
-                   <family>Laksaman</family>
+                   <family>FreeSans</family>
                    <pointsize>19</pointsize>
                    <weight>50</weight>
                    <bold>false</bold>
@@ -2160,8 +2292,10 @@ Suggerimento: selezionare se 1 ≤ MRC ≤ 2   </string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>Laksaman</family>
+                   <family>FreeSans</family>
                    <pointsize>19</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -2233,6 +2367,12 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
               <layout class="QVBoxLayout" name="verticalLayout_34">
                <item>
                 <widget class="QGroupBox" name="groupBox_3">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
                  <property name="title">
                   <string/>
                  </property>
@@ -2254,7 +2394,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                    <widget class="QLabel" name="label_57">
                     <property name="font">
                      <font>
-                      <family>DejaVu Sans</family>
+                      <family>FreeSans</family>
                       <pointsize>15</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
@@ -2282,9 +2422,22 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="6" column="11">
                    <widget class="QPushButton" name="pushButton_es_libero">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>40</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Sans</family>
+                      <family>FreeSans</family>
+                      <pointsize>15</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2322,9 +2475,22 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="26" column="11">
                    <widget class="QPushButton" name="pushButton_salvaex">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>40</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Sans</family>
+                      <family>FreeSans</family>
+                      <pointsize>15</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2441,29 +2607,28 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="1" column="11">
                    <widget class="QPushButton" name="pushButton_add">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>40</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Sans</family>
+                      <family>FreeSans</family>
+                      <pointsize>15</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
                     </property>
                     <property name="text">
                      <string>Aggiungi Esercizio</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="11">
-                   <widget class="QPushButton" name="pushButton_remove">
-                    <property name="font">
-                     <font>
-                      <family>Sans</family>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Rimuovi Esercizio</string>
                     </property>
                    </widget>
                   </item>
@@ -2523,7 +2688,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                    <widget class="QLabel" name="label_20">
                     <property name="font">
                      <font>
-                      <family>Ubuntu</family>
+                      <family>FreeSans</family>
                       <pointsize>19</pointsize>
                      </font>
                     </property>
@@ -2536,7 +2701,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                    <widget class="QLabel" name="label_18">
                     <property name="font">
                      <font>
-                      <family>Ubuntu</family>
+                      <family>FreeSans</family>
                       <pointsize>19</pointsize>
                      </font>
                     </property>
@@ -2547,6 +2712,24 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="6" column="2">
                    <widget class="QComboBox" name="comboBox_ex1">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
                     <item>
                      <property name="text">
                       <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2601,6 +2784,24 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="9" column="2">
                    <widget class="QComboBox" name="comboBox_ex2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
                     <item>
                      <property name="text">
                       <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2655,6 +2856,24 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="11" column="2">
                    <widget class="QComboBox" name="comboBox_ex3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
                     <item>
                      <property name="text">
                       <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2709,6 +2928,24 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="13" column="2">
                    <widget class="QComboBox" name="comboBox_ex4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
                     <item>
                      <property name="text">
                       <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2768,6 +3005,24 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="15" column="2">
                    <widget class="QComboBox" name="comboBox_ex5">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
                     <item>
                      <property name="text">
                       <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2827,6 +3082,24 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="17" column="2">
                    <widget class="QComboBox" name="comboBox_ex6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
                     <item>
                      <property name="text">
                       <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2881,6 +3154,24 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="20" column="2">
                    <widget class="QComboBox" name="comboBox_ex7">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
                     <item>
                      <property name="text">
                       <string>Raggiungimento anteriore di target su un piano senza oggetti</string>
@@ -2935,11 +3226,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="6" column="3">
                    <widget class="QLineEdit" name="lineEdit_ex1">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <property name="placeholderText">
                      <string>10</string>
@@ -2951,14 +3254,20 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     <property name="minimumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <property name="placeholderText">
                      <string>10</string>
@@ -2967,11 +3276,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="11" column="3">
                    <widget class="QLineEdit" name="lineEdit_ex3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <property name="placeholderText">
                      <string>10</string>
@@ -2980,11 +3301,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="13" column="3">
                    <widget class="QLineEdit" name="lineEdit_ex4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <property name="placeholderText">
                      <string>10</string>
@@ -2993,11 +3326,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="15" column="3">
                    <widget class="QLineEdit" name="lineEdit_ex5">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <property name="placeholderText">
                      <string>10</string>
@@ -3006,11 +3351,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="17" column="3">
                    <widget class="QLineEdit" name="lineEdit_ex6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <property name="placeholderText">
                      <string>10</string>
@@ -3019,11 +3376,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="20" column="3">
                    <widget class="QLineEdit" name="lineEdit_ex7">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>100</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <property name="placeholderText">
                      <string>10</string>
@@ -3032,11 +3401,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="20" column="4">
                    <widget class="QComboBox" name="comboBox_oi_es7">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <item>
                      <property name="text">
@@ -3057,11 +3438,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="17" column="4">
                    <widget class="QComboBox" name="comboBox_oi_es6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <item>
                      <property name="text">
@@ -3082,11 +3475,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="15" column="4">
                    <widget class="QComboBox" name="comboBox_oi_es5">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <item>
                      <property name="text">
@@ -3107,11 +3512,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="13" column="4">
                    <widget class="QComboBox" name="comboBox_oi_es4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <item>
                      <property name="text">
@@ -3132,11 +3549,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="11" column="4">
                    <widget class="QComboBox" name="comboBox_oi_es3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <item>
                      <property name="text">
@@ -3160,14 +3589,20 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     <property name="minimumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <item>
                      <property name="text">
@@ -3188,11 +3623,23 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                   </item>
                   <item row="6" column="4">
                    <widget class="QComboBox" name="comboBox_oi_es1">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>35</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>130</width>
-                      <height>28</height>
+                      <height>35</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>12</pointsize>
+                     </font>
                     </property>
                     <item>
                      <property name="text">
@@ -3215,10 +3662,10 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                    <widget class="QLabel" name="label_23">
                     <property name="font">
                      <font>
-                      <family>Ubuntu Condensed</family>
+                      <family>FreeSans</family>
                       <pointsize>14</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
+                      <weight>50</weight>
+                      <bold>false</bold>
                      </font>
                     </property>
                     <property name="text">
@@ -3230,14 +3677,41 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                    <widget class="QLabel" name="label_41">
                     <property name="font">
                      <font>
-                      <family>Ubuntu Condensed</family>
+                      <family>FreeSans</family>
                       <pointsize>14</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Oggetto Interattivo</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="11">
+                   <widget class="QPushButton" name="pushButton_remove">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>15</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
                     </property>
                     <property name="text">
-                     <string>Oggetto Interattivo</string>
+                     <string>Rimuovi Esercizio</string>
                     </property>
                    </widget>
                   </item>
@@ -3703,7 +4177,7 @@ Al ternine della procedura verrai automaticamente indirizzato al passaggio succe
            <string>Parametri AGREE</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_15">
-           <item row="0" column="0">
+           <item row="1" column="0">
             <widget class="QStackedWidget" name="stackedWidget_4">
              <property name="currentIndex">
               <number>1</number>
@@ -3752,9 +4226,6 @@ Inserisci la misura del braccio  che hai letto indicata sul pittogramma dell'eso
                         <string>Lunghezza Braccio (da pittogramma) (cm)</string>
                        </property>
                       </widget>
-                     </item>
-                     <item>
-                      <widget class="QLineEdit" name="lineEdit_braccio"/>
                      </item>
                      <item>
                       <spacer name="verticalSpacer_21">
@@ -3838,35 +4309,105 @@ Inserisci la misura del braccio  che hai letto indicata sul pittogramma dell'eso
               </layout>
              </widget>
              <widget class="QWidget" name="page_prova">
-              <layout class="QVBoxLayout" name="verticalLayout_62">
+              <layout class="QVBoxLayout" name="verticalLayout_82">
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_61">
-                 <item>
-                  <widget class="QLabel" name="label_36">
-                   <property name="text">
-                    <string>immagine di un braccio bello </string>
-                   </property>
-                  </widget>
-                 </item>
+                <widget class="QLabel" name="label_80">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>15</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Questa procedura permettere di allineare AGREE con i parametri antropometrici del soggetto.
+</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_47">
                  <item>
                   <widget class="QGroupBox" name="groupBox_2">
+                   <property name="font">
+                    <font>
+                     <family>FreeSans</family>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
                    <property name="title">
                     <string>Parametri Agree</string>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_67">
+                   <layout class="QVBoxLayout" name="verticalLayout_66">
                     <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_66">
+                     <layout class="QVBoxLayout" name="verticalLayout_62">
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_61">
+                        <item>
+                         <widget class="QLabel" name="label_85">
+                          <property name="font">
+                           <font>
+                            <family>FreeSans</family>
+                            <pointsize>13</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Controlla il numero indicato sul pittogramma di AGREE come mostrato in figura 
+e inseriscilo nel riquadro sottostante</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_36">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>300</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string>immagine foto pittogramma (cad) </string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
                       <item>
                        <layout class="QVBoxLayout" name="verticalLayout_65">
                         <item>
                          <widget class="QLabel" name="label_37">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>FreeSans</family>
+                            <pointsize>13</pointsize>
+                           </font>
+                          </property>
                           <property name="text">
                            <string>LUNGHEZZA BRACCIO </string>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="lineEdit_5">
+                         <widget class="QLineEdit" name="lineEdit_braccio">
                           <property name="minimumSize">
                            <size>
                             <width>60</width>
@@ -3877,147 +4418,160 @@ Inserisci la misura del braccio  che hai letto indicata sul pittogramma dell'eso
                         </item>
                        </layout>
                       </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_13">
+                   <property name="font">
+                    <font>
+                     <family>FreeSans</family>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="title">
+                    <string>Compensazione AGREE</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_81">
+                    <item>
+                     <widget class="QLabel" name="label_73">
+                      <property name="font">
+                       <font>
+                        <family>FreeSans</family>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Muovi lentamente il braccio del paziente fin quando il peso del segmento non verrà
+interamente sostenuto da AGREE</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_67">
                       <item>
-                       <layout class="QHBoxLayout" name="horizontalLayout_47">
+                       <widget class="QLabel" name="label_86">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>150</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>16777215</width>
+                          <height>150</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string>immagine braccio bello con freccia su avambraccio </string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_64">
                         <item>
-                         <spacer name="horizontalSpacer_3">
+                         <widget class="QSlider" name="horizontalSlider_comp_avam">
+                          <property name="minimum">
+                           <number>50</number>
+                          </property>
+                          <property name="maximum">
+                           <number>150</number>
+                          </property>
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
-                          <property name="sizeHint" stdset="0">
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLCDNumber" name="lcdNumber_comp_avam">
+                          <property name="minimumSize">
                            <size>
-                            <width>40</width>
-                            <height>20</height>
+                            <width>0</width>
+                            <height>50</height>
                            </size>
                           </property>
-                         </spacer>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>40</height>
+                           </size>
+                          </property>
+                          <property name="segmentStyle">
+                           <enum>QLCDNumber::Flat</enum>
+                          </property>
+                         </widget>
                         </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_88">
+                        <property name="font">
+                         <font>
+                          <family>FreeSans</family>
+                          <pointsize>13</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Muovi lentamente il braccio del paziente fin quando il peso del segmento non verrà
+interamente sostenuto da AGREE</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_87">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>150</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>16777215</width>
+                          <height>150</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string>immagine braccio bello con freccia su braccio</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_63">
                         <item>
-                         <layout class="QVBoxLayout" name="verticalLayout_63">
-                          <item>
-                           <widget class="QLabel" name="label_73">
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>40</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>600</width>
-                              <height>40</height>
-                             </size>
-                            </property>
-                            <property name="font">
-                             <font>
-                              <family>Sans</family>
-                              <pointsize>15</pointsize>
-                              <weight>75</weight>
-                              <bold>true</bold>
-                             </font>
-                            </property>
-                            <property name="text">
-                             <string>COMPENSAZIONE BRACCIO</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QSlider" name="horizontalSlider_comp_2">
-                            <property name="minimum">
-                             <number>50</number>
-                            </property>
-                            <property name="maximum">
-                             <number>150</number>
-                            </property>
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QLCDNumber" name="lcdNumber_3">
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>50</height>
-                             </size>
-                            </property>
-                            <property name="segmentStyle">
-                             <enum>QLCDNumber::Flat</enum>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </item>
-                        <item>
-                         <layout class="QVBoxLayout" name="verticalLayout_64">
-                          <item>
-                           <widget class="QLabel" name="label_80">
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>40</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>600</width>
-                              <height>40</height>
-                             </size>
-                            </property>
-                            <property name="font">
-                             <font>
-                              <family>Sans</family>
-                              <pointsize>15</pointsize>
-                              <weight>75</weight>
-                              <bold>true</bold>
-                             </font>
-                            </property>
-                            <property name="text">
-                             <string>COMPENSAZIONE AVAMBRACCIO</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QSlider" name="horizontalSlider_comp_3">
-                            <property name="minimum">
-                             <number>50</number>
-                            </property>
-                            <property name="maximum">
-                             <number>150</number>
-                            </property>
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QLCDNumber" name="lcdNumber_4">
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>50</height>
-                             </size>
-                            </property>
-                            <property name="segmentStyle">
-                             <enum>QLCDNumber::Flat</enum>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </item>
-                        <item>
-                         <spacer name="horizontalSpacer_8">
+                         <widget class="QSlider" name="horizontalSlider_comp">
+                          <property name="minimum">
+                           <number>50</number>
+                          </property>
+                          <property name="maximum">
+                           <number>150</number>
+                          </property>
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
-                          <property name="sizeHint" stdset="0">
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLCDNumber" name="lcdNumber">
+                          <property name="minimumSize">
                            <size>
-                            <width>40</width>
-                            <height>20</height>
+                            <width>0</width>
+                            <height>50</height>
                            </size>
                           </property>
-                         </spacer>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>40</height>
+                           </size>
+                          </property>
+                          <property name="segmentStyle">
+                           <enum>QLCDNumber::Flat</enum>
+                          </property>
+                         </widget>
                         </item>
                        </layout>
                       </item>
@@ -4027,6 +4581,21 @@ Inserisci la misura del braccio  che hai letto indicata sul pittogramma dell'eso
                   </widget>
                  </item>
                 </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_salva_comp">
+                 <property name="font">
+                  <font>
+                   <family>Sans</family>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Salva</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -4050,19 +4619,6 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_7">
                  <item>
-                  <widget class="QSlider" name="horizontalSlider_comp">
-                   <property name="minimum">
-                    <number>50</number>
-                   </property>
-                   <property name="maximum">
-                    <number>150</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QProgressBar" name="progressBar_comp">
                    <property name="minimum">
                     <number>50</number>
@@ -4079,59 +4635,6 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="label_65">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>600</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Sans</family>
-                     <pointsize>15</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>PERCENTUALE DI COMPENSAZIONE BRACCIO: </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLCDNumber" name="lcdNumber">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="segmentStyle">
-                    <enum>QLCDNumber::Flat</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSlider" name="horizontalSlider_comp_avam">
-                   <property name="minimum">
-                    <number>50</number>
-                   </property>
-                   <property name="maximum">
-                    <number>150</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QProgressBar" name="progressBar_comp_avam">
                    <property name="minimum">
                     <number>50</number>
@@ -4144,46 +4647,6 @@ Questo indicherà che il peso del braccio è pienamente compensato dall'esoschel
                    </property>
                    <property name="textVisible">
                     <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_68">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Sans</family>
-                     <pointsize>15</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>PERCENTUALE DI COMPENSAZIONE AVAMBRACCIO: </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLCDNumber" name="lcdNumber_comp_avam">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="segmentStyle">
-                    <enum>QLCDNumber::Flat</enum>
                    </property>
                   </widget>
                  </item>
@@ -4273,21 +4736,6 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                   </layout>
                  </item>
                 </layout>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_salva_comp">
-                 <property name="font">
-                  <font>
-                   <family>Sans</family>
-                   <pointsize>15</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Salva</string>
-                 </property>
-                </widget>
                </item>
               </layout>
              </widget>
@@ -4526,7 +4974,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                             </font>
                            </property>
                            <property name="text">
-                            <string>0°</string>
+                            <string>5°</string>
                            </property>
                           </widget>
                          </item>
@@ -4564,7 +5012,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                             </font>
                            </property>
                            <property name="text">
-                            <string>110°</string>
+                            <string>135°</string>
                            </property>
                           </widget>
                          </item>
@@ -4601,6 +5049,9 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                          <property name="frameShadow">
                           <enum>QFrame::Raised</enum>
                          </property>
+                         <property name="intValue" stdset="0">
+                          <number>5</number>
+                         </property>
                         </widget>
                        </item>
                        <item>
@@ -4622,6 +5073,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -4648,6 +5100,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -4678,7 +5131,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                               </size>
                              </property>
                              <property name="placeholderText">
-                              <string>0°</string>
+                              <string>5°</string>
                              </property>
                             </widget>
                            </item>
@@ -4697,7 +5150,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                               </size>
                              </property>
                              <property name="placeholderText">
-                              <string>110°</string>
+                              <string>135°</string>
                              </property>
                             </widget>
                            </item>
@@ -4952,6 +5405,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -4978,6 +5432,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -5186,7 +5641,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                             </font>
                            </property>
                            <property name="text">
-                            <string>-50°</string>
+                            <string>-80°</string>
                            </property>
                           </widget>
                          </item>
@@ -5224,7 +5679,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                             </font>
                            </property>
                            <property name="text">
-                            <string>30°</string>
+                            <string>45°</string>
                            </property>
                           </widget>
                          </item>
@@ -5262,7 +5717,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                           <enum>QFrame::Raised</enum>
                          </property>
                          <property name="intValue" stdset="0">
-                          <number>-50</number>
+                          <number>-90</number>
                          </property>
                         </widget>
                        </item>
@@ -5288,6 +5743,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -5314,6 +5770,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -5333,7 +5790,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                             <enum>QLayout::SetMaximumSize</enum>
                            </property>
                            <item>
-                            <widget class="QLineEdit" name="lineEdit_adduzionespallamin">
+                            <widget class="QLineEdit" name="lineEdit_flessospallamin">
                              <property name="minimumSize">
                               <size>
                                <width>81</width>
@@ -5347,12 +5804,12 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                               </size>
                              </property>
                              <property name="placeholderText">
-                              <string>-50°</string>
+                              <string>-80°</string>
                              </property>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="lineEdit_adduzionespallamax">
+                            <widget class="QLineEdit" name="lineEdit_flessospallamax">
                              <property name="minimumSize">
                               <size>
                                <width>81</width>
@@ -5366,7 +5823,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                               </size>
                              </property>
                              <property name="placeholderText">
-                              <string>30°</string>
+                              <string>45°</string>
                              </property>
                             </widget>
                            </item>
@@ -5414,7 +5871,8 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                  </property>
                  <property name="font">
                   <font>
-                   <family>Sans</family>
+                   <family>DejaVu Sans</family>
+                   <pointsize>13</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -5641,6 +6099,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -5667,6 +6126,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -5830,7 +6290,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                             </size>
                            </property>
                            <property name="text">
-                            <string>-90°</string>
+                            <string>-50°</string>
                            </property>
                           </widget>
                          </item>
@@ -5862,7 +6322,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                             </size>
                            </property>
                            <property name="text">
-                            <string>20°</string>
+                            <string>30°</string>
                            </property>
                           </widget>
                          </item>
@@ -5949,7 +6409,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                           <enum>QFrame::Raised</enum>
                          </property>
                          <property name="intValue" stdset="0">
-                          <number>-90</number>
+                          <number>-50</number>
                          </property>
                         </widget>
                        </item>
@@ -5975,6 +6435,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -6001,6 +6462,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                            <property name="font">
                             <font>
                              <family>Sans</family>
+                             <pointsize>10</pointsize>
                              <weight>75</weight>
                              <bold>true</bold>
                             </font>
@@ -6017,7 +6479,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_18">
                            <item>
-                            <widget class="QLineEdit" name="lineEdit_flessospallamin">
+                            <widget class="QLineEdit" name="lineEdit_adduzionespallamin">
                              <property name="minimumSize">
                               <size>
                                <width>81</width>
@@ -6031,12 +6493,12 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                               </size>
                              </property>
                              <property name="placeholderText">
-                              <string>-90°</string>
+                              <string>-50°</string>
                              </property>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="lineEdit_flessospallamax">
+                            <widget class="QLineEdit" name="lineEdit_adduzionespallamax">
                              <property name="minimumSize">
                               <size>
                                <width>81</width>
@@ -6050,7 +6512,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                               </size>
                              </property>
                              <property name="placeholderText">
-                              <string>20°</string>
+                              <string>30°</string>
                              </property>
                             </widget>
                            </item>
@@ -6118,7 +6580,8 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                 <widget class="QLabel" name="label_10">
                  <property name="font">
                   <font>
-                   <family>Sans</family>
+                   <family>DejaVu Sans</family>
+                   <pointsize>13</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -6138,7 +6601,8 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                  </property>
                  <property name="font">
                   <font>
-                   <family>Sans</family>
+                   <family>DejaVu Sans</family>
+                   <pointsize>13</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -6172,7 +6636,8 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
               <widget class="QPushButton" name="pushButton_esplorarom">
                <property name="font">
                 <font>
-                 <family>Sans</family>
+                 <family>DejaVu Sans</family>
+                 <pointsize>15</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -6186,7 +6651,8 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
               <widget class="QPushButton" name="pushButton_salvaconf">
                <property name="font">
                 <font>
-                 <family>Sans</family>
+                 <family>DejaVu Sans</family>
+                 <pointsize>15</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -7400,6 +7866,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  <property name="font">
                   <font>
                    <family>Sans</family>
+                   <pointsize>10</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -7690,6 +8157,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  <property name="font">
                   <font>
                    <family>Sans</family>
+                   <pointsize>10</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -7782,6 +8250,7 @@ Se vuoi proseguire clicca il tasto 'Conferma''</string>
                  <property name="font">
                   <font>
                    <family>Sans</family>
+                   <pointsize>10</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
