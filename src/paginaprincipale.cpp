@@ -25,10 +25,6 @@
 #include <QtMath>
 #include <QPoint>
 
-
-
-
-
 //matplotlibcpp.use("Qt5Agg")
 
 //GRAFICO?
@@ -44,11 +40,11 @@ QString dati::count_act;
 QString dati::lato, dati::lato_prec; // 1 destro, 0 sinistro
 QString dati::modulo_spalla, dati::modulo_gomito, dati::modulo_polso;
 QString dati::modulo_spalla_prec, dati::modulo_gomito_prec, dati::modulo_polso_prec;
-QString dati::modulo_eeg, dati::modulo_emg;
+QString dati::modulo_eeg, dati::modulo_emg, dati::modulo_rfid;
 QString dati::mano;
 QString dati::oi;
 QString dati::modulo_prec;
-QString dati::modulo_eeg_prec, dati::modulo_emg_prec;
+QString dati::modulo_eeg_prec, dati::modulo_emg_prec, dati::modulo_rfid_prec;
 QString dati::oi_prec;
 QString dati::mano_prec;
 QString dati::data_vecchia;
@@ -79,14 +75,6 @@ int dati::output_val;
 
 namespace plt = matplotlibcpp;
 
-//SignalHelper *helper;
-//void paginaprincipale::emg_callback(const agree_gui::agree_emg_status emg_msg){
-
-//  for(int i=0; i<5; i++){
-//    dati::emg_vector[i] = emg_msg.check_emg[i];
-
-//  }
-//}
 void paginaprincipale::esmacat_callback(const agree_esmacat_pkg::agree_esmacat_status msg){
 
   ROM_rad1= msg.joint_position_rad[0]; //J1
@@ -100,21 +88,21 @@ void paginaprincipale::esmacat_callback(const agree_esmacat_pkg::agree_esmacat_s
   ROM3_deg = qRadiansToDegrees(msg.joint_position_rad[2]);
   ROM4_deg = qRadiansToDegrees(msg.joint_position_rad[3]);
   ROM5_deg = qRadiansToDegrees(msg.joint_position_rad[4]);
+
   ROM1 = qRound(ROM1_deg);
   ROM2 = qRound(ROM2_deg);
   ROM3 = qRound(ROM3_deg);
   ROM4 = qRound(ROM4_deg);
   ROM5 = qRound(ROM5_deg);
+
   ROM1 = (-1)*ROM1;
   ROM2 = (-1)*ROM2;
   ROM3 = (-1)*ROM3;
   ROM5 = (-1)*ROM5;
+
   ROM1 = ROM1 + 90;
   ROM2 = ROM2 + 90;
   ROM3 = ROM3 + 90;
-
-
-
 }
 
 void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_esmacat_command msg) {
@@ -133,6 +121,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     ROS_INFO("I heard: %d PAGINA PRINCIPALE", dati::command_pp);
 
     if(dati::command_old_pp ==SC1_EDIT_PATIENT_MODULE_CONTROL) {
+
       ui->comboBox_ex2->setVisible(false);
       ui->comboBox_ex3->setVisible(false);
       ui->comboBox_ex4->setVisible(false);
@@ -183,7 +172,8 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
 
       QSqlQueryModel *model = new QSqlQueryModel();
       QSqlQuery * qry1 = new QSqlQuery(mydb2);
-      qry1 -> prepare("select Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"'");
+     // qry1 -> prepare("select Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti where UsernameDOC = '"+dati::username+"'");
+      qry1 -> prepare("select Codice_ID, NomePaziente, Cognome, DatadiNascita, Patologia, Sesso, Lato_paretico, StoriaClinica from Pazienti ");
       qry1 -> exec();
       if(qry1->exec()) {
         model -> setQuery(*qry1);
@@ -196,6 +186,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
       this->show();
     }
     if (dati::command_old_pp ==SC1_SESSION_DEFINING) {
+      index_tut = 0;
       ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
 
       ui->pushButton_allarme->setVisible(false);
@@ -226,28 +217,23 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
 
     }
     if(dati::command_old_pp == SC1_WEARING) {
+
       ui->tabWidget_2->setCurrentWidget(ui->tab_vestizione);
       ui->pushButton_allarme->setVisible(false);
 
 
     }
     if(dati::command_old_pp == SC1_ROM) {
+
       ui->tabWidget_2->setCurrentWidget(ui->tab_exo_param);
 
       ui->pushButton_allarme->setVisible(false);
     }
     if(dati::command_old_pp == SC1_HAND_POSITION){
+
       ui->tabWidget_2->setCurrentWidget(ui->tab_calibrazione);
       ui->stackedWidget_calibrazione_mat->setCurrentWidget(ui->page_cal_mat);
       ui->pushButton_allarme->setVisible(true);
-      point1p={0,0};
-      point2p={0,0};
-      point3p={0,0};
-      n.setParam("/point1/mat_coordinates", point1p);
-      n.setParam("/point2/mat_coordinates", point2p);
-      n.setParam("/point3/mat_coordinates", point3p);
-
-
 
     }
     if(dati::command_old_pp == SC1_HAND_POSITION_WAIT){
@@ -256,6 +242,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     }
 
     if(dati::command_old_pp == SC1_WORKSPACE_ON) {
+
       ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
       dati::status1 = SC1_WORKSPACE_ON;
       msg_status_pp.data = dati::status1;
@@ -283,6 +270,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     }
 
     if(dati::command_old_pp == SC1_START_SESSION) {
+
       ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
       ui->stackedWidget_2->setCurrentWidget(ui->page_recap);
       ui->label_recap->setText(QString("Modalità di controllo: %1").arg(dati::mood));
@@ -305,6 +293,7 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
     }
     //ATTENDO CHE NODO VALUTAZIONE PROCESSI ED ELABORI I DATI
     if(dati::command_old_pp == SC1_DOING_EVALUATION){
+
       timer_rehab->stop();
       timer_updatedisplay->stop();
 
@@ -375,17 +364,18 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
 
     }
     if(dati::command_old_pp == SC1_ELECTRODES_POSITION) {
+
       ui->tabWidget_2->setCurrentWidget(ui->tab_emg);
       ui->stackedWidget_3->setCurrentWidget(ui->page_posizionaEMG);
 
     }
     if(dati::command_old_pp == SC1_ELECTRODES_CHECK) {
-      ui->tabWidget_2->setCurrentWidget(ui->tab_emg);
+
       ui->stackedWidget_3->setCurrentWidget(ui->page_check);
 
     }
     if(dati::command_old_pp == SC1_ELECTRODES_ENERGY_MEASURE) {
-      ui->tabWidget_2->setCurrentWidget(ui->tab_emg);
+
       ui->stackedWidget_3->setCurrentWidget(ui->page_restEMG);
 
     }
@@ -395,7 +385,6 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
      system("aplay /home/alice/Desktop/POLIMI/Poli.wav");
 
     }
-
 
   }
 
@@ -416,8 +405,6 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QPixmap pix("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png");
   //ui->pushButton_prova->setStyleSheet("border-image: url(/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png);");
    //ui->pushButton_prova->setStyleSheet("border-image:url(:/catkin_ws/src/agree_gui/IMG_AGREE/antig.png);");
-
-
 
   ui->setupUi(this);
   ui->progressBar_th->setVisible(false);
@@ -483,30 +470,15 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   connect(ui->comboBox_sesso, SIGNAL (currentTextChanged(QString)), this, SLOT(select_img()));
 
 
-
- // connect(ui->checkBox_ex1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
- // connect(ui->checkBox_ex2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
- // connect(ui->checkBox_ex3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  //connect(ui->checkBox_ex4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  //connect(ui->checkBox_ex5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  //connect(ui->checkBox_ex6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  //connect(ui->checkBox_7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex()));
-  //RECAP
-  //connect(ui->checkBox_es1, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
- // connect(ui->checkBox_es2, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  //connect(ui->checkBox_es3, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  //connect(ui->checkBox_es4, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  //connect(ui->checkBox_es5, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  //connect(ui->checkBox_es6, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-  //connect(ui->checkBox_es7, SIGNAL(stateChanged(int)), this, SLOT(enable_combo_ex_recap()));
-
   //controllo unicità checkbox dei lato e dei moduli
   connect(ui->checkBox_destro, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_dx()));
 
   connect(ui->checkBox_sinistro, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_sx()));
   connect(ui->checkBox_spalla, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_spalla()));
   //connect(ui->checkBox_gomito, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_gomito()));
-  connect(ui->checkBox_polso, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_polso()));
+  connect(ui->checkBox_exo, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_polso()));
+  connect(ui->checkBox_exo, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
+  connect(ui->checkBox_spalla, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
   //timer = new QTimer(this);
   //timer_init = new QTimer(this);
   timer_rehab = new QTimer(this);
@@ -541,14 +513,11 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   connect(ui->horizontalSlider_comp_avam_ses, SIGNAL(valueChanged(int)), ui->progressBar_comp_avam_ses, SLOT(setValue(int)));
   connect(ui->progressBar_comp_avam_ses, SIGNAL(valueChanged(int)), ui->lcdNumber_comp_avam_ses, SLOT(display(int)));
   connect(ui->progressBar_comp_avam_ses, SIGNAL(valueChanged(int)), this, SLOT(set_comp_param_ses()));
-  //  ui->lcdNumber_j1->display(ROM_rad[0]);
-  //  ui->lcdNumber_j2->display(ROM_rad[1]);
-  //  ui->lcdNumber_j3->display(ROM_rad[2]);
-  //  ui->lcdNumber_j4->display(ROM_rad[3]);
-  //  ui->lcdNumber_j5->display(ROM_rad[4]);
-//connect(ui->lcdNumber_j1, SIGNAL(display(int)),ui->dial_j1, SLOT(setValue(int)));
+  connect(ui->spinBox_timeout_ses, SIGNAL(valueChanged(int)), this, SLOT(set_timeout_ses()));
 
-  ui->tabWidget_2->tabBar()->setEnabled(false);
+  //QUESTO LO METTO QUI PERCHÈ È SEMPRE ATTIVO
+  QImage mat ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/MAT.jpg");
+  img_vest_array.push_back(mat);
 
   ui->progressBar_comp->setValue(ui->horizontalSlider_comp->value());
   ui->progressBar_comp_ses->setValue(ui->horizontalSlider_comp_ses->value());
@@ -575,8 +544,6 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QPixmap pic6("/home/alice/catkin_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
   //ui->label_4_dx_3->setPixmap(pic6);
 
-
-
   QPixmap pic12("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/init.jpeg");
   ui->label_wait->setPixmap(pic12);
 
@@ -586,8 +553,6 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
   QPixmap pic13("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/emergenza.png");
   ui->label_allarme_2->setPixmap(pic13);
-
-
 
   QPixmap pic14("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/cal_mat.png");
   ui->label_cal_pad->setPixmap(pic14);
@@ -605,10 +570,16 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   QPixmap triceps ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/triceps.png");
   ui->label_triceps->setPixmap(triceps);
 
+  //QPixmap exo_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EXO.jpg");
+//  QPixmap exo_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EXO.jpg");
+//  QPixmap map ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/MAP.jpg");
+//  QPixmap rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/RFID.jpg");
+//  QPixmap emg ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EMG.jpg");
 
 
-
-
+  QImage rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
+  QImage exo ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/agree.png");
+  ui->label_agree->setPixmap(QPixmap::fromImage(exo));
 
   //metto in grigino il modulo polso
   ui->dial_j5->setEnabled(false);
@@ -670,8 +641,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->pushButton_salta_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
   // ui->pushButton_avanti_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
 
-  ui->label_tut->setText("Seguire le istruzioni per il Montaggio dei moduli selezionati. \nPer Saltare il Tutorial fare click su 'Salta Tutorial' ");
-  ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.\n\nVerificare la vestibilità sul Paziente.\n\nUna volta effettuata la procedura premere Avanti per Continuare.");
+  //ui->label_tut->setText("Seguire le istruzioni per il Montaggio dei moduli selezionati. \nPer Saltare il Tutorial fare click su 'Salta Tutorial' ");
+  //ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.\n\nVerificare la vestibilità sul Paziente.\n\nUna volta effettuata la procedura premere Avanti per Continuare.");
   //creo la data
   QDate data;
   data= QDate::currentDate();
@@ -692,6 +663,9 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
   //metto pushbutton ok della sessione disabilitato
   ui->pushButton_ok->setEnabled(false);
+  ui->tabWidget_2->tabBar()->setEnabled(false);
+  //ui->tabWidget_2->tabBar()->hide();
+
 
 }
 
@@ -886,8 +860,7 @@ void paginaprincipale::on_pushButton_elencoPazienti_clicked()
 /**********************       DOUBLE MOUSE CLICK ACVIVATED                 *********************/
 void paginaprincipale::on_tableView_database_activated(const QModelIndex &index)
 {
-//  dati::ind= ui-> tableView_database->model()->data(index).toString();
-//  flag= 3; //paziente selezionato
+
 }
 
 /**********************       DELETE PATIENT                      *********************/
@@ -1108,6 +1081,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             QString FESm2, FESM2, AASm2, AASM2, RIESm2, RIESM2, Gm2, GM2, Pm2, PM2, Lunghezza_b, Lunghezza_a, comp_exo, comp_exo_forearm;
             dati::data_vecchia = selezione.value(2).toString();
             FESm2 = selezione.value(3).toString();
+            qDebug()<< "FESm2" << FESm2;
             FESM2 = selezione.value(4).toString();
             AASm2 = selezione.value(5).toString();
             AASM2 = selezione.value(6).toString();
@@ -1121,7 +1095,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             dati::modulo_spalla_prec = selezione.value(14).toString();
             dati::modulo_gomito_prec = selezione.value(15).toString();
             dati::modulo_polso_prec = selezione.value(16).toString();
-            dati::modulo_eeg_prec = selezione.value(17).toString();
+            dati::modulo_rfid_prec = selezione.value(17).toString();
             dati::modulo_emg_prec = selezione.value(18).toString();
             dati::mano_prec = selezione.value(19).toString();
             dati::oi_prec = selezione.value(20).toString();
@@ -1165,7 +1139,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             Lunghezza_a = selezione.value(48).toString();
             Lunghezza_b = selezione.value(49).toString();
             dati::mode_output = selezione.value(51).toString();
-
+            timeout = selezione.value(59).toInt();
             if(dati::mode_output =="1") {
               dati::mode_output = "Passiva";
             }
@@ -1185,9 +1159,22 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
               dati::mode_output  = "Challenging";
             }
 
-            if(FESm2== " "){
+            if(FESm2== ""){
+
+              ui->lineEdit_flessospallamin->setText(QString::number(FESm1_def));
+              ui->lineEdit_flessospallamax->setText(QString::number(FESM1_def));
+              ui->lineEdit_adduzionespallamin->setText(QString::number(AASm1_def));
+              ui->lineEdit_adduzionespallamax->setText(QString::number(AASM1_def));
+              ui->lineEdit_rotazionespallamin->setText(QString::number(RIESm1_def));
+              ui->lineEdit_rotazionespallamax->setText(QString::number(RIESM1_def));
+              ui->lineEdit_gomitomin->setText(QString::number(Gm1_def));
+              ui->lineEdit_gomitomax->setText(QString::number(GM1_def));
+              ui ->lineEdit_polsomin->setText(QString::number(Pm1_def));
+              ui->lineEdit_polsomax->setText(QString::number(PM1_def));
+
 
             }
+            else {
             ui->lineEdit_flessospallamin->setText(FESm2);
             ui->lineEdit_flessospallamax->setText(FESM2);
             ui->lineEdit_adduzionespallamin->setText(AASm2);
@@ -1198,6 +1185,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             ui->lineEdit_gomitomax->setText(GM2);
             ui ->lineEdit_polsomin->setText(Pm2);
             ui->lineEdit_polsomax->setText(PM2);
+            }
             ui->label_59-> setText("La sessione precedente si è utilizzato questo parametro di compensazione.\n Verificalo e aggiornalo.\n\n Quindi premi Salva.\n\nPotrai modificare questo parametro in qualsiasi momento.");
             ui->lcdNumber->display(comp_exo.toInt());
             ui->progressBar_comp->setValue(comp_exo.toInt());
@@ -1215,16 +1203,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
             ui->label_istr_agg_param_exo-> setText("Durante la precedente sessione sono state inserite\n\nle lunghezze che vedi qui riportate.\n\nVerificale sull'esoscheltro e aggiornale.\n\nQuindi premi Salva");
             ui->lineEdit_braccio->setText(Lunghezza_b);
-            //ui->lineEdit_avambraccio->setText(Lunghezza_a);
 
-            //            QSqlQuery agg_param_exo;
-            //            agg_param_exo.prepare("select from Pazienti(LunghezzaBraccio, LunghezzaAvambraccio) where Codice_ID = '"+dati::ind+"'");
-            //            agg_param_exo.exec();
-            //            while(agg_param_exo.next()) {
-            //              ui->lineEdit_braccio->setText(agg_param_exo.value(0).toString());
-            //              ui->lineEdit_avambraccio->setText(agg_param_exo.value(1).toString());
-            //              ui->label_istr_agg_param_exo->setText("Quelli che vedi sono i parametri salvati durante la sessione precedente.\nControlla la corrispondenza con le misure sull'esoscheltro, in caso contrario inserisci nuovamente le misure che leggi da AGREE. \nPremi Salva per continuare la configurazione.");
-            //            }
 
 
             flag = 4; //rilevo la presenza di una configurazione precedente
@@ -1282,28 +1261,25 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             if(dati::modulo_spalla_prec=="1" && dati::modulo_gomito_prec=="0" && dati::modulo_polso_prec=="0")
             {
               dati::modulo_prec1= "Spalla";
-
               ui->checkBox_spalla->setChecked(true);
             }
-            if (dati::modulo_gomito_prec== "1" && dati::modulo_polso_prec =="0") {
+            if (dati::modulo_gomito_prec== "1" ) {
               dati::modulo_prec1 = "Spalla, Gomito e Polso";
 
-              ui->checkBox_polso->setChecked(true);
+              ui->checkBox_exo->setChecked(true);
 
             }
-//            if (dati::modulo_polso_prec=="1") {
-//            //  dati::modulo_prec1 = "Spalla, Gomito e Polso";
 
-           //   ui->checkBox_polso_2->setChecked(true);
-//            }
-
-            if (dati::modulo_emg_prec=="1")
+            if(dati::modulo_polso_prec == "1"){
+              ui->checkBox_polso_extra->setChecked(true);
+            }
+            if (dati::modulo_rfid_prec=="1")
             {
+              ui->checkBox_rfid->setChecked(true);
+            }
+            if(dati::modulo_emg_prec=="1")
+            { qDebug()<< "dati::modulo_emg_prec";
               ui->checkBox_emg_2->setChecked(true);
-            }
-            else if(dati::modulo_eeg_prec=="1")
-            {
-              ui->checkBox_eeg_2->setChecked(true);
             }
             else {
               ui->checkBox_eeg_2->setChecked(false);
@@ -1317,9 +1293,6 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             else {
               ui->checkBox_MAP_2->setChecked(false);
             }
-
-
-
 
           }
           ui->tabWidget->setCurrentWidget(ui->tab_2);
@@ -1351,7 +1324,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
     l_a = lunghezza.value(3).toString();
 
   }
-
+  ui->spinBox_timeout->setValue(timeout);
   upperarm = l_b.toDouble();
   lowerarm = l_a.toDouble();
   height = (h.toDouble())/100;
@@ -1362,9 +1335,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
   H_m = double(0.006)*weight;
   //mandali nei ROS param
 
-
   ros::NodeHandle n;
-
   n.setParam("/physiological_param/height", height);
   n.setParam("/physiological_param/weight", weight);
   n.setParam("/physiological_param/mass_upperarm", UA_m);
@@ -1380,7 +1351,7 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
   n.setParam("/evaluation/Code_ID_patient", codice_id_paziente);
   n.setParam("/evaluation/Patient_Name", patient_name);
   n.setParam("/evaluation/Patient_Surname", patient_surname);
-
+  qDebug()<< "dati::modulo_emg_prec"<< dati::modulo_emg_prec;
   QString ua_m, la_m, h_m;
   ua_m = QString::number(UA_m);
   la_m = QString::number(LA_m);
@@ -1392,9 +1363,6 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
 
   }
   else qDebug()<< "non funzioano le masse";
-
-
-
 
 }
 
@@ -1426,7 +1394,7 @@ void paginaprincipale::on_pushButton_home_clicked()
   ui->checkBox_MAP_2->setChecked(false);
   ui->checkBox_spalla->setChecked(false);
   //ui->checkBox_gomito->setChecked(false);
-  ui->checkBox_polso->setChecked(false);
+  ui->checkBox_exo->setChecked(false);
 
 
   ui->comboBox_ex1->setCurrentIndex(0);
@@ -1484,24 +1452,7 @@ void paginaprincipale::on_pushButton_home_clicked()
   point2p= {0,0};
   point3p= {0,0};
   ros::NodeHandle n;
-//  n.setParam ("/physiological_param/arm_compensation", comp_param);
-//  n.setParam ("/physiological_param/forearm_compensation", comp_forearm);
-//  n.setParam("/active_modules", active_modules);
-//  n.setParam("/exercise/sequence", ex_seq);
-//  n.setParam("/exercise/repetition", ex_rep);
-//  n.setParam ("/exercise/objects", ex_obj);
-//  n.setParam ("/exercise/mode", mode);
-//  n.setParam("/exercise/current_exercise", curr_ex);
-// n.setParam("matlab/point1/mat_coordinate/x", point1xp);
-// n.setParam("matlab/point1/mat_coordinate/y", point1yp);
-// n.setParam("matlab/point2/mat_coordinate/x", point2xp);
-// n.setParam("matlab/point2/mat_coordinate/y", point2yp);
-//  n.setParam("matlab/point3/mat_coordinate/x", point3xp);
-//  n.setParam("matlab/point3/mat_coordinate/y", point3yp);
-//  n.setParam("/point0/mat_coordinates", point0p);
-//  n.setParam("/point1/mat_coordinates", point1p);
-//  n.setParam("/point2/mat_coordinates", point2p);
-//  n.setParam("/point3/mat_coordinates", point3p);
+
 
 }
 
@@ -1526,17 +1477,12 @@ void paginaprincipale::enable_checkbox_moduli_dx() {
 void paginaprincipale::enable_checkbox_moduli_spalla() {
   if (ui->checkBox_spalla->isChecked()) {
    // ui->checkBox_gomito->setChecked(false);
-    ui->checkBox_polso->setChecked(false);
+    ui->checkBox_exo->setChecked(false);
   }
 }
-//void paginaprincipale::enable_checkbox_moduli_gomito() {
-//  if (ui->checkBox_gomito->isChecked()) {
-//    ui->checkBox_spalla->setChecked(false);
-//    ui->checkBox_polso->setChecked(false);
-//  }
-//}
+
 void paginaprincipale::enable_checkbox_moduli_polso() {
-  if (ui->checkBox_polso->isChecked()) {
+  if (ui->checkBox_exo->isChecked()) {
     //ui->checkBox_gomito->setChecked(false);
     ui->checkBox_spalla->setChecked(false);
   }
@@ -1566,44 +1512,16 @@ QList<QPixmap>GetImages2(QString tutID) {
 
 /**********************      BACK OF ASSEMBLY IMAGES  *********************/
 void paginaprincipale::on_pushButton_indietro_2_clicked()
-{ qDebug()<< curTut;
-  qDebug()<< curImg;
-  if(curImg != 0) {
-    curImg --;
-    qDebug()<<curImg;
+{ qDebug()<< "index_tut"<< index_tut;
 
-
-    key2 = sel_tut.at(curTut);
-    qDebug() << key2;
-    if(TutInfoMap.find(key2) != TutInfoMap.end()) {
-      TutInfo &one2 = TutInfoMap[key2];
-
-      if(curImg <  one2.img.size()){
-        ui->label_img_tut -> setPixmap(one2.img.at(curImg));
-
-        qDebug() <<curTut;} }
+  if(index_tut>0){
+  ui->label_img_tut->setPixmap(QPixmap::fromImage(img_tutorial_array[index_tut-1]));
+  index_tut--;
 
   }
-
-  else if(curImg ==0 && curTut != 0)
-  {curTut --;
-
-    key2 = sel_tut.at(curTut);
-    qDebug() << key2;
-    if(TutInfoMap.find(key2) != TutInfoMap.end()) {
-      TutInfo &one2 = TutInfoMap[key2];
-
-      if(curImg < one2.img.size()){
-        ui->label_img_tut -> setPixmap(one2.img.at(curImg));
-
-        qDebug() <<curTut;} }
-
+  else if(index_tut == 0) {
+    ui->label_img_tut->setPixmap(QPixmap::fromImage(img_tutorial_array[0]));
   }
-  else {
-    qDebug()<< "stop";
-  }
-
-
 
 }
 
@@ -1624,31 +1542,26 @@ void paginaprincipale::on_pushButton_prosegui_clicked()
 
 /**********************       GO FORWARD ASSEMBLY TUTORIAL                      *********************/
 void paginaprincipale::on_pushButton_salta_clicked()
-{    qDebug() << sel_tut;
+{
+//  QImage exo_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+//
 
-     if(curTut<sel_tut.size()) {
-       key2 = sel_tut.at(curTut);
-       qDebug() << key2;
-       if(TutInfoMap.find(key2) != TutInfoMap.end()) {
-         TutInfo &one2 = TutInfoMap[key2];
-         if(curImg < one2.img.size()){
-           ui->label_img_tut -> setPixmap(one2.img.at(curImg));
-           ui->label_tut->setText(one2.istr.at(curImg));
-           curImg ++;
-         }
-         if(curImg == one2.img.size()) {
-           curImg =0;
-           curTut ++;
-         }
-       }
-     }
-     else if(curTut== sel_tut.size()) {
+  size_tutorial = img_tutorial_array.size();
+  if(index_tut<size_tutorial){
+  ui->label_img_tut->setPixmap(QPixmap::fromImage(img_tutorial_array[index_tut]));
+  index_tut++;
+  qDebug()<< "index_tut"<< index_tut;
 
-       ui->label_img_tut->clear();
-       ui->label_tut->setText("");
+  }
+ else if(index_tut==size_tutorial) {
+    dati::status1 = SC1_EDIT_PATIENT_MODULE_CONTROL;
 
-     }
-
+    std_msgs::Int16 msg;
+    msg.data = dati::status1;
+    ROS_INFO ("%d", msg.data);
+    status_publisher.publish(msg);
+   //MANDA ALLA SCHERMATA SUCCESSIVA (COPIA CODICE DAL SALTA TUTORIAL
+ }
 }
 
 /**********************************************************************************/
@@ -1704,8 +1617,6 @@ void paginaprincipale::on_pushButton_pass_clicked()
     ui->stackedWidget_es->setCurrentWidget(ui->page_es);
     ros::NodeHandle n;
     n.setParam ("/exercise/mode", mode);
-
-
 
   }
   else {
@@ -2047,35 +1958,6 @@ void paginaprincipale::update_tempo_recap(){
 
 /**********************       ENABLE EXERCISES COMBOBOX IN THE REHAB CONFIGURATION                *********************/
 void paginaprincipale::enable_combo_ex() {
-//  ui->comboBox_ex1->setEnabled(false);
-//  ui->comboBox_ex2->setEnabled(false);
-//  ui->comboBox_ex3->setEnabled(false);
-//  ui->comboBox_ex4->setEnabled(false);
-//  ui->comboBox_ex5->setEnabled(false);
-//  ui->comboBox_ex6->setEnabled(false);
-//  ui->comboBox_ex7->setEnabled(false);
-
-//  if(ui->checkBox_ex1->isChecked() ) {
-//    ui->comboBox_ex1->setEnabled(true);
-//  }
-//  if(ui->checkBox_ex2->isChecked() ) {
-//    ui->comboBox_ex2->setEnabled(true);
-//  }
-//  if(ui->checkBox_ex3->isChecked()) {
-//    ui->comboBox_ex3->setEnabled(true);
-//  }
-//  if(ui->checkBox_ex4->isChecked() ) {
-//    ui->comboBox_ex4->setEnabled(true);
-//  }
-//  if(ui->checkBox_ex5->isChecked() ) {
-//    ui->comboBox_ex5->setEnabled(true);
-//  }
-//  if(ui->checkBox_ex6->isChecked()) {
-//    ui->comboBox_ex6->setEnabled(true);
-//  }
-//  if(ui->checkBox_7->isChecked()) {
-//    ui->comboBox_ex7->setEnabled(true);
-//  }
 
 }
 
@@ -2207,6 +2089,12 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
   ros::NodeHandle n;
   QMessageBox::warning(this, tr("AVVISO INIZIALIZZAZIONE"), tr("Attenzione si sta per procedere con l'inizializzazione di AGREE. L'esoscheltro si muoverà e porterà i motori a fine corsa. Prima di procedere assicurarsi che l'esoscheletro sia messo in sicurezza rispetto all'ambiente circostante."));
 
+
+  //SALVO TIMEOUT NEL DB E POI NEI ROSPARAM INSIEME A TUTTI GLI ALTRI
+  timeout = ui->spinBox_timeout->value();
+  ui->spinBox_timeout_ses->setValue(timeout);
+
+  timeout_s = QString::number(timeout);
   ui->tabWidget_2->setCurrentWidget(ui->tab_init);
   QString bicchiere, borraccia, tazza;
   bicchiere = "Bicchiere";
@@ -2585,7 +2473,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
   }
   qDebug()<< dati::ind;
   QSqlQuery selezione;
-  selezione.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"', rip1 = '"+dati::rip1+"', ogg_es1 = '"+oggetto_es1+"', ex2 = '"+dati::num_ex2+"', rip2 = '"+dati::rip2+"',ogg_es2 = '"+oggetto_es2+"', ex3 = '"+dati::num_ex3+"', rip3 = '"+dati::rip3+"', ogg_es3 = '"+oggetto_es3+"',ex4 = '"+dati::num_ex4+"', rip4 = '"+dati::rip4+"', ogg_es4 = '"+oggetto_es4+"',ex5 = '"+dati::num_ex5+"', rip5 = '"+dati::rip5+"',ogg_es5 = '"+oggetto_es5+"',ex6 = '"+dati::num_ex6+"', rip6 = '"+dati::rip6+"', ogg_es6 = '"+oggetto_es6+"',ex7 = '"+dati::num_ex7+"', rip7 = '"+dati::rip7+"', ogg_es7 = '"+oggetto_es7+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+  selezione.prepare("update Parametri_Paziente set ex1 = '"+dati::num_ex1+"', rip1 = '"+dati::rip1+"', ogg_es1 = '"+oggetto_es1+"', ex2 = '"+dati::num_ex2+"', rip2 = '"+dati::rip2+"',ogg_es2 = '"+oggetto_es2+"', ex3 = '"+dati::num_ex3+"', rip3 = '"+dati::rip3+"', ogg_es3 = '"+oggetto_es3+"',ex4 = '"+dati::num_ex4+"', rip4 = '"+dati::rip4+"', ogg_es4 = '"+oggetto_es4+"',ex5 = '"+dati::num_ex5+"', rip5 = '"+dati::rip5+"',ogg_es5 = '"+oggetto_es5+"',ex6 = '"+dati::num_ex6+"', rip6 = '"+dati::rip6+"', ogg_es6 = '"+oggetto_es6+"',ex7 = '"+dati::num_ex7+"', rip7 = '"+dati::rip7+"', ogg_es7 = '"+oggetto_es7+"', timeout = '"+timeout_s+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
   selezione.exec();
   if (selezione.exec())
   {
@@ -2601,7 +2489,7 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     status_publisher.publish(msg_status_pp);
 
     /******************         AGGIORNO ROS PARAMETERS : EXERCISE SEQUENCE                      ***********************/
-    ex_seq = {exe1, exe2, exe3, exe4, exe5, exe6, exe7};
+    ex_seq = {exe1, exe2, exe3, exe4, exe5, exe6, exe7,0};
     qDebug() << exe1;
     ex_rep = {rep1, rep2, rep3, rep4, rep5, rep6, rep7};
     qDebug() << rep1;
@@ -2610,13 +2498,14 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     n.setParam("/exercise/sequence", ex_seq);
     n.setParam("/exercise/repetition", ex_rep);
     n.setParam ("/exercise/objects", ex_obj);
+    n.setParam("/exercise/timeout", timeout);
 
   }
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("errore"));
     qDebug()<< selezione.lastError();
   }
-  //CONTROLLO SUGLI ESERCIZI, SE NON SONO EXERGAMES
+  //CONTROLLO SUGLI ESERCIZI, SE NON SONO EXERGAMES -->CHIEDI SE QUESTO VALE ANCORA
   for(int i = 0; i< dati::flag_ex+1; i++){
     if(!(ex_seq[i] == 8 || ex_seq[i] == 9 || ex_seq[i] == 10) )
     {
@@ -2631,219 +2520,6 @@ void paginaprincipale::on_pushButton_salvaex_clicked()
     n.setParam("/active_modules", active_modules);
   }
 
-  //            QSqlQuery esercizi;
-  //             esercizi.prepare("select ex1,rip1,ex2,rip2,ex3,rip3,ex4,rip4,ex5,rip5,ex6,rip6,ex7,rip7 from Parametri_Paziente where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1");
-  //              if(esercizi.exec()){
-  //                while(esercizi.next())
-  //                { ExInfo cur;
-  //                  QString EX1 = esercizi.value(0).toString();
-  //                  int RIP1 = esercizi.value(1).toInt();
-
-  //                  if ( ! EX1.isEmpty() ){
-  //                    // FILL IT
-  //                    cur.EX = EX1; // fill it
-  //                    cur.REP = RIP1;
-  //                    cur.images = GetImages(EX1);
-  //                    ExInfoMap[EX1] = cur; //  add it
-  //                    qDebug()<<cur.images.size();
-  //                    sel_ex.append(EX1);
-  //                    qDebug()<< "sel:" << sel_ex;
-  //                    qDebug()<< " size:" << sel_ex.size();
-  //                  }
-  //                  else {
-  //                    QString es = "01";
-  //                    QString es2 = "02";
-  //                    QString es3 = "03";
-  //                    QString es4 = "04";
-  //                    if(ExInfoMap.find(es) !=ExInfoMap.end() || (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-  //                      // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-
-  //                    }
-  //                    //else ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-  //                  }
-
-  //                  QString EX2 = esercizi.value(2).toString();
-  //                  int RIP2 = esercizi.value(3).toInt();
-  //                  if(!EX2.isEmpty()) {
-  //                    // FILL IT
-  //                    cur.EX = EX2; // fill it
-  //                    cur.REP = RIP2;
-  //                    cur.images = GetImages(EX2);  // use ID to get images  /////////////////////////////////////////////// IMAGES
-  //                    ExInfoMap[EX2] = cur; //  add it
-  //                    sel_ex.append(EX2);
-  //                    qDebug()<< "sel:" << sel_ex;
-  //                    qDebug()<< " size:" << sel_ex.size();
-
-  //                  }
-  //                  else {
-
-  //                    QString es = "01";
-  //                    QString es2 = "02";
-  //                    QString es3 = "03";
-  //                    QString es4 = "04";
-  //                    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-  //                      // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-  //                      std::cout<< "Key found";
-
-
-  //                    }
-  //                    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-  //                      std::cout<< "key not found";}
-  //                  }
-
-  //                  QString EX3 = esercizi.value(4).toString();
-  //                  int RIP3 = esercizi.value(5).toInt();
-  //                  if(!EX3.isEmpty()) {
-  //                    // FILL IT
-  //                    cur.EX = EX3; // fill it
-  //                    cur.REP = RIP3;
-  //                    cur.images = GetImages(EX3);
-  //                    ExInfoMap[EX3] = cur; //  add it
-  //                    sel_ex.append(EX3);
-  //                    qDebug()<< "sel:" << sel_ex;
-  //                    qDebug()<< " size:" << sel_ex.size();
-
-  //                  }
-  //                  else {
-
-  //                    QString es = "01";
-  //                    QString es2 = "02";
-  //                    QString es3 = "03";
-  //                    QString es4 = "04";
-  //                    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-  //                      // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-  //                      std::cout<< "Key found";
-
-
-  //                    }
-  //                    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-  //                      std::cout<< "key not found";}
-  //                  }
-  //                  QString EX4 = esercizi.value(6).toString();
-  //                  int RIP4 = esercizi.value(7).toInt();
-  //                  if(!EX4.isEmpty()) {
-  //                    // FILL IT
-  //                    cur.EX = EX4; // fill it
-  //                    cur.REP = RIP4;
-  //                    cur.images = GetImages(EX4);
-  //                    ExInfoMap[EX4] = cur; //  add it
-  //                    sel_ex.append(EX4);
-  //                    qDebug()<< "sel:" << sel_ex;
-  //                    qDebug()<< " size:" << sel_ex.size();
-
-
-
-
-  //                  }
-  //                  else {
-
-  //                    QString es = "01";
-  //                    QString es2 = "02";
-  //                    QString es3 = "03";
-  //                    QString es4 = "04";
-  //                    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-  //                      //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-  //                      std::cout<< "Key found";
-
-
-  //                    }
-  //                    else  {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-  //                      std::cout<< "key not found";}
-  //                  }
-  //                  QString EX5 = esercizi.value(8).toString();
-  //                  int RIP5 = esercizi.value(9).toInt();
-  //                  if(!EX5.isEmpty()){
-  //                    // FILL IT
-  //                    cur.EX = EX5; // fill it
-  //                    cur.REP = RIP5;
-  //                    cur.images = GetImages(EX5);
-  //                    ExInfoMap[EX5] = cur; //  add it
-  //                    sel_ex.append(EX5);
-  //                    qDebug()<< "sel:" << sel_ex;
-  //                    qDebug()<< " size:" << sel_ex.size();
-
-
-
-
-  //                  }
-  //                  else {
-
-  //                    QString es = "01";
-  //                    QString es2 = "02";
-  //                    QString es3 = "03";
-  //                    QString es4 = "04";
-  //                    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-  //                      // ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-  //                      std::cout<< "Key found";
-
-
-  //                    }
-  //                    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-  //                      std::cout<< "key not found";}
-  //                  }
-  //                  QString EX6 = esercizi.value(10).toString();
-  //                  int RIP6 = esercizi.value(11).toInt();
-  //                  if(!EX6.isEmpty()) {
-  //                    // FILL IT
-  //                    cur.EX = EX6; // fill it
-  //                    cur.REP = RIP6;
-  //                    cur.images = GetImages(EX6);
-  //                    ExInfoMap[EX6] = cur; //  add it
-  //                    sel_ex.append(EX6);
-  //                    qDebug()<< "sel:" << sel_ex;
-  //                    qDebug()<< " size:" << sel_ex.size();
-
-
-
-
-  //                  }
-  //                  else {
-
-  //                    QString es = "01";
-  //                    QString es2 = "02";
-  //                    QString es3 = "03";
-  //                    QString es4 = "04";
-  //                    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-  //                      //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-  //                      std::cout<< "Key found";
-
-
-  //                    }
-  //                    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-  //                      std::cout<< "key not found";}
-  //                  }
-  //                  QString EX7 = esercizi.value(12).toString();
-  //                  int RIP7 = esercizi.value(13).toInt();
-  //                  if(!EX7.isEmpty()) {
-  //                    // FILL IT
-  //                    cur.EX = EX7; // fill it
-  //                    cur.REP = RIP7;
-  //                    cur.images = GetImages(EX7);
-  //                    ExInfoMap[EX7] = cur; //  add it
-  //                    sel_ex.append(EX7);
-  //                    qDebug()<< "sel:" << sel_ex;
-  //                    qDebug()<< " size:" << sel_ex.size();
-
-
-  //                  }
-  //                  else {
-
-  //                    QString es = "01";
-  //                    QString es2 = "02";
-  //                    QString es3 = "03";
-  //                    QString es4 = "04";
-  //                    if(ExInfoMap.find(es) !=ExInfoMap.end()|| (ExInfoMap.find(es2)) != ExInfoMap.end() || ExInfoMap.find(es3 ) != ExInfoMap.end() || ExInfoMap.find(es4)!= ExInfoMap.end()) {
-  //                      //ui->tabWidget_2->setCurrentWidget(ui->tab_tappetino);
-  //                      std::cout<< "Key found";
-
-
-  //                    }
-  //                    else {//ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-  //                      std::cout<< "key not found";}
-  //                  }
-  //                }
-
-  //              }
 
 }
 
@@ -2940,33 +2616,24 @@ void paginaprincipale::on_pushButton_go_clicked()
 /**********************       GO FORWARD WEARING TUTORIAL IMAGES  *********************/
 void paginaprincipale::on_pushButton_avanti_v_clicked()
 {
-  qDebug() << sel_vest;
-
-  if(curVest<sel_vest.size()) {
-    key3 = sel_vest.at(curVest);
-    qDebug() << key2;
-    if(VestInfoMap.find(key3) != VestInfoMap.end()) {
-      VestInfo &one3 = VestInfoMap[key3];
-      if(curimgs < one3.img_v.size()){
-        ui->label_img_vest -> setPixmap(one3.img_v.at(curimgs));
-        ui->label_istr_vest->setText(one3.istr_vest.at(curimgs));
-        curimgs ++;
-      }
-      if(curimgs == one3.img_v.size()) {
-        curimgs =0;
-        curVest++;
-      }
-    }
-  }
-  else if(curTut== sel_tut.size()) {
-    // timer_init->start(5000);
-    if(dati::command_pp == SC1_WEARING) {
-      ui->tabWidget_2->setCurrentWidget(ui->tab_parametri);
-    }
-    ui->label_img_vest->clear();
-    ui->label_istr_vest->setText("");
+  size_vest = img_vest_array.size();
+  if(index_vest<size_vest){
+  ui->label_img_vest->setPixmap(QPixmap::fromImage(img_vest_array[index_vest]));
+  index_vest++;
+  qDebug()<< "index_vest"<< index_vest;
 
   }
+ else if(index_vest==size_vest) {
+    dati::status1 = SC1_WEARING;
+
+       std_msgs::Int16 msg;
+        msg.data = dati::status1;
+         ROS_INFO ("%d", msg.data);
+          status_publisher.publish(msg);
+           ui->tabWidget_2->setCurrentWidget(ui->tab_exo_param);
+            ui->stackedWidget_4->setCurrentWidget(ui->page_prova);
+   //MANDA ALLA SCHERMATA SUCCESSIVA (COPIA CODICE DAL SALTA TUTORIAL)
+ }
 }
 
 
@@ -3032,7 +2699,7 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
   comp_avam = ui->progressBar_comp_avam->value();
   //comp= comp/int(125);
 
-  n.setParam("/physiological_param/velocity", speed);
+
 
   ui->lcdNumber_comp_ses->display(comp);
   ui->progressBar_comp_ses->setValue(comp);
@@ -3040,6 +2707,28 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
   ui->lcdNumber_comp_avam_ses->display(comp_avam);
   ui->progressBar_comp_avam_ses->setValue(comp_avam);
   ui->horizontalSlider_comp_avam_ses->setValue(comp_avam);
+
+  if(ui->checkBox_vel1->isChecked()){
+    speed = 0.05;
+    speeds = "lento";
+    ui->checkBox_vel2->setChecked(false);
+    ui->checkBox_vel3->setChecked(false);
+
+  }
+  if(ui->checkBox_vel2->isChecked()){
+    speed = 0.1;
+    speeds = "medio";
+    ui->checkBox_vel1->setChecked(false);
+    ui->checkBox_vel3->setChecked(false);
+
+  }
+  if(ui->checkBox_vel3->isChecked()){
+    speed = 0.20;
+    speeds = "veloce";
+    ui->checkBox_vel2->setChecked(false);
+    ui->checkBox_vel1->setChecked(false);
+
+  }
 
   QString comp_s, comp_avam_s;
   comp_s = QString::number(comp);
@@ -3080,6 +2769,8 @@ void paginaprincipale::on_pushButton_salva_comp_clicked()
     n.setParam ("/physiological_param/cdm_upperarm", CdM_UA);
     n.setParam("/physiological_param/cdm_lowerarm", CdM_LA);
     n.setParam("/physiological_param/cdm_hand", CdM_H);
+
+    n.setParam("/physiological_param/velocity", speed);
 
     QString l_h, com_ua, com_la, com_h;
     l_h= QString::number(H_l);
@@ -3201,9 +2892,7 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
     qry9.exec();
     if (qry9.exec())
     {
-     // QMessageBox ::information(this,tr("Salvato"),tr("Parametri Salvati"));
-      // ui->tabWidget_2->setCurrentWidget(ui->tab_controllo);
-      // aggiungo questo:
+
 
       //pubblico che ho salvato i rom su gui/status
 
@@ -3293,7 +2982,7 @@ void paginaprincipale::check_point()
   qDebug()<< "point2" << point2_x_t;
   qDebug()<< "point3" <<point3_x_t;
 
-  if(side_check == 1)
+  if(side_check == 1) //destro
   {    vector<int> v = { point1_x_t, point2_x_t, point3_x_t };
 
     cout<<"Elements before sorting"<<endl;
@@ -3349,34 +3038,8 @@ void paginaprincipale::check_point()
       point3_y = point3_y_t;
       qDebug()<< "sono in 9";
     }
-    n.setParam("/matlab/point1/mat_coordinate/x", point1_x);
-    n.setParam("/matlab/point2/mat_coordinate/x", point2_x);
-    n.setParam("/matlab/point3/mat_coordinate/x", point3_x);
-    n.setParam("/matlab/point1/mat_coordinate/y", point1_y);
-    n.setParam("/matlab/point2/mat_coordinate/y", point2_y);
-    n.setParam("/matlab/point3/mat_coordinate/y", point3_y);
-    check_ended = true;
-    if(check_ended == true){
-      check_ended= false;
-    dati::status1 = SC1_FINISHED;
-
-    std_msgs::Int16 msg;
-    msg.data = dati::status1;
-    ROS_INFO ("%d", msg.data);
-    status_publisher.publish(msg);
-    dati::selcount_mat=0;
-
-    ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
-    //prendo punti salvati
-    //chiamo funzione per ordinarli e salvarli
-    }
-
-
-
-
-
   }
-  else if (side_check == 2)
+  else if (side_check == 2) //sinistro
   {
     vector<int> v = { point1_x_t, point2_x_t, point3_x_t };
 
@@ -3388,19 +3051,20 @@ void paginaprincipale::check_point()
        for (const auto &i: v)
           cout << i << ' '<<endl;
        qDebug()<< v[0]<< v[1]<< v[2];
+       //qui devi invertire : quello con la x massima è il p1
        if(v[0] == point1_x_t){
-         point1_x = point1_x_t;
-         point1_y = point1_y_t;
+         point3_x = point1_x_t;
+         point3_y = point1_y_t;
          qDebug()<< "sono in 1";
        }
        else if(v[0]== point2_x_t) {
-         point1_x = point2_x_t;
-         point1_y = point2_y_t;
+         point3_x = point2_x_t;
+         point3_y = point2_y_t;
          qDebug()<< "sono in 2";
        }
        else if(v[0]== point3_x_t) {
-         point1_x = point3_x_t;
-         point1_y = point3_y_t;
+         point3_x = point3_x_t;
+         point3_y = point3_y_t;
          qDebug()<< "sono in 3";
        }
        if(v[1] == point1_x_t){
@@ -3419,20 +3083,21 @@ void paginaprincipale::check_point()
          qDebug()<< "sono in 6";
        }
        if(v[2] == point1_x_t){
-         point3_x = point1_x_t;
-         point3_y = point1_y_t;
+         point1_x = point1_x_t;
+         point1_y = point1_y_t;
          qDebug()<< "sono in 7";
        }
        else if(v[2]== point2_x_t) {
-         point3_x = point2_x_t;
-         point3_y = point2_y_t;
+         point1_x = point2_x_t;
+         point1_y = point2_y_t;
          qDebug()<< "sono in 8";
        }
        else if(v[2]== point3_x_t) {
-         point3_x = point3_x_t;
-         point3_y = point3_y_t;
+         point1_x = point3_x_t;
+         point1_y = point3_y_t;
          qDebug()<< "sono in 9";
        }
+  }
        n.setParam("/matlab/point1/mat_coordinate/x", point1_x);
        n.setParam("/matlab/point2/mat_coordinate/x", point2_x);
        n.setParam("/matlab/point3/mat_coordinate/x", point3_x);
@@ -3453,7 +3118,7 @@ void paginaprincipale::check_point()
        ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
        //prendo punti salvati
        //chiamo funzione per ordinarli e salvarli
-       }
+
 
 
   }
@@ -3847,8 +3512,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
       else if(dati::rip1.toInt()>30)
       {
         QMessageBox::warning(this, tr("Attenzione"), tr("Numero di ripetizioni del primo esercizio selezionato ha superato il limite massimo di 30, si prega di modificare."));
-
-
       }
     }
 
@@ -3861,14 +3524,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
   if(es2_b_r == true)
   {
     dati::ex2 = ui->comboBox_ex2->currentText();
-
-
-
     dati::rip2= ui->lineEdit_ex2->text();
-
-
-
-
     rep2 = dati::rip2.toInt();
     if(ui->comboBox_ogg2->isEnabled()) {
       if(ui->comboBox_ogg2->currentText()== bicchiere ) {  oggetto_es2= "1"; ros_ogg2=1; ui->label_oi2_recap->setText(bicchiere);}
@@ -3886,8 +3542,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
       {
         dati::num_ex2 = selezione2.value(0).toString();
         exe2 = dati::num_ex2.toInt();
-
-
       }
       if(dati::rip2.toInt()<30) {
 
@@ -3902,14 +3556,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
   if(es3_b_r == true)
   {
     dati::ex3 = ui->comboBox_es3->currentText();
-
-
-
     dati::rip3= ui->lineEdit_rep3->text();
-
-
-
-
     rep3 = dati::rip3.toInt();
     if(ui->comboBox_ogg3->isEnabled()) {
       if(ui->comboBox_ogg3->currentText()== bicchiere ) { oggetto_es3= "1"; ros_ogg3=1; ui->label_oi3_recap->setText(bicchiere);}
@@ -3927,8 +3574,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
       {
         dati::num_ex3 = selezione3.value(0).toString();
         exe3 = dati::num_ex3.toInt();
-
-
       }
       if(dati::rip3.toInt()<30) {
 
@@ -3942,12 +3587,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
   if(es4_b_r == true)
   {
     dati::ex4 = ui->comboBox_es4->currentText();
-
-
-
     dati::rip4= ui->lineEdit_rep4->text();
-
-
     rep4 = dati::rip4.toInt();
     if(ui->comboBox_ogg4->isEnabled()) {
       if(ui->comboBox_ogg4->currentText()== bicchiere ) {oggetto_es4= "1"; ros_ogg4=1; ui->label_oi4_recap->setText(bicchiere);}
@@ -3965,8 +3605,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
       {
         dati::num_ex4 = selezione4.value(0).toString();
         exe4 = dati::num_ex4.toInt();
-
-
       }
       if (dati::rip4.toInt()<30) {
 
@@ -3981,14 +3619,7 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
   if(es5_b_r == true)
   {
     dati::ex5 = ui->comboBox_es5->currentText();
-
-
-
     dati::rip5= ui->lineEdit_rep5->text();
-
-
-
-
     rep5 = dati::rip5.toInt();
     if(ui->comboBox_ogg5->isEnabled()) {
       if(ui->comboBox_ogg5->currentText()== bicchiere ) { oggetto_es5= "1"; ros_ogg5=1; ui->label_oi5_recap->setText(bicchiere);}
@@ -4102,9 +3733,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
   if (selezione.exec())
   {
   //  QMessageBox ::information(this,tr("Salvato"),tr("Set di esercizi salvati"));
-
-
-
 
     /******************         AGGIORNO ROS PARAMETERS : EXERCISE SEQUENCE                      ***********************/
     ex_seq = {exe1, exe2, exe3, exe4, exe5, exe6, exe7};
@@ -4297,7 +3925,6 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
         qDebug()<< " size:" << sel_ex.size();
       }
       else {
-
         QString es = "01";
         QString es2 = "02";
         QString es3 = "03";
@@ -4313,12 +3940,10 @@ void paginaprincipale::on_pushButton_salva_recap_clicked()
 
   }
 
-
   ui->tabWidget_2->setCurrentWidget(ui->tab_sessione);
   ui->stackedWidget_2->setCurrentWidget(ui->page_sessione);
 
 }
-
 
 /**********************************************************************************/
 
@@ -4343,7 +3968,6 @@ void paginaprincipale::on_pushButton_next_clicked()
   ui->pushButton_next->setEnabled(false);
   timer_rehab->start(10);
   dati::status1 = SC1_START_SESSION;
-
   std_msgs::Int16 msg;
   msg.data = dati::status1;
   ROS_INFO ("%d", msg.data);
@@ -4355,7 +3979,6 @@ void paginaprincipale::on_pushButton_next_clicked()
 void paginaprincipale::next_img() {
 
   qDebug()<< dati::command_exercise_pp;
-
   //GET PARAM DEI PUNTI DEL TAPPETINO PER FARE CONTROLLO SU COLONNE
   ros::NodeHandle n;
   n.getParam("/point1/mat_coordinates", point1ses);
@@ -4363,14 +3986,10 @@ void paginaprincipale::next_img() {
   n.getParam("/point3/mat_coordinates", point3ses);
   n.getParam("/side", side_ses);
 
-
   ui->pushButton_salvascore->setVisible(false);
 
   QString istr199;
   istr199 = "Caricamento Exergame in corso, attendere";
-
-
-
 
   //EXER 1 IMAGES
 
@@ -4378,6 +3997,7 @@ void paginaprincipale::next_img() {
 
   //  QPixmap case1_1, case3_1, case5_1, def, case1_3, case2_3, case3_3, case4_3, case5_3, case6_3, case7_3, case8_3, case9_3, case1_5, case2_5, case1_6, case2_6, def_5, def_6;
   //check for the side of the exoskeleton
+  //SINISTRO
   if(side_ses == 2) {
 
     //EXERCISE 1
@@ -4396,6 +4016,20 @@ void paginaprincipale::next_img() {
 
     //rest
    // QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
+    //EXERCISE 2
+
+    //rest
+    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_1.png");
+
+    //dx
+    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_2.png");
+
+    //centro
+    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_3.png");
+
+    //sx
+    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_4.png");
+
 
     //EXERCISE 3
 
@@ -4471,14 +4105,7 @@ void paginaprincipale::next_img() {
         break;
 
       case 3: //avanti
-
-
-
           ui->label_img->setPixmap(case3_1);
-
-
-
-
         qDebug()<< "case3";
         break;
 
@@ -4515,11 +4142,81 @@ void paginaprincipale::next_img() {
         qDebug()<< "casedef";
         break;
 
+      }   // end switch task
+      break; //break exer 1
+     //ESERCIZIO REACHING NELLO SPAZIO SENZA OGGETTI
+    case 2 :
+      qDebug()<< dati::command_task_pp;
+      switch (dati::command_task_pp) {
 
+      case 100: // SCHERMATA ESERCIZIO
+        // mostro foto dell'esercizio 1
+        ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento dei punti nello spazio. \nPremere OK per iniziare.");
+
+        break;
+
+//      case 99:
+//        ui->label_img->setPixmap(case99);
+
+//        qDebug()<< "case99";
+//        break;
+      case 0:
+        ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
+        break;
+      case 1:
+        //prova esempio controllo colonne
+
+        ui->label_img->setPixmap(case1_2);
+
+        qDebug()<< "case1";
+        break;
+      case 2:
+        //prova esempio controllo colonne
+
+        ui->label_img->setPixmap(case_rest_2);
+
+        break;
+
+      case 3:
+          ui->label_img->setPixmap(case3_2);
+        qDebug()<< "case3";
+        break;
+
+      case 4:
+        //prova esempio controllo colonne
+
+        ui->label_img->setPixmap(case_rest_2);
+
+        break;
+
+      case 5: //sx
+
+       ui->label_img->setPixmap(case5_1);
+
+
+        qDebug()<< "case5";
+        break;
+
+      case 6: //rest
+        //prova esempio controllo colonne
+
+        ui->label_img->setPixmap(case_rest_2);
+
+        break;
+
+      case 102: //FEEDBACK
+        ui->label_img->setPixmap(feedback_happy);
+
+        break;
+
+      default:
+
+
+        qDebug()<< "casedef";
+        break;
 
       }   // end switch task
       break; //break exer 1
-
 
       // ESERCIZIO REACHING NEL PIANO CON OGGETTI
     case 3:
@@ -4567,15 +4264,11 @@ void paginaprincipale::next_img() {
         ui->pushButton_ok->setEnabled(false);
 
        // ui->label_img->setPixmap(case3_3);
-
         break;
 
       case 4: //sx
 
           ui->label_img->setPixmap(case4_3);
-
-
-
       //  ui->pushButton_ok->setEnabled(false);
 
         qDebug()<< "case4_3";
@@ -4585,10 +4278,6 @@ void paginaprincipale::next_img() {
        // ui->pushButton_ok->setEnabled(false);
 
         ui->label_img->setPixmap(case5_3);
-
-
-
-
         qDebug()<< "case5_3";
         break;
 
@@ -4603,10 +4292,116 @@ void paginaprincipale::next_img() {
 
       case 7: //dx
           //      ui->pushButton_ok->setEnabled(false);
+           ui->label_img->setPixmap(case7_3);
 
 
+        qDebug()<< "case8_3";
+        break;
+
+      case 8: //centro
+      //  ui->pushButton_ok->setEnabled(false);
+
+        ui->label_img->setPixmap(case8_3);
 
 
+        qDebug()<< "case9_3";
+        break;
+
+      case 9: //rest
+        ui->label_img->setPixmap(case9_3);
+      //  ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case9_3";
+        break;
+
+      case 102: // FEEDBACK
+        ui->label_img->setPixmap(feedback_happy);
+
+      //  ui->pushButton_ok->setEnabled(false);
+        break;
+
+      default:
+        ui->label_img->setPixmap(case2_3);
+     //   ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "casedef";
+        break;
+      }
+      break;
+      // ESERCIZIO REACHING NEL PIANO CON OGGETTI
+    case 4:
+      qDebug()<< dati::command_task_pp;
+      switch(dati::command_task_pp) {
+
+      case 100: // SCHERMATA ESERCIZIO
+        // mostro foto dell'esercizio 1
+        ui->label_img-> setText("Iniziamo esercizio di \n\nraggiungimento punti con oggetto nello spazio. \n\nPremere OK per iniziare.");
+        ui->pushButton_ok->setEnabled(true);
+        break;
+
+      case 0:
+        ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
+        ui->pushButton_ok->setEnabled(false);
+        break;
+
+      case 101: // POSIZIONAMENTO OGGETTO
+        ui->label_img->setText("Terapista, posiziona l'oggetto \n\nsul punto del pad illuminato.\n\nQuindi premi OK");
+        ui->pushButton_ok->setEnabled(true);
+        break;
+//      case 99:
+//        ui->label_img->setPixmap(case99);
+
+//        ui->pushButton_ok->setEnabled(false);
+//        qDebug()<< "case99";
+//        break;
+
+      case 1:
+        ui->label_img->setPixmap(case1_3);
+        ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case1_3";
+        break;
+
+      case 2: //sx
+        ui->pushButton_ok->setEnabled(false);
+
+        //  ui->label_img->setPixmap(case2_3);
+
+        qDebug()<< "case2_3";
+        break;
+
+      case 3 : //rest
+        ui->pushButton_ok->setEnabled(false);
+
+       // ui->label_img->setPixmap(case3_3);
+        break;
+
+      case 4: //sx
+
+          ui->label_img->setPixmap(case4_3);
+      //  ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case4_3";
+        break;
+
+      case 5: //dx
+       // ui->pushButton_ok->setEnabled(false);
+
+        ui->label_img->setPixmap(case5_3);
+        qDebug()<< "case5_3";
+        break;
+
+      case 6: //rest
+      //  ui->pushButton_ok->setEnabled(false);
+
+
+          ui->label_img->setPixmap(case6_3);
+
+        qDebug()<< "case6_3";
+        break;
+
+      case 7: //dx
+          //      ui->pushButton_ok->setEnabled(false);
            ui->label_img->setPixmap(case7_3);
 
 
@@ -4751,10 +4546,61 @@ void paginaprincipale::next_img() {
         break;
 
       default:
+
+        qDebug()<< "sono nel default";
+        break;
+
+      }
+      break;
+      // ESERICZIO MANO ALLA BOCCA SENZA OGGETTO
+    case 7:
+      qDebug()<< dati::command_task_pp;
+      switch(dati::command_task_pp) {
+
+      case 100: // SCHERMATA ESERCIZIO
+        // mostro foto dell'esercizio 1
+        ui->label_img-> setText("Iniziamo esercizio \n\nElevazione laterale .\n\nPremere OK per iniziare.");
+        ui->pushButton_ok->setEnabled(true);
+        break;
+        //    case 101: //POSIZIONAMENO OGGETTO
+        //      ui->label_img-> setText("Terapista aggancia l'oggetto \n\nalla mano del paziente.\n\nQuindi premi OK");
+        //      ui->pushButton_ok->setEnabled(true);
+
+        //     break;
+//      case 99:
+//        ui->label_img->setPixmap(case99);
+
+//        qDebug()<< "case99";
+//        break;
+
+      case 0:
+        ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
+       // ui->pushButton_ok->setEnabled(false);
+        break;
+
+      case 1:
+        ui->label_img->setPixmap(case2_5);
+
+        // qDebug()<< "case2_6";
+      //  ui->pushButton_ok->setEnabled(false);
+        break;
+
+      case 2:
         ui->label_img->setPixmap(def_5);
 
-        //    qDebug()<< "casedef";
+        //  qDebug()<< "case2_6";
      //   ui->pushButton_ok->setEnabled(false);
+        break;
+
+      case 102: //FEEDBACK
+        ui->label_img->setPixmap(feedback_happy);
+
+      //  ui->pushButton_ok->setEnabled(false);
+        break;
+
+      default:
+
+        qDebug()<< "sono nel default";
         break;
 
       }
@@ -4773,6 +4619,8 @@ void paginaprincipale::next_img() {
         ui->label_img-> setText("Iniziamo exergames \n\nMacedonia.\n\nPremere OK per iniziare.\n\nTerminata la sessioni chiudi il gioco e\n\npremi Salva Punteggio.");
         ui->pushButton_es_libero->setVisible(true);
         break;
+
+
       }
       break;
 
@@ -4816,9 +4664,8 @@ void paginaprincipale::next_img() {
     qDebug()<< "sono nella funzione next_img";
 
 
-
-
   }
+  //DESTRO
   else if(side_ses == 1) {
 
 
@@ -4831,6 +4678,23 @@ void paginaprincipale::next_img() {
     QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_4_dx.png"); //dx
 
     QPixmap case_rest_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_1_dx.png");     //rest
+
+
+
+    //EXERCISE 2
+
+    //rest
+    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_1.png");
+
+    //sx
+    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_2.png");
+
+    //centro
+    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_3.png");
+
+    //dx
+    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_4.png");
+
 
     //EXERCISE 3
 
@@ -4937,6 +4801,77 @@ void paginaprincipale::next_img() {
       }   // end switch task
       break; //break exer 1
 
+      //ESERCIZIO 2
+
+    case 2 :
+      qDebug()<< dati::command_task_pp;
+      switch (dati::command_task_pp) {
+
+      case 100: // SCHERMATA ESERCIZIO
+        // mostro foto dell'esercizio 1
+        ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento dei punti nello spazio. \nPremere OK per iniziare.");
+
+        break;
+
+//      case 99:
+//        ui->label_img->setPixmap(case99);
+
+//        qDebug()<< "case99";
+//        break;
+      case 0:
+        ui->label_img->setText("Attendi che AGREE\nposizioni la mano in \nposizione di riposo");
+        break;
+      case 1: //sx
+        ui->label_img->setPixmap(case1_2);
+
+        qDebug()<< "case1";
+        break;
+
+      case 2: //sx
+        ui->label_img->setPixmap(case_rest_2);
+
+        qDebug()<< "case1";
+        break;
+
+      case 3:
+        ui->label_img->setPixmap(case3_2);
+
+        qDebug()<< "case3";
+        break;
+
+      case 4: //sx
+        ui->label_img->setPixmap(case_rest_1);
+
+        qDebug()<< "case1";
+        break;
+
+      case 5:
+        ui->label_img->setPixmap(case5_2);
+
+        qDebug()<< "case5";
+        break;
+
+      case 6: //sx
+        ui->label_img->setPixmap(case_rest_1);
+
+        qDebug()<< "case1";
+        break;
+
+      case 102: //FEEDBACK
+        ui->label_img->setPixmap(feedback_happy);
+
+        break;
+
+      default:
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
+        break;
+
+
+
+      }   // end switch task
+      break; //break exer 1
+
+
 
       // ESERCIZIO REACHING NEL PIANO CON OGGETTI
     case 3:
@@ -4946,6 +4881,113 @@ void paginaprincipale::next_img() {
       case 100: // SCHERMATA ESERCIZIO
         // mostro foto dell'esercizio 1
         ui->label_img-> setText("Iniziamo esercizio di \n\nraggiungimento punti con oggetto. \n\nPremere OK per iniziare.");
+        ui->pushButton_ok->setEnabled(true);
+        break;
+
+      case 0:
+        ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
+        ui->pushButton_ok->setEnabled(false);
+        break;
+
+      case 101: // POSIZIONAMENTO OGGETTO
+        ui->label_img->setText("Terapista, posiziona l'oggetto \n\nsul punto del pad illuminato.\n\nQuindi premi OK");
+        ui->pushButton_ok->setEnabled(true);
+        break;
+//      case 99:
+//        ui->label_img->setPixmap(case99);
+
+//        ui->pushButton_ok->setEnabled(false);
+//        qDebug()<< "case99";
+//        break;
+
+
+
+      case 1:
+        ui->label_img->setPixmap(case1_3);
+        ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case1_3";
+        break;
+
+
+      case 2:
+        ui->label_img->setPixmap(case2_3);
+     //   ui->pushButton_ok->setEnabled(false);
+
+
+        qDebug()<< "case2_3";
+        break;
+
+
+      case 3 :
+        ui->label_img->setPixmap(case3_3);
+      //  ui->pushButton_ok->setEnabled(false);
+
+        break;
+
+      case 4:
+        ui->label_img->setPixmap(case4_3);
+      //  ui->pushButton_ok->setEnabled(false);
+
+
+        qDebug()<< "case4_3";
+        break;
+
+      case 5:
+        ui->label_img->setPixmap(case5_3);
+       // ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case5_3";
+        break;
+
+      case 6:
+        ui->label_img->setPixmap(case6_3);
+       // ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case6_3";
+        break;
+
+      case 7:
+        ui->label_img->setPixmap(case7_3);
+     //   ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case8_3";
+        break;
+
+      case 8:
+        ui->label_img->setPixmap(case8_3);
+      //  ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case9_3";
+        break;
+
+      case 9:
+        ui->label_img->setPixmap(case9_3);
+     //   ui->pushButton_ok->setEnabled(false);
+
+        qDebug()<< "case9_3";
+        break;
+
+      case 102: // FEEDBACK
+        ui->label_img->setPixmap(feedback_happy);
+
+      //  ui->pushButton_ok->setEnabled(false);
+        break;
+
+      default:
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
+        break;
+      }
+      break;
+
+      // ESERCIZIO REACHING NELLO SPAZIO CON OGGETTI
+    case 4:
+      qDebug()<< dati::command_task_pp;
+      switch(dati::command_task_pp) {
+
+      case 100: // SCHERMATA ESERCIZIO
+        // mostro foto dell'esercizio 1
+        ui->label_img-> setText("Iniziamo esercizio di \n\nraggiungimento punti con oggetto NELLO SPAZIO. \n\nPremere OK per iniziare.");
         ui->pushButton_ok->setEnabled(true);
         break;
 
@@ -5060,19 +5102,11 @@ void paginaprincipale::next_img() {
         ui->pushButton_ok->setEnabled(true);
 
         break;
-//      case 99:
-//        ui->label_img->setPixmap(case99);
-
-//        qDebug()<< "case99";
-//        break;
 
       case 0:
         ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
         ui->pushButton_ok->setEnabled(false);
         break;
-
-
-
 
       case 1:
         ui->label_img->setPixmap(case2_6);
@@ -5129,6 +5163,58 @@ void paginaprincipale::next_img() {
         break;
 
 
+      case 1:
+        ui->label_img->setPixmap(case2_5);
+
+        // qDebug()<< "case2_6";
+      //  ui->pushButton_ok->setEnabled(false);
+        break;
+
+      case 2:
+        ui->label_img->setPixmap(def_5);
+
+        //  qDebug()<< "case2_6";
+       // ui->pushButton_ok->setEnabled(false);
+        break;
+
+      case 102: //FEEDBACK
+        ui->label_img->setPixmap(feedback_happy);
+
+      //  ui->pushButton_ok->setEnabled(false);
+        break;
+
+      default:
+        qDebug()<< "NON HO RICEVUTO UN COMANDO ATTESO";
+        break;
+
+      }
+      break;
+
+      // ESERICZIO MANO ALLA BOCCA SENZA OGGETTO
+    case 7:
+      qDebug()<< dati::command_task_pp;
+      switch(dati::command_task_pp) {
+
+      case 100: // SCHERMATA ESERCIZIO
+        // mostro foto dell'esercizio 1
+        ui->label_img-> setText("Iniziamo esercizio \n\nELEVAZIONE LATERALE.\n\nPremere OK per iniziare.");
+        ui->pushButton_ok->setEnabled(true);
+        break;
+        //    case 101: //POSIZIONAMENO OGGETTO
+        //      ui->label_img-> setText("Terapista aggancia l'oggetto \n\nalla mano del paziente.\n\nQuindi premi OK");
+        //      ui->pushButton_ok->setEnabled(true);
+
+        //     break;
+//      case 99:
+//        ui->label_img->setPixmap(case99);
+
+//        qDebug()<< "case99";
+//        break;
+
+      case 0:
+        ui->label_img->setText("Attendi che AGREE\n\nposizioni la mano in Rest");
+        ui->pushButton_ok->setEnabled(false);
+        break;
 
 
       case 1:
@@ -5290,7 +5376,6 @@ void paginaprincipale::on_pushButton_3_clicked()
   status_publisher.publish(msg);
   QMessageBox ::information(this,tr("PAUSA"),tr("L'esercizio è stato messo in pausa. Se vuoi riprendere la terapia premi il tasto RIPRENDI. L'esercizio ricomincerà dalla prima ripetizione."));
 
-
   QMessageBox riprendi;
   riprendi.setText(tr("L'esercizio è stato messo in pausa. Se vuoi riprendere la terapia premi il tasto RIPRENDI. L'esercizio ricomincerà dalla prima ripetizione."));
   QAbstractButton* pButtonYes = riprendi.addButton(tr("RIPRENDI"), QMessageBox::YesRole);
@@ -5323,6 +5408,7 @@ void paginaprincipale::on_pushButton_pdf_clicked()
 /**********************          CAPIRE SE TOGLIERE                    *********************/
 void paginaprincipale::on_pushButton_salvamoduli_clicked()
 { int8_t check = 0;
+
   ui->tabWidget_2->setCurrentWidget(ui->tab_tutorial);
   dati::modulo_spalla= "0";
   dati::modulo_gomito = "0";
@@ -5331,7 +5417,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   dati::modulo_emg= "0";
   dati::mano = "0";
   dati::oi = "0";
-
+  //LATO SX
   if(ui->checkBox_sinistro->isChecked())
   {dati::lato="0" ;
     side_param = 2;
@@ -5352,7 +5438,14 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     QPixmap pic11("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j1_sx.png");
     ui->label_13->setPixmap(pic11);
 
+    QImage exo_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    img_tutorial_array.push_back(exo_sx);
+
+    QImage exo_vest_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    img_vest_array.push_back(exo_vest_sx);
+
   }
+  //LATO DX
   if(ui->checkBox_destro->isChecked())
   { dati::lato = "1";
     side_param = 1;
@@ -5373,15 +5466,15 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     QPixmap pic11("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j1_dx.png");
     ui->label_13->setPixmap(pic11);
 
+    QImage exo_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    img_tutorial_array.push_back(exo_dx);
 
-
+    QImage exo_vest_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    img_vest_array.push_back(exo_vest_dx);
 
   }
-
-
-
-
-  if (ui->checkBox_polso->isChecked())  {
+//MODULO SPALLA GOMITO
+  if (ui->checkBox_exo->isChecked())  {
 
     dati::modulo_spalla = "1";
     dati::modulo_polso= "0";
@@ -5395,7 +5488,8 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
 
   }
-  if(ui->checkBox_polso_2->isChecked()) {
+  //MODULO POLSO EXTRA
+  if(ui->checkBox_polso_extra->isChecked()) {
     dati::modulo_polso = "1";
     active_module_polso = 1;
 
@@ -5421,13 +5515,32 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
 
   }
+  //MODULO EMG
   if(ui->checkBox_emg_2->isChecked())
   {
     dati::modulo_emg= "1";
     active_module_EEG_EMG = 1;
+    QImage emg ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EMG.jpg");
+    img_tutorial_array.push_back(emg);
+
 
 
   }
+//MODULO RFID
+  if(ui->checkBox_rfid->isChecked())
+  {
+    dati::modulo_rfid= "1";
+    active_module_RF  = 1;
+   QImage rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
+   img_tutorial_array.push_back(rfid);
+
+   QImage exo_vest_rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
+   img_vest_array.push_back(exo_vest_rfid);
+
+
+
+  }
+  //MODULO MAP
   if(ui->checkBox_MAP_2->isChecked()) //|| (prova == 5))
   {
 
@@ -5435,10 +5548,12 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       dati::mano = "1";
       active_module_MAP = 1;
+      QImage map ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/MAP.jpg");
+      img_tutorial_array.push_back(map);
 
+      QImage map_vest ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/MAP.jpg");
+      img_vest_array.push_back(map_vest);
     }
-
-
     else if (dati::modulo_polso == "0" ) {
 
       QMessageBox::StandardButton risposta= QMessageBox::question(this,tr("Attenzione"), tr("Il modulo extra: Mano non può essere attivato se la configurazione dei moduli moduli meccanici non comprende anche il Modulo : Polso. Si desidera modificare la configurazione dei Moduli Meccanici? "));
@@ -5447,9 +5562,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
         //  flag=6;
         // ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
         ui->tabWidget_2->setCurrentWidget(ui->tab_moduli);
-        ui->tabWidget_2->setTabEnabled(1, true);
-        ui->tabWidget_2->setTabEnabled(2, true);
-        ui->tabWidget_3->setTabEnabled(1, true);
+
         check = 1;
         qDebug() << "modulo polso stronzissimo";
       }
@@ -5462,7 +5575,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
   if(!(check==1)) {
     QSqlQuery moduli;
-    moduli.prepare("update Parametri_Paziente set Lato = '"+dati::lato+"', Modulo_Spalla= '"+dati::modulo_spalla+"', Modulo_gomito = '"+dati::modulo_gomito+"', Modulo_polso = '"+dati::modulo_polso+"',EEG='"+dati::modulo_eeg+"', Oggetti_int='"+dati::oi+"', Mano='"+dati::mano+"', EMG='"+dati::modulo_emg+"' where Codice_ID= '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
+    moduli.prepare("update Parametri_Paziente set Lato = '"+dati::lato+"', Modulo_Spalla= '"+dati::modulo_spalla+"', Modulo_gomito = '"+dati::modulo_gomito+"', Modulo_polso = '"+dati::modulo_polso+"', RFID='"+dati::modulo_rfid+"', Oggetti_int='"+dati::oi+"', Mano='"+dati::mano+"', EMG='"+dati::modulo_emg+"' where Codice_ID= '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"'");
     moduli.exec();
     if (moduli.exec())
     { //QMessageBox ::information(this,tr("Salvato"),tr("Configurazione dei Moduli Meccanici ed Extra salvata"));
@@ -5502,8 +5615,6 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
 
     }
 
-
-    qDebug()<< "qui";
     if(!(dati::lex1==0))
     {
     //  ui->checkBox_ex1->setChecked(true);
@@ -5823,7 +5934,6 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     ui->lineEdit_ex7->setText(r7);
   }
 
-
   //recupero dati salvati
   QSqlQuery conf_moduli;
   conf_moduli.prepare("select Modulo_Spalla, Modulo_gomito, Modulo_polso, EEG, EMG, Mano from Parametri_Paziente where  Codice_ID= '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' order by Data_acquisizione desc limit 1");
@@ -5834,7 +5944,6 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
       TutInfo curr;
       VestInfo curr1;
       QString spalla, gomito, polso, EEG, EMG, Mano;
-
       spalla = conf_moduli.value(0).toString();
       gomito = conf_moduli.value(1).toString();
       polso = conf_moduli.value(2).toString();
@@ -5912,13 +6021,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
         qDebug()<<"sel : " <<sel_tut;
         qDebug()<<"size:" << sel_tut.size();
       }
-
-
     }
-
-
-
-
 
   }
   /***************         SETTO ROS PARAMETERS CON I MODULI   ******************/
@@ -6022,12 +6125,6 @@ void paginaprincipale::on_pushButton_logout_clicked()
     msg_status.data = dati::status1;
     ROS_INFO ("%d", msg_status.data);
     status_publisher.publish(msg_status);
-
-
-
-
-
-
   }
   else if (logout.clickedButton()==pButtonNo) {
 
@@ -6050,12 +6147,6 @@ void paginaprincipale::on_pushButton_indietro_clicked()
   status_publisher.publish(msg_status_pp);
 
 }
-
-
-
-
-
-
 
 void paginaprincipale::on_pushButton_es_libero_clicked()
 {
@@ -6109,24 +6200,7 @@ void paginaprincipale::on_tableView_valutazioni_activated(const QModelIndex &ind
 
 }
 
-void paginaprincipale::on_radioButton_lenta_clicked()
-{
-    //setto velocità lenta
-  speed = 0.05;
-  speeds = "lento";
-}
 
-void paginaprincipale::on_radioButton_media_clicked()
-{
-    speed = 0.1;
-    speeds = "medio";
-}
-
-void paginaprincipale::on_radioButton_veloce_clicked()
-{
-    speed = 0.20;
-    speeds = "veloce";
-}
 
 void paginaprincipale::updateLabel() {
   int secs = time.elapsed() /1000;
@@ -6134,7 +6208,6 @@ void paginaprincipale::updateLabel() {
   int hours = (secs/3600);
   secs = secs%60;
   ui->label_time->setText(QString("%1 : %2 : %3").arg(hours).arg(mins).arg(secs));
-
 }
 
 void paginaprincipale::exosize() {
@@ -6206,8 +6279,8 @@ void paginaprincipale::update_rom(){
 void paginaprincipale::select_img() {
   male = "Maschio";
   female = "Femmina";
-  QPixmap figure_w("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/woman_gui.jpg");
-  QPixmap figure_m("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/man.jpg");
+  QPixmap figure_w("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/Roxy.png");
+  QPixmap figure_m("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/man.png");
 
   if(ui->comboBox_sesso->currentText()== female) {
     ui->label_figure->setPixmap(figure_w);
@@ -6240,6 +6313,53 @@ qDebug() << "dati::ind" << dati::ind;
   else
   {
     QMessageBox ::warning(this,tr("Attenzione"),tr("Selezionare con doppio click il paziente di cui si vogliono visualizzare le valutazioni"));
+  }
+
+
+}
+void paginaprincipale::enable_index(){
+
+ qDebug()<< "tab_index:"<<tab_index;
+
+// ui->tabWidget_2->setTabEnabled(0,true);
+
+}
+
+void paginaprincipale::set_timeout_ses(){
+  ros::NodeHandle n;
+  timeout = ui->spinBox_timeout_ses->value();
+  timeout_s = QString::number(timeout);
+
+  n.setParam("/exercise/timeout", timeout);
+  QSqlQuery timeout;
+  timeout.prepare("update Parametri_Paziente set  timeout = '"+timeout_s+"' where Codice_ID = '"+dati::ind+"' and Data_acquisizione = '"+dati::data1+"' ");
+  timeout.exec();
+  if(!timeout.exec())
+    qDebug()<< timeout.lastError();
+
+}
+
+
+void paginaprincipale::on_pushButton_indietro_vest_clicked()
+{
+  if(index_vest>0){
+  ui->label_img_vest->setPixmap(QPixmap::fromImage(img_vest_array[index_vest-1]));
+  index_vest--;
+
+  }
+  else if(index_vest == 0) {
+    ui->label_img_vest->setPixmap(QPixmap::fromImage(img_vest_array[0]));
+  }
+}
+
+void paginaprincipale::agree_module(){
+  QImage agree_tot ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/agree_female_completo.png");
+  QImage agree_spalla ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/agree_female_noj4.png");
+  if(ui->checkBox_exo->isChecked()){
+    ui->label_exo_module->setPixmap(QPixmap::fromImage (agree_tot));
+  }
+  else if (ui->checkBox_spalla->isChecked()) {
+    ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla));
   }
 
 

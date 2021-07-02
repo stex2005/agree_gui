@@ -204,6 +204,9 @@ class paginaprincipale : public QDialog
 
     int flag, prova;
 
+    //PREPARO VARIABILI PER FUNZIONE CHE ABILITA SOLO LA TAB CORRENTE
+    int tab_index;
+
     /*****************************************************************************
 
     ***************         ROS PARAMETERS DECLARATION   ******************
@@ -342,7 +345,20 @@ class paginaprincipale : public QDialog
     //SETTO PUNTI DI REST QUANDO VIENE SELEZIONATO LATO SINISTRO O DESTRO
     int point0_x, point0_y;
 
+    //DICHIARO VARIABILE PER TIMEOUT
+    int timeout; //abbiamo deciso che di default è inizializzata a 2 secondi
+    QString timeout_s; //questa serve er essere salvata nel db (in formato text si salvano meglio, almeno a me è sembrato così)
 
+
+//VARIABILI TUTORIAL MONTAGGIO
+    int index_tut=0;
+    int size_tutorial;
+    std::vector<QImage> img_tutorial_array;
+
+    //VARIABILI TUTORIAL VESTIZIONE
+        int index_vest=0;
+        int size_vest;
+        std::vector<QImage> img_vest_array;
 
 
 public:
@@ -492,6 +508,9 @@ private slots:
  /**********************   SET COMPENSATION AD ROSPARAM DURING REHAB SESSION     *************/
 
   void set_comp_param_ses();
+ /**********************   SET TIMEOUT  ROSPARAM DURING REHAB SESSION     *************/
+
+   void set_timeout_ses();
 /**********************       INTERROMPI TERAPIA             *********************/
 
  void on_pushButton_allarme_clicked();
@@ -573,12 +592,6 @@ private slots:
 
  void on_tableView_valutazioni_activated(const QModelIndex &index);
 
- void on_radioButton_lenta_clicked();
-
- void on_radioButton_media_clicked();
-
- void on_radioButton_veloce_clicked();
-
  void updateLabel();
 
  void exosize();
@@ -597,7 +610,12 @@ private slots:
 
  void check_point();
 
+ void enable_index();
 
+
+ void on_pushButton_indietro_vest_clicked();
+
+ void agree_module();
 
 private:
   Ui::paginaprincipale *ui;

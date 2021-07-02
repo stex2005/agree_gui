@@ -8,6 +8,7 @@ exercise:
       - 0
       - 0
       - 0
+      - 0
 
     repetition:
           - 2
@@ -30,3 +31,5 @@ exercise:
     mode: 1
 
     current_exercise: 0
+
+    timeout: 2
