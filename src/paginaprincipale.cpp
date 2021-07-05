@@ -4075,6 +4075,13 @@ void paginaprincipale::next_img() {
 
     QPixmap case2_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_2.png");
 
+    //EXER 7 IMAGES
+    QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_1.png");
+
+    QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_sx/es7_2_sx.png");
+
+    QPixmap case1_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_sx/es7_1_sx.png");
+
     switch (dati::command_exercise_pp) {
 
     //ESERCIZIO REACHING NEL PIANO SENZA OGGETTI
@@ -4559,7 +4566,7 @@ void paginaprincipale::next_img() {
 
       }
       break;
-      // ESERICZIO MANO ALLA BOCCA SENZA OGGETTO
+      // ESERICZIO ELEVAZIONE LATERALE
     case 7:
       qDebug()<< dati::command_task_pp;
       switch(dati::command_task_pp) {
@@ -4586,14 +4593,14 @@ void paginaprincipale::next_img() {
         break;
 
       case 1:
-        ui->label_img->setPixmap(case2_5);
+        ui->label_img->setPixmap(case1_7);
 
         // qDebug()<< "case2_6";
       //  ui->pushButton_ok->setEnabled(false);
         break;
 
       case 2:
-        ui->label_img->setPixmap(def_5);
+        ui->label_img->setPixmap(case2_7);
 
         //  qDebug()<< "case2_6";
      //   ui->pushButton_ok->setEnabled(false);
@@ -4736,6 +4743,14 @@ void paginaprincipale::next_img() {
     QPixmap def_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es5_1_dx.png");
 
     QPixmap case2_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es5_2_dx.png");
+
+    //EXER 7 IMAGES
+    QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es7_1_dx.png");
+
+    QPixmap case1_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_dx/es7_1_dx.png");
+
+    QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_dx/es7_2_dx.png");
+
     switch (dati::command_exercise_pp) {
 
     //ESERCIZIO REACHING NEL PIANO SENZA OGGETTI
@@ -5197,7 +5212,7 @@ void paginaprincipale::next_img() {
       }
       break;
 
-      // ESERICZIO MANO ALLA BOCCA SENZA OGGETTO
+      // ESERICZIO ELEVAZIONE LATERALE
     case 7:
       qDebug()<< dati::command_task_pp;
       switch(dati::command_task_pp) {
@@ -5225,15 +5240,14 @@ void paginaprincipale::next_img() {
 
 
       case 1:
-        ui->label_img->setPixmap(case2_5);
+        ui->label_img->setPixmap(case2_7);
 
         // qDebug()<< "case2_6";
       //  ui->pushButton_ok->setEnabled(false);
         break;
 
       case 2:
-        ui->label_img->setPixmap(def_5);
-
+        ui->label_img->setPixmap(case1_7);
         //  qDebug()<< "case2_6";
        // ui->pushButton_ok->setEnabled(false);
         break;
@@ -6441,36 +6455,43 @@ void paginaprincipale::agree_module(){
     }
   }
   else if (genere == "Maschio"){
-    QImage agree_spalla_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_spalla_dx.png");
-    QImage agree_tot_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_completo_dx.png");
-    QImage agree_tot_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_completo_emg_dx.png");
-    QImage agree_spalla_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_spalla_emg_dx.png");
-    QImage agree_spalla_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_spalla_sx.png");
-    QImage agree_tot_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_completo_sx.png");
-    QImage agree_tot_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_completo_emg_sx.png");
-    QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_spalla_emg_sx.png");
+    QImage agree_spalla_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_spalla_dx.png");
+    QImage agree_tot_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_completo_dx.png");
+    QImage agree_tot_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_completo_emg_dx.png");
+    QImage agree_spalla_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_spalla_emg_dx.png");
+    QImage agree_spalla_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_spalla_sx.png");
+    QImage agree_tot_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_completo_sx.png");
+    QImage agree_tot_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_completo_emg_sx.png");
+    QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_spalla_emg_sx.png");
     // destro
     if(side_avatar == 1) {
       //faccio il controllo sui moduli exo selezionati
       if(ui->checkBox_exo->isChecked()){
         //solo emg
-        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){
+         ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_tot_emg_dx));
+
+        }
         //emg + map
         else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
         //solo map
         else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
         // niente
         //else ui->label_exo_module->setPixmap(QPixmap::fromImage (agree_tot_female));
+       else  ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_tot_dx));
+
       }
       else if(ui->checkBox_spalla->isChecked()){
         //solo emg
-        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){
+          ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_tot_emg_sx));
+        }
         //emg + map
         else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
         //solo map
         else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
         // niente
-       // else ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla_female));
+       else ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_tot_sx));
       }
     }
     //sinistro
