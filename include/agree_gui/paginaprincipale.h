@@ -288,6 +288,7 @@ class paginaprincipale : public QDialog
     std::string eval_kinematics, eval_emg; //nome dei file pdf delle valutazioni da salvare nel db
     int mode_consigliata; //output da incrementare per salvare nel db la modalità successiva
     double final_score_kinematics, final_score_emg; // output globale per il report longitudinale
+    int timeout_emg;
 
     //DICHIARAZIONE LATO
     int side_param;

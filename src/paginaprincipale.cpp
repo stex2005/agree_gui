@@ -515,6 +515,12 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   connect(ui->progressBar_comp_avam_ses, SIGNAL(valueChanged(int)), this, SLOT(set_comp_param_ses()));
   connect(ui->spinBox_timeout_ses, SIGNAL(valueChanged(int)), this, SLOT(set_timeout_ses()));
 
+  //FISSO VELOCITÀ E EMG TIMEOUT
+  timeout_emg = 2;
+  ui->spinBox_timeout_trigger->setValue(timeout_emg);
+  ui->checkBox_vel2->setChecked(true);
+  ui->spinBox_timeout->setValue(2);
+
   //QUESTO LO METTO QUI PERCHÈ È SEMPRE ATTIVO
   QImage mat ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/MAT.jpg");
   img_vest_array.push_back(mat);
@@ -593,9 +599,6 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->label_11->setEnabled(false);
   ui->lineEdit_polsomin->setEnabled(false);
   ui->lineEdit_polsomax->setEnabled(false);
-
-
-
 
 
   // setto icone
@@ -1136,8 +1139,8 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
             comp_forearm = selezione.value(43).toDouble();
             comp_exo = selezione.value(44).toString();
             comp_param = selezione.value(44).toDouble();
-            Lunghezza_a = selezione.value(48).toString();
-            Lunghezza_b = selezione.value(49).toString();
+            Lunghezza_b = selezione.value(48).toString();
+            Lunghezza_a = selezione.value(49).toString();
             dati::mode_output = selezione.value(51).toString();
             timeout = selezione.value(59).toInt();
             if(dati::mode_output =="1") {
@@ -2561,6 +2564,10 @@ void paginaprincipale::on_pushButton_salta_EMG_clicked()
   msg.data = dati::status1;
   ROS_INFO ("%d", msg.data);
   status_publisher.publish(msg);
+  timeout_emg = ui->spinBox_timeout_trigger->value();
+  ros::NodeHandle n;
+  n.setParam("/evaluation/timeout", timeout_emg);
+
 }
 
 
@@ -4019,16 +4026,16 @@ void paginaprincipale::next_img() {
     //EXERCISE 2
 
     //rest
-    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_1.png");
+    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_1_sx.png");
 
     //dx
-    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_2.png");
+    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_2_sx.png");
 
     //centro
-    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_3.png");
+    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_3_sx.png");
 
     //sx
-    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_4.png");
+    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_4_sx.png");
 
 
     //EXERCISE 3
@@ -4152,7 +4159,7 @@ void paginaprincipale::next_img() {
       case 100: // SCHERMATA ESERCIZIO
         // mostro foto dell'esercizio 1
         ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento dei punti nello spazio. \nPremere OK per iniziare.");
-
+        ui->pushButton_ok->setEnabled(true);
         break;
 
 //      case 99:
@@ -4684,16 +4691,16 @@ void paginaprincipale::next_img() {
     //EXERCISE 2
 
     //rest
-    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_1.png");
+    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_1_dx.png");
 
     //sx
-    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_2.png");
+    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_2_dx.png");
 
     //centro
-    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_3.png");
+    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_3_dx.png");
 
     //dx
-    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_4.png");
+    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_4_dx.png");
 
 
     //EXERCISE 3
@@ -4852,7 +4859,7 @@ void paginaprincipale::next_img() {
         break;
 
       case 6: //sx
-        ui->label_img->setPixmap(case_rest_1);
+        ui->label_img->setPixmap(case_rest_2);
 
         qDebug()<< "case1";
         break;
@@ -6353,14 +6360,143 @@ void paginaprincipale::on_pushButton_indietro_vest_clicked()
 }
 
 void paginaprincipale::agree_module(){
-  QImage agree_tot ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/agree_female_completo.png");
-  QImage agree_spalla ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/agree_female_noj4.png");
-  if(ui->checkBox_exo->isChecked()){
-    ui->label_exo_module->setPixmap(QPixmap::fromImage (agree_tot));
-  }
-  else if (ui->checkBox_spalla->isChecked()) {
-    ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla));
-  }
 
+  //recupero lato e genere
+  //poi faccio selezione in base ai moduli selezionati
+  //dichiaro side locale perche mi serve solo qui e son sicura di non fare casini in giro
+  ros::NodeHandle n;
+  //rilevo lato exo
+  int side_avatar;
+  n.getParam("/side", side_avatar);
+  //rilevo genere paziente attuale
+  QString genere;
+  QSqlQuery get_gender;
+  get_gender.prepare("select Sesso from Pazienti where Codice_ID = '"+dati::ind+"'");
+  while(get_gender.next()){
+    genere = get_gender.value(0).toString();
+  }
+  //inizio casistiche
+  if(genere == "Femmina"){
+    QImage agree_spalla_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_spalla_dx.png");
+    QImage agree_tot_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_completo_dx.png");
+    QImage agree_tot_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_completo_emg_dx.png");
+    QImage agree_spalla_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_spalla_emg_dx.png");
+    QImage agree_spalla_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_spalla_sx.png");
+    QImage agree_tot_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_completo_sx.png");
+    QImage agree_tot_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_completo_emg_sx.png");
+    QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_spalla_emg_sx.png");
 
+    //destro
+    if(side_avatar == 1) {
+      //faccio il controllo sui moduli exo selezionati
+      if(ui->checkBox_exo->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){
+          ui->label_exo_module->setPixmap((QPixmap::fromImage(agree_tot_emg_dx)));
+        }
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+        else ui->label_exo_module->setPixmap(QPixmap::fromImage (agree_tot_dx));
+
+      }
+      else if(ui->checkBox_spalla->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){
+          ui->label_exo_module->setPixmap((QPixmap::fromImage(agree_tot_emg_sx)));
+        }
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+        else ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla_dx));
+      }
+    }
+    //sinistro
+    else if(side_avatar == 2) {
+      //faccio il controllo sui moduli exo selezionati
+      if(ui->checkBox_exo->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+        else ui->label_exo_module->setPixmap(QPixmap::fromImage (agree_tot_sx));
+      }
+      else if(ui->checkBox_spalla->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+        else ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla_sx));
+      }
+    }
+  }
+  else if (genere == "Maschio"){
+    QImage agree_spalla_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_spalla_dx.png");
+    QImage agree_tot_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_completo_dx.png");
+    QImage agree_tot_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_completo_emg_dx.png");
+    QImage agree_spalla_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_female_spalla_emg_dx.png");
+    QImage agree_spalla_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_spalla_sx.png");
+    QImage agree_tot_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_completo_sx.png");
+    QImage agree_tot_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_completo_emg_sx.png");
+    QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_female_spalla_emg_sx.png");
+    // destro
+    if(side_avatar == 1) {
+      //faccio il controllo sui moduli exo selezionati
+      if(ui->checkBox_exo->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+        //else ui->label_exo_module->setPixmap(QPixmap::fromImage (agree_tot_female));
+      }
+      else if(ui->checkBox_spalla->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+       // else ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla_female));
+      }
+    }
+    //sinistro
+    else if(side_avatar == 2) {
+      //faccio il controllo sui moduli exo selezionati
+      if(ui->checkBox_exo->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+      //  else ui->label_exo_module->setPixmap(QPixmap::fromImage (agree_tot_female));
+
+      }
+      else if(ui->checkBox_spalla->isChecked()){
+        //solo emg
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        //emg + map
+        else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
+        //solo map
+        else if(ui->checkBox_MAP_2->isChecked() && !ui->checkBox_emg_2->isChecked()){}
+        // niente
+     //   else ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla_female));
+      }
+    }
+  }
 }

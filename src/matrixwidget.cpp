@@ -64,7 +64,7 @@ void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_comman
       //point0 = {15,3};
 
 
-      qDebug()<<selCount;
+      qDebug()<< "selCount"<<selCount;
       // qui devo ricolorare i punti
 
 
@@ -77,6 +77,7 @@ void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_comman
 
     }
     if(dati::command_old_matrix == SC1_SELECT_FINISH) {
+      qDebug()<< "sono in select finisc in matrix";
       if(selCount==1)
       {
         Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
@@ -120,20 +121,26 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
     //zero non selezionabile
     if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
     if(dp.isSelected == false)
-    {
+    { cout <<"1"<<endl;
       if(selCount>2) return;
+      cout <<"2"<<endl;
       dp.DrawColor = Qt::red;
       dp.isSelected = true;
-      position.append(QPoint(xindex+1,15-yindex));
+      cout <<"3"<<endl;
+     // position.append(QPoint(xindex+1,15-yindex));
+      cout <<"4"<<endl;
       // auto i1 = position.indexOf(QPoint(xindex+1,15-yindex));
       //   if(dati::command_old == 9) {
-      if(std::count(point1.begin(), point1.end(), zero_point1)) {
+      //if(std::count(point1.begin(), point1.end(), zero_point1)) {
+      if(selCount ==0){
+        cout <<"5"<<endl;
         point1 = {(xindex+1),(15-yindex)};
         point1x = point1.at(0);
         point1y = point1.at(1);
 
         n.setParam("matlab/point1/mat_coordinate/x", point1x);
         n.setParam("matlab/point1/mat_coordinate/y", point1y);
+        n.setParam("matlab/point1/enabled", "true");
 
         qDebug()<< "riempio point1";
         qDebug()<< point1;
@@ -145,13 +152,15 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
       }
 
-      else if (std::count(point2.begin(), point2.end(), zero_point2)) {
+    //  else if (std::count(point2.begin(), point2.end(), zero_point2)) {
+      else if (selCount == 1){
         point2 = {(xindex+1),(15-yindex)};
         point2x = point2.at(0);
         point2y = point2.at(1);
 
         n.setParam("matlab/point2/mat_coordinate/x", point2x);
         n.setParam("matlab/point2/mat_coordinate/y", point2y);
+        n.setParam("matlab/point2/enabled", "true");
 
         qDebug()<< "riempio point2";
         qDebug()<< point2;
@@ -163,7 +172,8 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
       }
 
-      else if (std::count(point3.begin(), point3.end(), zero_point3)) {
+     // else if (std::count(point3.begin(), point3.end(), zero_point3)) {
+      else if (selCount==2){
         point3 = {(xindex+1),(15-yindex)};
         point3x = point3.at(0);
         point3y = point3.at(1);
@@ -177,6 +187,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         status_publisher.publish(msg);
         n.setParam("matlab/point3/mat_coordinate/x", point3x);
         n.setParam("matlab/point3/mat_coordinate/y", point3y);
+        n.setParam("matlab/point3/enabled", "true");
 
       }
 
@@ -196,17 +207,18 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
       dp.DrawColor = Qt::green;
       dp.isSelected = false;
       selCount--;
-      auto i1 = position.indexOf(QPoint((xindex+1),(15-yindex)));
+    //  auto i1 = position.indexOf(QPoint((xindex+1),(15-yindex)));
       std::vector<int> deselezione;
       deselezione = {(xindex+1),(15-yindex)};
       //QPoint deletedFromVector = position[i1];
-      position.remove(i1);
+    //  position.remove(i1);
       if(point1 == deselezione) {
 
         point1x = 0;
         point1y = 0;
         n.setParam("/matlab/point1/mat_coordinate/x", point1x);
         n.setParam("/matlab/point1/mat_coordinate/y", point1y);
+        n.setParam("matlab/point1/enabled", "false");
 
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
@@ -220,6 +232,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point2y = 0;
         n.setParam("/matlab/point2/mat_coordinate/x", point2x);
         n.setParam("/matlab/point2/mat_coordinate/y", point2y);
+        n.setParam("matlab/point2/enabled", "false");
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
@@ -231,6 +244,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point3y = 0;
         n.setParam("/matlab/point3/mat_coordinate/x", point3x);
         n.setParam("/matlab/point3/mat_coordinate/y", point3y);
+        n.setParam("matlab/point3/enabled", "false");
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
@@ -242,7 +256,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
 
     if (selCount==3)
-      qDebug()<<position;
+      //qDebug()<<position;
     std::vector<int> point_min;
 
   }
@@ -413,12 +427,12 @@ n.getParam("/side", side_matrix);
       Data[x][y].DrawColor= Qt::green;
 
       Data[x][y].value=1;
-      cout <<  "VERDE"  << endl;
+     // cout <<  "VERDE"  << endl;
     }
      else if (!matrix_test_en(i)) {
        Data[x][y].DrawColor= Qt::lightGray;
        Data[x][y].value=0;
-      cout <<  "GRIGIO"  << endl;
+      //cout <<  "GRIGIO"  << endl;
 
      }
    //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
