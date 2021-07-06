@@ -162,7 +162,7 @@
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="page_3">
             <layout class="QGridLayout" name="gridLayout_4">
@@ -412,7 +412,7 @@
              <item row="10" column="4">
               <widget class="QLabel" name="label_52">
                <property name="text">
-                <string>immagine report con blender?</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -1361,7 +1361,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>9</number>
          </property>
          <property name="tabBarAutoHide">
           <bool>true</bool>
@@ -1558,7 +1558,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
                             </font>
                            </property>
                            <property name="text">
-                            <string>TextLabel</string>
+                            <string/>
                            </property>
                           </widget>
                          </item>
@@ -1657,7 +1657,7 @@ Se viene selezionato verrai guidato da un tutorial per la sua corretta vestizion
                             </font>
                            </property>
                            <property name="text">
-                            <string>Questo modulo permette assiste la prono-supinazione dell'articolazione polso.</string>
+                            <string>Questo modulo permette di assistere la prono-supinazione dell'articolazione polso.</string>
                            </property>
                           </widget>
                          </item>
@@ -3690,6 +3690,19 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
                     </property>
                    </widget>
                   </item>
+                  <item row="18" column="11">
+                   <widget class="QLabel" name="label_31">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Questo parametro setta il tempo di attesa  tra un task e il successivo </string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -3877,7 +3890,7 @@ Suggerimento: selezionare se MRC &gt; 3.5</string>
            <item row="0" column="0">
             <widget class="QStackedWidget" name="stackedWidget_3">
              <property name="currentIndex">
-              <number>2</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="page_check">
               <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -3954,7 +3967,7 @@ Quando sei soddisfatto del segnale che ricevi premi Prosegui.</string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>Ubuntu</family>
+                   <family>FreeSans</family>
                    <pointsize>19</pointsize>
                   </font>
                  </property>
@@ -4038,19 +4051,46 @@ Quando sei soddisfatto del segnale che ricevi premi Prosegui.</string>
                </item>
                <item>
                 <widget class="QLabel" name="label_28">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>15</pointsize>
+                  </font>
+                 </property>
                  <property name="text">
-                  <string>Imposta la finestra di tempo del trigger: </string>
+                  <string>Timeout trigger: </string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QSpinBox" name="spinBox_timeout_trigger"/>
+                <widget class="QLabel" name="label_42">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>9</pointsize>
+                   <italic>true</italic>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Imposta la finestra temporale in cui il sistema resta in attesa di un attivazione muscolare</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_timeout_trigger">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>15</pointsize>
+                  </font>
+                 </property>
+                </widget>
                </item>
                <item>
                 <widget class="QPushButton" name="pushButton_salta_EMG">
                  <property name="font">
                   <font>
-                   <family>Sans</family>
+                   <family>FreeSans</family>
                    <pointsize>15</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
@@ -6570,7 +6610,7 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
            <item>
             <widget class="QStackedWidget" name="stackedWidget_calibrazione_mat">
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="page_cal_mat">
               <layout class="QVBoxLayout" name="verticalLayout_58">
@@ -6630,11 +6670,12 @@ Seleziona la velocità desiderata, quindi premi il tasto Salva per procedere con
                  <property name="font">
                   <font>
                    <family>Ubuntu</family>
-                   <pointsize>227</pointsize>
+                   <pointsize>70</pointsize>
                   </font>
                  </property>
                  <property name="text">
-                  <string>       PITA </string>
+                  <string>E' in corso il calcolo del workspace di AGREE. 
+Attendere</string>
                  </property>
                 </widget>
                </item>

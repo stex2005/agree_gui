@@ -479,6 +479,12 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   connect(ui->checkBox_exo, SIGNAL(stateChanged(int)), this, SLOT(enable_checkbox_moduli_polso()));
   connect(ui->checkBox_exo, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
   connect(ui->checkBox_spalla, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
+  connect(ui->checkBox_MAP_2, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
+  connect(ui->checkBox_emg_2, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
+  connect(ui->checkBox_eeg_2, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
+  connect(ui->checkBox_sinistro, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
+  connect(ui->checkBox_destro, SIGNAL(stateChanged(int)),this, SLOT(agree_module()));
+
   //timer = new QTimer(this);
   //timer_init = new QTimer(this);
   timer_rehab = new QTimer(this);
@@ -584,7 +590,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
   QImage rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
-  QImage exo ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/agree.png");
+  QImage exo ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/agree.png");
   ui->label_agree->setPixmap(QPixmap::fromImage(exo));
 
   //metto in grigino il modulo polso
@@ -721,6 +727,14 @@ void paginaprincipale::on_pushButton_salva_clicked()
   Patologia = ui-> lineEdit_patologia -> text();
   Lato = ui-> comboBox_latodominante-> currentText();
   storiaclinica = ui->lineEdit_storiaclinica ->text();
+
+  if(Lato == "Destro"){
+    ui->checkBox_destro->setChecked(true);
+  }
+  else if (Lato == "Sinistro"){
+    ui->checkBox_sinistro->setChecked(true);
+
+  }
 
   comp_arm = 100;
   comp_forearm_i = 100;
@@ -4093,7 +4107,7 @@ void paginaprincipale::next_img() {
       case 100: // SCHERMATA ESERCIZIO
         // mostro foto dell'esercizio 1
         ui->label_img-> setText("Iniziamo esercizio di \nraggiungimento dei punti. \nPremere OK per iniziare.");
-
+        ui->pushButton_ok->setEnabled(true);
         break;
 
 //      case 99:
@@ -6378,17 +6392,18 @@ void paginaprincipale::agree_module(){
   //recupero lato e genere
   //poi faccio selezione in base ai moduli selezionati
   //dichiaro side locale perche mi serve solo qui e son sicura di non fare casini in giro
-  ros::NodeHandle n;
   //rilevo lato exo
-  int side_avatar;
-  n.getParam("/side", side_avatar);
   //rilevo genere paziente attuale
   QString genere;
   QSqlQuery get_gender;
   get_gender.prepare("select Sesso from Pazienti where Codice_ID = '"+dati::ind+"'");
+ if( get_gender.exec()){
   while(get_gender.next()){
     genere = get_gender.value(0).toString();
   }
+ }
+ else qDebug()<< get_gender.lastError();
+
   //inizio casistiche
   if(genere == "Femmina"){
     QImage agree_spalla_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_spalla_dx.png");
@@ -6401,7 +6416,7 @@ void paginaprincipale::agree_module(){
     QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_spalla_emg_sx.png");
 
     //destro
-    if(side_avatar == 1) {
+    if(ui->checkBox_destro->isChecked()) {
       //faccio il controllo sui moduli exo selezionati
       if(ui->checkBox_exo->isChecked()){
         //solo emg
@@ -6419,7 +6434,7 @@ void paginaprincipale::agree_module(){
       else if(ui->checkBox_spalla->isChecked()){
         //solo emg
         if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){
-          ui->label_exo_module->setPixmap((QPixmap::fromImage(agree_tot_emg_sx)));
+          ui->label_exo_module->setPixmap((QPixmap::fromImage(agree_spalla_emg_dx)));
         }
         //emg + map
         else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
@@ -6430,11 +6445,13 @@ void paginaprincipale::agree_module(){
       }
     }
     //sinistro
-    else if(side_avatar == 2) {
+    else if(ui->checkBox_sinistro->isChecked()) {
       //faccio il controllo sui moduli exo selezionati
       if(ui->checkBox_exo->isChecked()){
         //solo emg
-        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){
+          ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_tot_emg_sx));
+        }
         //emg + map
         else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
         //solo map
@@ -6444,7 +6461,9 @@ void paginaprincipale::agree_module(){
       }
       else if(ui->checkBox_spalla->isChecked()){
         //solo emg
-        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){}
+        if(ui->checkBox_emg_2->isChecked() && !ui->checkBox_MAP_2->isChecked()){
+          ui->label_exo_module->setPixmap(QPixmap::fromImage( agree_spalla_emg_sx));
+        }
         //emg + map
         else if(ui->checkBox_emg_2->isChecked() && ui->checkBox_MAP_2->isChecked()){}
         //solo map
@@ -6464,7 +6483,7 @@ void paginaprincipale::agree_module(){
     QImage agree_tot_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_completo_emg_sx.png");
     QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_spalla_emg_sx.png");
     // destro
-    if(side_avatar == 1) {
+    if(ui->checkBox_destro->isChecked()) {
       //faccio il controllo sui moduli exo selezionati
       if(ui->checkBox_exo->isChecked()){
         //solo emg
@@ -6495,7 +6514,7 @@ void paginaprincipale::agree_module(){
       }
     }
     //sinistro
-    else if(side_avatar == 2) {
+    else if(ui->checkBox_sinistro->isChecked()) {
       //faccio il controllo sui moduli exo selezionati
       if(ui->checkBox_exo->isChecked()){
         //solo emg

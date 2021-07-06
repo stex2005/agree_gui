@@ -140,7 +140,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
         n.setParam("matlab/point1/mat_coordinate/x", point1x);
         n.setParam("matlab/point1/mat_coordinate/y", point1y);
-        n.setParam("matlab/point1/enabled", "true");
+        n.setParam("matlab/point1/enabled", true);
 
         qDebug()<< "riempio point1";
         qDebug()<< point1;
@@ -160,7 +160,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
         n.setParam("matlab/point2/mat_coordinate/x", point2x);
         n.setParam("matlab/point2/mat_coordinate/y", point2y);
-        n.setParam("matlab/point2/enabled", "true");
+        n.setParam("matlab/point2/enabled", true);
 
         qDebug()<< "riempio point2";
         qDebug()<< point2;
@@ -187,7 +187,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         status_publisher.publish(msg);
         n.setParam("matlab/point3/mat_coordinate/x", point3x);
         n.setParam("matlab/point3/mat_coordinate/y", point3y);
-        n.setParam("matlab/point3/enabled", "true");
+        n.setParam("matlab/point3/enabled", true);
 
       }
 
@@ -218,7 +218,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point1y = 0;
         n.setParam("/matlab/point1/mat_coordinate/x", point1x);
         n.setParam("/matlab/point1/mat_coordinate/y", point1y);
-        n.setParam("matlab/point1/enabled", "false");
+        n.setParam("matlab/point1/enabled", false);
 
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
@@ -232,7 +232,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point2y = 0;
         n.setParam("/matlab/point2/mat_coordinate/x", point2x);
         n.setParam("/matlab/point2/mat_coordinate/y", point2y);
-        n.setParam("matlab/point2/enabled", "false");
+        n.setParam("matlab/point2/enabled", false);
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
@@ -244,7 +244,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
         point3y = 0;
         n.setParam("/matlab/point3/mat_coordinate/x", point3x);
         n.setParam("/matlab/point3/mat_coordinate/y", point3y);
-        n.setParam("matlab/point3/enabled", "false");
+        n.setParam("matlab/point3/enabled", false);
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
         msg.data = dati::status1;
