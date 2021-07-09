@@ -34,94 +34,95 @@ login::login(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::login)
 {
- //setto le icone dei pulsanti
-//  QPixmap pixmap("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add.png");
-//  QIcon ButtonIcon(pixmap);
-//  ui->pushButton_accedi->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Male.png"));
-//  ui->pushButton_accedi->setIconSize(pixmap.rect().size());
+  //setto le icone dei pulsanti
+  //  QPixmap pixmap("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add.png");
+  //  QIcon ButtonIcon(pixmap);
+  //  ui->pushButton_accedi->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Male.png"));
+  //  ui->pushButton_accedi->setIconSize(pixmap.rect().size());
 
 
 
   ui->setupUi(this);
-
+  QImage logo("/home/alice/catkin_ws/src/agree_gui/resources/images/icon.png");
+  ui->label_agree_newrec->setPixmap(QPixmap::fromImage(logo));
 
   //CREO IL PATH
-//  QString path_dir = QDir::currentPath();
-//  qDebug()<< path_dir;
-//  path = getcwd(path, size);
-//  //cout << path[0] << " "<< path[1]<< " "<< path[2]<< " "<< path[3]<< " "<<path[4]<< " "<<path[5]<< " "<<endl;
-//  qDebug()<< path;
+  //  QString path_dir = QDir::currentPath();
+  //  qDebug()<< path_dir;
+  //  path = getcwd(path, size);
+  //  //cout << path[0] << " "<< path[1]<< " "<< path[2]<< " "<< path[3]<< " "<<path[4]<< " "<<path[5]<< " "<<endl;
+  //  qDebug()<< path;
 
 
-// if(path[6] == 'a') {
-// QString path_new = "/home/alice/catkin_ws";
-//  qDebug()<< path_new;
-// }
-// else if (path[6]== 's') {
-//   std::string path_new = "/home/smartbox/AGREE_ws";
-//    cout << path_new << endl;
-// }
+  // if(path[6] == 'a') {
+  // QString path_new = "/home/alice/catkin_ws";
+  //  qDebug()<< path_new;
+  // }
+  // else if (path[6]== 's') {
+  //   std::string path_new = "/home/smartbox/AGREE_ws";
+  //    cout << path_new << endl;
+  // }
 
 
 
 
-/**********************       DICHIARO NODO                           *********************/
+  /**********************       DICHIARO NODO                           *********************/
   ros::NodeHandle n;
 
-/**********************       CREO TOPIC                          *********************/
-status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
-command_subscriber = n.subscribe("/esmacat/command", 1000, &login::callback_log, this); //creo il topic a cui faccio il subscribe
+  /**********************       CREO TOPIC                          *********************/
+  status_publisher = n.advertise<std_msgs::Int16>("/gui/status", 1000);
+  command_subscriber = n.subscribe("/esmacat/command", 1000, &login::callback_log, this); //creo il topic a cui faccio il subscribe
 
 
 
-/**********************       COLLEGO DATABASE                            *********************/
+  /**********************       COLLEGO DATABASE                            *********************/
   QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
-//mydb.setDatabaseName("~/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
-mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
-mydb.setHostName("alice");
-mydb.setUserName("alice");
-mydb.setPassword("ali");
-this->showMaximized();
+  //mydb.setDatabaseName("~/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
+  mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
+  mydb.setHostName("alice");
+  mydb.setUserName("alice");
+  mydb.setPassword("ali");
+  this->showMaximized();
 
 
   // questo mostra nella prima pagina se il database è connesso
   if (!mydb.open())
-     ui->label_status-> setText("Database non connesso");
+    ui->label_status-> setText("Database non connesso");
 
-     else
+  else
 
-     ui->label_status ->setText("Database connesso...");
+    ui->label_status ->setText("Database connesso...");
 
   //placeholder text
-   ui->lineEdit_username->setPlaceholderText("Username");
-   ui->lineEdit_password->setPlaceholderText("Password");
+  ui->lineEdit_username->setPlaceholderText("Username");
+  ui->lineEdit_password->setPlaceholderText("Password");
 
-   dati::user_devel= "aaa";
-   dati::pass_devel = "00";
+  dati::user_devel= "aaa";
+  dati::pass_devel = "00";
 
-   QSqlQuery query;
-   query.prepare("select count (*) from Count");
-   query.exec();
-   while(query.next())
-   {
-     query.first();
-     dati::count= query.value(0).toString();
-
-
-   }
-
-/**********************       CONNETTO LOGIN CON PAGINAPRINCIPALE                  *********************/
-   Paginaprincipale = new paginaprincipale();
-
-   connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
-   qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+  QSqlQuery query;
+  query.prepare("select count (*) from Count");
+  query.exec();
+  while(query.next())
+  {
+    query.first();
+    dati::count= query.value(0).toString();
 
 
-   /**********************       CONNETTO LOGIN CON SC_ASSISTIVO                  *********************/
-      //Sc_assistivo = new sc_assistivo();
+  }
 
-     // connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
-    //  qDebug()<< "conn:" << connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
+  /**********************       CONNETTO LOGIN CON PAGINAPRINCIPALE                  *********************/
+  Paginaprincipale = new paginaprincipale();
+
+  connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+  qDebug()<< "conn:" << connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+
+
+  /**********************       CONNETTO LOGIN CON SC_ASSISTIVO                  *********************/
+  //Sc_assistivo = new sc_assistivo();
+
+  // connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
+  //  qDebug()<< "conn:" << connect(Sc_assistivo, SIGNAL(ShowMain_sc3()), this, SLOT(showlogin_sc3()));
 
 }
 
@@ -132,20 +133,20 @@ login::~login()
 
 void login::callback_log(const agree_esmacat_pkg::agree_esmacat_command msg) {
   dati::command_login = msg.gui_mode;
-//cambia_status();
+  //cambia_status();
   if((dati::command_old_login) != (dati::command_login)) {
     dati::command_old_login=dati::command_login;
-   ROS_INFO("I heard: %d Log Page", dati::command_login);
+    ROS_INFO("I heard: %d Log Page", dati::command_login);
 
     if (dati::command_old_login == SC1_EDIT_PATIENT_MODULE_CONTROL) {
 
       this->hide();
 
-   }
+    }
     if(dati::command_old_login == SC3_PHYSIOLOGICAL_EDIT) {
       this ->hide();
-//      Sc_assistivo = new sc_assistivo();
-//                  Sc_assistivo->show();
+      //      Sc_assistivo = new sc_assistivo();
+      //                  Sc_assistivo->show();
     }
   }
 }
@@ -165,90 +166,84 @@ void login::showlogin_sc3() {
 void login::on_pushButton_accedi_clicked()
 {
 
- //fasi per il login: inserisco username e password da tastiera (variabili che vengono salvate nelle variabili globali così poi da poter essere utilizzate anche nelle altre finestre)
-     dati::username= ui->lineEdit_username->text();
-     dati::password = ui->lineEdit_password->text();
+  //fasi per il login: inserisco username e password da tastiera (variabili che vengono salvate nelle variabili globali così poi da poter essere utilizzate anche nelle altre finestre)
+  dati::username= ui->lineEdit_username->text();
+  dati::password = ui->lineEdit_password->text();
 
-     // dichiaro una query
-    QSqlQuery qry;
+  // dichiaro una query
+  QSqlQuery qry;
+  // modo condensato in cui preparazione della query ed esecuzione avvengono simultaneamente : vado a confrontare i  dati del database (nella tabella Users) con quelli immessi da tastiera
 
- // modo condensato in cui preparazione della query ed esecuzione avvengono simultaneamente : vado a confrontare i  dati del database (nella tabella Users) con quelli immessi da tastiera
+  if (qry.exec("select *from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"' "))
+  {
 
-    if (qry.exec("select *from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"' "))
+    //inizializzo variabile contatore per verificare se ci sono più utenti con la stessa username e password
+    int count=0;
+    while(qry.next())
     {
+      count++;
+    }
 
- //inizializzo variabile contatore per verificare se ci sono più utenti con la stessa username e password
-        int count=0;
-        while(qry.next())
-        {
-            count++;
-        }
+    // se il contatore si ferma a uno dopo aver passato tutta la tabella in questione allora i dati inseriti sono corretti e posso entrare nella mia pagina
+    if (count==1){
 
- // se il contatore si ferma a uno dopo aver passato tutta la tabella in questione allora i dati inseriti sono corretti e posso entrare nella mia pagina
-        if (count==1){
-
-            ui->label_status->setText("Username e Password corretti");
-            // voglio associare a una variabile il valore dell'elemento Profilo a seconda dell'id_utente appena inserito
-             QSqlQuery query;
-             query.prepare("select Profilo from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
-             query.exec();
-             while(query.next()){
-                 dati::profilo = query.value(0).toInt();
-             }
+      ui->label_status->setText("Username e Password corretti");
+      // voglio associare a una variabile il valore dell'elemento Profilo a seconda dell'id_utente appena inserito
+      QSqlQuery query;
+      query.prepare("select Profilo from Users where Username = '"+dati::username+"' and Password = '"+dati::password+"'");
+      query.exec();
+      while(query.next()){
+        dati::profilo = query.value(0).toInt();
+      }
 
 
-     if (dati::profilo == 1){
-       dati::status1 =1000;
-       msg_status.data = dati::status1;
-       ROS_INFO ("Push button ################# %d", msg_status.data);
-       status_publisher.publish(msg_status);
-       dati::flag_sc= 1;
-      ros::NodeHandle n;
-     n.setParam("scenario", dati::flag_sc);
+      if (dati::profilo == 1){
+        dati::status1 =1000;
+        msg_status.data = dati::status1;
+        ROS_INFO ("Push button ################# %d", msg_status.data);
+        status_publisher.publish(msg_status);
+        //POTREBBE NON SERVIRE
+        //       dati::flag_sc= 1;
+        //      ros::NodeHandle n;
+        //     n.setParam("scenario", dati::flag_sc);
 
 
 
 
 
 
-        }
-     //apro una finestra in caso di scenario 3
-     else if(dati::profilo==3){
+      }
+      //check
+      //apro una finestra in caso di scenario 3
+      else if(dati::profilo==3){
+        //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
 
-
-
-
-       //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
-
-       dati::status1 =3001;
-       msg_status.data = dati::status1;
-       ROS_INFO ("Push button ################# %d", msg_status.data);
-       status_publisher.publish(msg_status);
+        dati::status1 =3001;
+        msg_status.data = dati::status1;
+        ROS_INFO ("Push button ################# %d", msg_status.data);
+        status_publisher.publish(msg_status);
         dati::flag_sc= 3;
-       ros::NodeHandle n;
-      n.setParam("scenario", dati::flag_sc);
+        ros::NodeHandle n;
+        n.setParam("scenario", dati::flag_sc);
 
 
-        }
+      }
     }
 
-        if (count >1)
-            ui->label_status->setText("Username e Password già presenti nel database");
-        if (count<1)
-            ui->label_status->setText("username o password non corretti");
+    if (count >1)
+      ui->label_status->setText("Username e Password già presenti nel database");
+    if (count<1)
+      ui->label_status->setText("username o password non corretti");
 
+  }
+  if(dati::username == dati::user_devel && dati::password == dati::pass_devel) {
+    //      dati::status1 =31;
+    //      msg_status.data = dati::status1;
+    //      ROS_INFO ("Push button ################# %d", msg_status.data);
+    //      status_publisher.publish(msg_status);
+
+  }
 }
-    if(dati::username == dati::user_devel && dati::password == dati::pass_devel) {
-//      dati::status1 =31;
-//      msg_status.data = dati::status1;
-//      ROS_INFO ("Push button ################# %d", msg_status.data);
-//      status_publisher.publish(msg_status);
-
-
-
-    }
-
-    }
 
 /**********************       FUNZIONE NUOVA REGISTRAZIONE                            ********************/
 void login::on_pushButton_newrec_clicked()
@@ -256,8 +251,6 @@ void login::on_pushButton_newrec_clicked()
 
   ui->tabWidget->setCurrentWidget(ui->tab_2);
   flag1=1;
-
-
 }
 
 /**********************       FUNZIONE SALVA NUOVA REGISTRAZIONE                      *********************/
@@ -266,114 +259,114 @@ void login::on_pushButton_salva_clicked()
 {
   QString Nome,Cognome, Username, Password, Conferma, Profilo;
   QString Data;
- dati::Nome= ui->lineEdit_nome->text();
+  dati::Nome= ui->lineEdit_nome->text();
   dati::Cognome = ui->lineEdit_cognome-> text();
   dati::Data =ui->lineEdit_data->text();
- dati::password= ui->lineEdit_password_2->text();
-Conferma = ui ->lineEdit_conferma->text();
+  dati::password= ui->lineEdit_password_2->text();
+  Conferma = ui ->lineEdit_conferma->text();
 
 
-// dichiaro una variabile stringa, in cui salvo una stringa (numerica) che poi vado a scrivere nel database nella colonna profilo così da identificare l'utente appena loggato e aprire la finestra dedicata
+  // dichiaro una variabile stringa, in cui salvo una stringa (numerica) che poi vado a scrivere nel database nella colonna profilo così da identificare l'utente appena loggato e aprire la finestra dedicata
   if(ui->radioButton_terapista->isChecked()) {
-      Profilo =QString::number(1); // creo una variabile in qui assegno un valore in base al radio button selezionato. a questo punto riassocio la variabile all'elemento della struct che si riferisce alla colonna della tabella in cui sto scrivendo,mi serve per poter leggere da database i diversi profili e quindi aprire diverse finestre a seconda del profilo selezionato
-      dati::profilo = Profilo.toInt();
-      dati::sigla= "t";
+    Profilo =QString::number(1); // creo una variabile in qui assegno un valore in base al radio button selezionato. a questo punto riassocio la variabile all'elemento della struct che si riferisce alla colonna della tabella in cui sto scrivendo,mi serve per poter leggere da database i diversi profili e quindi aprire diverse finestre a seconda del profilo selezionato
+    dati::profilo = Profilo.toInt();
+    dati::sigla= "t";
 
   }
   else if(ui->radioButton_tecnico ->isChecked()) {
-      Profilo =QString::number(2);
-      dati::profilo = Profilo.toInt();
-      dati::sigla= "tc";
+    Profilo =QString::number(2);
+    dati::profilo = Profilo.toInt();
+    dati::sigla= "tc";
 
   }
   else if(ui->radioButton_utente ->isChecked()) {
-      Profilo=QString::number(3);
-      dati::profilo = Profilo.toInt();
-      dati::sigla = "u";
-      dati::nuovo_utente=1;
+    Profilo=QString::number(3);
+    dati::profilo = Profilo.toInt();
+    dati::sigla = "u";
+    dati::nuovo_utente=1;
   }
-     qDebug()<<dati::profilo;
+  qDebug()<<dati::profilo;
 
-       dati::username= dati::Nome+ dati::Cognome+ dati::sigla+ dati::count;
-
-
-
-     QSqlQuery qry;
-     QSqlQuery qry2;
-
-
-if (dati::password == Conferma) {
-
-     if(!qry.exec("insert into Users (Nome,Cognome,Data_di_Nascita, Username,Password,Profilo) values ('"+dati::Nome+"', '"+dati::Cognome+"','"+dati::Data+"', '"+dati::username+"', '"+dati::password+"', '"+Profilo+"')" ))
-     {
-            QMessageBox ::critical(this,tr("Errore"),tr("Username già presente nel database"));
-     }
-     else
-     {
-         QMessageBox ::information(this,tr("Save"),tr("Salvato"));
-         QMessageBox::information(this, tr("Information"), QString("Nuovo utente creato. Username : %1  e password:  %2").arg(dati::username).arg(dati::password));
-         //mydb.close();
-         this ->hide();
-
- //capire come mai non si aprono più le finestre interessate
-         if (dati::profilo == 1){
-           dati::status1 = 1000;
+  dati::username= dati::Nome+ dati::Cognome+ dati::sigla+ dati::count;
 
 
 
-//         Paginaprincipale  = new paginaprincipale(this);
-//        connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
-//         Paginaprincipale->show();
+  QSqlQuery qry;
+  QSqlQuery qry2;
 
 
-         std_msgs::Int16 msg;
-         msg.data = dati::status1;
-         ROS_INFO ("sbagliato? %d", msg.data);
-         status_publisher.publish(msg);
-         dati::flag_sc= 1;
+  if (dati::password == Conferma) {
+
+    if(!qry.exec("insert into Users (Nome,Cognome,Data_di_Nascita, Username,Password,Profilo) values ('"+dati::Nome+"', '"+dati::Cognome+"','"+dati::Data+"', '"+dati::username+"', '"+dati::password+"', '"+Profilo+"')" ))
+    {
+      QMessageBox ::critical(this,tr("Errore"),tr("Username già presente nel database"));
+    }
+    else
+    {
+      QMessageBox ::information(this,tr("Save"),tr("Salvato"));
+      QMessageBox::information(this, tr("Information"), QString("Nuovo utente creato. Username : %1  e password:  %2").arg(dati::username).arg(dati::password));
+      //mydb.close();
+      this ->hide();
+
+      //capire come mai non si aprono più le finestre interessate
+      if (dati::profilo == 1){
+        dati::status1 = 1000;
+
+
+
+        //         Paginaprincipale  = new paginaprincipale(this);
+        //        connect(Paginaprincipale, SIGNAL(ShowMain()), this, SLOT(showlogin()));
+        //         Paginaprincipale->show();
+
+
+        std_msgs::Int16 msg;
+        msg.data = dati::status1;
+        ROS_INFO ("sbagliato? %d", msg.data);
+        status_publisher.publish(msg);
+        dati::flag_sc= 1;
         ros::NodeHandle n;
-       n.setParam("scenario", dati::flag_sc);
+        n.setParam("scenario", dati::flag_sc);
+
+      }
+      else if(dati::profilo == 3) {
+
+        if(!qry2.exec("insert into Utenti_ass (usernameass, Nome, Cognome, DataNascita) values ('"+dati::username+"', '"+dati::Nome+"', '"+dati::Cognome+"', '"+dati::Data+"')"))
+        {
+          QMessageBox ::critical(this,tr("Errore"),tr("uff"));
+        }
+        else {
+
+          //           Sc_assistivo = new sc_assistivo(this);
+          //                       Sc_assistivo->show();
+
+
+          //                       dati::status1 =1;
+          //                       msg_status.data = dati::status1;
+          //                       ROS_INFO ("Push button ################# %d", msg_status.data);
+          //                       status_publisher.publish(msg_status);
+          //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
+          dati::flag_sc=3;
+          ros::NodeHandle n;
+          n.setParam("scenario", dati::flag_sc);
+
 
         }
-        else if(dati::profilo == 3) {
-
-           if(!qry2.exec("insert into Utenti_ass (usernameass, Nome, Cognome, DataNascita) values ('"+dati::username+"', '"+dati::Nome+"', '"+dati::Cognome+"', '"+dati::Data+"')"))
-          {
-            QMessageBox ::critical(this,tr("Errore"),tr("uff"));
-          }
-       else {
-
-//           Sc_assistivo = new sc_assistivo(this);
-//                       Sc_assistivo->show();
 
 
-//                       dati::status1 =1;
-//                       msg_status.data = dati::status1;
-//                       ROS_INFO ("Push button ################# %d", msg_status.data);
-//                       status_publisher.publish(msg_status);
-                     //SETTO IL FLAG PER FAR CAPIRE CHE È SCENARIO 3
-                      dati::flag_sc=3;
-                     ros::NodeHandle n;
-                    n.setParam("scenario", dati::flag_sc);
+      }
+
+    }
+  }
+  else {
+    QMessageBox ::critical(this,tr("Errore"),tr("Le Password non corrispondono"));
+    qDebug() << dati::password;
+    qDebug() << Conferma;
 
 
-          }
-
-
-         }
-
-         }
-}
-else {
-       QMessageBox ::critical(this,tr("Errore"),tr("Le Password non corrispondono"));
-       qDebug() << dati::password;
-       qDebug() << Conferma;
-
-
-     }
-QSqlQuery qryc;
-qryc.prepare("insert into Count (username, cont) values('"+dati::username+"', '"+dati::count+"')");
-qryc.exec();
+  }
+  QSqlQuery qryc;
+  qryc.prepare("insert into Count (username, cont) values('"+dati::username+"', '"+dati::count+"')");
+  qryc.exec();
 
 }
 

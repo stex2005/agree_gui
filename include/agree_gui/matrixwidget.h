@@ -42,7 +42,7 @@ class MatrixWidget : public QWidget
 
 
 
-
+  int point1_x_t,point1_y_t, point2_x_t, point2_y_t, point3_x_t, point3_y_t;
   int bw=0;
   int bh=0;
   int selCount= 0;
@@ -78,6 +78,9 @@ public slots:
 
  void callback_matrix(const agree_esmacat_pkg::agree_esmacat_command msg_command_matrix);
  // void getpos();
+
+ //funzione per controllare quanti punti ho selezionato e aggiornare i rosparam di conseguenza (utile per la deselezione)
+ void check_p();
 
 
 

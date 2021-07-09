@@ -47,21 +47,8 @@ class login : public QMainWindow
   ***************         ROS MESSAGES DECLARATION         ******************
 
   *****************************************************************************/
-  std_msgs::String msg;
-  std::stringstream ss_log1; //LOGIN SC 1
-  std::stringstream ss_log2; //LOGIN SC 2
-  std::stringstream ss_log1_new; // NEW LOGIN SC 1
-  std::stringstream ss_log2_new; // NEW LOGIN SC 2
+
   std_msgs::Int16 msg_status;
-
-  //VERIFICA PATH
-  size_t size;
-  char *path=NULL;
-
- char *path_alice =NULL;
-char *path_smartbox = NULL;
-
-
 
 public:
   explicit login(QWidget *parent = nullptr);
@@ -84,9 +71,8 @@ public slots :
   void callback_log(const agree_esmacat_pkg::agree_esmacat_command msg);
 
 
-
 private slots:
-
+  //funzioni che eseguono la funzione del bottone che viene cliccato dall'utente
   void on_pushButton_accedi_clicked();
 
   void on_pushButton_newrec_clicked();
@@ -95,6 +81,7 @@ private slots:
 
 
 private:
+  //inserire qui le nuova pagine a cui si vuole accedere
   Ui::login *ui;
   paginaprincipale *Paginaprincipale; //declaring the name of window that i can open from the login
   //sc_assistivo *Sc_assistivo;

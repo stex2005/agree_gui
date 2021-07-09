@@ -53,10 +53,10 @@ void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_comman
 
   if((dati::command_old_matrix) != (dati::command_matrix)) {
     dati::command_old_matrix=dati::command_matrix;
-   // qDebug()<< "matrix";
+    // qDebug()<< "matrix";
     if(dati::command_old_matrix==SC1_WORKSPACE_ON){
       LoadData();
-     // qDebug()<<"dati caricati";
+      // qDebug()<<"dati caricati";
     }
     if(dati::command_old_matrix == SC1_UPDATE_LED) { //SALVO PARAMETRI DA ROSPARAMETERS
 
@@ -78,18 +78,26 @@ void MatrixWidget::callback_matrix(const agree_esmacat_pkg::agree_esmacat_comman
     }
     if(dati::command_old_matrix == SC1_SELECT_FINISH) {
       qDebug()<< "sono in select finisc in matrix";
+
+
       if(selCount==1)
-      {
+      { //check_p();
+
+
         Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
         qDebug()<< "cisiamoooo";
 
       }
       else if (selCount==2) {
+        //check_p();
+
+
         Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
         Data[point2.at(1)][point2.at(0)].DrawColor = Qt::red;
         qDebug()<< "cisiamoooo2";
       }
       else if (selCount ==3) {
+        //check_p();
         Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
         Data[point2.at(1)][point2.at(0)].DrawColor = Qt::red;
         Data[point3.at(1)][point3.at(0)].DrawColor = Qt::red;
@@ -121,19 +129,20 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
     //zero non selezionabile
     if(dp.value ==0 || dp.DrawColor==Qt::black ) return;
     if(dp.isSelected == false)
-    { cout <<"1"<<endl;
+    {
       if(selCount>2) return;
-      cout <<"2"<<endl;
+
       dp.DrawColor = Qt::red;
       dp.isSelected = true;
-      cout <<"3"<<endl;
-     // position.append(QPoint(xindex+1,15-yindex));
-      cout <<"4"<<endl;
+
+      // position.append(QPoint(xindex+1,15-yindex));
+
       // auto i1 = position.indexOf(QPoint(xindex+1,15-yindex));
       //   if(dati::command_old == 9) {
       //if(std::count(point1.begin(), point1.end(), zero_point1)) {
       if(selCount ==0){
-        cout <<"5"<<endl;
+
+
         point1 = {(xindex+1),(15-yindex)};
         point1x = point1.at(0);
         point1y = point1.at(1);
@@ -152,7 +161,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
       }
 
-    //  else if (std::count(point2.begin(), point2.end(), zero_point2)) {
+      //  else if (std::count(point2.begin(), point2.end(), zero_point2)) {
       else if (selCount == 1){
         point2 = {(xindex+1),(15-yindex)};
         point2x = point2.at(0);
@@ -172,7 +181,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
       }
 
-     // else if (std::count(point3.begin(), point3.end(), zero_point3)) {
+      // else if (std::count(point3.begin(), point3.end(), zero_point3)) {
       else if (selCount==2){
         point3 = {(xindex+1),(15-yindex)};
         point3x = point3.at(0);
@@ -207,18 +216,21 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
       dp.DrawColor = Qt::green;
       dp.isSelected = false;
       selCount--;
-    //  auto i1 = position.indexOf(QPoint((xindex+1),(15-yindex)));
+      //  auto i1 = position.indexOf(QPoint((xindex+1),(15-yindex)));
       std::vector<int> deselezione;
       deselezione = {(xindex+1),(15-yindex)};
       //QPoint deletedFromVector = position[i1];
-    //  position.remove(i1);
+      //  position.remove(i1);
       if(point1 == deselezione) {
 
         point1x = 0;
         point1y = 0;
+
         n.setParam("/matlab/point1/mat_coordinate/x", point1x);
         n.setParam("/matlab/point1/mat_coordinate/y", point1y);
         n.setParam("matlab/point1/enabled", false);
+
+
 
         dati::status1 = SC1_SELECTED;
         std_msgs::Int16 msg;
@@ -257,7 +269,7 @@ void MatrixWidget::mousePressEvent(QMouseEvent *event)
 
     if (selCount==3)
       //qDebug()<<position;
-    std::vector<int> point_min;
+      std::vector<int> point_min;
 
   }
 }
@@ -284,7 +296,7 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
 
   p.drawRect(0,0, width()-1 , height() -1  );
   //-1
- // cout << "sono nel paint event"<<std::endl;
+  // cout << "sono nel paint event"<<std::endl;
 
   // size of area we have. w = width , h = height , we take 2 pixles for border
   int w = width()-2;
@@ -295,10 +307,10 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
   // now we loop and drw the boxes, non usiamo 0,0 perchè i dati partono dalla posizione 1
 
   for (int xi = 0; xi < max_x-1; ++xi) {
-   //  cout << "sono nel I for del paint event"<<std::endl;
+    //  cout << "sono nel I for del paint event"<<std::endl;
     // for (int xi =14; xi >=1; --xi) {
     for (int yi = 0; yi < max_y -1; ++yi) {
-    //  cout << "sono nel II for del paint event"<<std::endl;
+      //  cout << "sono nel II for del paint event"<<std::endl;
       // int new_x= Y-xi;
       p.setBrush(QBrush (Data[Y-xi][yi+1].DrawColor));
       QRect cellRect(yi*bw,xi*bh, bw,bh);
@@ -311,133 +323,134 @@ void MatrixWidget::paintEvent(QPaintEvent *event)
 
 }
 void MatrixWidget::LoadData(){  
- qDebug()<< "sono in load data";
+  qDebug()<< "sono in load data";
   qDebug()<<dati::lato;
-   MatrixXd matrix_test;
-   MatrixXd matrix_test_y;
-   MatrixXd matrix_test_en;
-ros::NodeHandle n;
-n.getParam("/side", side_matrix);
+  MatrixXd matrix_test;
+  MatrixXd matrix_test_y;
+  MatrixXd matrix_test_en;
+  ros::NodeHandle n;
+  n.getParam("/side", side_matrix);
 
- // if(dati::lato=="1"){
-//faccio controllo su destro e sinistro e salvo i file
-   if(side_matrix== 1){
-     qDebug()<< "sono in load data rigth";
+  // if(dati::lato=="1"){
+  //faccio controllo su destro e sinistro e salvo i file
+  if(side_matrix== 1){
+    qDebug()<< "sono in load data rigth";
     cout <<  "Enter Load right" << endl;
 
-     Eigen::MatioFile file_x_right("/home/alice/catkin_ws/data/right_workspace_x.mat");
-     const std::vector<std::string> read_x_right {"workspace_x"};
+    Eigen::MatioFile file_x_right("/home/alice/catkin_ws/data/right_workspace_x.mat");
+    const std::vector<std::string> read_x_right {"workspace_x"};
 
 
 
-       file_x_right.read_mat("workspace_x", matrix_test);
+    file_x_right.read_mat("workspace_x", matrix_test);
     //   std::cout<< "destro_x" << std::endl << "workspace_x" << std::endl << matrix_test << std::endl;
 
 
-       Eigen::MatioFile file_y_right("/home/alice/catkin_ws/data/right_workspace_y.mat");
-       const std::vector<std::string> read_y_right {"workspace_y"};
+    Eigen::MatioFile file_y_right("/home/alice/catkin_ws/data/right_workspace_y.mat");
+    const std::vector<std::string> read_y_right {"workspace_y"};
 
 
-         file_y_right.read_mat("workspace_y", matrix_test_y);
-  //       std::cout<< "destro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
+    file_y_right.read_mat("workspace_y", matrix_test_y);
+    //       std::cout<< "destro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
 
 
-         Eigen::MatioFile file_en_right("/home/alice/catkin_ws/data/right_workspace_enabled.mat");
-  //       const std::vector<std::string> read_en_right {"workspace_enabled"};
+    Eigen::MatioFile file_en_right("/home/alice/catkin_ws/data/right_workspace_enabled.mat");
+    //       const std::vector<std::string> read_en_right {"workspace_enabled"};
 
 
-           file_en_right.read_mat("workspace_enabled", matrix_test_en);
-  //         std::cout<< " destro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
+    file_en_right.read_mat("workspace_enabled", matrix_test_en);
+    //         std::cout<< " destro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
 
-//     MatrixXd matrix;
+    //     MatrixXd matrix;
 
 
-//   // matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_right.CSV");
-//  //  cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
-//   for(int i= 1; i<451;i++){
+    //   // matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_right.CSV");
+    //  //  cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
+    //   for(int i= 1; i<451;i++){
 
-//      int x= matrix_test_y(i);
-//      int y = matrix_test(i);
+    //      int x= matrix_test_y(i);
+    //      int y = matrix_test(i);
 
-////    }
+    ////    }
 
-////    int  y= matrix_test_y(i,0);
-//  // cout <<  "ho assegnato righe e colonne"  << endl;
-//     if(matrix_test_en(i)){
+    ////    int  y= matrix_test_y(i,0);
+    //  // cout <<  "ho assegnato righe e colonne"  << endl;
+    //     if(matrix_test_en(i)){
 
-//       Data[x][y].DrawColor= Qt::green;
+    //       Data[x][y].DrawColor= Qt::green;
 
-//       Data[x][y].value=1;
-//       cout <<  "VERDE"  << endl;
-//     }
-//      else if (!matrix_test_en(i)) {
-//        Data[x][y].DrawColor= Qt::lightGray;
-//        Data[x][y].value=0;
-//       cout <<  "GRIGIO"  << endl;
+    //       Data[x][y].value=1;
+    //       cout <<  "VERDE"  << endl;
+    //     }
+    //      else if (!matrix_test_en(i)) {
+    //        Data[x][y].DrawColor= Qt::lightGray;
+    //        Data[x][y].value=0;
+    //       cout <<  "GRIGIO"  << endl;
 
-//      }
-//    //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
-//    } //FOR
-// //    cout << "sono fuori dal ciclo for"<<std::endl;
- } //DESTRO
-// //  cout << "sono fuori dal destro"<<std::endl;
+    //      }
+    //    //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
+    //    } //FOR
+    // //    cout << "sono fuori dal ciclo for"<<std::endl;
+  } //DESTRO
+  // //  cout << "sono fuori dal destro"<<std::endl;
   qDebug()<<Data[13][1].value;
-//  if(dati::lato== "0") {
+  //  if(dati::lato== "0") {
+  //sinistro
   if(side_matrix==2){
-  //  cout <<  "Enter Load left" << endl;
-
-    Eigen::MatioFile file_x_left("/home/alice/catkin_ws/data/left_workspace_x.mat");
+    //  cout <<  "Enter Load left" << endl;
+    //TODO: CAMBIARE LEFT IN RIGHT IN TUTTI I .MAT
+    Eigen::MatioFile file_x_left("/home/alice/catkin_ws/data/right_workspace_x.mat");
     const std::vector<std::string> read_x_left{"workspace_x"};
 
 
-      file_x_left.read_mat("workspace_x", matrix_test);
-      std::cout<< "sinistro x" << std::endl << "workspace_x" << std::endl << matrix_test << std::endl;
+    file_x_left.read_mat("workspace_x", matrix_test);
+    std::cout<< "sinistro x" << std::endl << "workspace_x" << std::endl << matrix_test << std::endl;
 
 
-      Eigen::MatioFile file_y_left("/home/alice/catkin_ws/data/left_workspace_y.mat");
-      const std::vector<std::string> read_y_left {"workspace_y"};
+    Eigen::MatioFile file_y_left("/home/alice/catkin_ws/data/right_workspace_y.mat");
+    const std::vector<std::string> read_y_left {"workspace_y"};
 
 
-        file_y_left.read_mat("workspace_y", matrix_test_y);
-        std::cout<< "sinistro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
+    file_y_left.read_mat("workspace_y", matrix_test_y);
+    std::cout<< "sinistro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
 
 
-        Eigen::MatioFile file_en_left("/home/alice/catkin_ws/data/left_workspace_enabled.mat");
-        const std::vector<std::string> read_en_left {"workspace_enabled"};
+    Eigen::MatioFile file_en_left("/home/alice/catkin_ws/data/right_workspace_enabled.mat");
+    const std::vector<std::string> read_en_left {"workspace_enabled"};
 
 
-          file_en_left.read_mat("workspace_enabled", matrix_test_en);
-          std::cout<< "sinistro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
-      //              std::cout<< "sinistro en 0 " << std::endl << "workspace_enabled 0" << std::endl << matrix_test_en(0) << std::endl;
+    file_en_left.read_mat("workspace_enabled", matrix_test_en);
+    std::cout<< "sinistro en" << std::endl << "workspace_enabled" << std::endl << matrix_test_en << std::endl;
+    //              std::cout<< "sinistro en 0 " << std::endl << "workspace_enabled 0" << std::endl << matrix_test_en(0) << std::endl;
 
 
-}
-//creo il workspace
+  }
+  //creo il workspace
   for(int i= 1; i<451;i++){
 
-     int x= matrix_test_y(i);
-     int y = matrix_test(i);
+    int x= matrix_test_y(i);
+    int y = matrix_test(i);
 
-//    }
+    //    }
 
-//    int  y= matrix_test_y(i,0);
- // cout <<  "ho assegnato righe e colonne"  << endl;
+    //    int  y= matrix_test_y(i,0);
+    // cout <<  "ho assegnato righe e colonne"  << endl;
     if(matrix_test_en(i)){
 
       Data[x][y].DrawColor= Qt::green;
 
       Data[x][y].value=1;
-     // cout <<  "VERDE"  << endl;
+      // cout <<  "VERDE"  << endl;
     }
-     else if (!matrix_test_en(i)) {
-       Data[x][y].DrawColor= Qt::lightGray;
-       Data[x][y].value=0;
+    else if (!matrix_test_en(i)) {
+      Data[x][y].DrawColor= Qt::lightGray;
+      Data[x][y].value=0;
       //cout <<  "GRIGIO"  << endl;
 
-     }
-   //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
-   } //FOR
-//    cout << "sono fuori dal ciclo for"<<std::endl;
+    }
+    //  cout << "sono fuori dall'else if del ciclo for"<<std::endl;
+  } //FOR
+  //    cout << "sono fuori dal ciclo for"<<std::endl;
 
 } //LOAD DATA
 
@@ -545,6 +558,31 @@ MatrixXd openData(string fileToOpen)
   // note that matrixEntries.data() is the pointer to the first memory location at which the entries of the vector matrixEntries are stored;
 
   return Map<Matrix<double, Dynamic, Dynamic, RowMajor>>(matrixEntries.data(), matrixRowNumber, matrixEntries.size() / matrixRowNumber);
+
+
+}
+
+void MatrixWidget::check_p(){
+  ros::NodeHandle n;
+  n.getParam("/matlab/point1/mat_coordinate/x", point1_x_t);
+  n.getParam("/matlab/point1/mat_coordinate/y", point1_y_t);
+  n.getParam("/matlab/point2/mat_coordinate/x", point2_x_t);
+  n.getParam("/matlab/point2/mat_coordinate/y", point2_y_t);
+  n.getParam("/matlab/point3/mat_coordinate/x", point3_x_t);
+  n.getParam("/matlab/point3/mat_coordinate/y", point3_y_t);
+
+  if(!(point1_x_t== 0)){
+    qDebug() << "if 1";
+    Data[point1.at(1)][point1.at(0)].DrawColor = Qt::red;
+  }
+  if(!(point2_x_t==0)){
+    qDebug() << "if 2";
+    Data[point2.at(1)][point2.at(0)].DrawColor = Qt::red;
+  }
+  if(!(point3_x_t==0)){
+    qDebug() << "if 3";
+    Data[point3.at(1)][point3.at(0)].DrawColor = Qt::red;
+  }
 
 
 }
