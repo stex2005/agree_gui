@@ -518,7 +518,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   // connect(ui->horizontalSlider_comp, SIGNAL(valueChanged(int)), ui->progressBar_comp, SLOT(setValue(int)));
   // connect(ui->progressBar_comp, SIGNAL(valueChanged(int)), ui->lcdNumber, SLOT(display(int)));
   // connect(ui->progressBar_comp, SIGNAL(valueChanged(int)), this, SLOT(set_comp_param()));
-  connect(ui->horizontalSlider_comp, SIGNAL(valueChanged(int)), ui->lcdNumber, SLOT(display(int)));
+  //connect(ui->horizontalSlider_comp, SIGNAL(valueChanged(int)), ui->lcdNumber, SLOT(display(int)));
   connect(ui->horizontalSlider_comp_ses, SIGNAL(valueChanged(int)), ui->progressBar_comp_ses, SLOT(setValue(int)));
   connect(ui->progressBar_comp_ses, SIGNAL(valueChanged(int)), ui->lcdNumber_comp_ses, SLOT(display(int)));
   connect(ui->progressBar_comp_ses, SIGNAL(valueChanged(int)), this, SLOT(set_comp_param_ses()));
@@ -526,7 +526,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   //connect(ui->horizontalSlider_comp_avam, SIGNAL(valueChanged(int)), ui->progressBar_comp_avam, SLOT(setValue(int)));
   // connect(ui->progressBar_comp_avam, SIGNAL(valueChanged(int)), ui->lcdNumber_comp_avam, SLOT(display(int)));
   // connect(ui->progressBar_comp_avam, SIGNAL(valueChanged(int)), this, SLOT(set_comp_param()));
-  connect(ui->horizontalSlider_comp_avam, SIGNAL(valueChanged(int)), ui->lcdNumber_comp_avam, SLOT(display(int)));
+ // connect(ui->horizontalSlider_comp_avam, SIGNAL(valueChanged(int)), ui->lcdNumber_comp_avam, SLOT(display(int)));
 
   connect(ui->horizontalSlider_comp_avam_ses, SIGNAL(valueChanged(int)), ui->progressBar_comp_avam_ses, SLOT(setValue(int)));
   connect(ui->progressBar_comp_avam_ses, SIGNAL(valueChanged(int)), ui->lcdNumber_comp_avam_ses, SLOT(display(int)));
@@ -759,11 +759,11 @@ void paginaprincipale::on_pushButton_salva_clicked()
   comp_forearm_i = 100;
   ui->horizontalSlider_comp->setValue(comp_arm);
   //ui->progressBar_comp->setValue(comp_arm);
-  ui->lcdNumber->display(comp_arm);
+  //ui->lcdNumber->display(comp_arm);
 
 
   //ui->progressBar_comp_avam->setValue(comp_forearm_i);
-  ui->lcdNumber_comp_avam->display(comp_forearm_i);
+ // ui->lcdNumber_comp_avam->display(comp_forearm_i);
   ui->horizontalSlider_comp_avam->setValue(comp_forearm_i);
 
   // COME LI DEVO INVIARE I ROSPARAM
@@ -1229,13 +1229,13 @@ void paginaprincipale::on_pushButton_vestizioneAgree_clicked()
               ui->lineEdit_polsomax->setText(PM2);
             }
             //ui->label_59-> setText("La sessione precedente si è utilizzato questo parametro di compensazione.\n Verificalo e aggiornalo.\n\n Quindi premi Salva.\n\nPotrai modificare questo parametro in qualsiasi momento.");
-            ui->lcdNumber->display(comp_exo.toInt());
+            //ui->lcdNumber->display(comp_exo.toInt());
             // ui->progressBar_comp->setValue(comp_exo.toInt());
             ui->horizontalSlider_comp->setValue(comp_exo.toInt());
             ui->lcdNumber_comp_ses->display(comp_exo.toInt());
             ui->progressBar_comp_ses->setValue(comp_exo.toInt());
             ui->horizontalSlider_comp_ses->setValue(comp_exo.toInt());
-            ui->lcdNumber_comp_avam->display(comp_exo_forearm.toInt());
+            //ui->lcdNumber_comp_avam->display(comp_exo_forearm.toInt());
             // ui->progressBar_comp_avam->setValue(comp_exo_forearm.toInt());
             ui->horizontalSlider_comp_avam->setValue(comp_exo_forearm.toInt());
             ui->lcdNumber_comp_avam_ses->display(comp_exo_forearm.toInt());
@@ -1668,7 +1668,7 @@ void paginaprincipale::on_pushButton_pass_clicked()
   else {
     QMessageBox ::critical(this,tr("Errore"),tr("modalità"));
   }
-  ui->label_mood->setText(QString("Modalità di controllo selezionata : %1").arg(dati::mood));
+  ui->label_mood->setText(QString("Modalità di controllo selezionata: %1").arg(dati::mood));
   if (dati::flag_ex ==0 ){
     ui->comboBox_ex1->setVisible(true);
     dati::flag_ex++;
@@ -2122,7 +2122,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
     es2_b = false;
     ui->comboBox_ex2->setVisible(false);
     ui->lineEdit_ex2->setVisible(false);
-    ui->comboBox_oi_es3->setVisible(false);
+    ui->comboBox_oi_es1->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
@@ -2133,7 +2133,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
 void paginaprincipale::on_pushButton_salvaex_clicked()
 {
   ros::NodeHandle n;
-  QMessageBox::warning(this, tr("AVVISO INIZIALIZZAZIONE"), tr("Attenzione si sta per procedere con l'inizializzazione di AGREE. L'esoscheltro si muoverà e porterà i motori a fine corsa. Prima di procedere assicurarsi che l'esoscheletro sia messo in sicurezza rispetto all'ambiente circostante."));
+  QMessageBox::warning(this, tr("AVVISO INIZIALIZZAZIONE"), tr("Attenzione si sta per procedere con l'inizializzazione di AGREE. L'esoscheltro si muoverà e porterà i motori a fine corsa. Prima di procedere assicurarsi che l'esoscheletro sia messo in sicurezza rispetto all'ambiente circostante.\nL'ESOSCHELETRO NON DEVE ESSERE INDOSSATO DAL PAZIENTE."));
 
 
   //SALVO TIMEOUT NEL DB E POI NEI ROSPARAM INSIEME A TUTTI GLI ALTRI
@@ -4513,8 +4513,9 @@ void paginaprincipale::next_img() {
         break;
 
       case 100:
-        ui->label_img-> setText("Iniziamo exergames \n\nMacedonia.\n\nPremere OK per iniziare.\n\nTerminata la sessioni chiudi il gioco e\n\npremi Salva Punteggio.");
+        ui->label_img-> setText("Iniziamo exergames Macedonia.\n\nPremere OK per iniziare.\n\nTerminata la sessioni chiudi il gioco e\n\npremi Salva Punteggio.");
         ui->pushButton_es_libero->setVisible(true);
+        ui->pushButton_ok->setVisible(true);
         break;
 
 

@@ -1361,7 +1361,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>8</number>
+          <number>7</number>
          </property>
          <property name="tabBarAutoHide">
           <bool>true</bool>
@@ -2512,33 +2512,6 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 1   </string>
                      </size>
                     </property>
                    </spacer>
-                  </item>
-                  <item row="4" column="1" colspan="3">
-                   <widget class="QLabel" name="label_mood">
-                    <property name="minimumSize">
-                     <size>
-                      <width>700</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>200</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>DejaVu Sans</family>
-                      <pointsize>16</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                   </widget>
                   </item>
                   <item row="16" column="0">
                    <spacer name="verticalSpacer_6">
@@ -3703,6 +3676,33 @@ Suggerimento: selezionare se 0 ≤ MRC ≤ 1   </string>
                     </property>
                    </widget>
                   </item>
+                  <item row="9" column="11">
+                   <widget class="QLabel" name="label_mood">
+                    <property name="minimumSize">
+                     <size>
+                      <width>700</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>FreeSans</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -4418,25 +4418,6 @@ e inseriscilo nel riquadro sottostante</string>
                           </property>
                          </widget>
                         </item>
-                        <item>
-                         <widget class="QLCDNumber" name="lcdNumber_comp_avam">
-                          <property name="minimumSize">
-                           <size>
-                            <width>0</width>
-                            <height>50</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>16777215</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                          <property name="segmentStyle">
-                           <enum>QLCDNumber::Flat</enum>
-                          </property>
-                         </widget>
-                        </item>
                        </layout>
                       </item>
                       <item>
@@ -4473,25 +4454,6 @@ e inseriscilo nel riquadro sottostante</string>
                           </property>
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLCDNumber" name="lcdNumber">
-                          <property name="minimumSize">
-                           <size>
-                            <width>0</width>
-                            <height>50</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>16777215</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                          <property name="segmentStyle">
-                           <enum>QLCDNumber::Flat</enum>
                           </property>
                          </widget>
                         </item>
