@@ -1,0 +1,16 @@
+EHILÀ GAMBERONIIIII
+
+per aggiornarmi copiare link dal git di ste: https://github.com/stex2005/agree_gui.git
+
+aprire un terminale in /home/smartbox/AGREE_WS/src e scrivere : git clone --branch agree +crtlC del link 
+
+aprire questi script: 
+- login.cpp 
+- paginaprincipale.cpp
+- matrixwidget.cpp
+ctrlF /home/alice/catkin_ws (dovrebbe già uscire il suggerimento) 
+e fare replace con /home/smartbox/AGREE_WS (dovrebbe uscire anche qui) 
+
+e fare replace all (as if it will not be a tomorrow)
+e buildare
+ciao 

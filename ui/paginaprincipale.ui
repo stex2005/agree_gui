@@ -1361,7 +1361,7 @@ Se vuoi effettuare una seduta con un altro paziente premi il tasto Home. Se vuoi
           </size>
          </property>
          <property name="currentIndex">
-          <number>7</number>
+          <number>6</number>
          </property>
          <property name="tabBarAutoHide">
           <bool>true</bool>

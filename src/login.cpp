@@ -203,15 +203,9 @@ void login::on_pushButton_accedi_clicked()
         ROS_INFO ("Push button ################# %d", msg_status.data);
         status_publisher.publish(msg_status);
         //POTREBBE NON SERVIRE
-        //       dati::flag_sc= 1;
-        //      ros::NodeHandle n;
-        //     n.setParam("scenario", dati::flag_sc);
-
-
-
-
-
-
+               dati::flag_sc= 1;
+              ros::NodeHandle n;
+             n.setParam("scenario", dati::flag_sc);
       }
       //check
       //apro una finestra in caso di scenario 3
@@ -225,8 +219,6 @@ void login::on_pushButton_accedi_clicked()
         dati::flag_sc= 3;
         ros::NodeHandle n;
         n.setParam("scenario", dati::flag_sc);
-
-
       }
     }
 

@@ -548,7 +548,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->checkBox_exo->setChecked(true);
 
   ui->label_img_tut->setPixmap(QPixmap::fromImage(img_tutorial_array[0]));
-  ui->label_img_tut->setPixmap(QPixmap::fromImage(img_tutorial_array[0]));
+  ui->label_img_vest->setPixmap(QPixmap::fromImage(img_tutorial_array[0]));
 
   //  ui->progressBar_comp->setValue(ui->horizontalSlider_comp->value());
   ui->progressBar_comp_ses->setValue(ui->horizontalSlider_comp_ses->value());
@@ -2122,7 +2122,7 @@ void paginaprincipale::on_pushButton_remove_clicked()
     es2_b = false;
     ui->comboBox_ex2->setVisible(false);
     ui->lineEdit_ex2->setVisible(false);
-    ui->comboBox_oi_es1->setVisible(false);
+    ui->comboBox_oi_es2->setVisible(false);
     dati::flag_ex--;
     qDebug()<<dati::flag_ex;
   }
