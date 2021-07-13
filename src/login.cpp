@@ -35,15 +35,15 @@ login::login(QWidget *parent) :
   ui(new Ui::login)
 {
   //setto le icone dei pulsanti
-  //  QPixmap pixmap("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add.png");
+  //  QPixmap pixmap("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Add.png");
   //  QIcon ButtonIcon(pixmap);
-  //  ui->pushButton_accedi->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Male.png"));
+  //  ui->pushButton_accedi->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Male.png"));
   //  ui->pushButton_accedi->setIconSize(pixmap.rect().size());
 
 
 
   ui->setupUi(this);
-  QImage logo("/home/alice/catkin_ws/src/agree_gui/resources/images/icon.png");
+  QImage logo("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/icon.png");
   ui->label_agree_newrec->setPixmap(QPixmap::fromImage(logo));
 
   //CREO IL PATH
@@ -55,7 +55,7 @@ login::login(QWidget *parent) :
 
 
   // if(path[6] == 'a') {
-  // QString path_new = "/home/alice/catkin_ws";
+  // QString path_new = "/home/smartbox/AGREE_ws";
   //  qDebug()<< path_new;
   // }
   // else if (path[6]== 's') {
@@ -77,8 +77,8 @@ login::login(QWidget *parent) :
 
   /**********************       COLLEGO DATABASE                            *********************/
   QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
-  //mydb.setDatabaseName("~/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
-  mydb.setDatabaseName("/home/alice/catkin_ws/src/agree_gui/database/Sqlite_prova2");
+  //mydb.setDatabaseName("~/smartbox/AGREE_ws/src/agree_gui/database/Sqlite_prova2");
+  mydb.setDatabaseName("/home/smartbox/AGREE_ws/src/agree_gui/database/Sqlite_prova2");
   mydb.setHostName("alice");
   mydb.setUserName("alice");
   mydb.setPassword("ali");

@@ -339,19 +339,19 @@ void paginaprincipale::esmacat_command_callback(const agree_esmacat_pkg::agree_e
       n.getParam("/exercise/mode", mode_consigliata);
 
       if(dati::output_val == -1) {
-        QPixmap output_neg("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output-1.png");
+        QPixmap output_neg("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/output/output-1.png");
         ui->label_output_semaforo->setPixmap(output_neg);
         mode_consigliata = mode_consigliata-1;
       }
       if(dati::output_val== 0)
       {
-        QPixmap output0("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output0.png");
+        QPixmap output0("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/output/output0.png");
         ui->label_output_semaforo->setPixmap(output0);
         mode_consigliata = mode_consigliata;
       }
 
       if(dati::output_val==1) {
-        QPixmap output1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/output/output1.png");
+        QPixmap output1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/output/output1.png");
         ui->label_output_semaforo->setPixmap(output1);
         mode_consigliata = mode_consigliata+1;
       }
@@ -413,8 +413,8 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
   //PROVA IMMAGINE SU LABEL CLICKABILE
-  QPixmap pix("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png");
-  //ui->pushButton_prova->setStyleSheet("border-image: url(/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png);");
+  QPixmap pix("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/antig.png");
+  //ui->pushButton_prova->setStyleSheet("border-image: url(/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/antig.png);");
   //ui->pushButton_prova->setStyleSheet("border-image:url(:/catkin_ws/src/agree_gui/IMG_AGREE/antig.png);");
 
   ui->setupUi(this);
@@ -540,7 +540,7 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->spinBox_timeout->setValue(2);
 
   //QUESTO LO METTO QUI PERCHÈ È SEMPRE ATTIVO
-  QImage mat ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/MAT.jpg");
+  QImage mat ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/MAT.jpg");
   img_vest_array.push_back(mat);
   img_tutorial_array.push_back(mat);
 
@@ -554,62 +554,62 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
   ui->progressBar_comp_ses->setValue(ui->horizontalSlider_comp_ses->value());
 
   //SETTO IMMAGINI
-  QPixmap pic1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/passivo.png");
+  QPixmap pic1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/passivo.png");
   ui->label_pass->setPixmap(pic1);
 
-  QPixmap pic2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/trigger.png");
+  QPixmap pic2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/trigger.png");
   ui->label_trigger->setPixmap(pic2);
 
-  QPixmap pic3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/asan.png");
+  QPixmap pic3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/asan.png");
   ui->label_asasne->setPixmap(pic3);
 
-  QPixmap pic4("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/antig.png");
+  QPixmap pic4("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/antig.png");
   ui->label_antig->setPixmap(pic4);
 
-  QPixmap pic5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/chall.png");
+  QPixmap pic5("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/chall.png");
   ui->label_chall->setPixmap(pic5);
 
-  QPixmap pic_trasp("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/mode_trasparente.png");
+  QPixmap pic_trasp("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/mode_trasparente.png");
   ui->label_trasp->setPixmap(pic_trasp);
 
-  QPixmap pic6("/home/alice/catkin_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
+  QPixmap pic6("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
   //ui->label_4_dx_3->setPixmap(pic6);
 
-  QPixmap pic12("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/init.jpeg");
+  QPixmap pic12("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/init.jpeg");
   ui->label_wait->setPixmap(pic12);
 
-  QPixmap pic_eval("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/eval.jpeg");
+  QPixmap pic_eval("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/eval.jpeg");
   ui->label_wait_for_eval->setPixmap(pic_eval);
 
 
-  QPixmap pic13("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/emergenza.png");
+  QPixmap pic13("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/emergenza.png");
   ui->label_allarme_2->setPixmap(pic13);
 
-  QPixmap pic14("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/cal_mat.png");
+  QPixmap pic14("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/cal_mat.png");
   ui->label_cal_pad->setPixmap(pic14);
 
-  QPixmap pic15("/home/alice/catkin_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
+  QPixmap pic15("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/arm/bracciodx.png");
   //ui->label_dimensionebraccio->setPixmap(pic15);
   ui->label_img_braccio_fisio->setPixmap(pic15);
 
-  QPixmap deltoids ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/deltoids.png");
+  QPixmap deltoids ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/deltoids.png");
   ui->label_deltoids->setPixmap(deltoids);
 
-  QPixmap biceps ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/biceps.png");
+  QPixmap biceps ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/biceps.png");
   ui->label_biceps->setPixmap(biceps);
 
-  QPixmap triceps ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/triceps.png");
+  QPixmap triceps ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/IMG_EMG/triceps.png");
   ui->label_triceps->setPixmap(triceps);
 
-  //QPixmap exo_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EXO.jpg");
-  //  QPixmap exo_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EXO.jpg");
-  //  QPixmap map ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/MAP.jpg");
-  //  QPixmap rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/RFID.jpg");
-  //  QPixmap emg ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EMG.jpg");
+  //QPixmap exo_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EXO.jpg");
+  //  QPixmap exo_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EXO.jpg");
+  //  QPixmap map ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/MAP.jpg");
+  //  QPixmap rfid ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/RFID.jpg");
+  //  QPixmap emg ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/IMG_GUI/tutorial/EMG.jpg");
 
 
-  QImage rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
-  QImage exo ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/agree.png");
+  QImage rfid ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
+  QImage exo ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/agree.png");
   ui->label_agree->setPixmap(QPixmap::fromImage(exo));
 
   //metto in grigino il modulo polso
@@ -627,47 +627,47 @@ paginaprincipale::paginaprincipale(QWidget *parent) :
 
 
   // setto icone
-  ui->pushButton_cerca_3->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Zoom.png"));
-  ui->pushButton_elencoPazienti->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Database.png"));
-  ui->pushButton_eliminapaziente->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Delete.png"));
-  ui->pushButton_utente->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Person.png"));
-  ui->pushButton_home->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Home.png"));
-  ui->pushButton_nuovopaziente->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add.png"));
-  ui->pushButton_modifica->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Modify.png"));
-  ui->pushButton_vestizioneAgree->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Movie.png"));
-  ui->pushButton_salva->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_salva_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_salva_recap->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_salvamoduli->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_salvaconf->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  //ui->pushButton_controllo->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_salvaex->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_salvatapp->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
-  ui->pushButton_salta->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
-  ui->pushButton_indietro_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Back.png"));
-  ui->pushButton_prosegui->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
-  ui->pushButton_go->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward"));
-  ui->pushButton_logout->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Turn off"));
-  ui->pushButton_go->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward"));
-  ui->pushButton_avanti_v->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward"));
-  ui->pushButton_allarme->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Stop sign"));
-  ui->pushButton_add->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add"));
-  ui->pushButton_add_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Add"));
-  ui->pushButton_remove->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Remove"));
-  ui->pushButton_remove_2->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Remove"));
-  ui->pushButton_indietro->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Go back.png"));
-  ui->pushButton_esplorarom->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Application.png"));
-  ui->pushButton_next->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Clock.png"));
-  ui->pushButton_ok->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/OK.png"));
-  ui->pushButton_riprendi->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Redo.png"));
-  ui->pushButton_termina->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Abort.png"));
-  ui->pushButton_conferma_recap->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/OK.png"));
-  ui->pushButton_modifica_recap->setIcon(QIcon("/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Modifiy.png"));
-  //ui->pushButton_salva_exo_param->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_cerca_3->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Zoom.png"));
+  ui->pushButton_elencoPazienti->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Database.png"));
+  ui->pushButton_eliminapaziente->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Delete.png"));
+  ui->pushButton_utente->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Person.png"));
+  ui->pushButton_home->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Home.png"));
+  ui->pushButton_nuovopaziente->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Add.png"));
+  ui->pushButton_modifica->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Modify.png"));
+  ui->pushButton_vestizioneAgree->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Movie.png"));
+  ui->pushButton_salva->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_salva_2->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_salva_recap->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_salvamoduli->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_salvaconf->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  //ui->pushButton_controllo->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_salvaex->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_salvatapp->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
+  ui->pushButton_salta->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
+  ui->pushButton_indietro_2->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Back.png"));
+  ui->pushButton_prosegui->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
+  ui->pushButton_go->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Forward"));
+  ui->pushButton_logout->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Turn off"));
+  ui->pushButton_go->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Fast-forward"));
+  ui->pushButton_avanti_v->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Forward"));
+  ui->pushButton_allarme->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Stop sign"));
+  ui->pushButton_add->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Add"));
+  ui->pushButton_add_2->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Add"));
+  ui->pushButton_remove->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Remove"));
+  ui->pushButton_remove_2->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Remove"));
+  ui->pushButton_indietro->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Go back.png"));
+  ui->pushButton_esplorarom->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Application.png"));
+  ui->pushButton_next->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Clock.png"));
+  ui->pushButton_ok->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/OK.png"));
+  ui->pushButton_riprendi->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Redo.png"));
+  ui->pushButton_termina->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Abort.png"));
+  ui->pushButton_conferma_recap->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/OK.png"));
+  ui->pushButton_modifica_recap->setIcon(QIcon("/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Modifiy.png"));
+  //ui->pushButton_salva_exo_param->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Save.png"));
 
-  //ui->pushButton_indietro_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Back.png"));
-  ui->pushButton_salta_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
-  // ui->pushButton_avanti_EMG->setIcon(QIcon("/home/alice/catkin_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
+  //ui->pushButton_indietro_EMG->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Back.png"));
+  ui->pushButton_salta_EMG->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Fast-forward.png"));
+  // ui->pushButton_avanti_EMG->setIcon(QIcon("/home/smartbox/AGREE_ws/src/agree_gui/resources/images/img/icone/Forward.png"));
 
   //ui->label_tut->setText("Seguire le istruzioni per il Montaggio dei moduli selezionati. \nPer Saltare il Tutorial fare click su 'Salta Tutorial' ");
   //ui->label_istr_vest->setText("Indossare l'esoscheletro sul Paziente.\n\nVerificare la vestibilità sul Paziente.\n\nUna volta effettuata la procedura premere Avanti per Continuare.");
@@ -1590,7 +1590,7 @@ void paginaprincipale::on_pushButton_prosegui_clicked()
 /**********************       GO FORWARD ASSEMBLY TUTORIAL                      *********************/
 void paginaprincipale::on_pushButton_salta_clicked()
 {
-  //  QImage exo_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+  //  QImage exo_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
   //
   size_tutorial = img_tutorial_array.size();
   if(index_tut<size_tutorial){
@@ -2876,6 +2876,7 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
   timer_rom->stop();
   QString ROM2_min, ROM2_max, ROM1_min, ROM1_max, ROM3_min, ROM3_max,ROM4_min, ROM4_max, ROM5_min,ROM5_max;
   double ROM2_min_f, ROM2_max_f, ROM1_min_f, ROM1_max_f, ROM3_min_f, ROM3_max_f,ROM4_min_f, ROM4_max_f, ROM5_min_f,ROM5_max_f;
+  double temporal_rom;
 
 
 
@@ -2964,13 +2965,11 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
         ROM1_max_f = (-1)*ROM1_max_f;
         ROM2_max_f = (-1)*ROM2_max_f - 90;
         ROM3_max_f = (-1)*ROM3_max_f;
-        ROM4_max_f = (-1)*ROM4_max_f;
-        ROM5_max_f = (-1)*ROM5_max_f;
+
         ROM1_min_f = (-1)*ROM1_min_f;
         ROM2_min_f = (-1)*ROM2_min_f - 90;
         ROM3_min_f = (-1)*ROM3_min_f;
-        ROM4_min_f = (-1)*ROM4_min_f;
-        ROM5_min_f = (-1)*ROM5_min_f;
+
 
 
 
@@ -2993,22 +2992,48 @@ void paginaprincipale::on_pushButton_salvaconf_clicked()
       ROM5_max_f = qDegreesToRadians(ROM5_max_f);
 
 
-
+      // APX CONTROL MIN/MAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      if(ROM1_max_f < ROM1_min_f){
+        temporal_rom = ROM1_max_f;
+        ROM1_max_f = ROM1_min_f;
+        ROM1_min_f = temporal_rom;
+      }
+      if(ROM2_max_f < ROM2_min_f){
+        temporal_rom = ROM2_max_f;
+        ROM2_max_f = ROM2_min_f;
+        ROM2_min_f = temporal_rom;
+      }
+      if(ROM3_max_f < ROM3_min_f){
+        temporal_rom = ROM3_max_f;
+        ROM3_max_f = ROM3_min_f;
+        ROM3_min_f = temporal_rom;
+      }
+      if(ROM4_max_f < ROM4_min_f){
+        temporal_rom = ROM4_max_f;
+        ROM4_max_f = ROM4_min_f;
+        ROM4_min_f = temporal_rom;
+      }
+      if(ROM5_max_f < ROM5_min_f){
+        temporal_rom = ROM5_max_f;
+        ROM5_max_f = ROM5_min_f;
+        ROM5_min_f = temporal_rom;
+      }
+      // APX CONTROL MIN/MAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       /***************         SETTO ROS PARAMETERS CON I ROM   ******************/
-      J_MAX = {ROM2_max_f, ROM1_max_f, ROM3_max_f, ROM4_max_f, ROM5_max_f};
-      J_MIN = {ROM2_min_f, ROM1_min_f, ROM3_min_f, ROM4_min_f, ROM5_min_f};
+      J_MAX = {ROM1_max_f, ROM2_max_f, ROM3_max_f, ROM4_max_f, ROM5_max_f};
+      J_MIN = {ROM1_min_f, ROM2_min_f, ROM3_min_f, ROM4_min_f, ROM5_min_f};
 
       n.setParam("/physiological_param/ROM_Max", J_MAX);
       n.setParam("/physiological_param/ROM_Min", J_MIN);
-      n.setParam("/matlab/rom_max/J1", ROM2_max_f);
-      n.setParam("/matlab/rom_max/J2", ROM1_max_f);
+      n.setParam("/matlab/rom_max/J1", ROM1_max_f);
+      n.setParam("/matlab/rom_max/J2", ROM2_max_f);
       n.setParam("/matlab/rom_max/J3", ROM3_max_f);
       n.setParam("/matlab/rom_max/J4", ROM4_max_f);
       n.setParam("/matlab/rom_max/J5", ROM5_max_f);
 
-      n.setParam("/matlab/rom_min/J1", ROM2_min_f);
-      n.setParam("/matlab/rom_min/J2", ROM1_min_f);
+      n.setParam("/matlab/rom_min/J1", ROM1_min_f);
+      n.setParam("/matlab/rom_min/J2", ROM2_min_f);
       n.setParam("/matlab/rom_min/J3", ROM3_min_f);
       n.setParam("/matlab/rom_min/J4", ROM4_min_f);
       n.setParam("/matlab/rom_min/J5", ROM5_min_f);
@@ -3891,7 +3916,7 @@ void paginaprincipale::next_img() {
 
   //EXER 1 IMAGES
 
-  QPixmap case99("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/wait.jpg"); // ATTESA
+  QPixmap case99("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/wait.jpg"); // ATTESA
 
   //  QPixmap case1_1, case3_1, case5_1, def, case1_3, case2_3, case3_3, case4_3, case5_3, case6_3, case7_3, case8_3, case9_3, case1_5, case2_5, case1_6, case2_6, def_5, def_6;
   //check for the side of the exoskeleton
@@ -3899,79 +3924,79 @@ void paginaprincipale::next_img() {
   if(side_ses == 2) {
 
     //EXERCISE 1
-    QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
+    QPixmap feedback_happy("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
     //rest
-    QPixmap case_rest_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
+    QPixmap case_rest_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
 
     //dx
-    QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_2.png");
+    QPixmap case1_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_2.png");
 
     //centro
-    QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_3.png");
+    QPixmap case3_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_3.png");
 
     //sx
-    QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_4.png");
+    QPixmap case5_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_4.png");
 
     //rest
-    // QPixmap def("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
+    // QPixmap def("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_sx/es1_1.png");
     //EXERCISE 2
 
     //rest
-    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_1_sx.png");
+    QPixmap case_rest_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_1_sx.png");
 
     //dx
-    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_2_sx.png");
+    QPixmap case1_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_2_sx.png");
 
     //centro
-    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_3_sx.png");
+    QPixmap case3_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_3_sx.png");
 
     //sx
-    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_4_sx.png");
+    QPixmap case5_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_sx/es2_4_sx.png");
 
 
     //EXERCISE 3
 
-    QPixmap case1_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png"); //vai in centro prendi oggetto
+    QPixmap case1_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png"); //vai in centro prendi oggetto
 
 
-    QPixmap case2_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_3.png"); // sx
+    QPixmap case2_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_3.png"); // sx
 
 
-    QPixmap case3_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_4.png"); // rest
+    QPixmap case3_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_4.png"); // rest
 
 
-    QPixmap case4_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_5.png"); // sx
+    QPixmap case4_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_5.png"); // sx
 
 
-    QPixmap case5_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_6.png"); // dx
+    QPixmap case5_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_6.png"); // dx
 
 
-    QPixmap case6_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_7.png"); // rest
+    QPixmap case6_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_7.png"); // rest
 
-    QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_8.png"); // dx
+    QPixmap case7_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_8.png"); // dx
 
-    QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png"); // centro
+    QPixmap case8_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_2.png"); // centro
 
-    QPixmap case9_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_1.png"); // rest
+    QPixmap case9_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_sx/es3_1.png"); // rest
 
 
     //EXER 6 IMAGES
 
-    QPixmap def_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_sx/es6_1.png");
+    QPixmap def_6("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_sx/es6_1.png");
 
-    QPixmap case2_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_sx/es6_2.png");
+    QPixmap case2_6("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_sx/es6_2.png");
 
     //EXER 5 IMAGES
-    QPixmap def_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_1.png");
+    QPixmap def_5("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_1.png");
 
-    QPixmap case2_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_2.png");
+    QPixmap case2_5("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_2.png");
 
     //EXER 7 IMAGES
-    QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_1.png");
+    QPixmap def_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_sx/es5_1.png");
 
-    QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_sx/es7_2_sx.png");
+    QPixmap case2_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_sx/es7_2_sx.png");
 
-    QPixmap case1_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_sx/es7_1_sx.png");
+    QPixmap case1_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_sx/es7_1_sx.png");
 
     switch (dati::command_exercise_pp) {
 
@@ -4567,73 +4592,73 @@ void paginaprincipale::next_img() {
   else if(side_ses == 1) {
 
 
-    QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
+    QPixmap feedback_happy("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
     //EXERCISE 1
-    QPixmap case1_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_2_dx.png"); //sx
+    QPixmap case1_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_2_dx.png"); //sx
 
-    QPixmap case3_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_3_dx.png"); //avanti
+    QPixmap case3_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_3_dx.png"); //avanti
 
-    QPixmap case5_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_4_dx.png"); //dx
+    QPixmap case5_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_4_dx.png"); //dx
 
-    QPixmap case_rest_1("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_1_dx.png");     //rest
+    QPixmap case_rest_1("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es1_dx/es1_1_dx.png");     //rest
 
 
 
     //EXERCISE 2
 
     //rest
-    QPixmap case_rest_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_1_dx.png");
+    QPixmap case_rest_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_1_dx.png");
 
     //sx
-    QPixmap case1_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_2_dx.png");
+    QPixmap case1_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_2_dx.png");
 
     //centro
-    QPixmap case3_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_3_dx.png");
+    QPixmap case3_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_3_dx.png");
 
     //dx
-    QPixmap case5_2("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_4_dx.png");
+    QPixmap case5_2("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es2_dx/es2_4_dx.png");
 
 
     //EXERCISE 3
 
-    QPixmap case1_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_2_dx.png"); //vai in centro prendi oggetto
+    QPixmap case1_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_2_dx.png"); //vai in centro prendi oggetto
 
 
-    QPixmap case2_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_3_dx.png"); // dx
+    QPixmap case2_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_3_dx.png"); // dx
 
 
-    QPixmap case3_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_4_dx.png"); // rest
+    QPixmap case3_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_4_dx.png"); // rest
 
 
-    QPixmap case4_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_5_dx.png"); // dx
+    QPixmap case4_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_5_dx.png"); // dx
 
-    QPixmap case5_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_6_dx.png"); // sx
+    QPixmap case5_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_6_dx.png"); // sx
 
-    QPixmap case6_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_7_dx.png"); // rest
+    QPixmap case6_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_7_dx.png"); // rest
 
-    QPixmap case7_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_8_dx.png"); // sx
+    QPixmap case7_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_8_dx.png"); // sx
 
-    QPixmap case8_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_2_dx.png"); // centro
+    QPixmap case8_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_2_dx.png"); // centro
 
-    QPixmap case9_3("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_1.png"); // rest
+    QPixmap case9_3("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es3_dx/es3_1.png"); // rest
 
     //EXER 6 IMAGES
 
-    QPixmap def_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_dx/es6_1_dx.png");
+    QPixmap def_6("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_dx/es6_1_dx.png");
 
-    QPixmap case2_6("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_dx/es6_2_dx.png");
+    QPixmap case2_6("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es6_dx/es6_2_dx.png");
 
     //EXER 5 IMAGES
-    QPixmap def_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es5_1_dx.png");
+    QPixmap def_5("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es5_1_dx.png");
 
-    QPixmap case2_5("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es5_2_dx.png");
+    QPixmap case2_5("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es5_2_dx.png");
 
     //EXER 7 IMAGES
-    QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es7_1_dx.png");
+    QPixmap def_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es5_dx/es7_1_dx.png");
 
-    QPixmap case1_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_dx/es7_1_dx.png");
+    QPixmap case1_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_dx/es7_1_dx.png");
 
-    QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_dx/es7_2_dx.png");
+    QPixmap case2_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ESERCIZI_AGREE/es7_dx/es7_2_dx.png");
 
     switch (dati::command_exercise_pp) {
 
@@ -5212,12 +5237,12 @@ void paginaprincipale::next_img() {
 
 
   //  QPixmap def_7("/home/alice/Desktop/ex_img1/07/es7_1.JPG");
-  //  //QPixmap def_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_1.JPG");
+  //  //QPixmap def_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_1.JPG");
   //  QPixmap case2_7("/home/alice/Desktop/ex_img1/07/es7_2.JPG");
-  //  //QPixmap case2_7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_2.JPG");
+  //  //QPixmap case2_7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ex_img1/07/es7_2.JPG");
 
 
-  QPixmap feedback_happy("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
+  QPixmap feedback_happy("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/smile.jpeg");
 
 
 
@@ -5329,25 +5354,25 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     point0_x = 15;
     point0_y = 4;
     //CARICO IMMAGINI ROM LATO SINISTRO
-    QPixmap pic7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j2_sx.png");
+    QPixmap pic7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j2_sx.png");
     ui->label_67->setPixmap(pic7);
 
-    QPixmap pic8("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j5_sx.png");
+    QPixmap pic8("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j5_sx.png");
     ui->label_14->setPixmap(pic8);
 
-    QPixmap pic9("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j3_sx.png");
+    QPixmap pic9("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j3_sx.png");
     ui->label_15->setPixmap(pic9);
 
-    QPixmap pic10("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j4_sx.png");
+    QPixmap pic10("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j4_sx.png");
     ui->label_17->setPixmap(pic10);
 
-    QPixmap pic11("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j1_sx.png");
+    QPixmap pic11("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/sx/rom_j1_sx.png");
     ui->label_13->setPixmap(pic11);
     //CARICO IMMAGINE TUTORIAL MONTAGGIO LATO SX
-    QImage exo_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    QImage exo_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
     img_tutorial_array.push_back(exo_sx);
     //CARICO IMMAGINE TUTORIAL VESTIZIONE LATO SX
-    QImage exo_vest_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    QImage exo_vest_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
     img_vest_array.push_back(exo_vest_sx);
 
   }
@@ -5357,25 +5382,25 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     side_param = 1;
     point0_x = 16;
     point0_y = 4;
-    QPixmap pic7("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j2_dx.png");
+    QPixmap pic7("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j2_dx.png");
     ui->label_67->setPixmap(pic7);
 
-    QPixmap pic8("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j5_dx.png");
+    QPixmap pic8("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j5_dx.png");
     ui->label_14->setPixmap(pic8);
 
-    QPixmap pic9("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j3_dx.png");
+    QPixmap pic9("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j3_dx.png");
     ui->label_15->setPixmap(pic9);
 
-    QPixmap pic10("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j4_dx.png");
+    QPixmap pic10("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j4_dx.png");
     ui->label_17->setPixmap(pic10);
 
-    QPixmap pic11("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j1_dx.png");
+    QPixmap pic11("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/ROM/dx/rom_j1_dx.png");
     ui->label_13->setPixmap(pic11);
 
-    QImage exo_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    QImage exo_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
     img_tutorial_array.push_back(exo_dx);
 
-    QImage exo_vest_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
+    QImage exo_vest_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/EXO.jpg");
     img_vest_array.push_back(exo_vest_dx);
 
   }
@@ -5429,7 +5454,7 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     dati::modulo_emg= "1";
     active_module_EEG_EMG = 1;
     //
-    QImage emg ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/EMG.jpg");
+    QImage emg ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/EMG.jpg");
     img_tutorial_array.push_back(emg);
 
 
@@ -5440,10 +5465,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
   {
     dati::modulo_rfid= "1";
     active_module_RF  = 1;
-    QImage rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
+    QImage rfid ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
     img_tutorial_array.push_back(rfid);
 
-    QImage exo_vest_rfid ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
+    QImage exo_vest_rfid ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/RFID.jpg");
     img_vest_array.push_back(exo_vest_rfid);
 
 
@@ -5457,10 +5482,10 @@ void paginaprincipale::on_pushButton_salvamoduli_clicked()
     {
       dati::mano = "1";
       active_module_MAP = 1;
-      QImage map ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/MAP.jpg");
+      QImage map ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/MAP.jpg");
       img_tutorial_array.push_back(map);
 
-      QImage map_vest ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/tutorial/MAP.jpg");
+      QImage map_vest ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/tutorial/MAP.jpg");
       img_vest_array.push_back(map_vest);
     }
     //RIO: QUESTO SERVE SOLO SE MODULO POLSO È MOTORIZZATO
@@ -6081,8 +6106,8 @@ void paginaprincipale::update_rom(){
 void paginaprincipale::select_img() {
   male = "Maschio";
   female = "Femmina";
-  QPixmap figure_w("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/Roxy.png");
-  QPixmap figure_m("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/man.png");
+  QPixmap figure_w("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/Roxy.png");
+  QPixmap figure_m("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/man.png");
 
   if(ui->comboBox_sesso->currentText()== female) {
     ui->label_figure->setPixmap(figure_w);
@@ -6174,15 +6199,15 @@ void paginaprincipale::agree_module(){
   //inizio casistiche
   if(genere == "Femmina"){
 
-    QImage agree_comp_braccio ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/compensazione_braccio_female.png");
-    QImage agree_spalla_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_spalla_dx.png");
-    QImage agree_tot_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_completo_dx.png");
-    QImage agree_tot_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_completo_emg_dx.png");
-    QImage agree_spalla_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_spalla_emg_dx.png");
-    QImage agree_spalla_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_spalla_sx.png");
-    QImage agree_tot_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_completo_sx.png");
-    QImage agree_tot_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_completo_emg_sx.png");
-    QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_spalla_emg_sx.png");
+    QImage agree_comp_braccio ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/compensazione_braccio_female.png");
+    QImage agree_spalla_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_spalla_dx.png");
+    QImage agree_tot_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_completo_dx.png");
+    QImage agree_tot_emg_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_completo_emg_dx.png");
+    QImage agree_spalla_emg_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/dx/agree_female_spalla_emg_dx.png");
+    QImage agree_spalla_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_spalla_sx.png");
+    QImage agree_tot_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_completo_sx.png");
+    QImage agree_tot_emg_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_completo_emg_sx.png");
+    QImage agree_spalla_emg_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/femmina/sx/agree_female_spalla_emg_sx.png");
 
 
     ui->label_87->setPixmap(QPixmap::fromImage(agree_comp_braccio));
@@ -6246,16 +6271,16 @@ void paginaprincipale::agree_module(){
   }
   else if (genere == "Maschio"){
     qDebug()<<"sono in maschio";
-    QImage agree_comp_braccio ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/compensazione_braccio_male.png");
+    QImage agree_comp_braccio ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/compensazione_braccio_male.png");
 
-    QImage agree_spalla_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_spalla_dx.png");
-    QImage agree_tot_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_completo_dx.jpg");
-    QImage agree_tot_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_completo_emg_dx.png");
-    QImage agree_spalla_emg_dx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_spalla_emg_dx.png");
-    QImage agree_spalla_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_spalla_sx.png");
-    QImage agree_tot_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_completo_sx.png");
-    QImage agree_tot_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_completo_emg_sx.png");
-    QImage agree_spalla_emg_sx ("/home/alice/catkin_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_spalla_emg_sx.png");
+    QImage agree_spalla_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_spalla_dx.png");
+    QImage agree_tot_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_completo_dx.jpg");
+    QImage agree_tot_emg_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_completo_emg_dx.png");
+    QImage agree_spalla_emg_dx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/dx/agree_male_spalla_emg_dx.png");
+    QImage agree_spalla_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_spalla_sx.png");
+    QImage agree_tot_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_completo_sx.png");
+    QImage agree_tot_emg_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_completo_emg_sx.png");
+    QImage agree_spalla_emg_sx ("/home/smartbox/AGREE_ws/src/agree_gui/IMG_AGREE/avatar/maschio/sx/agree_male_spalla_emg_sx.png");
     ui->label_87->setPixmap(QPixmap::fromImage(agree_comp_braccio));
 
     // destro

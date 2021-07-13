@@ -337,7 +337,7 @@ void MatrixWidget::LoadData(){
     qDebug()<< "sono in load data rigth";
     cout <<  "Enter Load right" << endl;
 
-    Eigen::MatioFile file_x_right("/home/alice/catkin_ws/data/right_workspace_x.mat");
+    Eigen::MatioFile file_x_right("/home/smartbox/AGREE_ws/data/right_workspace_x.mat");
     const std::vector<std::string> read_x_right {"workspace_x"};
 
 
@@ -346,7 +346,7 @@ void MatrixWidget::LoadData(){
     //   std::cout<< "destro_x" << std::endl << "workspace_x" << std::endl << matrix_test << std::endl;
 
 
-    Eigen::MatioFile file_y_right("/home/alice/catkin_ws/data/right_workspace_y.mat");
+    Eigen::MatioFile file_y_right("/home/smartbox/AGREE_ws/data/right_workspace_y.mat");
     const std::vector<std::string> read_y_right {"workspace_y"};
 
 
@@ -354,7 +354,7 @@ void MatrixWidget::LoadData(){
     //       std::cout<< "destro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
 
 
-    Eigen::MatioFile file_en_right("/home/alice/catkin_ws/data/right_workspace_enabled.mat");
+    Eigen::MatioFile file_en_right("/home/smartbox/AGREE_ws/data/right_workspace_enabled.mat");
     //       const std::vector<std::string> read_en_right {"workspace_enabled"};
 
 
@@ -364,7 +364,7 @@ void MatrixWidget::LoadData(){
     //     MatrixXd matrix;
 
 
-    //   // matrix_test = openData("/home/alice/catkin_ws/src/agree_gui/mat/point_boolean_right.CSV");
+    //   // matrix_test = openData("/home/smartbox/AGREE_ws/src/agree_gui/mat/point_boolean_right.CSV");
     //  //  cout <<  matrix_test(0,0)  << " " <<  matrix_test(0,1)  << " " <<  matrix_test(0,2)  << endl;
     //   for(int i= 1; i<451;i++){
 
@@ -399,7 +399,7 @@ void MatrixWidget::LoadData(){
   if(side_matrix==2){
     //  cout <<  "Enter Load left" << endl;
     //TODO: CAMBIARE LEFT IN RIGHT IN TUTTI I .MAT
-    Eigen::MatioFile file_x_left("/home/alice/catkin_ws/data/right_workspace_x.mat");
+    Eigen::MatioFile file_x_left("/home/smartbox/AGREE_ws/data/right_workspace_x.mat");
     const std::vector<std::string> read_x_left{"workspace_x"};
 
 
@@ -407,7 +407,7 @@ void MatrixWidget::LoadData(){
     std::cout<< "sinistro x" << std::endl << "workspace_x" << std::endl << matrix_test << std::endl;
 
 
-    Eigen::MatioFile file_y_left("/home/alice/catkin_ws/data/right_workspace_y.mat");
+    Eigen::MatioFile file_y_left("/home/smartbox/AGREE_ws/data/right_workspace_y.mat");
     const std::vector<std::string> read_y_left {"workspace_y"};
 
 
@@ -415,7 +415,7 @@ void MatrixWidget::LoadData(){
     std::cout<< "sinistro y" << std::endl << "workspace_y" << std::endl << matrix_test_y << std::endl;
 
 
-    Eigen::MatioFile file_en_left("/home/alice/catkin_ws/data/right_workspace_enabled.mat");
+    Eigen::MatioFile file_en_left("/home/smartbox/AGREE_ws/data/right_workspace_enabled.mat");
     const std::vector<std::string> read_en_left {"workspace_enabled"};
 
 
